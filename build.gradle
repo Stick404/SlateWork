@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.11-SNAPSHOT'
     id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm'
 }
 
 version = project.mod_version
@@ -21,6 +22,16 @@ loom {
     }
 }
 
+sourceSets {
+    sourceSets.main.kotlin.srcDirs += 'src/main/java'
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
 fabricApi {
     configureDataGeneration {
         client = true
@@ -28,6 +39,7 @@ fabricApi {
 }
 
 repositories {
+
     maven { url 'https://jitpack.io' }
     maven {
         url "https://squiddev.cc/maven/"
@@ -69,6 +81,7 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -87,6 +100,7 @@ dependencies {
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
     modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FABRIC"
     modImplementation "com.samsthenerd.inline:inline-fabric:$minecraft_version-$inline_version"
+
 }
 
 processResources {
@@ -147,4 +161,8 @@ publishing {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
