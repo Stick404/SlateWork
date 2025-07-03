@@ -1,26 +1,24 @@
 package org.sophia.slate_work.blocks;
 
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
-
-import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
 import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY;
 
-public class StorageLociEntity extends BlockEntity implements Inventory {
+// So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
+// and a Long for the real amount held. Janky? Yes, should work? Hope so!
+public class StorageLociEntity extends BlockEntity {
     private int slotCount = 15; ///  The amount of "types" this can store. This includes
-    private static final Pair<ItemStack,Long> emptySlot = new Pair<>(ItemStack.EMPTY, 0L);
-    private Pair<ItemStack,Long>[] slots = DefaultedList.ofSize(this.slotCount, emptySlot).toArray(new Pair[slotCount]);
+    private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
+    private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(this.slotCount+1, emptySlot).toArray(new Pair[slotCount+1]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
 
     public StorageLociEntity(BlockPos pos, BlockState state) {
@@ -33,12 +31,12 @@ public class StorageLociEntity extends BlockEntity implements Inventory {
         NbtList nbtList = new NbtList();
 
         for(int i = 0; i < this.slots.length; ++i) {
-            ItemStack itemStack = slots[i].getLeft();
-            if (!itemStack.isEmpty()) {
+            ItemVariant stack = slots[i].getLeft();
+            if (!stack.isBlank()) {
                 NbtCompound nbtCompound = new NbtCompound();
-                nbtCompound.putByte("Slot", (byte)i);
-                itemStack.writeNbt(nbtCompound);
-                nbtCompound.putLong("RealCount",slots[i].getRight());
+                nbtCompound.putByte("Slot", (byte) i);
+                nbtCompound.put("Item", stack.toNbt());
+                nbtCompound.putLong("Count",slots[i].getRight());
                 nbtList.add(nbtCompound);
             }
         }
@@ -54,86 +52,71 @@ public class StorageLociEntity extends BlockEntity implements Inventory {
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            Pair<ItemStack,Long> stack = new Pair<>(ItemStack.fromNbt(compound),(compound.getLong("RealCount")));
+            Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.fromNbt(compound.getCompound("Item")),(compound.getLong("Count")));
             this.slots[i] = stack;
         }
     }
 
-    @Override
-    public int size() {
-        return slotCount;
-    }
 
-    @Override
     public boolean isEmpty() {
-        return false;
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        var pair = this.slots[slot];
-        var copy = pair.getLeft().copy();
-        if (pair.getRight() >= Integer.MAX_VALUE){
-            copy.setCount(Integer.MAX_VALUE);
-        } else {
-            copy.setCount(pair.getRight().intValue());
+        for (var z : this.slots){
+            if (!z.getLeft().isBlank() || z.getRight() != 0) return false;
         }
-
-        return copy;
+        return true;
     }
 
-    //TODO: MAKE THIS RESPECT THE ITEM'S MAX
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        var pair = this.slots[slot];
-        var copy = pair.getLeft().copy();
-
-        if (amount > pair.getRight()){
-            var pairNew = new Pair<>(ItemStack.EMPTY,0L);
-            this.slots[slot] = pairNew;
-            copy.setCount(pair.getRight().intValue());
-            return copy;
+    // Returns the slot found empty, else returns -1
+    public int isFull(){
+        int i = 0;
+        for (var z : this.slots){
+            if (z.getLeft().isBlank() || z.getRight() == 0) return i;
+            i++;
         }
-        pair.setRight(pair.getRight() -amount);
-        copy.setCount(amount);
-        return copy;
+        return -1;
     }
 
-    //TODO: MAKE THIS RESPECT THE ITEM'S MAX
-    @Override
-    public ItemStack removeStack(int slot) {
+
+    public Pair<ItemVariant,Long> getStack(int slot) {
+        return this.slots[slot];
+    }
+
+    // You better know what you are doing...
+    public Pair<ItemVariant,Long>[] getInventory(){
+        return this.slots;
+    }
+
+    public Pair<ItemVariant,Long> removeStack(int slot, int amount) {
         var pair = this.slots[slot];
-        var stack = pair.getLeft().copy();
-        var maxCount = stack.getMaxCount();
+        var copy = pair.getLeft();
+        long returned;
 
-        if (pair.getRight() < maxCount){
-            pair.setLeft(ItemStack.EMPTY);
-            stack.setCount(pair.getRight().intValue());
-            pair.setRight(0L);
-            return stack;
+        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
+        if (pair.getRight() < amount) returned = pair.getRight();
+        else returned = amount;
+
+        return new Pair<>(copy,returned);
+    }
+
+    public @Nullable Integer getSlot(ItemVariant item){
+        for (int i = 0; i < slots.length; i++) {
+            if (item.getItem() == this.slots[i].getLeft().getItem())
+                    return i;
         }
-
-        stack.setCount(maxCount);
-        pair.setRight(pair.getRight()-maxCount);
-        return stack;
+        return null;
     }
 
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-        this.slots[slot] = new Pair<>(stack, (long) stack.getCount());
+    public Pair<ItemVariant,Long> removeStack(int slot) {
+        var pair = this.slots[slot];
+        var copy = pair.getLeft();
+        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
+        return new Pair<>(copy,pair.getRight());
     }
 
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return false;
+    public void setStack(int slot, ItemVariant stack, long amount) {
+        this.slots[slot] = new Pair<>(stack, amount);
     }
 
-    @Override
-    public int getMaxCountPerStack() {
-        return Integer.MAX_VALUE;
-    }
-
-    @Override
     public void clear() {
+        this.slots = DefaultedList.ofSize(this.slotCount, emptySlot).toArray(new Pair[slotCount]);
     }
 }
