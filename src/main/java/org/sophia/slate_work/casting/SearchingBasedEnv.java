@@ -1,8 +1,10 @@
 package org.sophia.slate_work.casting;
 
 import at.petrak.hexcasting.api.casting.ParticleSpray;
+import at.petrak.hexcasting.api.casting.eval.CastResult;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.MishapEnvironment;
+import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect;
 import at.petrak.hexcasting.api.pigment.FrozenPigment;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -91,5 +93,17 @@ public class SearchingBasedEnv extends CastingEnvironment {
     @Override
     public void printMessage(Text text) {
         this.parent.printMessage(text);
+    }
+
+    @Override
+    public void postExecution(CastResult result) {
+        for (var sideEffect : result.getSideEffects()) {
+            if (sideEffect instanceof OperatorSideEffect.DoMishap doMishap) {
+                var msg = doMishap.getMishap().errorMessageWithName(this, doMishap.getErrorCtx());
+                if (msg != null) {
+                    this.parent.printMessage(msg);
+                }
+            }
+        }
     }
 }
