@@ -53,9 +53,9 @@ object OpContainsItem : Action {
 
             boolean = vm.image.stack.reversed().getBool(0,1)
             // about ~4 hours of fighting. Just to learn 2 things
-            // 1:  `#queueExecuteAndWrapIota` and `#queueExecuteAndWrapIota**s**` are different methods
-            // 2: the stack is *reversed* when reading it from the image directly (IE: bottom is the top of the stack)
-            // its fucking 2:40 AM.
+            // 1: `#queueExecuteAndWrapIota` and `#queueExecuteAndWrapIota**s**` are different methods
+            // 2: the stack is *reversed* when reading it from the image directly (IE: end of the list is the top of the stack)
+            // its fucking 2:40 AM as of writing
             if (boolean) break
         }
         stack.add(BooleanIota(boolean))
