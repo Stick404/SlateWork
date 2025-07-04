@@ -15,7 +15,7 @@ import org.sophia.slate_work.blocks.StorageLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNoJars
 import org.sophia.slate_work.misc.CircleHelper
 
-object OpStoreItem :  SpellAction{
+object OpStoreItem : SpellAction {
     override val argc: Int = 1
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): SpellAction.Result {
@@ -24,8 +24,7 @@ object OpStoreItem :  SpellAction{
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
             throw MishapNoJars()
-        val entity = args.getItemEntity(0, OpMakeBattery.argc)
-
+        val entity = args.getItemEntity(0, argc)
         env.assertEntityInRange(entity)
 
         return SpellAction.Result(
@@ -38,6 +37,8 @@ object OpStoreItem :  SpellAction{
     private data class Spell(val entity: ItemEntity, val storages: List<StorageLociEntity>) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
             // TODO: Make this harder?
+            if (!entity.isAlive)
+                return
 
             // In case we don't find it, we don't want to recalc *again*
             val itemE = entity.stack
