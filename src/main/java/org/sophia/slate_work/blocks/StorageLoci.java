@@ -3,19 +3,54 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
+import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.item.Equipment;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class StorageLoci extends BlockSlate {
+public class StorageLoci extends BlockSlate implements Equipment {
     public StorageLoci(Settings p_53182_) {
         super(p_53182_);
     }
+
+    // Hell!
+    // This was Hell to make. All of these *hand made*
+    private static final VoxelShape FLOOR_AB = VoxelShapes.union(AABB_FLOOR,
+            BlockSlate.createCuboidShape(2,1,2,14,4,14),
+            BlockSlate.createCuboidShape(4,4,4,12,7,12),
+            BlockSlate.createCuboidShape(2,7,2,14,10,14));
+    private static final VoxelShape CEILING_AB = VoxelShapes.union(AABB_CEILING,
+            BlockSlate.createCuboidShape(2,12,2,14,15,14),
+            BlockSlate.createCuboidShape(4,9,4,12,12,12),
+            BlockSlate.createCuboidShape(2,6,2,14,9,14));
+    private static final VoxelShape EAST_AB = VoxelShapes.union(AABB_EAST_WALL,
+            BlockSlate.createCuboidShape(1,2,2,4,14,14),
+            BlockSlate.createCuboidShape(4,4,4,7,12,12),
+            BlockSlate.createCuboidShape(7,2,2,10,14,14));
+    private static final VoxelShape WEST_AB = VoxelShapes.union(AABB_WEST_WALL,
+            BlockSlate.createCuboidShape(12,2,2,15,14,14),
+            BlockSlate.createCuboidShape(9,4,4,15,12,12),
+            BlockSlate.createCuboidShape(6,2,2,9,14,14));
+    private static final VoxelShape NORTH_AB = VoxelShapes.union(AABB_NORTH_WALL,
+            BlockSlate.createCuboidShape(2,2,12,14,14,15),
+            BlockSlate.createCuboidShape(4,4,9,12,12,15),
+            BlockSlate.createCuboidShape(2,2,6,14,14,9));
+    private static final VoxelShape SOUTH_AB = VoxelShapes.union(AABB_SOUTH_WALL,
+            BlockSlate.createCuboidShape(2,2,1,14,14,4),
+            BlockSlate.createCuboidShape(4,4,4,12,12,7),
+            BlockSlate.createCuboidShape(2,2,7,14,14,10));
 
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
@@ -34,7 +69,33 @@ public class StorageLoci extends BlockSlate {
     }
 
     @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
+        return switch (pState.get(ATTACH_FACE)){
+            case FLOOR -> FLOOR_AB;
+            case CEILING -> CEILING_AB;
+            case WALL -> switch (pState.get(FACING)){
+                case NORTH -> NORTH_AB;
+                case SOUTH -> SOUTH_AB;
+                case WEST -> WEST_AB;
+                case EAST -> EAST_AB;
+
+                default -> FLOOR_AB;
+            };
+        };
+    }
+
+    @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pPos, BlockState pState) {
         return new StorageLociEntity(pPos,pState);
+    }
+
+    @Override
+    public EquipmentSlot getSlotType() { //hehe, silly hat
+        return EquipmentSlot.HEAD;
     }
 }
