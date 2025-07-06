@@ -4,7 +4,7 @@
 	"textures": {
 		"2": "slate_work:block/storage_slate",
 		"4": "hexcasting:block/slate",
-		"particle": "slate_work:block/storage_slate"
+		"particle": "hexcasting:block/slate"
 	},
 	"elements": [
 		{

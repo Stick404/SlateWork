@@ -3,7 +3,7 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
-import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -13,6 +13,7 @@ import net.minecraft.item.Equipment;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
@@ -20,18 +21,17 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 
-public class StorageLoci extends BlockSlate implements Equipment {
-    public StorageLoci(Settings p_53182_) {
-        super(p_53182_);
-    }
+import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
+
+public class StorageLoci extends AbstractSlate implements Equipment {
 
     // Hell!
     // This was Hell to make. All of these *hand made*
-    private static final VoxelShape FLOOR_AB = VoxelShapes.union(AABB_FLOOR,
+    private static final VoxelShape DOWN_AB = VoxelShapes.union(AABB_FLOOR,
             BlockSlate.createCuboidShape(2,1,2,14,4,14),
             BlockSlate.createCuboidShape(4,4,4,12,7,12),
             BlockSlate.createCuboidShape(2,7,2,14,10,14));
-    private static final VoxelShape CEILING_AB = VoxelShapes.union(AABB_CEILING,
+    private static final VoxelShape UP_AB = VoxelShapes.union(AABB_CEILING,
             BlockSlate.createCuboidShape(2,12,2,14,15,14),
             BlockSlate.createCuboidShape(4,9,4,12,12,12),
             BlockSlate.createCuboidShape(2,6,2,14,9,14));
@@ -51,6 +51,15 @@ public class StorageLoci extends BlockSlate implements Equipment {
             BlockSlate.createCuboidShape(2,2,1,14,14,4),
             BlockSlate.createCuboidShape(4,4,4,12,12,7),
             BlockSlate.createCuboidShape(2,2,7,14,14,10));
+
+    public StorageLoci(Settings p_53182_) {
+        super(p_53182_);
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+    }
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+    }
 
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
@@ -75,17 +84,13 @@ public class StorageLoci extends BlockSlate implements Equipment {
 
     @Override
     public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
-        return switch (pState.get(ATTACH_FACE)){
-            case FLOOR -> FLOOR_AB;
-            case CEILING -> CEILING_AB;
-            case WALL -> switch (pState.get(FACING)){
+        return switch (pState.get(FACING)){
                 case NORTH -> NORTH_AB;
                 case SOUTH -> SOUTH_AB;
                 case WEST -> WEST_AB;
                 case EAST -> EAST_AB;
-
-                default -> FLOOR_AB;
-            };
+                case UP -> DOWN_AB;
+                case DOWN -> UP_AB;
         };
     }
 

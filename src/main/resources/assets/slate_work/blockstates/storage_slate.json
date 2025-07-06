@@ -1,122 +1,35 @@
 {
   "variants": {
-    "energized=false,face=ceiling,facing=east": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=north": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=south": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=west": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=floor,facing=east": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=floor,facing=north": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=floor,facing=south": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=floor,facing=west": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=wall,facing=east": {
+    "energized=false,facing=east": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
       "x": 90,
       "y": 90
     },
-    "energized=false,face=wall,facing=north": {
+    "energized=false,facing=north": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
       "x": 90
     },
-    "energized=false,face=wall,facing=south": {
+    "energized=false,facing=south": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
-      "x": 90,
-      "y": 180
+      "x": 270
     },
-    "energized=false,face=wall,facing=west": {
+    "energized=false,facing=west": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
       "x": 90,
       "y": 270
     },
-    "energized=false,face=ceiling,facing=east": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=north": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=south": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=ceiling,facing=west": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 180
-    },
-    "energized=false,face=floor,facing=east": {
+    "energized=false,facing=up": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false
     },
-    "energized=false,face=floor,facing=north": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=floor,facing=south": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=floor,facing=west": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false
-    },
-    "energized=false,face=wall,facing=east": {
+    "energized=false,facing=down": {
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
-      "x": 90,
-      "y": 90
-    },
-    "energized=false,face=wall,facing=north": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 90
-    },
-    "energized=false,face=wall,facing=south": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 90,
-      "y": 180
-    },
-    "energized=false,face=wall,facing=west": {
-      "model": "slate_work:block/storage_slate",
-      "uvlock": false,
-      "x": 90,
-      "y": 270
+      "x": 180
     }
   }
 }
