@@ -4,13 +4,13 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import org.sophia.slate_work.blocks.AmbitExtender;
 import org.sophia.slate_work.blocks.StorageLoci;
 import org.sophia.slate_work.blocks.StorageLociEntity;
 
@@ -19,14 +19,17 @@ import java.util.HashMap;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class BlockRegistry {
+    private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f);
+
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Block> ITEM_REGISTRY = new HashMap<>();
 
-    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_slate",new StorageLoci(
-            AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f)));
+    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_slate",new StorageLoci(slateSetting));
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_slate",
             FabricBlockEntityTypeBuilder.create(StorageLociEntity::new,STORAGE_LOCI).build());
+
+    public static AmbitExtender AMBIT_EXTENDER = registerBlockItem("ambit_extender",new AmbitExtender(slateSetting));
 
 
     public static void init(){

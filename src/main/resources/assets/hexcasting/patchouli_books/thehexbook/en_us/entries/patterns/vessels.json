@@ -41,6 +41,13 @@
     {
       "type": "patchouli:text",
       "text": "slate_work.page.vessels.get_item_cont"
+    },    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:check_item",
+      "anchor": "slate_work:check_item",
+      "input": "[patterns]",
+      "output": "bool",
+      "text": "slate_work.page.vessels.check_item"
     }
   ]
 }

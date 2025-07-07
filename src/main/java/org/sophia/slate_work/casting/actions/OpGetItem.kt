@@ -41,13 +41,13 @@ object OpGetItem : SpellAction {
         val list = CircleHelper.getLists(env)
         var data: NbtCompound
         val foundSlots = ArrayList<Triple<CircleHelper.ItemSlot, Vec3d, Int>>()
+        val tempStack = env.circleState().currentImage.stack.toMutableList()
+        tempStack.removeLastOrNull() //Clear the args for the Spell
 
         for (z in list) {
             val ctx = SearchingBasedEnv(env)
             val vm = CastingVM.empty(ctx)
             val newStack = ArrayList<Iota>()
-            val tempStack = env.circleState().currentImage.stack.toMutableList()
-            tempStack.removeLastOrNull() //Clear the args for the Spell
             newStack.addAll(tempStack)
 
             // If it might be too long for an int, return IntMax

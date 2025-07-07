@@ -3,10 +3,7 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Equipment;
@@ -23,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
-public class StorageLoci extends AbstractSlate implements Equipment {
+public class StorageLoci extends AbstractSlate implements Equipment, BlockEntityProvider {
 
     // Hell!
     // This was Hell to make. All of these *hand made*
