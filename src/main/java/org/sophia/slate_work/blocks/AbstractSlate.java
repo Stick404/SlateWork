@@ -96,17 +96,6 @@ public abstract class AbstractSlate extends BlockCircleComponent {
         return -0.4375F;
     }
 
-    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
-        return switch (pState.get(FACING)) {
-            case DOWN -> AABB_FLOOR;
-            case UP -> AABB_CEILING;
-            case NORTH -> AABB_NORTH_WALL;
-            case SOUTH -> AABB_SOUTH_WALL;
-            case WEST -> AABB_WEST_WALL;
-            case EAST -> AABB_EAST_WALL;
-        };
-    }
-
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(FACING, WATERLOGGED);

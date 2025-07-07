@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "energized=false": {
+      "model": "slate_work:block/ambit_extender"
+    },
+    "energized=true": {
+      "model": "slate_work:block/ambit_extender_energized"
+    }
+  }
+}

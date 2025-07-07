@@ -1,43 +1,35 @@
 package org.sophia.slate_work.blocks
 
-import at.petrak.hexcasting.api.block.circle.BlockAbstractImpetus
-import at.petrak.hexcasting.api.casting.circles.BlockEntityAbstractImpetus
+import at.petrak.hexcasting.api.block.circle.BlockCircleComponent
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent.ControlFlow
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
-import at.petrak.hexcasting.api.casting.iota.BooleanIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
-import at.petrak.hexcasting.api.casting.mishaps.circle.MishapBoolDirectrixEmptyStack
-import at.petrak.hexcasting.api.casting.mishaps.circle.MishapBoolDirectrixNotBool
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.utils.putCompound
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.BlockState
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.server.world.ServerWorld
-import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
-import net.minecraft.util.math.Vec3i
+import net.minecraft.world.World
+import java.util.*
 import kotlin.math.absoluteValue
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 
-class AmbitExtender(settings: Settings) : AbstractSlate(settings) {
+class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
     override fun acceptControlFlow(
         imageIn: CastingImage?, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
         bs: BlockState?, world: ServerWorld?,
     ): ControlFlow? {
-        val exitDirsSet = this.possibleExitDirections(pos, bs, world)
-        exitDirsSet.remove(enterDir!!.opposite)
-        val exitDirs = exitDirsSet.stream()
-            .map<Pair<BlockPos?, Direction?>?> { dir: Direction? -> this.exitPositionFromDirection(pos, dir) }
         val data = imageIn!!.userData.copy()
 
         val stack: ArrayList<Iota> = ArrayList(imageIn.stack)
@@ -97,17 +89,12 @@ class AmbitExtender(settings: Settings) : AbstractSlate(settings) {
         data.putCompound("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
 
         return ControlFlow.Continue(
-            imageIn.copy(stack, userData = data), exitDirs.toList()
+            imageIn.copy(stack, userData = data), listOf(Pair(pos?.offset(enterDir),enterDir))
         )
     }
 
-    override fun fakeThrowMishap(
-        pos: BlockPos?,
-        bs: BlockState?,
-        image: CastingImage?,
-        env: CircleCastEnv?,
-        mishap: Mishap?
-    ) {
-        super.fakeThrowMishap(pos, bs, image, env, mishap)
-    }
+    override fun canEnterFromDirection(p0: Direction?, p1: BlockPos?, p2: BlockState?, p3: ServerWorld?): Boolean = true
+    override fun possibleExitDirections(p0: BlockPos?, p1: BlockState?, p2: World?): EnumSet<Direction?>? = EnumSet.allOf(Direction::class.java)
+    override fun normalDir(p0: BlockPos?, p1: BlockState?, p2: World?, p3: Int): Direction? = Direction.UP
+    override fun particleHeight(p0: BlockPos?, p1: BlockState?, p2: World?, ): Float = 0.5f
 }
