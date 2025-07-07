@@ -27,6 +27,7 @@
       "environment": "client"
     }
   ],
+  "accessWidener": "slate_work.accesswidener",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric": "*",

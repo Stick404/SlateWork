@@ -19,6 +19,7 @@ import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.casting.SearchingBasedEnv
 import org.sophia.slate_work.casting.mishap.MishapNoJars
 import org.sophia.slate_work.misc.CircleHelper
+import java.util.Optional
 
 object OpGetItem : SpellAction {
     override val argc = 1
@@ -58,8 +59,8 @@ object OpGetItem : SpellAction {
             vm.queueExecuteAndWrapIotas(hex, env.world)
             val realStack = vm.image.stack.reversed()
             if (realStack.getBool(0, 3)){
-                val pos = realStack.getVec3(2,3)
                 val amount = realStack.getInt(1,3)
+                val pos = realStack.getVec3(2,3)
                 env.assertVecInRange(pos)
                 foundSlots.add(Triple(z.value,pos,amount))
             }
@@ -85,7 +86,7 @@ object OpGetItem : SpellAction {
                 env.world.spawnEntity(
                     ItemEntity(
                         env.world, vec.x, vec.y, vec.z,
-                        ItemStack(summon.left.item, summon.right.toInt())
+                        ItemStack(summon.left.item, summon.right.toInt(), Optional.of(summon.left.nbt as NbtCompound))
                     )
                 )
             }

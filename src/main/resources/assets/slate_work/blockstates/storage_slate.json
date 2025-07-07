@@ -30,6 +30,37 @@
       "model": "slate_work:block/storage_slate",
       "uvlock": false,
       "x": 180
+    },
+    "energized=true,facing=east": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false,
+      "x": 90,
+      "y": 90
+    },
+    "energized=true,facing=north": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false,
+      "x": 90
+    },
+    "energized=true,facing=south": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false,
+      "x": 270
+    },
+    "energized=true,facing=west": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false,
+      "x": 90,
+      "y": 270
+    },
+    "energized=true,facing=up": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false
+    },
+    "energized=true,facing=down": {
+      "model": "slate_work:block/storage_slate_energized",
+      "uvlock": false,
+      "x": 180
     }
   }
 }

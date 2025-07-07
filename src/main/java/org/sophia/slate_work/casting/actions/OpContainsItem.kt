@@ -30,7 +30,7 @@ object OpContainsItem : Action {
         var boolean = false
         var data = NbtCompound()
 
-        for (z in CircleHelper.getLists(env)){
+        for (item in CircleHelper.getLists(env)){
             val ctx = SearchingBasedEnv(env)
             val vm = CastingVM.empty(ctx)
             val realHex = ArrayList<Iota>()
@@ -39,7 +39,7 @@ object OpContainsItem : Action {
             }
             val newStack = ArrayList<Iota>()
             newStack.addAll(stack)
-            newStack.add(ItemStackIota(z.key.toStack()))
+            newStack.add(ItemStackIota(item.key.toStack()))
             vm.image = vm.image.copy(newStack, userData = data)
 
             vm.queueExecuteAndWrapIotas(realHex, env.world)

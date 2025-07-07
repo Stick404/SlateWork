@@ -10,6 +10,7 @@ import at.petrak.hexcasting.api.casting.iota.PatternIota;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.blocks.circles.BlockEntitySlate;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
@@ -37,7 +38,7 @@ import java.util.stream.Stream;
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
 // We needed a Slate Block without the Attached_Face prop. So that's why this ugly ass file exists
-public abstract class AbstractSlate extends BlockCircleComponent {
+public abstract class AbstractSlate extends BlockCircleComponent implements BlockEntityProvider {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final DirectionProperty FACING = Properties.FACING;
 
@@ -54,8 +55,6 @@ public abstract class AbstractSlate extends BlockCircleComponent {
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
-
-    public abstract @Nullable BlockEntity createBlockEntity(BlockPos pPos, BlockState pState);
 
     public ICircleComponent.ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         BlockEntity var9 = world.getBlockEntity(pos);
