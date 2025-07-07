@@ -33,7 +33,7 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
         val data = imageIn!!.userData.copy()
 
         val stack: ArrayList<Iota> = ArrayList(imageIn.stack)
-        if (stack.isEmpty()) {
+        if (stack.isEmpty()) { // Feels silly, but this is what Hex does
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
                 MishapNotEnoughArgs(1,0)
