@@ -1,0 +1,21 @@
+{
+  "name": "slate_work.entry.ambit_extenders",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:ambit_extender",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:ambit_extender",
+      "anchor": "ambit_extender",
+      "link_recipe": true,
+      "text": "slate_work.page.ambit_extender.ambit_extender"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.ambit_extender.ambit_extender_cont"
+    }
+  ]
+}
