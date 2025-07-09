@@ -1,6 +1,7 @@
 {
   "block.slate_work.storage_slate": "Storage Vessels",
   "block.slate_work.ambit_extender": "Ambit Extender",
+  "block.slate_work.crafting_slate": "Patterned Assembler",
 
   "Patterns:":"",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",

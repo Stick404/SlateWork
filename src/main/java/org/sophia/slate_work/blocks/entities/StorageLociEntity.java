@@ -1,4 +1,4 @@
-package org.sophia.slate_work.blocks;
+package org.sophia.slate_work.blocks.entities;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockState;

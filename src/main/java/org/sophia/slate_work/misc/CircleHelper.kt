@@ -11,7 +11,7 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.registry.Registries
-import org.sophia.slate_work.blocks.StorageLociEntity
+import org.sophia.slate_work.blocks.entities.StorageLociEntity
 
 object CircleHelper {
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
