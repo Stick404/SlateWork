@@ -46,10 +46,10 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
     public ICircleComponent.ControlFlow acceptControlFlow(CastingImage castingImage, CircleCastEnv circleCastEnv, Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
         BlockEntity entity = serverWorld.getBlockEntity(blockPos);
 
-        if (entity instanceof CraftingLociEntity craftingLoci){
+        if (entity instanceof CraftingLociEntity craftingLoci) {
             ArrayList<Iota> stack = new ArrayList<>(castingImage.getStack());
             ArrayList<Pair<BlockPos, Direction>> exits = new ArrayList<>();
-            exits.add(new Pair<>(blockPos.offset(direction),direction));
+            exits.add(new Pair<>(blockPos.offset(direction), direction));
 
             var storages = CircleHelper.INSTANCE.getLists(circleCastEnv);
             if (storages.isEmpty()) {
@@ -61,54 +61,52 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
             }
 
             var entities = CircleHelper.INSTANCE.getStorage(circleCastEnv);
-            if (entities.size()*16 <= storages.size()) { // Woops! No storage
+            if (entities.size() * 16 <= storages.size()) { // Woops! No storage
                 stack.add(new BooleanIota(false));
                 return new ControlFlow.Continue(
-                        castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
+                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                         exits);
             }
 
             // Idk mate, this is what Hexal Does
             var container = new CraftingInventory(new AutocraftingMenu(), 3, 3);
-
-            int i = 0;
+            var AAAAAA = craftingLoci.getInv();
             Map<ItemVariant, Integer> shoppingList = new HashMap<>();
-            for (var z : craftingLoci.getInv()){
-                var temp = z.copy();
+            for (int i = 0; i < 9; i++) {
+                var temp = craftingLoci.getStack(i);
                 ItemVariant variant = ItemVariant.of(temp);
-                if (!storages.containsKey(variant)){ // If we cant find the variant, kill the search and push false
+                if (!storages.containsKey(variant)) { // If we cant find the variant, kill the search and push false
                     stack.add(new BooleanIota(false));
                     return new ControlFlow.Continue(
-                            castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
+                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
                 }
 
                 // If we know the item is there, increment it, else, add it
-                if (shoppingList.containsKey(variant)) shoppingList.put(variant, shoppingList.get(variant) +1);
+                if (shoppingList.containsKey(variant)) shoppingList.put(variant, shoppingList.get(variant) + 1);
                 else shoppingList.put(variant, 1);
-                container.setStack(i++,temp);
+                container.setStack(i, temp);
             }
 
-            var recipeOpt = serverWorld.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container,serverWorld);
+            var recipeOpt = serverWorld.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container, serverWorld);
 
-            if (recipeOpt.isEmpty()){ // If a recipe was not found, then yadadada
+            if (recipeOpt.isEmpty()) { // If a recipe was not found, then yadadada
                 stack.add(new BooleanIota(false));
                 return new ControlFlow.Continue(
-                        castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
+                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                         exits);
             }
 
-            for (var pair : shoppingList.entrySet()){ // Here we check if what we want is less than what we have
+            for (var pair : shoppingList.entrySet()) { // Here we check if what we want is less than what we have
                 if (pair.getKey().isBlank())
                     continue;
                 var slot = storages.get(pair.getKey());
                 if (slot.getCount() < pair.getValue()) { // If so, kill and push false
                     stack.add(new BooleanIota(false));
                     return new ControlFlow.Continue(
-                                castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
-                                exits);
-                }
-                else slot.getStorageLociEntity().removeStack(
+                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                            exits);
+                } else slot.getStorageLociEntity().removeStack(
                         slot.getStorageLociEntity().getSlot(slot.getItem()),
                         pair.getValue());
             }
@@ -117,39 +115,22 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
             //    storages.compute(z.getKey(), (k, slot) -> new CircleHelper.ItemSlot(slot.getItem(), slot.getCount() - z.getValue(), slot.getStorageLociEntity()));
             //}
 
-            var outputItem = recipeOpt.get().craft(container,serverWorld.getRegistryManager());
+            var outputItem = recipeOpt.get().craft(container, serverWorld.getRegistryManager());
+            var remainderItems = recipeOpt.get().getRemainder(container);
 
-            if (storages.containsKey(ItemVariant.of(outputItem))) { //We had the item already in storage!
-                var slot = storages.get(ItemVariant.of(outputItem));
-                        var targ = slot.getStorageLociEntity().getSlot(slot.getItem()); // *shouldn't* be null
-                        var item = slot.getStorageLociEntity().getStack(targ);
-                item.setRight(item.getRight() + outputItem.getCount());
-                stack.add(new BooleanIota(true));
-
-                serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1.0F, 1F);
-                return new ControlFlow.Continue(
-                        castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
-                        exits);
-            }
-            // If its not a known item yet...
-            for (var z : entities){
-                var x = z.isFull();
-                if (x != -1) {
-                    serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1.0F, 1F);
-                    z.setStack(x, ItemVariant.of(outputItem),outputItem.getCount());
-                    stack.add(new BooleanIota(true));
-                    return new ControlFlow.Continue(
-                            castingImage.copy(stack,castingImage.getParenCount(),castingImage.getParenthesized(),castingImage.getEscapeNext(),castingImage.getOpsConsumed(),castingImage.getUserData()),
-                            exits);
-                }
+            CircleHelper.INSTANCE.storeItems(circleCastEnv, outputItem);
+            for (var item : remainderItems) {
+                CircleHelper.INSTANCE.storeItems(circleCastEnv, item);
             }
 
+            serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1.0F, 1F);
+            stack.add(new BooleanIota(true));
+            return new ControlFlow.Continue(
+                    castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                    exits);
         } else {
             return new ControlFlow.Stop();
         }
-        // If it gets to here, may :hexxy: help you
-        System.out.println("Something with Crafting Loci at ".concat(blockPos.toString()).concat(" went wrong!"));
-        return new ControlFlow.Stop();
     }
 
 
@@ -173,8 +154,8 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
 
     // Ok so, no clue why Hexal does it this way, but we are just going to copy what it does (and Hexal copies AE2 lmao)
     // https://github.com/Talia-12/Hexal/blob/main/Common/src/main/java/ram/talia/hexal/common/casting/actions/spells/motes/OpCraftMote.kt
-    private static class AutocraftingMenu extends ScreenHandler {
-        protected AutocraftingMenu() {super(null, 0);}
+    public static class AutocraftingMenu extends ScreenHandler {
+        public AutocraftingMenu() {super(null, 0);}
         @Override
         public ItemStack quickMove(PlayerEntity player, int slot) {return ItemStack.EMPTY;}
         @Override

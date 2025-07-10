@@ -10,7 +10,7 @@
 * Ambit Extenders
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Ambit Portals
-  * Takes a pair of blocks, and gives the Circle a small radius of Ambit around the "output"
+  * Takes a pair of blocks that "point" to each other, and gives a small radius of ambit around the "output" portal (must be pointing back to the first one)
 * Circle Macros
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
 * D.C. al Coda

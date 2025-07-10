@@ -21,7 +21,7 @@ import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
 
 public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, Inventory {
-    final DefaultedList<ItemStack> inv = DefaultedList.ofSize(9,ItemStack.EMPTY);
+    DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
 
     public CraftingLociEntity(BlockPos pos, BlockState state) {
         super(CRAFTING_LOCI_ENTITY, pos, state);
@@ -55,7 +55,7 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public int size() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -71,11 +71,6 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public ItemStack getStack(int slot) {
         return inv.get(slot);
-    }
-
-    @Override
-    public int getMaxCountPerStack() {
-        return 1;
     }
 
     @Override
@@ -107,7 +102,8 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public void clear() {
-        this.inv.clear();
+        this.inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
+        this.markDirty();
     }
 
     @Override

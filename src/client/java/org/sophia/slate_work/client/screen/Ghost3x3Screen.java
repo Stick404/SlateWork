@@ -7,8 +7,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 
+import static org.sophia.slate_work.Slate_work.MOD_ID;
+
 public class Ghost3x3Screen extends HandledScreen<Ghost3x3ScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier("textures/gui/container/dispenser.png");
+    private static final Identifier TEXTURE = new Identifier(MOD_ID,"textures/gui/crafting_loci.png");
 
     public Ghost3x3Screen(Ghost3x3ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -17,7 +19,9 @@ public class Ghost3x3Screen extends HandledScreen<Ghost3x3ScreenHandler> {
     @Override
     protected void init() {
         super.init();
-        this.titleX = (this.backgroundWidth - this.textRenderer.getWidth(this.title)) / 2;
+        this.titleY = 100000;
+        this.playerInventoryTitleX = (this.backgroundWidth - this.textRenderer.getWidth(this.playerInventoryTitle)) / 2;
+        this.playerInventoryTitleY = 74;
     }
 
     @Override

@@ -4,11 +4,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
 public class GhostSlot extends Slot {
-    public GhostSlot(Inventory inventory, int index, int x, int y) {
+    public GhostSlot(Inventory inventory, int index, int x, int y, @Nullable World world) {
         super(inventory, index, x, y);
     }
 

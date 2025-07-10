@@ -16,7 +16,7 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
 public class StorageLociEntity extends BlockEntity {
-    private int slotCount = 15; ///  The amount of "types" this can store. This includes
+    private int slotCount = 15; // This is how many "types" the Loci can hold
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
     private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(this.slotCount+1, emptySlot).toArray(new Pair[slotCount+1]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
