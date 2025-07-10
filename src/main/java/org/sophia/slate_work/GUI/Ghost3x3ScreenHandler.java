@@ -8,6 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.util.ClickType;
+
+import java.util.Optional;
 
 import static org.sophia.slate_work.Slate_work.GHOST_3X3_SCREEN;
 
@@ -58,5 +62,11 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
     public void onClosed(PlayerEntity player) {
         super.onClosed(player);
         this.inventory.onClose(player);
+    }
+
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        if (actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP) return;
+        super.onSlotClick(slotIndex, button, actionType, player);
     }
 }

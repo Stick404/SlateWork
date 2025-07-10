@@ -25,3 +25,5 @@
 * work on the unfinished stuff (mostly the Crafting ???)
 
 For the Crafting ??? extend `LootableContainerBlockEntity` and use `Generic3x3ContainerScreenHandler`
+
+Also use the `ScreenHandlerListener` to update the crafting preview

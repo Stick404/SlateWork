@@ -90,9 +90,18 @@ public class StorageLociEntity extends BlockEntity {
         var copy = pair.getLeft();
         long returned;
 
-        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
-        if (pair.getRight() < amount) returned = pair.getRight();
-        else returned = amount;
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+            return this.slots[slot];
+        }
+        if (pair.getRight() <= amount) {
+            returned = pair.getRight();
+            this.slots[slot] = emptySlot;
+        }
+        else {
+            this.slots[slot].setRight(this.slots[slot].getRight() - amount);
+            returned = amount;
+        }
 
         return new Pair<>(copy,returned);
     }
@@ -108,7 +117,10 @@ public class StorageLociEntity extends BlockEntity {
     public Pair<ItemVariant,Long> removeStack(int slot) {
         var pair = this.slots[slot];
         var copy = pair.getLeft();
-        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+            return emptySlot;
+        }
         return new Pair<>(copy,pair.getRight());
     }
 

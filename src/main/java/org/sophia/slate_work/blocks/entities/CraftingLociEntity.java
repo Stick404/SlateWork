@@ -27,6 +27,10 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         super(CRAFTING_LOCI_ENTITY, pos, state);
     }
 
+    public DefaultedList<ItemStack> getInv() {
+        return inv;
+    }
+
     @Override
     public Text getDisplayName() {
         return Text.translatable("block.slate_work.crafting_slate");

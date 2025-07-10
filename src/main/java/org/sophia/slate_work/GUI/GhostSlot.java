@@ -20,6 +20,11 @@ public class GhostSlot extends Slot {
     }
 
     @Override
+    public void onQuickTransfer(ItemStack newItem, ItemStack original) {
+        super.onQuickTransfer(newItem, original);
+    }
+
+    @Override
     public ItemStack insertStack(ItemStack stack, int count) {
         this.setStack(stack);
         return stack;
@@ -46,5 +51,10 @@ public class GhostSlot extends Slot {
     public ItemStack takeStack(int amount) { //Since this is a "ghost" we want to void the stack
         this.inventory.removeStack(this.index);
         return ItemStack.EMPTY;
+    }
+
+    @Override
+    public boolean canTakePartial(PlayerEntity player) {
+        return false;
     }
 }
