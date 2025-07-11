@@ -6,7 +6,6 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
-import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
@@ -20,6 +19,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
 import java.util.*
+import java.util.stream.Stream
 import kotlin.math.absoluteValue
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -31,6 +31,11 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
         bs: BlockState?, world: ServerWorld?,
     ): ControlFlow? {
         val data = imageIn!!.userData.copy()
+
+        val exitDirsSet = this.possibleExitDirections(pos, bs, world)
+        exitDirsSet.remove(enterDir!!.opposite)
+        val exitDirs: Stream<Pair<BlockPos?, Direction?>?>? = exitDirsSet.stream()
+            .map<Pair<BlockPos?, Direction?>?> { dir: Direction? -> this.exitPositionFromDirection(pos, dir) }
 
         val stack: ArrayList<Iota> = ArrayList(imageIn.stack)
         if (stack.isEmpty()) { // Feels silly, but this is what Hex does
@@ -89,12 +94,13 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
         data.putCompound("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
 
         return ControlFlow.Continue(
-            imageIn.copy(stack, userData = data), listOf(Pair(pos?.offset(enterDir),enterDir))
+            imageIn.copy(stack, userData = data), exitDirs?.toList()
         )
     }
 
-    override fun canEnterFromDirection(p0: Direction?, p1: BlockPos?, p2: BlockState?, p3: ServerWorld?): Boolean = true
-    override fun possibleExitDirections(p0: BlockPos?, p1: BlockState?, p2: World?): EnumSet<Direction?>? = EnumSet.allOf(Direction::class.java)
-    override fun normalDir(p0: BlockPos?, p1: BlockState?, p2: World?, p3: Int): Direction? = Direction.UP
-    override fun particleHeight(p0: BlockPos?, p1: BlockState?, p2: World?, ): Float = 0.5f
+    // Ok fine, Kotlin can be nice time to time
+    override fun canEnterFromDirection(p0: Direction?, p1: BlockPos?, p2: BlockState?, p3: ServerWorld?) = true
+    override fun possibleExitDirections(p0: BlockPos?, p1: BlockState?, p2: World?) = EnumSet.allOf(Direction::class.java)!!
+    override fun normalDir(p0: BlockPos?, p1: BlockState?, p2: World?, p3: Int) = Direction.UP
+    override fun particleHeight(p0: BlockPos?, p1: BlockState?, p2: World) = 0.5f
 }

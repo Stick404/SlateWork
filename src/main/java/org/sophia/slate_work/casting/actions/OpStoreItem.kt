@@ -8,10 +8,9 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.getItemEntity
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
-import at.petrak.hexcasting.common.casting.actions.spells.OpMakeBattery
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.entity.ItemEntity
-import org.sophia.slate_work.blocks.StorageLociEntity
+import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNoJars
 import org.sophia.slate_work.misc.CircleHelper
 

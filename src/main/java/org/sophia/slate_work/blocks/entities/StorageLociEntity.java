@@ -1,4 +1,4 @@
-package org.sophia.slate_work.blocks;
+package org.sophia.slate_work.blocks.entities;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockState;
@@ -16,7 +16,7 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
 public class StorageLociEntity extends BlockEntity {
-    private int slotCount = 15; ///  The amount of "types" this can store. This includes
+    private int slotCount = 15; // This is how many "types" the Loci can hold
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
     private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(this.slotCount+1, emptySlot).toArray(new Pair[slotCount+1]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
@@ -90,9 +90,18 @@ public class StorageLociEntity extends BlockEntity {
         var copy = pair.getLeft();
         long returned;
 
-        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
-        if (pair.getRight() < amount) returned = pair.getRight();
-        else returned = amount;
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+            return this.slots[slot];
+        }
+        if (pair.getRight() <= amount) {
+            returned = pair.getRight();
+            this.slots[slot] = emptySlot;
+        }
+        else {
+            this.slots[slot].setRight(this.slots[slot].getRight() - amount);
+            returned = amount;
+        }
 
         return new Pair<>(copy,returned);
     }
@@ -108,7 +117,10 @@ public class StorageLociEntity extends BlockEntity {
     public Pair<ItemVariant,Long> removeStack(int slot) {
         var pair = this.slots[slot];
         var copy = pair.getLeft();
-        if (copy == ItemVariant.blank() || pair.getRight() == 0) return new Pair<>(ItemVariant.blank(), 0L);
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+            return emptySlot;
+        }
         return new Pair<>(copy,pair.getRight());
     }
 

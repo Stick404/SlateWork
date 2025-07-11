@@ -7,11 +7,12 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import miyucomics.hexpose.iotas.IdentifierIota
 import miyucomics.hexpose.iotas.ItemStackIota
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.registry.Registries
-import org.sophia.slate_work.blocks.StorageLociEntity
+import org.sophia.slate_work.blocks.entities.StorageLociEntity
 
 object CircleHelper {
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
@@ -47,6 +48,27 @@ object CircleHelper {
             }
         }
         return returnList
+    }
+
+    fun storeItems(env: CircleCastEnv, itemStack: ItemStack): Boolean{
+        val list = getStorage(env)
+        val hashMap = getLists(list)
+        if (hashMap.contains(ItemVariant.of(itemStack.item,itemStack.nbt))) {
+            val slot = hashMap.get(ItemVariant.of(itemStack.item,itemStack.nbt))!!
+            val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
+            val item = slot.storageLociEntity.getStack(targ)
+            item.right += itemStack.count
+            return true
+        }
+        // If its not a known item yet...
+        for (z in list){
+            val x = z.isFull
+            if (x != -1) {
+                z.setStack(x, ItemVariant.of(itemStack.item,itemStack.nbt),itemStack.count.toLong())
+                return true
+            }
+        }
+        return false
     }
 
     fun List<Iota>.getItemVariant(idx: Int, argc: Int = 0): ItemVariant {

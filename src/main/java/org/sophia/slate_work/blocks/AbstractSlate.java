@@ -25,7 +25,6 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
@@ -33,10 +32,6 @@ import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
-import java.util.stream.Stream;
-
-import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
-
 // We needed a Slate Block without the Attached_Face prop. So that's why this ugly ass file exists
 
 public abstract class AbstractSlate extends BlockCircleComponent {
@@ -55,25 +50,6 @@ public abstract class AbstractSlate extends BlockCircleComponent {
 
     public FluidState getFluidState(BlockState state) {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
-    }
-
-    public ICircleComponent.ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
-        BlockEntity var9 = world.getBlockEntity(pos);
-        if (var9 instanceof BlockEntitySlate tile) {
-            HexPattern pattern = tile.pattern;
-            EnumSet<Direction> exitDirsSet = this.possibleExitDirections(pos, bs, world);
-            exitDirsSet.remove(enterDir.getOpposite());
-            Stream exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir));
-            if (pattern == null) {
-                return new ICircleComponent.ControlFlow.Continue(imageIn, exitDirs.toList());
-            } else {
-                CastingVM vm = new CastingVM(imageIn, env);
-                ExecutionClientView result = vm.queueExecuteAndWrapIota(new PatternIota(pattern), world);
-                return (result.getResolutionType().getSuccess() ? new ICircleComponent.ControlFlow.Continue(vm.getImage(), exitDirs.toList()) : new ICircleComponent.ControlFlow.Stop());
-            }
-        } else {
-            return new ICircleComponent.ControlFlow.Stop();
-        }
     }
 
     public boolean canEnterFromDirection(Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
