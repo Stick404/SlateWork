@@ -22,21 +22,12 @@ public class GhostSlotOutput extends GhostSlot {
 
     @Override
     public void setStack(ItemStack stack) {
-        // Do nothing lmao
+        // Do nothing, this is just for display/interaction
     }
 
     @Override
     public ItemStack takeStack(int amount) {
         this.inventory.clear();
-
-        for (int i = 0; i < this.inventory.size(); i++) {
-            this.handler.getSlot(i).setStack(ItemStack.EMPTY);
-            this.inventory.setStack(i,ItemStack.EMPTY);
-        }
-
-        this.handler.updateToClient();
-        this.inventory.markDirty();
-        this.handler.syncState();
         return ItemStack.EMPTY;
     }
 

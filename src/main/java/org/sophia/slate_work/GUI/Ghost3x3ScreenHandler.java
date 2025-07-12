@@ -77,17 +77,23 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
 
     @Override
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
-        if ((actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP) || button == -1) return;
-        //if ((this.getSlot(slotIndex).getStack() != ItemStack.EMPTY
-        //        && !(this.getSlot(slotIndex).inventory instanceof PlayerInventory))
-        //                && this.getCursorStack() != ItemStack.EMPTY) return;
+        if ((actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP && actionType != SlotActionType.QUICK_MOVE) || button == -1) return;
 
-        System.out.println(slotIndex);
-        if (slotIndex < 10 && slotIndex > 0){
-            var copy = this.getCursorStack().copy();
-            copy.setCount(1);
-            this.inventory.setStack(slotIndex-1,copy);
-            Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
+        if (slotIndex < 10 && slotIndex > 0){ // Ok cool, we are working in the Ghost Screen
+            // If we are in creative mode, copy the selected items
+            if (actionType == SlotActionType.CLONE && player.getAbilities().creativeMode && this.getCursorStack().isEmpty()) {
+                Slot slot3 = this.slots.get(slotIndex);
+                if (slot3.hasStack()) {
+                    ItemStack itemStack2 = slot3.getStack();
+                    this.setCursorStack(itemStack2.copyWithCount(itemStack2.getMaxCount()));
+                }
+            //else, just act as normal
+            } else {
+                var copy = this.getCursorStack().copy();
+                copy.setCount(1);
+                this.inventory.setStack(slotIndex-1,copy);
+                Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
+            }
         } else super.onSlotClick(slotIndex, button, actionType, player);
         /*
         if (!(this.getSlot(slotIndex).inventory instanceof PlayerInventory) || slotIndex > 0 || slotIndex < 10  || (button == 0 || button == 1)) {

@@ -88,16 +88,7 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void setStack(int slot, ItemStack stack) {
         stack = stack.copy();
-        stack.setCount(1);
         this.inv.set(slot,stack);
-    }
-
-    public void setOutput(ItemStack stack){
-        this.inv.set(9,stack);
-    }
-
-    @Override
-    public void markDirty() {
     }
 
     @Override

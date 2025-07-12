@@ -11,7 +11,6 @@ public class GhostSlot extends Slot {
 
     @Override
     public void setStack(ItemStack stack) {
-        if (this.getStack() != ItemStack.EMPTY) return;
         if (!stack.isEmpty()) stack = stack.copy();
         stack.setCount(1);
         this.inventory.setStack(this.index,stack);
@@ -19,7 +18,6 @@ public class GhostSlot extends Slot {
 
     @Override
     public void onQuickTransfer(ItemStack newItem, ItemStack original) {
-        //super.onQuickTransfer(newItem, original);
     }
 
     @Override
