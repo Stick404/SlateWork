@@ -11,7 +11,7 @@ import java.util.Optional;
 public class GhostSlotOutput extends GhostSlot {
     ScreenHandler handler;
     public GhostSlotOutput(Inventory inventory, int index, int x, int y, ScreenHandler handler) {
-        super(inventory, index, x, y, null);
+        super(inventory, index, x, y);
         this.handler = handler;
     }
 

@@ -19,6 +19,7 @@ import static org.sophia.slate_work.Slate_work.GHOST_3X3_SCREEN;
 
 public class Ghost3x3ScreenHandler extends ScreenHandler {
     private final Inventory inventory;
+    private final World world;
 
     public Ghost3x3ScreenHandler(int syncId, PlayerInventory inventory, PlayerInventory playerInventory, Inventory blockEntity) {
         this(syncId, playerInventory, blockEntity);
@@ -33,13 +34,14 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
         super(GHOST_3X3_SCREEN, syncId);
         checkSize(inventory, 9);
         this.inventory = inventory;
+        this.world = playerInventory.player.getWorld();
         inventory.onOpen(playerInventory.player);
 
         this.addSlot(new GhostSlotOutput(inventory,9,138,32,this));
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                this.addSlot(new GhostSlot(inventory, j + i * 3, 62 + j * 18, 14 + i * 18,playerInventory.player.getWorld()));
+                this.addSlot(new GhostSlot(inventory, j + i * 3, 62 + j * 18, 14 + i * 18));
             }
         }
         for (int i = 0; i < 3; i++) {
@@ -50,6 +52,11 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
         for (int i = 0; i < 9; i++) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
         }
+    }
+
+    @Override
+    public void onContentChanged(Inventory inventory) {
+        Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
     }
 
     @Override
@@ -71,23 +78,27 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
     @Override
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
         if (actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP) return;
-        Ghost3x3ScreenHandler.updateRecipe(player.getWorld(),inventory);
+        //if (this.getSlot(slotIndex).getStack() != ItemStack.EMPTY && this.getCursorStack() != ItemStack.EMPTY) return;
+
         super.onSlotClick(slotIndex, button, actionType, player);
+        Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
     }
 
     public static void updateRecipe(World world, Inventory inventory){
-        var container = new CraftingInventory(new CraftingLoci.AutocraftingMenu(), 3, 3);
-        for (int i = 0; i < 9; i++){
-            container.setStack(i,inventory.getStack(i));
-        }
+        if (inventory instanceof IGhostCrafting ghostCrafting){
+            var container = new CraftingInventory(new CraftingLoci.AutocraftingMenu(), 3, 3);
+            for (int i = 0; i < 9; i++){
+                container.setStack(i,ghostCrafting.getStack(i));
+            }
 
-        var recipeOpt = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container ,world);
-        if (recipeOpt.isEmpty()){
-            inventory.setStack(9,ItemStack.EMPTY);
-            return;
-        }
+            var recipeOpt = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container ,world);
+            if (recipeOpt.isEmpty()){
+                ghostCrafting.setStack(9,ItemStack.EMPTY);
+                return;
+            }
 
-        var outputItem = recipeOpt.get().craft(container,world.getRegistryManager());
-        inventory.setStack(9,outputItem);
+            var outputItem = recipeOpt.get().craft(container,world.getRegistryManager());
+            ghostCrafting.setCraftSlot(outputItem);
+        }
     }
 }

@@ -17,10 +17,11 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
+import org.sophia.slate_work.GUI.IGhostCrafting;
 
 import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
 
-public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, Inventory {
+public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, IGhostCrafting {
     DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
 
     public CraftingLociEntity(BlockPos pos, BlockState state) {
@@ -91,6 +92,10 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         this.inv.set(slot,stack);
     }
 
+    public void setOutput(ItemStack stack){
+        this.inv.set(9,stack);
+    }
+
     @Override
     public void markDirty() {
     }
@@ -109,5 +114,10 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
+    }
+
+    @Override
+    public void setCraftSlot(ItemStack stack) {
+        this.inv.set(9,stack);
     }
 }

@@ -4,18 +4,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Optional;
-
 public class GhostSlot extends Slot {
-    public GhostSlot(Inventory inventory, int index, int x, int y, @Nullable World world) {
+    public GhostSlot(Inventory inventory, int index, int x, int y) {
         super(inventory, index, x, y);
     }
 
     @Override
     public void setStack(ItemStack stack) {
+        if (this.getStack() != ItemStack.EMPTY) return;
         if (!stack.isEmpty()) stack = stack.copy();
         stack.setCount(1);
         this.inventory.setStack(this.index,stack);
@@ -23,7 +19,7 @@ public class GhostSlot extends Slot {
 
     @Override
     public void onQuickTransfer(ItemStack newItem, ItemStack original) {
-        super.onQuickTransfer(newItem, original);
+        //super.onQuickTransfer(newItem, original);
     }
 
     @Override
@@ -45,7 +41,9 @@ public class GhostSlot extends Slot {
 
     @Override
     public ItemStack insertStack(ItemStack stack) {
-        this.inventory.setStack(this.index,stack);
+        var copy = stack.copy();
+        copy.setCount(1);
+        this.inventory.setStack(this.index,copy);
         return stack;
     }
 
@@ -58,5 +56,10 @@ public class GhostSlot extends Slot {
     @Override
     public boolean canTakePartial(PlayerEntity player) {
         return false;
+    }
+
+    @Override
+    public ItemStack takeStackRange(int min, int max, PlayerEntity player) {
+        return ItemStack.EMPTY;
     }
 }
