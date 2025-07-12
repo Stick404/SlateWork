@@ -77,11 +77,27 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
 
     @Override
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
-        if (actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP) return;
-        //if (this.getSlot(slotIndex).getStack() != ItemStack.EMPTY && this.getCursorStack() != ItemStack.EMPTY) return;
+        if ((actionType != SlotActionType.CLONE && actionType != SlotActionType.PICKUP) || button == -1) return;
+        //if ((this.getSlot(slotIndex).getStack() != ItemStack.EMPTY
+        //        && !(this.getSlot(slotIndex).inventory instanceof PlayerInventory))
+        //                && this.getCursorStack() != ItemStack.EMPTY) return;
 
-        super.onSlotClick(slotIndex, button, actionType, player);
-        Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
+        System.out.println(slotIndex);
+        if (slotIndex < 10 && slotIndex > 0){
+            var copy = this.getCursorStack().copy();
+            copy.setCount(1);
+            this.inventory.setStack(slotIndex-1,copy);
+            Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
+        } else super.onSlotClick(slotIndex, button, actionType, player);
+        /*
+        if (!(this.getSlot(slotIndex).inventory instanceof PlayerInventory) || slotIndex > 0 || slotIndex < 10  || (button == 0 || button == 1)) {
+            var copy = this.getCursorStack().copy();
+            copy.setCount(1);
+            this.inventory.setStack(slotIndex -2,copy);
+        } else {
+            super.onSlotClick(slotIndex, button, actionType, player);
+        }
+        */
     }
 
     public static void updateRecipe(World world, Inventory inventory){
