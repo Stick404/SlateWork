@@ -3,7 +3,7 @@
   * Look into Continuation Frames rather than a new Env 
   * Add Costs (for real)
   * Finish documentation
-* Crafting ???
+* Patterned Assemblers
   * Define a pattern either in GUI, or with Hex (via Item Types)
   * When the Media Wave runs over the Crafting ??? it tries to craft the items in the Storage Vessels into that
   * Pushes a true boolean to the stack if successful, or false if not
@@ -21,9 +21,11 @@
 * Finish the documentation for:
   * Storge Vessels
   * Ambit Extenders
+  * Patterned Assemblers
+  * Wave Regulator
 * Fix the Ambit Extender's media costs
 * Work on the Patterned Assembler more
-  * Make model and textures
+  * Finish hitboxes
   * Make the Set Recipe spell
   * Finish up the inv texture
-* Work on the Speed
+* MAKE THE BLOCKS DROP ITEMS

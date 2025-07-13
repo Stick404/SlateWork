@@ -18,6 +18,8 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.util.shape.VoxelShape
 import net.minecraft.world.BlockView
+import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota
+import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import org.sophia.slate_work.misc.CircleSpeedValue
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker
 import java.util.stream.Stream
@@ -80,7 +82,7 @@ class SpeedLoci : AbstractSlate {
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
                 pos, bs, image, env,
-                MishapNotEnoughArgs(1,0)
+                MishapSpellCircleNotEnoughArgs(1,0,pos!!)
             )
             return ControlFlow.Stop()
         }
@@ -89,7 +91,7 @@ class SpeedLoci : AbstractSlate {
         if (last !is DoubleIota) {
             this.fakeThrowMishap(
                 pos, bs, image, env,
-                MishapInvalidIota.ofType(last, 0,"vector")
+                MishapSpellCircleInvalidIota.ofType(last, 0,"vector",pos!!)
             )
             return ControlFlow.Stop()
         }
@@ -101,7 +103,7 @@ class SpeedLoci : AbstractSlate {
         if (!(abs(double - rounded) <= DoubleIota.TOLERANCE && rounded >= -1)) {
             this.fakeThrowMishap(
                 pos, bs, image, env,
-                MishapInvalidIota.of(last, 0,"int.positive")
+                MishapSpellCircleInvalidIota.of(last, 0,"int.positive", pos = pos!!)
             )
             return ControlFlow.Stop()
         }

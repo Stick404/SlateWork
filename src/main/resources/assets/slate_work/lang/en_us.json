@@ -25,6 +25,7 @@
   "slate_work.page.ambit_extender.ambit_extender_cont": "While this is not as strong as... $(l:https://forum.petra-k.at/viewtopic.php?t=136)other/$ methods of giving a $(l:greatwork/spellcircles)Spell Circles/$ more $(thing)Ambit/$, I do feel like Nature takes a kinder approach to my amalgamation of free will if I use this.$(br2)This does not come cheap however, the _media cost increases with the square of the total distance changed. So if I were to give this a (0,5,0) vector, it would grant the $(l:greatwork/spellcircles)Spell Circle/$ 5 extra blocks of $(thing)Ambit/$ above it, much like if I extended the slates 5 blocks up at the cost of 25 shards",
 
   "Mishaps:": "",
-  "hexcasting.mishap.circle.no_vessels_ran": "at %s did not find any activated Vessels",
-  "hexcasting.mishap.no_vessels_ran": "did not find any activated Vessels"
+  "hexcasting.mishap.circle.no_vessels_ran": "At %s did not find any activated Vessels",
+  "hexcasting.mishap.no_vessels_ran": "Did not find any activated Vessels",
+  "hexcasting.mishap.circle.media_costs": "At %s required more Media than what the impetus held"
 }
