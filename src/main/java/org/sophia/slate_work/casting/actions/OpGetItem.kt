@@ -29,7 +29,7 @@ object OpGetItem : SpellAction {
             throw MishapNoSpellCircle()
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
-            throw MishapNoJars()
+            throw MishapNoJars(null)
 
         val hexTemp = args.getList(0,argc)
 

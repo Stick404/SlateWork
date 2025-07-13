@@ -22,7 +22,7 @@ object OpStoreItem : SpellAction {
             throw MishapNoSpellCircle()
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
-            throw MishapNoJars()
+            throw MishapNoJars(null)
         val entity = args.getItemEntity(0, argc)
         env.assertEntityInRange(entity)
 

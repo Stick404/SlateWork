@@ -22,5 +22,9 @@
 
   "slate_work.entry.ambit_extenders": "Ambit Extenders",
   "slate_work.page.ambit_extender.ambit_extender": "The Ambit Extender is a fabulous answer to my $(thing)Ambit/$ woes when it comes to $(l:greatwork/spellcircles)Spell Circles/$. This pops a vector from the stack, and extends ambit in the direction (negative vectors extending the negative corner of Circle Ambit). $(br2)$(br2)$(o)With great range comes with great costs, err-",
-  "slate_work.page.ambit_extender.ambit_extender_cont": "While this is not as strong as... $(l:https://forum.petra-k.at/viewtopic.php?t=136)other/$ methods of giving a $(l:greatwork/spellcircles)Spell Circles/$ more $(thing)Ambit/$, I do feel like Nature takes a kinder approach to my amalgamation of free will if I use this.$(br2)This does not come cheap however, the _media cost increases with the square of the total distance changed. So if I were to give this a (0,5,0) vector, it would grant the $(l:greatwork/spellcircles)Spell Circle/$ 5 extra blocks of $(thing)Ambit/$ above it, much like if I extended the slates 5 blocks up at the cost of 25 shards"
+  "slate_work.page.ambit_extender.ambit_extender_cont": "While this is not as strong as... $(l:https://forum.petra-k.at/viewtopic.php?t=136)other/$ methods of giving a $(l:greatwork/spellcircles)Spell Circles/$ more $(thing)Ambit/$, I do feel like Nature takes a kinder approach to my amalgamation of free will if I use this.$(br2)This does not come cheap however, the _media cost increases with the square of the total distance changed. So if I were to give this a (0,5,0) vector, it would grant the $(l:greatwork/spellcircles)Spell Circle/$ 5 extra blocks of $(thing)Ambit/$ above it, much like if I extended the slates 5 blocks up at the cost of 25 shards",
+
+  "Mishaps:": "",
+  "hexcasting.mishap.circle.no_vessels_ran": "at %s did not find any activated Vessels",
+  "hexcasting.mishap.no_vessels_ran": "did not find any activated Vessels"
 }

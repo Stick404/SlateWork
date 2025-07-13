@@ -71,8 +71,6 @@ object CircleHelper {
         return false
     }
 
-    //TODO: make a quick helper function to get CircleSpeed
-
     fun List<Iota>.getItemVariant(idx: Int, argc: Int = 0): ItemVariant {
         val z = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
         if (z is IdentifierIota && Registries.ITEM.containsId(z.identifier)) {

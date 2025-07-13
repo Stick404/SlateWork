@@ -6,7 +6,6 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.BooleanIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.common.lib.HexSounds;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -46,7 +45,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
 
     @Override
     public Direction normalDir(BlockPos blockPos, BlockState blockState, World world, int i) {
-        return Direction.DOWN;
+        return Direction.UP;
     }
 
     @Override
@@ -55,12 +54,15 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
     }
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
-        return true;
+        return direction != Direction.UP && direction != Direction.DOWN;
     }
 
     @Override
     public EnumSet<Direction> possibleExitDirections(BlockPos blockPos, BlockState blockState, World world) {
-        return EnumSet.of(Direction.NORTH);
+        EnumSet<Direction> z = EnumSet.allOf(Direction.class);
+        z.remove(Direction.UP);
+        z.remove(Direction.DOWN);
+        return z;
     }
 
     @Override
@@ -70,13 +72,15 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
         if (entity instanceof CraftingLociEntity craftingLoci) {
             ArrayList<Iota> stack = new ArrayList<>(castingImage.getStack());
             ArrayList<Pair<BlockPos, Direction>> exits = new ArrayList<>();
-            exits.add(new Pair<>(blockPos.offset(direction), direction));
+            if (this.possibleExitDirections(blockPos,blockState,serverWorld).contains(direction)){
+                exits.add(new Pair<>(blockPos.offset(direction), direction));
+            }
 
             var storages = CircleHelper.INSTANCE.getLists(circleCastEnv);
             if (storages.isEmpty()) {
                 this.fakeThrowMishap(
                         blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapNoJars()
+                        new MishapNoJars(blockPos)
                 );
                 return new ControlFlow.Stop();
             }
