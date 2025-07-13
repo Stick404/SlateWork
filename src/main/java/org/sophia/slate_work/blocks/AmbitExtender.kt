@@ -25,7 +25,13 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 
-class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
+class AmbitExtender: BlockCircleComponent {
+
+    constructor(settings: Settings) : super(settings) {
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false))
+    }
+
+
     override fun acceptControlFlow(
         imageIn: CastingImage?, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
         bs: BlockState?, world: ServerWorld?,

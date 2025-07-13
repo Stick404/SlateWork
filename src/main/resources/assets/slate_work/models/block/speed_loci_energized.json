@@ -3,7 +3,8 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "slate_work:block/speed_loci"
+		"0": "slate_work:block/speed_loci_energized",
+		"particle": "hexcasting:block/slate"
 	},
 	"elements": [
 		{
@@ -16,7 +17,7 @@
 				"south": {"uv": [8, 0, 16, 2], "texture": "#0"},
 				"west": {"uv": [8, 2, 16, 4], "texture": "#0"},
 				"up": {"uv": [8, 8, 0, 0], "rotation": 180, "texture": "#0"},
-				"down": {"uv": [8, 8, 0, 16], "rotation": 180, "texture": "#0"}
+				"down": {"uv": [8, 8, 0, 16], "rotation": 180, "texture": "#0", "cullface": "down"}
 			}
 		}
 	],

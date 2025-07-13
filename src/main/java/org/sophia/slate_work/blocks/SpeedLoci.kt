@@ -8,17 +8,60 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import com.mojang.datafixers.util.Pair
+import net.minecraft.block.Block
+import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState
+import net.minecraft.block.ShapeContext
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.state.StateManager
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
+import net.minecraft.util.shape.VoxelShape
+import net.minecraft.world.BlockView
 import org.sophia.slate_work.misc.CircleSpeedValue
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker
 import java.util.stream.Stream
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
-class SpeedLoci(p_49795_: Settings) : AbstractSlate(p_49795_) {
+class SpeedLoci : AbstractSlate {
+
+    constructor(settings: Settings) : super(settings) {
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+    }
+
+    override fun appendProperties(builder: StateManager.Builder<Block?, BlockState?>?) {
+        super.appendProperties(builder)
+    }
+
+    override fun getRenderType(state: BlockState?): BlockRenderType? {
+        return BlockRenderType.MODEL;
+    }
+
+    override fun getOutlineShape(state: BlockState?, world: BlockView?, pos: BlockPos?, context: ShapeContext?): VoxelShape? {
+        return when(state?.get(FACING)){
+            Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
+            Direction.UP -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
+            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0);
+            Direction.SOUTH -> createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 4.0)
+            Direction.WEST -> createCuboidShape(16 - 4.0, 0.0, 0.0, 16.0, 16.0, 16.0)
+            Direction.EAST -> createCuboidShape(0.0, 0.0, 0.0, 4.0, 16.0, 16.0)
+            else -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
+        }
+    }
+
+    override fun getCullingShape(state: BlockState?, world: BlockView?, pos: BlockPos?): VoxelShape? {
+        return when(state?.get(FACING)){
+            Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
+            Direction.UP -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
+            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0);
+            Direction.SOUTH -> createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 4.0)
+            Direction.WEST -> createCuboidShape(16 - 4.0, 0.0, 0.0, 16.0, 16.0, 16.0)
+            Direction.EAST -> createCuboidShape(0.0, 0.0, 0.0, 4.0, 16.0, 16.0)
+            else -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
+        }
+    }
+
     override fun acceptControlFlow(
         image: CastingImage?,
         env: CircleCastEnv?,
