@@ -70,7 +70,6 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
 
             // Idk mate, this is what Hexal Does
             var container = new CraftingInventory(new AutocraftingMenu(), 3, 3);
-            var AAAAAA = craftingLoci.getInv();
             Map<ItemVariant, Integer> shoppingList = new HashMap<>();
             for (int i = 0; i < 9; i++) {
                 var temp = craftingLoci.getStack(i);
