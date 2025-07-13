@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -24,6 +25,9 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
@@ -41,6 +45,31 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
 
     public CraftingLoci(Settings p_49795_) {
         super(p_49795_);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.union(
+                // Foundation
+                createCuboidShape(0,0,0,16,2,2),
+                createCuboidShape(0,0,0,2,2,16),
+                createCuboidShape(14,0,0,16,2,16),
+                createCuboidShape(0,0,14,16,2,16),
+
+                // Vertical bars
+                createCuboidShape(7,0,0,9,14,2),
+                createCuboidShape(7,0,14,9,14,16),
+                createCuboidShape(0,0,7,2,14,9),
+                createCuboidShape(14,0,7,16,14,9),
+
+                // Center Cube + center bars
+                createCuboidShape(5,4,5,11,10,11),
+                createCuboidShape(0,6,7,16,8,9),
+                createCuboidShape(7,6,0,9,8,16),
+
+                // Top slate
+                createCuboidShape(0,12,0,16,14,16)
+        );
     }
 
     @Override

@@ -3,7 +3,8 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"2": "slate_work:block/storage_slate",
-		"3": "hexcasting:block/slate"
+		"3": "hexcasting:block/slate",
+		"particle": "hexcasting:block/slate"
 	},
 	"elements": [
 		{
