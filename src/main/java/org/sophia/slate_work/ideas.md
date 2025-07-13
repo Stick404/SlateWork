@@ -22,8 +22,8 @@
   * Storge Vessels
   * Ambit Extenders
 * Fix the Ambit Extender's media costs
-* work on the unfinished stuff (mostly the Crafting ???)
-
-For the Crafting ??? extend `LootableContainerBlockEntity` and use `Generic3x3ContainerScreenHandler`
-
-Also use the `ScreenHandlerListener` to update the crafting preview
+* Work on the Patterned Assembler more
+  * Make model and textures
+  * Make the Set Recipe spell
+  * Finish up the inv texture
+* Work on the Speed

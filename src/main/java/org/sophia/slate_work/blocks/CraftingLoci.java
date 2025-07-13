@@ -1,5 +1,6 @@
 package org.sophia.slate_work.blocks;
 
+import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
@@ -31,15 +32,35 @@ import org.sophia.slate_work.casting.mishap.MishapNoJars;
 import org.sophia.slate_work.misc.CircleHelper;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 import static at.petrak.hexcasting.common.lib.HexSounds.IMPETUS_REDSTONE_DING;
 
-public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
+public class CraftingLoci extends BlockCircleComponent implements BlockEntityProvider {
 
     public CraftingLoci(Settings p_49795_) {
         super(p_49795_);
+    }
+
+    @Override
+    public Direction normalDir(BlockPos blockPos, BlockState blockState, World world, int i) {
+        return Direction.DOWN;
+    }
+
+    @Override
+    public float particleHeight(BlockPos blockPos, BlockState blockState, World world) {
+        return 0;
+    }
+    @Override
+    public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
+        return true;
+    }
+
+    @Override
+    public EnumSet<Direction> possibleExitDirections(BlockPos blockPos, BlockState blockState, World world) {
+        return EnumSet.of(Direction.NORTH);
     }
 
     @Override

@@ -12,7 +12,8 @@ import net.minecraft.block.BlockState
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
-import org.sophia.slate_work.mixins.MixinCircleExec
+import org.sophia.slate_work.misc.CircleSpeedValue
+import org.sophia.slate_work.mixins.MixinCircleExecInvoker
 import java.util.stream.Stream
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -54,17 +55,20 @@ class SpeedLoci(p_49795_: Settings) : AbstractSlate(p_49795_) {
         // This chunk of code gets any positive Int
         // this does mean you could have a circle run a slate every 2147483647 ticks (or about 178 weeks)
         // sounds fine!
-        if (!(abs(double - rounded) <= DoubleIota.TOLERANCE && rounded >= 0)) {
+        if (!(abs(double - rounded) <= DoubleIota.TOLERANCE && rounded >= -1)) {
             this.fakeThrowMishap(
                 pos, bs, image, env,
                 MishapInvalidIota.of(last, 0,"int.positive")
             )
             return ControlFlow.Stop()
         }
-        // TODO: get the speed of the Wave (Via Acc Wid) and see if the setting speed would be quicker than what it can do
-        val speed: Int = (env!!.circleState() as MixinCircleExec).tickSpeed
-        println(speed)
-        data.putInt("set_speed",rounded)
+
+        (env!!.circleState() as CircleSpeedValue).`slate_work$getRealValue`()
+        val speed: Int = (env.circleState() as MixinCircleExecInvoker).`slate_work$getTickSpeed`()
+
+        if (rounded >= speed || rounded == 0) { // the `rounded == 0` will make the circle run at its normal speed
+            data.putInt("set_speed", rounded)
+        }
 
         return ControlFlow.Continue(image.copy(userData = data, stack = stack), exitDirs?.toList())
     }

@@ -2,6 +2,7 @@
   "block.slate_work.storage_slate": "Storage Vessels",
   "block.slate_work.ambit_extender": "Ambit Extender",
   "block.slate_work.crafting_slate": "Patterned Assembler",
+  "block.slate_work.speed_loci": "Wave Regulator",
 
   "Patterns:":"",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",

@@ -50,26 +50,28 @@ object CircleHelper {
         return returnList
     }
 
-    fun storeItems(env: CircleCastEnv, itemStack: ItemStack): Boolean{
+    fun storeItems(env: CircleCastEnv, itemStack: ItemStack): Boolean {
         val list = getStorage(env)
         val hashMap = getLists(list)
-        if (hashMap.contains(ItemVariant.of(itemStack.item,itemStack.nbt))) {
-            val slot = hashMap.get(ItemVariant.of(itemStack.item,itemStack.nbt))!!
+        if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.nbt))) {
+            val slot = hashMap.get(ItemVariant.of(itemStack.item, itemStack.nbt))!!
             val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
             val item = slot.storageLociEntity.getStack(targ)
             item.right += itemStack.count
             return true
         }
         // If its not a known item yet...
-        for (z in list){
+        for (z in list) {
             val x = z.isFull
             if (x != -1) {
-                z.setStack(x, ItemVariant.of(itemStack.item,itemStack.nbt),itemStack.count.toLong())
+                z.setStack(x, ItemVariant.of(itemStack.item, itemStack.nbt), itemStack.count.toLong())
                 return true
             }
         }
         return false
     }
+
+    //TODO: make a quick helper function to get CircleSpeed
 
     fun List<Iota>.getItemVariant(idx: Int, argc: Int = 0): ItemVariant {
         val z = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
