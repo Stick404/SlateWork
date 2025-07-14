@@ -45,6 +45,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
 
     public CraftingLoci(Settings p_49795_) {
         super(p_49795_);
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false));
     }
 
     @Override
@@ -79,7 +80,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
 
     @Override
     public float particleHeight(BlockPos blockPos, BlockState blockState, World world) {
-        return 0;
+        return 0.5f;
     }
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {

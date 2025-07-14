@@ -16,6 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
@@ -57,6 +58,11 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
+    }
+
+    @Override
+    public float particleHeight(BlockPos pos, BlockState bs, World world) {
+        return 0.25f;
     }
 
     @Override
