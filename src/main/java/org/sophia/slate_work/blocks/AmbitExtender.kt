@@ -85,9 +85,13 @@ class AmbitExtender: BlockCircleComponent {
             willPushNeg = willPushNeg.add(0,0,toPush.z)
         }
 
-        val posPushed = sqrt(willPushPos.getSquaredDistance(BlockPos(0,0,0)).absoluteValue)
-        val negPushed = sqrt(willPushNeg.getSquaredDistance(BlockPos(0, 0, 0)).absoluteValue)
-        val cost = ((posPushed + negPushed).pow(2).toLong() * MediaConstants.SHARD_UNIT)
+        val posPush = willPushPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPush = willPushNeg.getManhattanDistance(BlockPos(0, 0, 0)).absoluteValue
+
+        val posPushed = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPushed = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+
+        val cost = ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.SHARD_UNIT)
         val extracted = env?.extractMedia(cost,false)
         if (0L != extracted) {
             this.fakeThrowMishap(

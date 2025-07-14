@@ -22,10 +22,9 @@
   * Storge Vessels
   * Ambit Extenders
   * Patterned Assemblers
-  * Wave Regulator
-* Fix the Ambit Extender's media costs
+  * Wave Regulator (About done)
 * Work on the Patterned Assembler more
-  * Finish hitboxes
   * Make the Set Recipe spell
   * Finish up the inv texture
 * MAKE THE BLOCKS DROP ITEMS
+* Finish `FrameSearch`
