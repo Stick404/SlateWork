@@ -3,6 +3,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"2": "slate_work:block/storage_slate_energized",
+		"3": "slate_work:block/glow",
 		"4": "hexcasting:block/slate",
 		"particle": "hexcasting:block/slate"
 	},
@@ -58,6 +59,19 @@
 				"up": {"uv": [2, 8, 0, 6], "texture": "#2"},
 				"down": {"uv": [8, 0, 6, 2], "texture": "#2"}
 			}
+		},
+		{
+			"from": [13.5, 6.75, 13.5],
+			"to": [2.5, 4.25, 2.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+			"faces": {
+				"north": {"uv": [5, 6.75, 7, 7.5], "texture": "#3"},
+				"east": {"uv": [7, 6.75, 9, 7.5], "texture": "#3"},
+				"south": {"uv": [2, 7.5, 4, 8.25], "texture": "#3"},
+				"west": {"uv": [4, 7.5, 6, 8.25], "texture": "#3"},
+				"up": {"uv": [2, 8, 0, 6], "texture": "#3"},
+				"down": {"uv": [8, 0, 6, 2], "texture": "#3"}
+			}
 		}
 	],
 	"display": {
@@ -104,7 +118,7 @@
 			"name": "Root",
 			"origin": [8, 8, 8],
 			"color": 0,
-			"children": [0, 1, 2, 3]
+			"children": [0, 1, 2, 3, 4]
 		}
 	]
 }

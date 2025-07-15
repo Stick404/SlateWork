@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "energized=false": {
+      "model": "slate_work:block/crafting_slate"
+    },
+    "energized=true": {
+      "model": "slate_work:block/crafting_slate_energized"
+    }
+  }
+}

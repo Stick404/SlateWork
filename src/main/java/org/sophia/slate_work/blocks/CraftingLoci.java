@@ -1,14 +1,15 @@
 package org.sophia.slate_work.blocks;
 
+import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.BooleanIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.common.lib.HexSounds;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
@@ -24,6 +25,9 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
@@ -31,15 +35,64 @@ import org.sophia.slate_work.casting.mishap.MishapNoJars;
 import org.sophia.slate_work.misc.CircleHelper;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
 import static at.petrak.hexcasting.common.lib.HexSounds.IMPETUS_REDSTONE_DING;
 
-public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
+public class CraftingLoci extends BlockCircleComponent implements BlockEntityProvider {
 
     public CraftingLoci(Settings p_49795_) {
         super(p_49795_);
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false));
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return VoxelShapes.union(
+                // Foundation
+                createCuboidShape(0,0,0,16,2,2),
+                createCuboidShape(0,0,0,2,2,16),
+                createCuboidShape(14,0,0,16,2,16),
+                createCuboidShape(0,0,14,16,2,16),
+
+                // Vertical bars
+                createCuboidShape(7,0,0,9,14,2),
+                createCuboidShape(7,0,14,9,14,16),
+                createCuboidShape(0,0,7,2,14,9),
+                createCuboidShape(14,0,7,16,14,9),
+
+                // Center Cube + center bars
+                createCuboidShape(5,4,5,11,10,11),
+                createCuboidShape(0,6,7,16,8,9),
+                createCuboidShape(7,6,0,9,8,16),
+
+                // Top slate
+                createCuboidShape(0,12,0,16,14,16)
+        );
+    }
+
+    @Override
+    public Direction normalDir(BlockPos blockPos, BlockState blockState, World world, int i) {
+        return Direction.UP;
+    }
+
+    @Override
+    public float particleHeight(BlockPos blockPos, BlockState blockState, World world) {
+        return 0.5f;
+    }
+    @Override
+    public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
+        return direction != Direction.UP && direction != Direction.DOWN;
+    }
+
+    @Override
+    public EnumSet<Direction> possibleExitDirections(BlockPos blockPos, BlockState blockState, World world) {
+        EnumSet<Direction> z = EnumSet.allOf(Direction.class);
+        z.remove(Direction.UP);
+        z.remove(Direction.DOWN);
+        return z;
     }
 
     @Override
@@ -49,13 +102,15 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
         if (entity instanceof CraftingLociEntity craftingLoci) {
             ArrayList<Iota> stack = new ArrayList<>(castingImage.getStack());
             ArrayList<Pair<BlockPos, Direction>> exits = new ArrayList<>();
-            exits.add(new Pair<>(blockPos.offset(direction), direction));
+            if (this.possibleExitDirections(blockPos,blockState,serverWorld).contains(direction)){
+                exits.add(new Pair<>(blockPos.offset(direction), direction));
+            }
 
             var storages = CircleHelper.INSTANCE.getLists(circleCastEnv);
             if (storages.isEmpty()) {
                 this.fakeThrowMishap(
                         blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapNoJars()
+                        new MishapNoJars(blockPos)
                 );
                 return new ControlFlow.Stop();
             }
@@ -70,7 +125,6 @@ public class CraftingLoci extends AbstractSlate implements BlockEntityProvider {
 
             // Idk mate, this is what Hexal Does
             var container = new CraftingInventory(new AutocraftingMenu(), 3, 3);
-            var AAAAAA = craftingLoci.getInv();
             Map<ItemVariant, Integer> shoppingList = new HashMap<>();
             for (int i = 0; i < 9; i++) {
                 var temp = craftingLoci.getStack(i);

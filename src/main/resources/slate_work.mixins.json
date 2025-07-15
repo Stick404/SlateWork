@@ -1,9 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.sophia.slate_work.mixin",
+  "package": "org.sophia.slate_work.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinCircleExec",
+    "MixinCircleExecInvoker",
+    "MixinICircleComponent"
   ],
   "injectors": {
     "defaultRequire": 1

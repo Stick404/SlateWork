@@ -1,0 +1,21 @@
+{
+  "name": "slate_work.entry.wave_regulator",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:speed_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:speed_loci",
+      "anchor": "speed_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.speed_loci.speed_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.speed_loci.speed_loci_cont"
+    }
+  ]
+}

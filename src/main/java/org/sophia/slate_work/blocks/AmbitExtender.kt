@@ -6,9 +6,6 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
-import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
-import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughMedia
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.utils.putCompound
 import com.mojang.datafixers.util.Pair
@@ -18,6 +15,9 @@ import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Direction
 import net.minecraft.world.World
+import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota
+import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia
+import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import java.util.*
 import java.util.stream.Stream
 import kotlin.math.absoluteValue
@@ -25,7 +25,13 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 
-class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
+class AmbitExtender: BlockCircleComponent {
+
+    constructor(settings: Settings) : super(settings) {
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false))
+    }
+
+
     override fun acceptControlFlow(
         imageIn: CastingImage?, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
         bs: BlockState?, world: ServerWorld?,
@@ -41,7 +47,7 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
         if (stack.isEmpty()) { // Feels silly, but this is what Hex does
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
-                MishapNotEnoughArgs(1,0)
+                MishapSpellCircleNotEnoughArgs(1,0,pos!!)
             )
             return ControlFlow.Stop()
         }
@@ -50,7 +56,7 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
         if (last !is Vec3Iota) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
-                MishapInvalidIota.ofType(last, 0,"vector")
+                MishapSpellCircleInvalidIota.ofType(last, 0,"vector",pos!!)
             )
             return ControlFlow.Stop()
         }
@@ -79,14 +85,18 @@ class AmbitExtender(settings: Settings) : BlockCircleComponent(settings) {
             willPushNeg = willPushNeg.add(0,0,toPush.z)
         }
 
-        val posPushed = sqrt(willPushPos.getSquaredDistance(BlockPos(0,0,0)).absoluteValue)
-        val negPushed = sqrt(willPushNeg.getSquaredDistance(BlockPos(0, 0, 0)).absoluteValue)
-        val cost = ((posPushed + negPushed).pow(2).toLong() * MediaConstants.SHARD_UNIT)
+        val posPush = willPushPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPush = willPushNeg.getManhattanDistance(BlockPos(0, 0, 0)).absoluteValue
+
+        val posPushed = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPushed = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+
+        val cost = ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.SHARD_UNIT)
         val extracted = env?.extractMedia(cost,false)
         if (0L != extracted) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
-                MishapNotEnoughMedia(cost)
+                MishapSpellCircleMedia(cost,pos!!)
             )
             return ControlFlow.Stop()
         }
