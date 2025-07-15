@@ -9,6 +9,8 @@
   * Pushes a true boolean to the stack if successful, or false if not
 * Ambit Extenders
   * Pops a vector from the Stack, and extends the Ambit by that much
+* Vector Dirx
+  * Pops a vector from the Stack, and tries to move the Media Wave that way
 * Ambit Portals
   * Takes a pair of blocks that "point" to each other, and gives a small radius of ambit around the "output" portal (must be pointing back to the first one)
 * Circle Macros
@@ -23,8 +25,12 @@
   * Ambit Extenders
   * Patterned Assemblers
   * Wave Regulator (About done)
+  * Patterns
+    * Wave Position
+    * Wave Normal
+    * (Circle) Media Reflection
 * Work on the Patterned Assembler more
   * Make the Set Recipe spell
   * Finish up the inv texture
 * MAKE THE BLOCKS DROP ITEMS
-* Finish `FrameSearch`
+* Maybe finish `FrameSearch`

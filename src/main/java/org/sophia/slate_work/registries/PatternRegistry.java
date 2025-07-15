@@ -1,17 +1,18 @@
 package org.sophia.slate_work.registries;
 
+import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry;
+import at.petrak.hexcasting.api.casting.iota.DoubleIota;
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.lib.hex.HexActions;
+import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.apache.commons.codec.binary.Hex;
-import org.sophia.slate_work.casting.actions.OpContainsItem;
-import org.sophia.slate_work.casting.actions.OpGetItem;
-import org.sophia.slate_work.casting.actions.OpGetStorageLoci;
-import org.sophia.slate_work.casting.actions.OpStoreItem;
+import net.minecraft.util.math.Vec3d;
+import org.sophia.slate_work.casting.actions.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,6 +33,22 @@ public class PatternRegistry {
     public static final HexPattern GET_STORAGE = make("eaqwqaeqqdeewweedq",HexDir.SOUTH_WEST,"get_storage", OpGetStorageLoci.INSTANCE);
     public static final HexPattern GET_ITEM = make("eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq",HexDir.SOUTH_WEST,"get_item", OpGetItem.INSTANCE);
     public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq",HexDir.SOUTH_WEST,"check_item", OpContainsItem.INSTANCE);
+
+
+    // Got permission from Walks to add these to Slate Works
+    public static final HexPattern WAVE_POSITION = make("eaqwqaeqdd",HexDir.SOUTH_WEST,"wave_position",
+            new CircleReflection((env) -> new Vec3Iota(env.circleState().currentPos.toCenterPos())));
+    public static final HexPattern WAVE_NORMAL = make("eaqwqaeedd",HexDir.SOUTH_WEST,"wave_normal",
+            new CircleReflection(((env ->{
+                BlockState block = env.getWorld().getBlockState(env.circleState().currentPos);
+                if (block.getBlock() instanceof BlockCircleComponent slate) {
+                    var pos = slate.normalDir(env.circleState().currentPos,block,env.getWorld()).getVector();
+                    return new Vec3Iota(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
+                }
+                return new Vec3Iota(new Vec3d(0,0,0));
+            }))));
+    public static final HexPattern MEDIA_REFLECTION = make("eaqwqaeqdeed",HexDir.SOUTH_WEST,"media_reflection",
+            new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia())));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){
         PATTERNS.put(new Identifier(MOD_ID,name), new ActionRegistryEntry(HexPattern.fromAngles(sig,dir),spell));
