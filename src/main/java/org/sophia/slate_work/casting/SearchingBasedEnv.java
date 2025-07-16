@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.ParticleSpray;
 import at.petrak.hexcasting.api.casting.eval.CastResult;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.MishapEnvironment;
+import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect;
 import at.petrak.hexcasting.api.pigment.FrozenPigment;
 import net.minecraft.entity.LivingEntity;
@@ -15,13 +16,14 @@ import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.casting.mishap.SearchingMishapEnv;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class SearchingBasedEnv extends CastingEnvironment {
-    final CastingEnvironment parent;
+    final CircleCastEnv parent;
 
-    public SearchingBasedEnv(CastingEnvironment parentEnv) {
+    public SearchingBasedEnv(CircleCastEnv parentEnv) {
         super(parentEnv.getWorld());
         parent = parentEnv;
     }
@@ -78,7 +80,7 @@ public class SearchingBasedEnv extends CastingEnvironment {
 
     @Override
     public FrozenPigment getPigment() {
-        return FrozenPigment.DEFAULT.get();
+        return this.parent.getPigment();
     }
 
     @Override
@@ -88,6 +90,7 @@ public class SearchingBasedEnv extends CastingEnvironment {
 
     @Override
     public void produceParticles(ParticleSpray particleSpray, FrozenPigment frozenPigment) {
+        this.parent.produceParticles(particleSpray,frozenPigment);
     }
 
     @Override
@@ -103,6 +106,16 @@ public class SearchingBasedEnv extends CastingEnvironment {
                 if (msg != null) {
                     this.parent.printMessage(msg);
                 }
+                var list = new ArrayList<OperatorSideEffect>();
+                list.add(doMishap);
+
+                this.parent.postExecution(new CastResult(result.getCast(),
+                        result.getContinuation(),
+                        result.getNewData(),
+                        list,
+                        result.getResolutionType(),
+                        result.getSound()));
+                this.parent.circleState().endExecution(this.parent.getImpetus());
             }
         }
     }

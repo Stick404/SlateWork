@@ -17,7 +17,7 @@
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
 * D.C. al Coda
   * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
-
+* Use `FrameSearch` instead of Jank VM stuff
 
 ## TODO:
 * Finish the documentation for:
@@ -29,5 +29,3 @@
 * Work on the Patterned Assembler more
   * Finish up the inv texture
 * MAKE THE BLOCKS DROP ITEMS
-* Maybe finish `FrameSearch`
-

@@ -44,6 +44,7 @@ object OpGetItem : SpellAction {
         val tempStack = env.circleState().currentImage.stack.toMutableList()
         tempStack.removeLastOrNull() //Clear the args for the Spell
 
+        // Frankly, this *should* use `FrameSearch`, but I can not be assed to do it
         for (z in list) {
             val ctx = SearchingBasedEnv(env)
             val vm = CastingVM.empty(ctx)
@@ -57,6 +58,7 @@ object OpGetItem : SpellAction {
             vm.image = vm.image.copy(newStack, userData = data)
 
             vm.queueExecuteAndWrapIotas(hex, env.world)
+
             val realStack = vm.image.stack.reversed()
             if (realStack.getBool(0, 3)){
                 val amount = realStack.getInt(1,3)
@@ -81,13 +83,24 @@ object OpGetItem : SpellAction {
                 val vec = itemSlotTup.second
                 val amount = itemSlotTup.third
 
-                val summon = itemSlot.storageLociEntity.removeStack(
-                    itemSlot.storageLociEntity.getSlot(itemSlot.item)!!, amount)
+                val slot = itemSlot.storageLociEntity.getSlot(itemSlot.item)!!
+                val summon = itemSlot.storageLociEntity.removeStack(slot, amount)
+                val stack = ItemStack(summon.left.item, summon.right.toInt(), if (summon.left.nbt != null) Optional.of(
+                    summon.left.nbt as NbtCompound
+                ) else Optional.empty())
+
+                while (stack.count > 64){
+                    val copy = stack.copy()
+                    copy.count = 64
+                    env.world.spawnEntity(
+                    ItemEntity(
+                            env.world, vec.x, vec.y, vec.z, copy, 0.0, 0.0, 0.0)
+                    )
+                    stack.count -= 64
+                }
                 env.world.spawnEntity(
                     ItemEntity(
-                        env.world, vec.x, vec.y, vec.z,
-                        ItemStack(summon.left.item, summon.right.toInt(), Optional.of(summon.left.nbt as NbtCompound))
-                    )
+                        env.world, vec.x, vec.y, vec.z, stack, 0.0,0.0, 0.0)
                 )
             }
         }
