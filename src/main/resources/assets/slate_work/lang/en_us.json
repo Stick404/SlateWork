@@ -32,5 +32,7 @@
   "hexcasting.mishap.circle.no_vessels_ran": "At %s did not find any activated Vessels",
   "hexcasting.mishap.circle.media_costs": "At %s required more Media than what the impetus held",
 
-  "hexcasting.mishap.no_vessels_ran": "Did not find any activated Vessels"
+  "hexcasting.mishap.no_vessels_ran": "Did not find any activated Vessels",
+  "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",
+  "hexcasting.mishap.crafting_locus": "Required a Patterned Assembler at %s, but did not find one"
 }

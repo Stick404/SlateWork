@@ -17,7 +17,7 @@ class MishapNoJars(
 
     override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text {
         if (ctx is CircleCastEnv && pos != null)
-            return error("circle.no_vessels_ran", Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED),)
+            return error("circle.no_vessels_ran", Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
         return error("no_vessels_ran")
     }
 

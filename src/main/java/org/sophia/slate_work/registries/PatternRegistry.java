@@ -13,6 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.sophia.slate_work.casting.actions.*;
+import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -29,16 +30,16 @@ public class PatternRegistry {
     }
 
 
-    public static final HexPattern STORE_ITEM = make("eaqwqaeqwaeaeqqeaeaw",HexDir.SOUTH_WEST,"store_item", OpStoreItem.INSTANCE);
-    public static final HexPattern GET_STORAGE = make("eaqwqaeqqdeewweedq",HexDir.SOUTH_WEST,"get_storage", OpGetStorageLoci.INSTANCE);
-    public static final HexPattern GET_ITEM = make("eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq",HexDir.SOUTH_WEST,"get_item", OpGetItem.INSTANCE);
-    public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq",HexDir.SOUTH_WEST,"check_item", OpContainsItem.INSTANCE);
-
+    public static final HexPattern STORE_ITEM = make("eaqwqaeqwaeaeqqeaeaw", HexDir.SOUTH_WEST,"store_item", OpStoreItem.INSTANCE);
+    public static final HexPattern GET_STORAGE = make("eaqwqaeqqdeewweedq", HexDir.SOUTH_WEST,"get_storage", OpGetStorageLoci.INSTANCE);
+    public static final HexPattern GET_ITEM = make("eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq", HexDir.SOUTH_WEST,"get_item", OpGetItem.INSTANCE);
+    public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq", HexDir.SOUTH_WEST,"check_item", OpContainsItem.INSTANCE);
+    public static final HexPattern SET_CRAFT = make("qqqwqaeae", HexDir.SOUTH_WEST, "set_craft", OpSetCraftingLoci.INSTANCE);
 
     // Got permission from Walks to add these to Slate Works
-    public static final HexPattern WAVE_POSITION = make("eaqwqaeqdd",HexDir.SOUTH_WEST,"wave_position",
+    public static final HexPattern WAVE_POSITION = make("eaqwqaeqdd", HexDir.SOUTH_WEST,"wave_position",
             new CircleReflection((env) -> new Vec3Iota(env.circleState().currentPos.toCenterPos())));
-    public static final HexPattern WAVE_NORMAL = make("eaqwqaeedd",HexDir.SOUTH_WEST,"wave_normal",
+    public static final HexPattern WAVE_NORMAL = make("eaqwqaeedd", HexDir.SOUTH_WEST,"wave_normal",
             new CircleReflection(((env ->{
                 BlockState block = env.getWorld().getBlockState(env.circleState().currentPos);
                 if (block.getBlock() instanceof BlockCircleComponent slate) {
@@ -47,7 +48,9 @@ public class PatternRegistry {
                 }
                 return new Vec3Iota(new Vec3d(0,0,0));
             }))));
-    public static final HexPattern MEDIA_REFLECTION = make("eaqwqaeqdeed",HexDir.SOUTH_WEST,"media_reflection",
+    public static final HexPattern WAVE_SPEED = make("eaqwqaeqede", HexDir.SOUTH_WEST,"wave_speed",
+            new CircleReflection( env -> new DoubleIota(((MixinCircleExecInvoker) env.circleState()).slate_work$getTickSpeed())));
+    public static final HexPattern MEDIA_REFLECTION = make("eaqwqaeqdeed", HexDir.SOUTH_WEST,"media_reflection",
             new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia())));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){

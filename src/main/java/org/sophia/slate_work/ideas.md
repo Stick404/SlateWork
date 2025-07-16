@@ -25,12 +25,9 @@
   * Ambit Extenders
   * Patterned Assemblers
   * Wave Regulator (About done)
-  * Patterns
-    * Wave Position
-    * Wave Normal
-    * (Circle) Media Reflection
+  * Circle Reflections Spells
 * Work on the Patterned Assembler more
-  * Make the Set Recipe spell
   * Finish up the inv texture
 * MAKE THE BLOCKS DROP ITEMS
 * Maybe finish `FrameSearch`
+

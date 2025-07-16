@@ -12,8 +12,11 @@ import org.sophia.slate_work.casting.AmbitPushing;
 import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
 
+import java.util.logging.Logger;
+
 public class Slate_work implements ModInitializer {
     public static final String MOD_ID = "slate_work";
+    public static final Logger LOGGER = Logger.getLogger("Slate Works");
 
     public static ScreenHandlerType<Ghost3x3ScreenHandler> GHOST_3X3_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
             new Identifier(MOD_ID,"ghost3x3screen"),
