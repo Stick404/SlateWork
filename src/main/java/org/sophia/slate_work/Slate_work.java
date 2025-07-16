@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.casting.AmbitPushing;
 import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.FrameRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
 
 import java.util.logging.Logger;
@@ -26,6 +27,7 @@ public class Slate_work implements ModInitializer {
     public void onInitialize() {
         BlockRegistry.init();
         PatternRegistry.init();
+        FrameRegistry.init();
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new AmbitPushing(a)));
     }
