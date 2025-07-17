@@ -16,6 +16,10 @@
     {
       "type": "patchouli:text",
       "text": "slate_work.page.storage_loci_block.storage_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.storage_loci_block.dropping"
     }
   ]
 }
