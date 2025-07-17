@@ -39,9 +39,9 @@ public class PatternRegistry {
 
 
     // Got permission from Walks to add these to Slate Works
-    public static final HexPattern WAVE_POSITION = make("eaqwqaeqdd", HexDir.SOUTH_WEST,"wave_position",
+    public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST,"wave_position",
             new CircleReflection((env) -> new Vec3Iota(env.circleState().currentPos.toCenterPos())));
-    public static final HexPattern WAVE_NORMAL = make("eaqwqaeedd", HexDir.SOUTH_WEST,"wave_normal",
+    public static final HexPattern WAVE_NORMAL = make("eaqdaadqaeewa", HexDir.SOUTH_WEST,"wave_normal",
             new CircleReflection(((env ->{
                 BlockState block = env.getWorld().getBlockState(env.circleState().currentPos);
                 if (block.getBlock() instanceof BlockCircleComponent slate) {
@@ -50,9 +50,9 @@ public class PatternRegistry {
                 }
                 return new Vec3Iota(new Vec3d(0,0,0));
             }))));
-    public static final HexPattern WAVE_SPEED = make("eaqwqaeqede", HexDir.SOUTH_WEST,"wave_speed",
+    public static final HexPattern WAVE_SPEED = make("eaqdaadqaeewq", HexDir.SOUTH_WEST,"wave_speed",
             new CircleReflection( env -> new DoubleIota(((MixinCircleExecInvoker) env.circleState()).slate_work$getTickSpeed())));
-    public static final HexPattern MEDIA_REFLECTION = make("eaqwqaeqdeed", HexDir.SOUTH_WEST,"media_reflection",
+    public static final HexPattern MEDIA_REFLECTION = make("eaqdaadqae", HexDir.SOUTH_WEST,"media_reflection",
             new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia()/10000f)));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){
