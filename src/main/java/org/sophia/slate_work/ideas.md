@@ -1,13 +1,13 @@
 # Ideas!
-* Storage Vessel
+* Storage Vessel `DONE`
   * Look into Continuation Frames rather than a new Env 
   * Add Costs (for real)
   * Finish documentation
-* Patterned Assemblers
+* Patterned Assemblers `DONE`
   * Define a pattern either in GUI, or with Hex (via Item Types)
   * When the Media Wave runs over the Crafting ??? it tries to craft the items in the Storage Vessels into that
   * Pushes a true boolean to the stack if successful, or false if not
-* Ambit Extenders
+* Ambit Extenders `DONE`
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Vector Dirx
   * Pops a vector from the Stack, and tries to move the Media Wave that way
@@ -21,11 +21,9 @@
 
 ## TODO:
 * Finish the documentation for:
-  * Storge Vessels
-  * Ambit Extenders
+  * Storge Vessels (Blocks)
+  * Polish the Ambit Extender
   * Patterned Assemblers
-  * Wave Regulator (About done)
   * Circle Reflections Spells
 * Work on the Patterned Assembler more
   * Finish up the inv texture
-* MAKE THE BLOCKS DROP ITEMS

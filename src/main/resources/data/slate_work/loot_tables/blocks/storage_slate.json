@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "slate_work:storage_slate"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "slate_work:blocks/storage_slate"
+}

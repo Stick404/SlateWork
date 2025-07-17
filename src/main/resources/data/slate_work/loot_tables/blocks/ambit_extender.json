@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "slate_work:ambit_extender"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "slate_work:blocks/ambit_extender"
+}

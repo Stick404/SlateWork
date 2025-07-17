@@ -1,0 +1,15 @@
+{
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "slate_work:speed_loci"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "slate_work:blocks/speed_loci"
+}

@@ -6,7 +6,10 @@ import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Equipment;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +22,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
+import org.sophia.slate_work.registries.BlockRegistry;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
@@ -101,6 +105,22 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pPos, BlockState pState) {
         return new StorageLociEntity(pPos,pState);
+    }
+
+    @Override
+    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+        BlockEntity blockEntity = world.getBlockEntity(pos);
+        if (blockEntity instanceof StorageLociEntity storageLoci) {
+            if (!world.isClient && !storageLoci.isEmpty()) {
+                ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
+                blockEntity.setStackNbt(itemStack);
+                ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
+                itemEntity.setToDefaultPickupDelay();
+                world.spawnEntity(itemEntity);
+                world.setBlockState(pos,Blocks.AIR.getDefaultState());
+            }
+        }
+        super.onBreak(world, pos, state, player);
     }
 
     @Override

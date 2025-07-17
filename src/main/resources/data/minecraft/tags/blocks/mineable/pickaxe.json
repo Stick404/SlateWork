@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "slate_work:storage_slate",
+    "slate_work:crafting_slate",
+    "slate_work:ambit_extender",
+    "slate_work:speed_loci"
+  ]
+}
+

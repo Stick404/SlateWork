@@ -22,13 +22,13 @@ import java.util.HashMap;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class BlockRegistry {
-    private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE_TILES).strength(4f, 4f);
+    private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().strength(1.5F, 6.0F);
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Block> ITEM_REGISTRY = new HashMap<>();
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_slate", new StorageLoci(slateSetting));
-    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_slate", new CraftingLoci(slateSetting));
+    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_slate", new CraftingLoci(slateSetting.nonOpaque()));
     public static AmbitExtender AMBIT_EXTENDER = registerBlockItem("ambit_extender", new AmbitExtender(slateSetting));
     public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
 
