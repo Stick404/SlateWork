@@ -1,18 +1,18 @@
 {
-  "name": "slate_work.entry.vessels",
+  "name": "slate_work.entry.storage_loci",
   "category": "hexcasting:patterns",
-  "icon": "slate_work:storage_slate",
+  "icon": "slate_work:storage_loci",
   "sortnum": 11,
   "advancement": "hexcasting:enlightenment",
   "read_by_default": true,
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "slate_work.page.vessels.1"
+      "text": "slate_work.page.storage_loci.1"
     },
     {
       "type": "patchouli:text",
-      "text": "slate_work.page.vessels.2"
+      "text": "slate_work.page.storage_loci.2"
     },
     {
       "type": "hexcasting:pattern",
@@ -20,7 +20,7 @@
       "anchor": "slate_work:store_item",
       "input": "entity",
       "output": "",
-      "text": "slate_work.page.vessels.store_item"
+      "text": "slate_work.page.storage_loci.store_item"
     },
     {
       "type": "hexcasting:pattern",
@@ -28,7 +28,7 @@
       "anchor": "slate_work:get_storage",
       "input": "",
       "output": "[vecs]",
-      "text": "slate_work.page.vessels.get_storage"
+      "text": "slate_work.page.storage_loci.get_storage"
     },
     {
       "type": "hexcasting:pattern",
@@ -36,11 +36,11 @@
       "anchor": "slate_work:get_item",
       "input": "[patterns]",
       "output": "",
-      "text": "slate_work.page.vessels.get_item"
+      "text": "slate_work.page.storage_loci.get_item"
     },
     {
       "type": "patchouli:text",
-      "text": "slate_work.page.vessels.get_item_cont"
+      "text": "slate_work.page.storage_loci.get_item_cont"
     },
     {
       "type": "hexcasting:pattern",
@@ -48,7 +48,7 @@
       "anchor": "slate_work:check_item",
       "input": "[patterns]",
       "output": "bool",
-      "text": "slate_work.page.vessels.check_item"
+      "text": "slate_work.page.storage_loci.check_item"
     }
   ]
 }

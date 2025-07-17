@@ -11,7 +11,7 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.entity.ItemEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
-import org.sophia.slate_work.casting.mishap.MishapNoJars
+import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper
 
 object OpStoreItem : SpellAction {
@@ -22,7 +22,7 @@ object OpStoreItem : SpellAction {
             throw MishapNoSpellCircle()
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
-            throw MishapNoJars(null)
+            throw MishapNoStorageLoci(null)
         val entity = args.getItemEntity(0, argc)
         env.assertEntityInRange(entity)
 

@@ -10,7 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.sophia.slate_work.blocks.AmbitExtender;
+import org.sophia.slate_work.blocks.AmbitLoci;
 import org.sophia.slate_work.blocks.CraftingLoci;
 import org.sophia.slate_work.blocks.SpeedLoci;
 import org.sophia.slate_work.blocks.StorageLoci;
@@ -27,13 +27,13 @@ public class BlockRegistry {
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Block> ITEM_REGISTRY = new HashMap<>();
 
-    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_slate", new StorageLoci(slateSetting));
-    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_slate", new CraftingLoci(slateSetting.nonOpaque()));
-    public static AmbitExtender AMBIT_EXTENDER = registerBlockItem("ambit_extender", new AmbitExtender(slateSetting));
+    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(slateSetting));
+    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
+    public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(slateSetting));
     public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
 
 
-    public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_slate",
+    public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
             FabricBlockEntityTypeBuilder.create(StorageLociEntity::new,STORAGE_LOCI).build());
     public static BlockEntityType<CraftingLociEntity> CRAFTING_LOCI_ENTITY = registerBlockEntity("crafting_loci",
             FabricBlockEntityTypeBuilder.create(CraftingLociEntity::new,CRAFTING_LOCI).build());

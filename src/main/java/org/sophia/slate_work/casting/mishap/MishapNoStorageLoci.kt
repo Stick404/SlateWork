@@ -10,15 +10,15 @@ import net.minecraft.util.DyeColor
 import net.minecraft.util.Formatting
 import net.minecraft.util.math.BlockPos
 
-class MishapNoJars(
+class MishapNoStorageLoci(
     val pos: BlockPos?
 ) : Mishap() {
     override fun accentColor(ctx: CastingEnvironment, errorCtx: Context) = dyeColor(DyeColor.GRAY)
 
     override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text {
         if (ctx is CircleCastEnv && pos != null)
-            return error("circle.no_vessels_ran", Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
-        return error("no_vessels_ran")
+            return error("circle.no_storage_loci_ran", Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
+        return error("no_storage_loci_ran")
     }
 
     override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}

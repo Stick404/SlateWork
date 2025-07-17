@@ -1,21 +1,21 @@
 {
-  "name": "slate_work.entry.ambit_extenders",
+  "name": "slate_work.entry.ambit_loci",
   "category": "hexcasting:greatwork",
-  "icon": "slate_work:ambit_extender",
+  "icon": "slate_work:ambit_loci",
   "advancement": "hexcasting:enlightenment",
   "read_by_default": true,
   "sortnum": 11,
   "pages": [
     {
       "type": "patchouli:spotlight",
-      "item": "slate_work:ambit_extender",
-      "anchor": "ambit_extender",
+      "item": "slate_work:ambit_loci",
+      "anchor": "ambit_loci",
       "link_recipe": true,
-      "text": "slate_work.page.ambit_extender.ambit_extender"
+      "text": "slate_work.page.ambit_loci.ambit_loci"
     },
     {
       "type": "patchouli:text",
-      "text": "slate_work.page.ambit_extender.ambit_extender_cont"
+      "text": "slate_work.page.ambit_loci.ambit_loci"
     }
   ]
 }

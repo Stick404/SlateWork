@@ -31,7 +31,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
-import org.sophia.slate_work.casting.mishap.MishapNoJars;
+import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.misc.CircleHelper;
 
 import java.util.ArrayList;
@@ -110,7 +110,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             if (storages.isEmpty()) {
                 this.fakeThrowMishap(
                         blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapNoJars(blockPos)
+                        new MishapNoStorageLoci(blockPos)
                 );
                 return new ControlFlow.Stop();
             }

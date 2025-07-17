@@ -2,7 +2,7 @@
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"2": "slate_work:block/storage_slate",
+		"2": "slate_work:block/storage_loci",
 		"3": "hexcasting:block/slate",
 		"particle": "hexcasting:block/slate"
 	},

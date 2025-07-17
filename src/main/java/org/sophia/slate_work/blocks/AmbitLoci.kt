@@ -22,10 +22,9 @@ import java.util.*
 import java.util.stream.Stream
 import kotlin.math.absoluteValue
 import kotlin.math.pow
-import kotlin.math.sqrt
 
 
-class AmbitExtender: BlockCircleComponent {
+class AmbitLoci: BlockCircleComponent {
 
     constructor(settings: Settings) : super(settings) {
         this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false))

@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.casting.SearchingBasedEnv
-import org.sophia.slate_work.casting.mishap.MishapNoJars
+import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper
 import java.util.Optional
 
@@ -29,7 +29,7 @@ object OpGetItem : SpellAction {
             throw MishapNoSpellCircle()
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
-            throw MishapNoJars(null)
+            throw MishapNoStorageLoci(null)
 
         val hexTemp = args.getList(0,argc)
 

@@ -1,64 +1,64 @@
 {
   "variants": {
     "energized=false,facing=east": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false,
       "x": 90,
       "y": 90
     },
     "energized=false,facing=north": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false,
       "x": 90
     },
     "energized=false,facing=south": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false,
       "x": 270
     },
     "energized=false,facing=west": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false,
       "x": 90,
       "y": 270
     },
     "energized=false,facing=up": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false
     },
     "energized=false,facing=down": {
-      "model": "slate_work:block/storage_slate",
+      "model": "slate_work:block/storage_loci",
       "uvlock": false,
       "x": 180
     },
     "energized=true,facing=east": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false,
       "x": 90,
       "y": 90
     },
     "energized=true,facing=north": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false,
       "x": 90
     },
     "energized=true,facing=south": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false,
       "x": 270
     },
     "energized=true,facing=west": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false,
       "x": 90,
       "y": 270
     },
     "energized=true,facing=up": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false
     },
     "energized=true,facing=down": {
-      "model": "slate_work:block/storage_slate_energized",
+      "model": "slate_work:block/storage_loci_energized",
       "uvlock": false,
       "x": 180
     }
