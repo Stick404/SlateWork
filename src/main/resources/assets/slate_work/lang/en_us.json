@@ -10,6 +10,11 @@
   "hexcasting.action.slate_work:store_item": "Lay Item",
   "hexcasting.action.slate_work:get_item": "Reawaken Item",
 
+  "hexcasting.action.slate_work:wave_position": "Wave Location Rfln.",
+  "hexcasting.action.slate_work:wave_normal": "Wave Facing Rfln.",
+  "hexcasting.action.slate_work:wave_speed": "Wave Speed Rfln.",
+  "hexcasting.action.slate_work:media_reflection": "Circle Media Rfln.",
+
   "Entries:": "",
   "slate_work.entry.storage_loci": "Storage Vessels",
   "slate_work.page.storage_loci.1": "As wonderful as $(thing)Vessels/$ are for storage, they have an... opaque method of interaction. The main way of interaction is with _Hexes; more specifically, using a _Hex to describe what I wish to retrieve. Importantly, these all $(l:casting/mishaps2)mishap when not cast in a Spell Circle/$. $(br2)$(br)$(o)“Riddles,” I said. $(br)“Always preferable to no answer at all,” he responded.",
@@ -31,6 +36,12 @@
   "slate_work.entry.speed_loci": "Wave Regulators",
   "slate_work.page.speed_loci.speed_loci": "As I begin to explore the uses of the $(l:greatwork/spellcircles)Great Work/$, I find my self needing more control over these fascinating possibilities. So I have created the $(thing)Wave Regulator/$; what this does is it pops a number from the stack, and attempts to set the \"speed\" of the wave. More specifically, how many 20ths of a second the wave should wait before going to the next slate.",
   "slate_work.page.speed_loci.speed_loci_cont": "This system does have some limitations however. For one, it cannot set the speed to be faster than the wave could possibly move, doing nothing if I try to set the speed higher. Explained, it can only set the time to wait to any number above or equal the circles default acquired speed, or back to its regular speed. To do this, the $(thing)Wave Regulator/$ needs to pop a 0 from the stack, and it gives the $(l:greatwork/spellcircles)Spell Circle/$ full control of the $(thing)media wave/$ again.",
+
+  "slate_work.entry.slate_reflection": "Slate Reflections",
+  "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",
+  "slate_work.page.storage_loci.wave_normal": "Adds the current facing of the $(thing)Media Wave/$ to the top of the stack. If the current block does not have a facing, it returns a vector of [0,0,0].",
+  "slate_work.page.storage_loci.wave_speed": "Adds the current speed of the $(thing)Media Wave/$ to the top of the stack. This is measured in how many 20ths of a second the $(thing)Media Wave/$ waits until going to the next Slate.",
+  "slate_work.page.storage_loci.media_reflection": "Adds the current amount of _Media in the $(thing)Impetus/$ to the stack in units of dust.",
 
   "Mishaps:": "",
   "hexcasting.mishap.circle.no_storage_loci_ran": "At %s did not find any activated Vessels",

@@ -1,0 +1,42 @@
+{
+  "name": "slate_work.entry.slate_reflection",
+  "category": "hexcasting:patterns",
+  "icon": "hexcasting:impetus/empty",
+  "sortnum": 11,
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:wave_position",
+      "anchor": "slate_work:wave_position",
+      "input": "",
+      "output": "vector",
+      "text": "slate_work.page.storage_loci.wave_position"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:wave_normal",
+      "anchor": "slate_work:wave_normal",
+      "input": "",
+      "output": "vector",
+      "text": "slate_work.page.storage_loci.wave_normal"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:wave_speed",
+      "anchor": "slate_work:wave_speed",
+      "input": "",
+      "output": "number",
+      "text": "slate_work.page.storage_loci.wave_speed"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:media_reflection",
+      "anchor": "slate_work:media_reflection",
+      "input": "",
+      "output": "number",
+      "text": "slate_work.page.storage_loci.media_reflection"
+    }
+  ]
+}
