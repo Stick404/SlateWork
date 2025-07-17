@@ -90,7 +90,7 @@ class AmbitLoci: BlockCircleComponent {
         val posPushed = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
         val negPushed = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
 
-        val cost = ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.SHARD_UNIT)
+        val cost = ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.DUST_UNIT)
         val extracted = env?.extractMedia(cost,false)
         if (0L != extracted) {
             this.fakeThrowMishap(

@@ -5,11 +5,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "slate_work:ambit_extender"
+          "name": "slate_work:ambit_loci"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "slate_work:blocks/ambit_extender"
+  "random_sequence": "slate_work:blocks/ambit_loci"
 }

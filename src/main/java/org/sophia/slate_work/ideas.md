@@ -22,7 +22,6 @@
 ## TODO:
 * Finish the documentation for:
   * Storge Vessels (Blocks)
-  * Polish the Ambit Extender
   * Patterned Assemblers
   * Circle Reflections Spells
 * Work on the Patterned Assembler more

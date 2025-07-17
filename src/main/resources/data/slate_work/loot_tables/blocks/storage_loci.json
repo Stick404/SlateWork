@@ -5,11 +5,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "slate_work:crafting_slate"
+          "name": "slate_work:storage_loci"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "slate_work:blocks/crafting_slate"
+  "random_sequence": "slate_work:blocks/storage_loci"
 }

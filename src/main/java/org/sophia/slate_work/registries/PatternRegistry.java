@@ -51,7 +51,7 @@ public class PatternRegistry {
     public static final HexPattern WAVE_SPEED = make("eaqwqaeqede", HexDir.SOUTH_WEST,"wave_speed",
             new CircleReflection( env -> new DoubleIota(((MixinCircleExecInvoker) env.circleState()).slate_work$getTickSpeed())));
     public static final HexPattern MEDIA_REFLECTION = make("eaqwqaeqdeed", HexDir.SOUTH_WEST,"media_reflection",
-            new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia())));
+            new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia()/10000f)));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){
         PATTERNS.put(new Identifier(MOD_ID,name), new ActionRegistryEntry(HexPattern.fromAngles(sig,dir),spell));
