@@ -22,6 +22,6 @@
 ## TODO:
 * Finish the documentation for:
   * Patterned Assemblers
-  * Circle Reflections Spells
+* Add Recipes lmao
 * Work on the Patterned Assembler more
   * Finish up the inv texture

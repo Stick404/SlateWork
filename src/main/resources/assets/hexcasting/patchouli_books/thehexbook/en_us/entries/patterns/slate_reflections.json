@@ -1,7 +1,7 @@
 {
   "name": "slate_work.entry.slate_reflection",
   "category": "hexcasting:patterns",
-  "icon": "hexcasting:impetus/empty",
+  "icon": "hexcasting:impetus/look",
   "sortnum": 11,
   "advancement": "hexcasting:enlightenment",
   "read_by_default": true,

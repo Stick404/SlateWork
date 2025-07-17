@@ -16,7 +16,7 @@
   "hexcasting.action.slate_work:media_reflection": "Circle Media Rfln.",
 
   "Entries:": "",
-  "slate_work.entry.storage_loci": "Storage Vessels",
+  "slate_work.entry.storage_loci": "Vessels Patterns",
   "slate_work.page.storage_loci.1": "As wonderful as $(thing)Vessels/$ are for storage, they have an... opaque method of interaction. The main way of interaction is with _Hexes; more specifically, using a _Hex to describe what I wish to retrieve. Importantly, these all $(l:casting/mishaps2)mishap when not cast in a Spell Circle/$. $(br2)$(br)$(o)“Riddles,” I said. $(br)“Always preferable to no answer at all,” he responded.",
   "slate_work.page.storage_loci.2": "To elaborate more, $(thing)Vessels/$ respects Nature's silly rules regarding the \"Stack Limit\" by working around them. Rather than directly calling an item based on its name, I more-or-less supply a \"description;\" this is a _Hex that takes an $(l:patterns/scrying/item)Item Stack Iota/$, and needs to return a boolean. Also, all patterns to do with the retrieving of $(thing)Storage Vessels/$ take a copy of the Stack, and puts it onto the 'inner' stack (Much like $(l:patterns/meta#hexcasting:for_each)$(action)Thoth's Gambit/$).",
   "slate_work.page.storage_loci.get_storage": "This simply returns what $(thing)Vessels/$ the current $(l:greatwork/spellcircles)Spell Circle/$ has activated. I should likely use this to check if the $(l:greatwork/spellcircles)Spell Circle/$ has collected any $(thing)Vessels/$.",
@@ -25,6 +25,7 @@
   "slate_work.page.storage_loci.get_item_cont": "Further explained: this runs the given _Hex on every stored Item in the $(thing)Vessels/$. The _Hex must return either a False (omits the Vector, and Number when this is False), or True, Vector, and Number. The Vector corresponds to where to the position in the World to output the items (respecting ambit), and Number relates to how many of that type of item to retrieve.",
   "slate_work.page.storage_loci.check_item": "Check Item functions much like Reawaken Item; however, it only requires a Boolean from the ran Hex. If the Boolean is ever True, the spell ends, and returns True.",
 
+  "slate_work.entry.storage_loci_block": "Storage Vessels",
   "slate_work.page.storage_loci_block.storage_loci": "After $(o)FAR TOO LONG/$ of lugging my items in clunky, splintery, $(o)chests/$... I have discovered the perfect method of storage, $(thing)Storage Vessels/$. $(br)Despite my current state, I am still far too full of mental garbage to interface with the $(thing)Storage Vessels/$. However, $(l:greatwork/spellcircles)Spell Circles/$ are perfect for insertion and extraction of these new storage methods.",
   "slate_work.page.storage_loci_block.storage_loci_cont": "While $(thing)Storage Vessels/$ can only hold 16 \"types\" of items each (much like a single chest holding only 27 slots), they ignore the standard stack limit, holding a near-infinite amount of each slot! $(br2)Additionally, as a $(l:greatwork/spellcircles)Spell Circles/$ activates these with its high-density Media Wave, the $(l:greatwork/spellcircles)Circle/$ gains the ability to read and retrieve items from the $(thing)Storage Vessels/$ (stacking as more are activated). I have noted down the Spells for doing just that $(l:patterns/storage_loci)here/$.",
   "slate_work.page.storage_loci_block.dropping": "Important to note: when $(thing)Storage Vessels/$ are broken, they do not eject the items stored within. Instead, they carefully pack all of their items into the resulting broken block (much like a $(item)Shulker Box/$). $(br2)$(br2)$(o)\"Oh boy! Time to get my items!\"$(br)[sound of chest opening]$(br)[sound of chest closing]$(br)[sound of chest opening]$(br)[sound of chest closing]$(br)[sound of chest opening]$(br)[sound of chest closing]",
@@ -41,7 +42,7 @@
   "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",
   "slate_work.page.storage_loci.wave_normal": "Adds the current facing of the $(thing)Media Wave/$ to the top of the stack. If the current block does not have a facing, it returns a vector of [0,0,0].",
   "slate_work.page.storage_loci.wave_speed": "Adds the current speed of the $(thing)Media Wave/$ to the top of the stack. This is measured in how many 20ths of a second the $(thing)Media Wave/$ waits until going to the next Slate.",
-  "slate_work.page.storage_loci.media_reflection": "Adds the current amount of _Media in the $(thing)Impetus/$ to the stack in units of dust.",
+  "slate_work.page.storage_loci.media_reflection": "Adds the current amount of _Media in the $(thing)Impetus/$ to the stack, in units of dust.",
 
   "Mishaps:": "",
   "hexcasting.mishap.circle.no_storage_loci_ran": "At %s did not find any activated Vessels",
