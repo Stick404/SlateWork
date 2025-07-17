@@ -18,6 +18,7 @@ import net.minecraft.server.world.ServerWorld
 import org.sophia.slate_work.Slate_work.LOGGER
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
 
+@Suppress("UnstableApiUsage")
 object CircleHelper {
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
         val list: ArrayList<StorageLociEntity> = ArrayList()
@@ -87,8 +88,6 @@ object CircleHelper {
         throw MishapInvalidIota.ofType(z, if (argc == 0) idx else argc - (idx + 1), "entity")
     }
 
-    // Not meant to be used for anything besides quick shuffling items around
-    data class ItemSlotTemp(val item: ItemVariant, var count: Long)
     data class ItemSlot(val item: ItemVariant, var count: Long, val storageLociEntity: StorageLociEntity){
         fun save(): NbtCompound {
             val tempNBT = NbtCompound()

@@ -15,6 +15,7 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
+@SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends BlockEntity {
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
     private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
@@ -122,7 +123,7 @@ public class StorageLociEntity extends BlockEntity {
         }
         return new Pair<>(copy,pair.getRight());
     }
-
+    @SuppressWarnings(value = "UnstableApiUsage")
     public void setStack(int slot, ItemVariant stack, long amount) {
         this.slots[slot] = new Pair<>(stack, amount);
     }

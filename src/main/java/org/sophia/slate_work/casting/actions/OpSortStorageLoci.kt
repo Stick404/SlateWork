@@ -12,6 +12,7 @@ import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper.getStorage
 import java.util.HashMap
 
+@Suppress("UnstableApiUsage")
 object OpSortStorageLoci : ConstMediaAction{
     // In case the player fucks shit up, they can call this to quickly sort their vessels
     override val argc: Int
