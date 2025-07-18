@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -14,6 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -25,8 +28,15 @@ import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleReadableFocus;
 
 public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
+    public static final BooleanProperty FOCUS = BooleanProperty.of("focus"); // Sure, the Locus is an EYE
     public MacroLoci(Settings p_49795_) {
         super(p_49795_);
+        this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false));
+    }
+
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(FOCUS);
     }
 
     @Override
