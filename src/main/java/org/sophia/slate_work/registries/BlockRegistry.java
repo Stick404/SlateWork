@@ -1,5 +1,7 @@
 package org.sophia.slate_work.registries;
 
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -7,8 +9,12 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.sophia.slate_work.blocks.AmbitLoci;
 import org.sophia.slate_work.blocks.CraftingLoci;
@@ -19,10 +25,12 @@ import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
 import java.util.HashMap;
 
+import static net.minecraft.util.Rarity.UNCOMMON;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class BlockRegistry {
     private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().strength(1.5F, 6.0F);
+
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Block> ITEM_REGISTRY = new HashMap<>();
@@ -38,21 +46,25 @@ public class BlockRegistry {
     public static BlockEntityType<CraftingLociEntity> CRAFTING_LOCI_ENTITY = registerBlockEntity("crafting_loci",
             FabricBlockEntityTypeBuilder.create(CraftingLociEntity::new,CRAFTING_LOCI).build());
 
+    public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
+    public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
+            .icon(() -> new ItemStack(AMBIT_LOCI))
+            .displayName(Text.translatable("itemGroup.slate_work")).build();
+
     public static void init(){
         for (var e : BLOCK_REGISTRY.entrySet()){
             Registry.register(Registries.BLOCK, e.getKey(),e.getValue());
         }
 
         for (var e : ITEM_REGISTRY.entrySet()){
-            Registry.register(Registries.ITEM, e.getKey(), new BlockItem(e.getValue(), new Item.Settings()));
+            var item = new BlockItem(e.getValue(), new Item.Settings().rarity(UNCOMMON));
+            Registry.register(Registries.ITEM, e.getKey(), item);
+            ItemGroupEvents.modifyEntriesEvent(SLATE_WORK_GROUP_KEY).register(group -> group.add(item));
         }
+
+        Registry.register(Registries.ITEM_GROUP, SLATE_WORK_GROUP_KEY, SLATE_WORK_GROUP);
     }
 
-
-    private static <T extends Block> T registerBlock(String name, T block){
-        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
-        return block;
-    }
 
     private static <T extends Block> T registerBlockItem(String name, T block){
         BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
