@@ -35,7 +35,7 @@ public class PatternRegistry {
     public static final HexPattern GET_ITEM = make("eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq", HexDir.SOUTH_WEST,"get_item", OpGetItem.INSTANCE);
     public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq", HexDir.SOUTH_WEST,"check_item", OpContainsItem.INSTANCE);
     public static final HexPattern SORT_ITEMS = make("eaqwqaeqqwaeadaeawq",HexDir.SOUTH_WEST,"sort_items", OpSortStorageLoci.INSTANCE);
-    public static final HexPattern SET_CRAFT = make("qqqwqaeae", HexDir.WEST, "set_craft", OpSetCraftingLoci.INSTANCE);
+    public static final HexPattern SET_CRAFT = make("eaqwqaeqwaeadawwadaeaw", HexDir.SOUTH_WEST, "set_craft", OpSetCraftingLoci.INSTANCE);
 
 
     // Got permission from Walks to add these to Slate Works
