@@ -16,6 +16,11 @@
     {
       "type": "patchouli:text",
       "text": "slate_work.page.speed_loci.speed_loci_cont"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:speed_loci_craft",
+      "text": "slate_work.page.speed_loci.crafting"
     }
   ]
 }

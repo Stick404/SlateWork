@@ -16,6 +16,11 @@
     {
       "type": "patchouli:text",
       "text": "slate_work.page.ambit_loci.ambit_loci_cont"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:ambit_loci_craft",
+      "text": "slate_work.page.ambit_loci.crafting"
     }
   ]
 }
