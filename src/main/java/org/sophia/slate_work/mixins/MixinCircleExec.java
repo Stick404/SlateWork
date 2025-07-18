@@ -3,7 +3,7 @@ package org.sophia.slate_work.mixins;
 
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import org.sophia.slate_work.misc.CircleSpeedValue;
+import org.sophia.slate_work.misc.ICircleSpeedValue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -13,13 +13,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(CircleExecutionState.class)
-public abstract class MixinCircleExec implements CircleSpeedValue {
+public abstract class MixinCircleExec implements ICircleSpeedValue {
 
     @Shadow public CastingImage currentImage;
 
     @Unique protected boolean slate_work$realValue = false;
 
-    // Makes the next return of `CircleExecutionState#getTickSpeed` return its true speed
+    // Makes the nex return of `CircleExecutionState#getTickSpeed` return its true speed
     @Override
     public void slate_work$getRealValue() {
         slate_work$realValue = true;

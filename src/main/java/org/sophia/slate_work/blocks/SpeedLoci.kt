@@ -5,8 +5,6 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
-import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.Block
 import net.minecraft.block.BlockRenderType
@@ -20,7 +18,7 @@ import net.minecraft.util.shape.VoxelShape
 import net.minecraft.world.BlockView
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
-import org.sophia.slate_work.misc.CircleSpeedValue
+import org.sophia.slate_work.misc.ICircleSpeedValue
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker
 import java.util.stream.Stream
 import kotlin.math.abs
@@ -108,7 +106,7 @@ class SpeedLoci : AbstractSlate {
             return ControlFlow.Stop()
         }
 
-        (env!!.circleState() as CircleSpeedValue).`slate_work$getRealValue`()
+        (env!!.circleState() as ICircleSpeedValue).`slate_work$getRealValue`()
         val speed: Int = (env.circleState() as MixinCircleExecInvoker).`slate_work$getTickSpeed`()
 
         if (rounded >= speed || rounded == 0) { // the `rounded == 0` will make the circle run at its normal speed

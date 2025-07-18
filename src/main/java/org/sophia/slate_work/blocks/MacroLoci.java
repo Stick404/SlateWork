@@ -1,10 +1,9 @@
 package org.sophia.slate_work.blocks;
 
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
-import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.mishaps.Mishap;
+import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -42,12 +41,35 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
             ADIotaHolder holder = IXplatAbstractions.INSTANCE.findDataHolder(loci.getStack(0));
             if (holder == null){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                new MishapSpellCircleReadableFocus(blockPos));
+                    new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
-            macro.put("hex", holder.readIotaTag());
+            if (holder.readIota(serverWorld) == null){
+                this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
+                    new MishapSpellCircleReadableFocus(blockPos));
+                return new ControlFlow.Stop();
+            }
+            if (!(holder.readIota(serverWorld) instanceof ListIota)){
+                this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
+                        new MishapSpellCircleReadableFocus(blockPos));
+                return new ControlFlow.Stop();
+            }
+
+            macro.put("macro", holder.readIotaTag());
+            var pattern = loci.getPattern().serializeToNBT();
+            macro.put("pattern", pattern);
 
             var macros = data.getList("macros", NbtElement.COMPOUND_TYPE);
+            int i = 0;
+            for (var z : macros){
+                NbtCompound compound = (NbtCompound) z;
+                if (compound.get("pattern") == pattern){
+                    macros.remove(i);
+                    break;
+                }
+                i++;
+            }
+            macros.add(macro);
             data.put("macros", macros);
         }
         return new ControlFlow.Continue(

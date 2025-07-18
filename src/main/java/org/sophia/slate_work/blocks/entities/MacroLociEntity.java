@@ -26,6 +26,10 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         this.pattern = HexPattern.fromAngles("aaeaadawawa", HexDir.EAST);
     }
 
+    public HexPattern getPattern() {
+        return pattern;
+    }
+
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
