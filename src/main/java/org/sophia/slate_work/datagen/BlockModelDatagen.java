@@ -2,6 +2,7 @@ package org.sophia.slate_work.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
@@ -14,6 +15,7 @@ import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 
 public class BlockModelDatagen extends FabricModelProvider {
+
     public BlockModelDatagen(FabricDataOutput output) {
         super(output);
     }
@@ -25,34 +27,42 @@ public class BlockModelDatagen extends FabricModelProvider {
     );
 
     @Override
-    public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
-        var bsvEner = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"storage_loci_energized"));
-        var bsvNorm = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"storage_loci"));
+    public void generateBlockStateModels(BlockStateModelGenerator generator) {
 
-        var bsvRot1 = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
-        var bsvRot2 = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
-        var bsvRot3 = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180);
-        var bsvRot4 = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        registerEnergizedOnly("ambit_loci", BlockRegistry.AMBIT_LOCI, generator);
+        registerEnergizedFacing("storage_loci", BlockRegistry.STORAGE_LOCI, generator);
+        registerEnergizedFacing("");
+    }
 
-        var bsvRot5 = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R0);
-        var bsvRot6 = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90);
-        var bsvRot7 = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180);
-        var bsvRot8 = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270);
+    private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/"+name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/" + name + "_energized"));
+        var map = BlockStateVariantMap.create(ENERGIZED).register(true,bsvEnergized).register(false, bsvNormal);
 
-        BlockStateVariantMap mapEner = BlockStateVariantMap.create(ENERGIZED)
-                .register(false,bsvEner)
-                .register(true,bsvNorm);
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(map));
+    }
+
+    private static void registerEnergizedFacing(String name, Block block, BlockStateModelGenerator generator) {
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name + "_energized"));
+        var mapEnergy = BlockStateVariantMap.create(ENERGIZED).register(true, bsvEnergized).register(false, bsvNormal);
+
+        var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
+        var RotNorth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
+        var RotDown = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180);
+        var RotSouth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        var RotEast = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.X, VariantSettings.Rotation.R90);
+        var RotWest = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.X, VariantSettings.Rotation.R90);
+
         BlockStateVariantMap mapFac = BlockStateVariantMap.create(FACING)
-                .register(Direction.DOWN,bsvRot1)
-                .register(Direction.SOUTH,bsvRot2)
-                .register(Direction.UP,bsvRot3)
-                .register(Direction.NORTH,bsvRot4)
-                .register(Direction.EAST,bsvRot6)
-                .register(Direction.WEST,bsvRot7);
+                .register(Direction.UP, RotUp)
+                .register(Direction.NORTH, RotNorth)
+                .register(Direction.DOWN, RotDown)
+                .register(Direction.SOUTH, RotSouth)
+                .register(Direction.EAST, RotEast)
+                .register(Direction.WEST, RotWest);
 
-
-        blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(BlockRegistry.STORAGE_LOCI).coordinate(mapEner).coordinate(mapFac));
-        blockStateModelGenerator.registerParentedItemModel(BlockRegistry.STORAGE_LOCI,new Identifier(MOD_ID,"ambit_loci"));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(mapEnergy));
     }
 
     @Override
