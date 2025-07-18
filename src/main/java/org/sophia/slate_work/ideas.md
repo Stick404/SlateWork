@@ -21,9 +21,7 @@
 
 ## TODO:
 * Finish the documentation for:
-  * Patterned Assemblers
-    * Page for the block
-    * Page in storage_loci for the Set Recipe Spell
-* Add Recipes lmao
+  * Page in storage_loci for the Set Recipe Spell
+* Get real Media Costs
 * Work on the Patterned Assembler more
   * Finish up the inv texture

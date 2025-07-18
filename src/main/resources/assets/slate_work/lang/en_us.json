@@ -9,6 +9,7 @@
   "hexcasting.action.slate_work:check_item": "Check Item",
   "hexcasting.action.slate_work:store_item": "Lay Item",
   "hexcasting.action.slate_work:get_item": "Reawaken Item",
+  "hexcasting.action.slate_work:sort_items": "Reorient Items",
   "hexcasting.action.slate_work:set_craft": "Set Recipe",
 
   "hexcasting.action.slate_work:wave_position": "Wave Location Rfln.",
@@ -23,9 +24,11 @@
   "slate_work.page.storage_loci.get_storage": "This simply returns what $(thing)Vessels/$ the current $(l:greatwork/spellcircles)Spell Circle/$ has activated. I should likely use this to check if the $(l:greatwork/spellcircles)Spell Circle/$ has collected any $(thing)Vessels/$.",
   "slate_work.page.storage_loci.store_item": "It is much easier to store an item into a $(thing)Vessel/$ than to pull it out. This pattern simply takes an Item Entity, and neatly sorts it into the activated $(thing)Storage Vessels/$.",
   "slate_work.page.storage_loci.get_item": "This takes a _Hex and runs it on every $(l:patterns/scrying/item)Item Stack/$ stored. Once the _Hex is run, it requires a $(thing)Boolean/$, $(thing)Vector/$, and $(thing)Integer/$ left on the stack, in that order.",
-  "slate_work.page.storage_loci.get_item_cont": "Further explained: this runs the given _Hex on every stored Item in the $(thing)Vessels/$. The _Hex must return either a False (omits the Vector, and Number when this is False), or True, Vector, and Number. The Vector corresponds to where to the position in the World to output the items (respecting ambit), and Number relates to how many of that type of item to retrieve.",
+  "slate_work.page.storage_loci.get_item_cont": "Further explained: this runs the given _Hex on every stored Item in the $(thing)Vessels/$. The _Hex must return either a False (omits the Vector, and Number0, or True, Vector, and Number. The Vector corresponds to where to the position in the World to output the items (respecting ambit), and Number relates to how many of that type of item to retrieve.",
   "slate_work.page.storage_loci.check_item": "Check Item functions much like Reawaken Item; however, it only requires a Boolean from the ran Hex. If the Boolean is ever True, the spell ends, and returns True.",
-  "slate_work.page.storage_loci.set_craft": "Sets the crafting recipe of a Patterned Assembler. MAKE SURE SOPHIA ADDS MORE",
+  "slate_work.page.storage_loci.sort_items": "In some rare scenarios, $(thing)Vessels/$ can get jumbled up and have items of the same type spread across different Vessels. This is a neat spell to resort them at a cost; that cost being 5 $(l:items/amethyst)Charged Amethyst/$.",
+  "slate_work.page.storage_loci.set_craft": "Sets the crafting recipe of a $(l:greatwork/crafting_loci)Patterned Assembler/$. Takes a list of null, items, or item variants, and applies it to an $(l:greatwork/crafting_loci)Assembler/$.",
+  "slate_work.page.storage_loci.set_craft_cont": "AAAAAAAAAAAA",
 
   "slate_work.entry.storage_loci_block": "Storage Vessels",
   "slate_work.page.storage_loci_block.storage_loci": "After $(o)FAR TOO LONG/$ of lugging my items in clunky, splintery, $(o)chests/$... I have discovered the perfect method of storage, $(thing)Storage Vessels/$. $(br)Despite my current state, I am still far too full of mental garbage to interface with the $(thing)Storage Vessels/$. However, $(l:greatwork/spellcircles)Spell Circles/$ are perfect for insertion and extraction of these new storage methods.",
