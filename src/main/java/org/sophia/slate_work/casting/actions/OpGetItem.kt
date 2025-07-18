@@ -11,6 +11,7 @@ import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
+import at.petrak.hexcasting.api.misc.MediaConstants
 import miyucomics.hexpose.iotas.ItemStackIota
 import net.minecraft.entity.ItemEntity
 import net.minecraft.item.ItemStack
@@ -21,6 +22,7 @@ import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper
 import java.util.Optional
 
+@Suppress("UnstableApiUsage")
 object OpGetItem : SpellAction {
     override val argc = 1
 
@@ -71,7 +73,7 @@ object OpGetItem : SpellAction {
 
         return SpellAction.Result(
             Spell(foundSlots),
-            1L,
+            list.size*(MediaConstants.DUST_UNIT/4),
             listOf()
         )
     }

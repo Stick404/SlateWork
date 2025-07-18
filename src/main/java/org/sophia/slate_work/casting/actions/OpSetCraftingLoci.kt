@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getBlockPos
 import at.petrak.hexcasting.api.casting.getList
-import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
@@ -14,6 +13,7 @@ import org.sophia.slate_work.casting.mishap.MishapCraftingLocus
 import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.misc.CircleHelper.getItemVariant
 
+@Suppress("UnstableApiUsage")
 object OpSetCraftingLoci : ConstMediaAction{
     override val argc: Int
         get() = 2

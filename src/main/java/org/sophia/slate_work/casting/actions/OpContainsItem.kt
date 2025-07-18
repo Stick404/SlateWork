@@ -17,7 +17,7 @@ import miyucomics.hexpose.iotas.ItemStackIota
 import net.minecraft.nbt.NbtCompound
 import org.sophia.slate_work.casting.SearchingBasedEnv
 import org.sophia.slate_work.misc.CircleHelper
-
+@Suppress("UnstableApiUsage")
 object OpContainsItem : Action {
     override fun operate(env: CastingEnvironment, image: CastingImage, continuation: SpellContinuation): OperationResult {
         val stack = image.stack.toMutableList()

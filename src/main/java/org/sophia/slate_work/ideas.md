@@ -20,8 +20,6 @@
 * Use `FrameSearch` instead of Jank VM stuff
 
 ## TODO:
-* Finish the documentation for:
-  * Page in storage_loci for the Set Recipe Spell
-* Get real Media Costs
+* Make ~~Hex Pose~~ Hexpose required
 * Work on the Patterned Assembler more
-  * Finish up the inv texture
+  * Finish up the inv texture *maybe*
