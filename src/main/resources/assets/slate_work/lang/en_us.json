@@ -9,6 +9,7 @@
   "hexcasting.action.slate_work:check_item": "Check Item",
   "hexcasting.action.slate_work:store_item": "Lay Item",
   "hexcasting.action.slate_work:get_item": "Reawaken Item",
+  "hexcasting.action.slate_work:set_craft": "Set Recipe",
 
   "hexcasting.action.slate_work:wave_position": "Wave Location Rfln.",
   "hexcasting.action.slate_work:wave_normal": "Wave Facing Rfln.",
@@ -24,6 +25,7 @@
   "slate_work.page.storage_loci.get_item": "This takes a _Hex and runs it on every $(l:patterns/scrying/item)Item Stack/$ stored. Once the _Hex is run, it requires a $(thing)Boolean/$, $(thing)Vector/$, and $(thing)Integer/$ left on the stack, in that order.",
   "slate_work.page.storage_loci.get_item_cont": "Further explained: this runs the given _Hex on every stored Item in the $(thing)Vessels/$. The _Hex must return either a False (omits the Vector, and Number when this is False), or True, Vector, and Number. The Vector corresponds to where to the position in the World to output the items (respecting ambit), and Number relates to how many of that type of item to retrieve.",
   "slate_work.page.storage_loci.check_item": "Check Item functions much like Reawaken Item; however, it only requires a Boolean from the ran Hex. If the Boolean is ever True, the spell ends, and returns True.",
+  "slate_work.page.storage_loci.set_craft": "Sets the crafting recipe of a Patterned Assembler. MAKE SURE SOPHIA ADDS MORE",
 
   "slate_work.entry.storage_loci_block": "Storage Vessels",
   "slate_work.page.storage_loci_block.storage_loci": "After $(o)FAR TOO LONG/$ of lugging my items in clunky, splintery, $(o)chests/$... I have discovered the perfect method of storage, $(thing)Storage Vessels/$. $(br)Despite my current state, I am still far too full of mental garbage to interface with the $(thing)Storage Vessels/$. However, $(l:greatwork/spellcircles)Spell Circles/$ are perfect for insertion and extraction of these new storage methods.",
@@ -37,6 +39,11 @@
   "slate_work.entry.speed_loci": "Wave Regulators",
   "slate_work.page.speed_loci.speed_loci": "As I begin to explore the uses of the $(l:greatwork/spellcircles)Great Work/$, I find my self needing more control over these fascinating possibilities. So I have created the $(thing)Wave Regulator/$; what this does is it pops a number from the stack, and attempts to set the \"speed\" of the wave. More specifically, how many 20ths of a second the wave should wait before going to the next slate.",
   "slate_work.page.speed_loci.speed_loci_cont": "This system does have some limitations however. For one, it cannot set the speed to be faster than the wave could possibly move, doing nothing if I try to set the speed higher. Explained, it can only set the time to wait to any number above or equal the circles default acquired speed, or back to its regular speed. To do this, the $(thing)Wave Regulator/$ needs to pop a 0 from the stack, and it gives the $(l:greatwork/spellcircles)Spell Circle/$ full control of the $(thing)media wave/$ again.",
+
+  "slate_work.entry.crafting_loci": "Patterned Assemblers",
+  "slate_work.page.crafting_loci.crafting_loci": "Oh how my hands $(o)Ache/$ and $(o)Buzz/$ from countless hours of slaving over a $(item)Crafting Table/$... luckily these days are over. The $(thing)Patterned Assembler/$ solves these pains and problems. $(br2)$(o)Items ever deeper in items, I cant stop crafting, I cant stop looking; more items must be crafted and automated. $(b)NOW/$.",
+  "slate_work.page.crafting_loci.crafting_loci_cont": "Precisely what the $(thing)Patterned Assembler/$ does is it attempts to craft whatever item is set within, pulling from activated $(l:greatwork/spellcircles)Storage Vessels/$, and placing the resulting item(s) back into the Vessels. This is triggered when the $(thing)Assembler/$ is activated with a $(l:greatwork/spellcircles)Spell Circle/$. The recipe can be set by hand, or via a $(l:patterns/storage_loci#slate_work:set_craft)Spell/$. If it can craft the inscribed item, it returns a True to the stack and crafts the item, else it does not craft the item (not enough ingredients, no recipe, etc) and returns a False.",
+  "slate_work.page.crafting_loci.crafting_loci_crafting": "The Patterned Assembler requires the mind of a villager well adapted to paging through tomes and texts; it seems like the $(thing)Librarian/$ is perfect for this.",
 
   "slate_work.entry.slate_reflection": "Slate Reflections",
   "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",

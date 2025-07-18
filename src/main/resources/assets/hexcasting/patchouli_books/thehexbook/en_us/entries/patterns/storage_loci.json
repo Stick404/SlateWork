@@ -49,6 +49,14 @@
       "input": "[patterns]",
       "output": "bool",
       "text": "slate_work.page.storage_loci.check_item"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:set_craft",
+      "anchor": "slate_work:set_craft",
+      "input": "[item|item identifier|null]",
+      "output": "",
+      "text": "slate_work.page.storage_loci.set_craft"
     }
   ]
 }

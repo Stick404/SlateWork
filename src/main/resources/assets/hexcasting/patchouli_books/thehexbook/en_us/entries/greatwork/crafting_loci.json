@@ -1,0 +1,21 @@
+{
+  "name": "slate_work.entry.crafting_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:crafting_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:crafting_loci",
+      "anchor": "crafting_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.crafting_loci.crafting_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.crafting_loci.crafting_loci_cont"
+    }
+  ]
+}

@@ -16,7 +16,7 @@ public class Slate_workClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         HandledScreens.register(Slate_work.GHOST_3X3_SCREEN, Ghost3x3Screen::new);
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.STORAGE_LOCI, RenderLayer.getTranslucent());
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.CRAFTING_LOCI, RenderLayer.getTranslucent());
+        //BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.STORAGE_LOCI, RenderLayer.getCutout());
+        //BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.CRAFTING_LOCI, RenderLayer.getCutout());
     }
 }
