@@ -62,6 +62,7 @@
   "Mishaps:": "",
   "hexcasting.mishap.circle.no_storage_loci_ran": "At %s did not find any activated Vessels",
   "hexcasting.mishap.circle.media_costs": "At %s required more Media than what the impetus held",
+  "hexcasting.mishap.circle.readable": "At %s required a readable Focus, but got nothing",
 
   "hexcasting.mishap.no_storage_loci_ran": "Did not find any activated Vessels",
   "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",

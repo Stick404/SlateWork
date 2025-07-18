@@ -16,11 +16,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import org.sophia.slate_work.blocks.AmbitLoci;
-import org.sophia.slate_work.blocks.CraftingLoci;
-import org.sophia.slate_work.blocks.SpeedLoci;
-import org.sophia.slate_work.blocks.StorageLoci;
+import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
+import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
 import java.util.HashMap;
@@ -39,12 +37,15 @@ public class BlockRegistry {
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
     public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(slateSetting));
     public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
+    public static MacroLoci MACRO_LOCI = registerBlockItem("macro_loci", new MacroLoci(slateSetting));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
-            FabricBlockEntityTypeBuilder.create(StorageLociEntity::new,STORAGE_LOCI).build());
+            FabricBlockEntityTypeBuilder.create(StorageLociEntity::new, STORAGE_LOCI).build());
     public static BlockEntityType<CraftingLociEntity> CRAFTING_LOCI_ENTITY = registerBlockEntity("crafting_loci",
-            FabricBlockEntityTypeBuilder.create(CraftingLociEntity::new,CRAFTING_LOCI).build());
+            FabricBlockEntityTypeBuilder.create(CraftingLociEntity::new, CRAFTING_LOCI).build());
+    public static BlockEntityType<MacroLociEntity> MACRO_LOCI_ENTITY = registerBlockEntity("macro_loci",
+            FabricBlockEntityTypeBuilder.create(MacroLociEntity::new, MACRO_LOCI).build());
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()

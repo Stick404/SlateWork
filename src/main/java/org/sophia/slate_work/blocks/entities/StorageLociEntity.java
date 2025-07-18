@@ -102,7 +102,7 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot].setRight(this.slots[slot].getRight() - amount);
             returned = amount;
         }
-
+        this.markDirty();
         return new Pair<>(copy,returned);
     }
 
@@ -121,14 +121,17 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot] = emptySlot;
             return emptySlot;
         }
+        this.markDirty();
         return new Pair<>(copy,pair.getRight());
     }
     @SuppressWarnings(value = "UnstableApiUsage")
     public void setStack(int slot, ItemVariant stack, long amount) {
         this.slots[slot] = new Pair<>(stack, amount);
+        this.markDirty();
     }
 
     public void clear() {
         this.slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
+        this.markDirty();
     }
 }
