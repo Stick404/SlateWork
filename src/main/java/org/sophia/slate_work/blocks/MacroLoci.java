@@ -31,7 +31,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     public static final BooleanProperty FOCUS = BooleanProperty.of("focus"); // Sure, the Locus is an EYE
     public MacroLoci(Settings p_49795_) {
         super(p_49795_);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false).with(ENERGIZED, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -109,6 +109,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                 ItemStack stack = player.getStackInHand(hand);
                 if (loci.isValid(0,stack)){ // And the item is valid...
                     loci.setStack(0,stack.copy()); // Set the stack of the Loci
+                    world.setBlockState(pos,state.with(FOCUS,true));
                     player.setStackInHand(hand,ItemStack.EMPTY); // and clear the player's hand
                     loci.markDirty();
                 }
@@ -118,8 +119,11 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
 
                 if (loci.isValid(0,held)){ // If the item is valid...
                     loci.setStack(0,held); // Set the stack of the Loci
+                    world.setBlockState(pos,state.with(FOCUS,true));
                     player.setStackInHand(hand,ItemStack.EMPTY); // and clear the player's hand
                     loci.markDirty();
+                } else {
+                    world.setBlockState(pos,state.with(FOCUS,false));
                 }
                 if (!player.getInventory().insertStack(installed)){ // If we *can't* put the old stack back into the player's Inv
                     player.dropItem(installed,false); // Then drop the item

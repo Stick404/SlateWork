@@ -20,18 +20,14 @@ public class BlockModelDatagen extends FabricModelProvider {
         super(output);
     }
 
-    public static final Model ERNERGIZED = new Model(
-            Optional.empty(),
-            Optional.of("energized"),
-            TextureKey.TEXTURE
-    );
-
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
 
         registerEnergizedOnly("ambit_loci", BlockRegistry.AMBIT_LOCI, generator);
+        registerEnergizedOnly("crafting_loci", BlockRegistry.CRAFTING_LOCI, generator);
         registerEnergizedFacing("storage_loci", BlockRegistry.STORAGE_LOCI, generator);
-        registerEnergizedFacing("");
+        registerEnergizedFacing("speed_loci", BlockRegistry.SPEED_LOCI, generator);
+        registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
@@ -62,7 +58,7 @@ public class BlockModelDatagen extends FabricModelProvider {
                 .register(Direction.EAST, RotEast)
                 .register(Direction.WEST, RotWest);
 
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(mapEnergy));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(mapEnergy).coordinate(mapFac));
     }
 
     @Override
