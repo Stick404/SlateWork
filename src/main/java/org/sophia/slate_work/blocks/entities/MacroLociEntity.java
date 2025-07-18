@@ -11,7 +11,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.registries.BlockRegistry;
 
 public class MacroLociEntity extends BlockEntity implements Inventory {
@@ -94,6 +97,13 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return false;
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        var compound = new NbtCompound();
+        this.writeNbt(compound);
+        return compound;
     }
 
     @Override

@@ -4,10 +4,12 @@ import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
+import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,13 +24,35 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleReadableFocus;
 
+import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
+import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_NORTH_WALL;
+import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_SOUTH_WALL;
+import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_WEST_WALL;
+
 public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
-    public static final BooleanProperty FOCUS = BooleanProperty.of("focus"); // Sure, the Locus is an EYE
+
+    private static final VoxelShape DOWN_AB = VoxelShapes.union(AABB_FLOOR,
+            BlockSlate.createCuboidShape(2,1,2,14,4,14));
+    private static final VoxelShape UP_AB = VoxelShapes.union(AABB_CEILING,
+            BlockSlate.createCuboidShape(2,12,2,14,15,14));
+    private static final VoxelShape EAST_AB = VoxelShapes.union(AABB_EAST_WALL,
+            BlockSlate.createCuboidShape(1,2,2,4,14,14));
+    private static final VoxelShape WEST_AB = VoxelShapes.union(AABB_WEST_WALL,
+            BlockSlate.createCuboidShape(12,2,2,15,14,14));
+    private static final VoxelShape NORTH_AB = VoxelShapes.union(AABB_NORTH_WALL,
+            BlockSlate.createCuboidShape(2,2,12,14,14,15));
+    private static final VoxelShape SOUTH_AB = VoxelShapes.union(AABB_SOUTH_WALL,
+            BlockSlate.createCuboidShape(2,2,1,14,14,4));
+
+    public static final BooleanProperty FOCUS = BooleanProperty.of("focus");
     public MacroLoci(Settings p_49795_) {
         super(p_49795_);
         this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false).with(ENERGIZED, false));
@@ -37,6 +61,18 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(FOCUS);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
+        return switch (pState.get(FACING)){
+            case NORTH -> NORTH_AB;
+            case SOUTH -> SOUTH_AB;
+            case WEST -> WEST_AB;
+            case EAST -> EAST_AB;
+            case UP -> DOWN_AB;
+            case DOWN -> UP_AB;
+        };
     }
 
     @Override
