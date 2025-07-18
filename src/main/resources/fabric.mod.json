@@ -11,7 +11,7 @@
   "environment": "*",
   "entrypoints": {
     "fabric-datagen": [
-      "org.sophia.slate_work.client.Slate_workDataGenerator"
+      "org.sophia.slate_work.datagen.SlateWorkDatagen"
     ],
     "client": [
       "org.sophia.slate_work.client.Slate_workClient"
