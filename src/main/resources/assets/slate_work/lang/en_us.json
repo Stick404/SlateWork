@@ -5,6 +5,7 @@
   "block.slate_work.ambit_loci": "Ambit Extender",
   "block.slate_work.crafting_loci": "Patterned Assembler",
   "block.slate_work.speed_loci": "Wave Regulator",
+  "block.slate_work.macro_loci": "Spell Imprinter",
 
   "Patterns:":"",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",
