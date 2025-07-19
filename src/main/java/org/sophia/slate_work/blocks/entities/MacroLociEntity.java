@@ -1,8 +1,10 @@
 package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
+import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
+import at.petrak.hexcasting.common.items.storage.ItemFocus;
 import at.petrak.hexcasting.common.lib.HexItems;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.BlockState;
@@ -11,8 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.registries.BlockRegistry;
@@ -39,6 +40,15 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         // The Slot
         this.theSlot = ItemStack.fromNbt(nbt.getCompound("the_slot"));
         this.pattern = HexPattern.fromNBT(nbt.getCompound("pattern"));
+    }
+
+    public @Nullable Text getDisplay(){
+        if (theSlot.getItem() instanceof ItemFocus item){
+            if (item.readIotaTag(theSlot) != null) {
+                return IotaType.getDisplay(item.readIotaTag(theSlot));
+            }
+        }
+        return Text.of("");
     }
 
     @Override

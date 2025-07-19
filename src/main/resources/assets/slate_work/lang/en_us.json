@@ -67,5 +67,9 @@
 
   "hexcasting.mishap.no_storage_loci_ran": "Did not find any activated Vessels",
   "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",
-  "hexcasting.mishap.crafting_locus": "Required a Patterned Assembler at %s, but did not find one"
+  "hexcasting.mishap.crafting_locus": "Required a Patterned Assembler at %s, but did not find one",
+
+  "Scrying Lenses:": "",
+  "slate_work.scrying.macro.top": "Pattern: ",
+  "slate_work.scrying.macro.error": "Could not display Iota(s)"
 }

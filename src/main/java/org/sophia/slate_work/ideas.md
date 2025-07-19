@@ -25,5 +25,6 @@
 
 ## TODO:
 * Make ~~Hex Pose~~ Hexpose required
+* Make an Energized model for the Spell Imprinter
 * Work on the Patterned Assembler more
   * Finish up the inv texture *maybe*
