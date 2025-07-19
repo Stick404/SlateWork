@@ -125,15 +125,15 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         var entity = world.getBlockEntity(pos);
-        if (entity instanceof MacroLociEntity loci){
+        if (entity instanceof MacroLociEntity loci && newState.isAir()){
             if (!loci.getStack(0).isEmpty()){
                 world.spawnEntity(new ItemEntity(world,
                         pos.getX(), pos.getY(),  pos.getZ(), loci.getStack(0)));
             }
         }
-        super.onBreak(world, pos, state, player);
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     // Code mostly gotten from the amazing Sam

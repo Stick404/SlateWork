@@ -7,7 +7,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtElement;
@@ -108,9 +107,9 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     }
 
     @Override
-    public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StorageLociEntity storageLoci) {
+        if (blockEntity instanceof StorageLociEntity storageLoci && newState.isAir()) {
             if (!world.isClient && !storageLoci.isEmpty()) {
                 ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
                 blockEntity.setStackNbt(itemStack);
@@ -120,7 +119,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
                 world.setBlockState(pos,Blocks.AIR.getDefaultState());
             }
         }
-        super.onBreak(world, pos, state, player);
+        super.onStateReplaced(state, world, pos, newState, moved);
     }
 
     @Override
