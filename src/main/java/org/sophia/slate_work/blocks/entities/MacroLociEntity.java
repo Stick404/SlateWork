@@ -7,6 +7,7 @@ import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.items.storage.ItemFocus;
 import at.petrak.hexcasting.common.lib.HexItems;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import dev.onyxstudios.cca.api.v3.component.ComponentKey;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -79,7 +80,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
 
     @Override
     public ItemStack getStack(int slot) {
-        return theSlot;
+        return this.theSlot.copy();
     }
 
     @Override
@@ -93,8 +94,8 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     public ItemStack removeStack(int slot) {
         var stack = this.theSlot.copy();
-        this.markDirty();
         theSlot = ItemStack.EMPTY;
+        this.markDirty();
         return stack;
     }
 
@@ -107,6 +108,11 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return false;
+    }
+
+    @Override
+    public void markDirty() {
+        super.markDirty();
     }
 
     @Override

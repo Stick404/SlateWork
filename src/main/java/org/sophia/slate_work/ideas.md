@@ -5,12 +5,14 @@
   * Finish documentation
 * Patterned Assemblers `DONE`
   * Define a pattern either in GUI, or with Hex (via Item Types)
-  * When the Media Wave runs over the Crafting ??? it tries to craft the items in the Storage Vessels into that
+  * When the Media Wave runs over the Patterned Assembler it tries to craft the items in the Storage Vessels into that
   * Pushes a true boolean to the stack if successful, or false if not
 * Ambit Extenders `DONE`
   * Pops a vector from the Stack, and extends the Ambit by that much
-* Circle Macros
+* Circle Macros `ALMOST DONE`
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
+* Accelerator
+  * (From Gloop) takes a bit of Media, and accelerates the Media Wave for a few blocks
 * Handed Slate
   * Lets Spell Circles hold invs/hands
   * (if you put 2 together, maybe get a secret advancement)

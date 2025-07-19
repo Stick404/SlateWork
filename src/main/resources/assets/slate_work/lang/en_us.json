@@ -54,6 +54,10 @@
   "slate_work.page.crafting_loci.crafting_loci_cont": "Precisely what the $(thing)Patterned Assembler/$ does is it attempts to craft whatever item is set within, pulling from activated $(l:greatwork/spellcircles)Storage Vessels/$, and placing the resulting item(s) back into the Vessels. This is triggered when the $(thing)Assembler/$ is activated with a $(l:greatwork/spellcircles)Spell Circle/$. The recipe can be set by hand, or via a $(l:patterns/storage_loci#slate_work:set_craft)Spell/$. If it can craft the inscribed item, it returns a True to the stack and crafts the item, else it does not craft the item (not enough ingredients, no recipe, etc) and returns a False.",
   "slate_work.page.crafting_loci.crafting": "The $(thing)Patterned Assembler/$ requires the mind of a villager well adapted to paging through tomes and texts; it seems like the $(thing)Librarian/$ is perfect for this.",
 
+  "slate_work.entry.macro_loci": "Spell Imprinter",
+  "slate_work.page.macro_loci.macro_loci": "During my travels I have heard mutterances about things called \"macros,\" patterns that represent larger hexes (I believe these to be linked to a possible $(l:greatwork/akashiclib)Akashic Library/$?) Nonetheless, I am able to recreate these \"macros\" with Spell Circles using the $(thing)Spell Imprinter/$.",
+  "slate_work.page.macro_loci.macro_loci_loci": "",
+
   "slate_work.entry.slate_reflection": "Slate Reflections",
   "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",
   "slate_work.page.storage_loci.wave_normal": "Adds the current facing of the $(thing)Media Wave/$ to the top of the stack. If the current block does not have a facing, it returns a vector of [0,0,0].",

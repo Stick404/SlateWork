@@ -6,6 +6,9 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -57,6 +60,12 @@ public class StorageLociEntity extends BlockEntity {
         }
     }
 
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        var compound = new NbtCompound();
+        this.writeNbt(compound);
+        return compound;
+    }
 
     public boolean isEmpty() {
         for (var z : this.slots){
@@ -111,7 +120,13 @@ public class StorageLociEntity extends BlockEntity {
             if (item.getItem() == this.slots[i].getLeft().getItem())
                     return i;
         }
+        this.markDirty();
         return null;
+    }
+
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     public Pair<ItemVariant,Long> removeStack(int slot) {
