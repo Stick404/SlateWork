@@ -49,6 +49,7 @@ object OpStoreItem : SpellAction {
                 val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
                 val item = slot.storageLociEntity.getStack(targ)
                 item.right += itemE.count
+                slot.storageLociEntity.setStack(targ,item);
                 entity.kill()
                 return
             }

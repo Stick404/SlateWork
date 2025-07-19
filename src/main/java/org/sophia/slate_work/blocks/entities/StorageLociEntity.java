@@ -1,6 +1,7 @@
 package org.sophia.slate_work.blocks.entities;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -67,6 +68,16 @@ public class StorageLociEntity extends BlockEntity {
         return compound;
     }
 
+    private void updateListeners() {
+        this.markDirty();
+        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+    }
+
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
     public boolean isEmpty() {
         for (var z : this.slots){
             if (!z.getLeft().isBlank() || z.getRight() != 0) return false;
@@ -85,8 +96,11 @@ public class StorageLociEntity extends BlockEntity {
     }
 
 
+    /**
+     *  Returns a *copy*
+     *  **/
     public Pair<ItemVariant,Long> getStack(int slot) {
-        return this.slots[slot];
+        return new Pair<>(this.slots[slot].getLeft(),this.slots[slot].getRight());
     }
 
     // You better know what you are doing...
@@ -111,7 +125,7 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot].setRight(this.slots[slot].getRight() - amount);
             returned = amount;
         }
-        this.markDirty();
+        this.updateListeners();
         return new Pair<>(copy,returned);
     }
 
@@ -120,13 +134,8 @@ public class StorageLociEntity extends BlockEntity {
             if (item.getItem() == this.slots[i].getLeft().getItem())
                     return i;
         }
-        this.markDirty();
+        this.updateListeners();
         return null;
-    }
-
-    @Override
-    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     public Pair<ItemVariant,Long> removeStack(int slot) {
@@ -136,17 +145,21 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot] = emptySlot;
             return emptySlot;
         }
-        this.markDirty();
+        this.updateListeners();
         return new Pair<>(copy,pair.getRight());
     }
-    @SuppressWarnings(value = "UnstableApiUsage")
+
     public void setStack(int slot, ItemVariant stack, long amount) {
         this.slots[slot] = new Pair<>(stack, amount);
-        this.markDirty();
+        this.updateListeners();
+    }
+
+    public void setStack(int slot, Pair<ItemVariant, Long> pair) {
+        this.setStack(slot, pair.getLeft(), pair.getRight());
     }
 
     public void clear() {
         this.slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
-        this.markDirty();
+        this.updateListeners();
     }
 }

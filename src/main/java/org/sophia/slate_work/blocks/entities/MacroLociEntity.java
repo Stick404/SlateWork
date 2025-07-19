@@ -62,6 +62,10 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         nbt.put("the_slot",compound);
     }
 
+    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
+        return false;
+    }
+
     @Override
     public int size() {
         return 1;
