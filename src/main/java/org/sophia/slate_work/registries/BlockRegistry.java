@@ -20,6 +20,7 @@ import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
+import org.sophia.slate_work.item.AllayPigment;
 
 import java.util.HashMap;
 
@@ -31,7 +32,7 @@ public class BlockRegistry {
 
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
-    private static final HashMap<Identifier, Block> ITEM_REGISTRY = new HashMap<>();
+    private static final HashMap<Identifier, Item> ITEM_REGISTRY = new HashMap<>();
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(slateSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
@@ -47,6 +48,9 @@ public class BlockRegistry {
     public static BlockEntityType<MacroLociEntity> MACRO_LOCI_ENTITY = registerBlockEntity("macro_loci",
             FabricBlockEntityTypeBuilder.create(MacroLociEntity::new, MACRO_LOCI).build());
 
+
+    public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
+
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(AMBIT_LOCI))
@@ -58,9 +62,8 @@ public class BlockRegistry {
         }
 
         for (var e : ITEM_REGISTRY.entrySet()){
-            var item = new BlockItem(e.getValue(), new Item.Settings().rarity(UNCOMMON));
-            Registry.register(Registries.ITEM, e.getKey(), item);
-            ItemGroupEvents.modifyEntriesEvent(SLATE_WORK_GROUP_KEY).register(group -> group.add(item));
+            Registry.register(Registries.ITEM, e.getKey(), e.getValue());
+            ItemGroupEvents.modifyEntriesEvent(SLATE_WORK_GROUP_KEY).register(group -> group.add(e.getValue()));
         }
 
         Registry.register(Registries.ITEM_GROUP, SLATE_WORK_GROUP_KEY, SLATE_WORK_GROUP);
@@ -69,11 +72,16 @@ public class BlockRegistry {
 
     private static <T extends Block> T registerBlockItem(String name, T block){
         BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), block);
+        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block, new Item.Settings().rarity(UNCOMMON)));
         return block;
     }
 
     private static <T extends BlockEntityType<?>> T registerBlockEntity(String name, T blockEntityType){
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID,name), blockEntityType);
+    }
+
+    private static <T extends Item> T registerItem(String name, T item){
+        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), item);
+        return item;
     }
 }

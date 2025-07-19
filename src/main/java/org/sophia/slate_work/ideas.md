@@ -27,6 +27,8 @@
 
 ## TODO:
 * Make ~~Hex Pose~~ Hexpose required
-* Make an Energized model for the Spell Imprinter
+* Make the Set Macro spell
+* Make the Macro Loci docs
+* Document Allay Pigment
 * Work on the Patterned Assembler more
   * Finish up the inv texture *maybe*

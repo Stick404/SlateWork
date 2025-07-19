@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    "D": {
+      "item": "hexcasting:amethyst_dust"
+    }
+  },
+  "pattern": [
+    " D ",
+    "DAD",
+    " D "
+  ],
+  "result": {
+    "item": "slate_work:allay_pigment"
+  }
+}

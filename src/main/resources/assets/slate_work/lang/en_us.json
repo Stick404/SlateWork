@@ -7,7 +7,7 @@
   "block.slate_work.speed_loci": "Wave Regulator",
   "block.slate_work.macro_loci": "Spell Imprinter",
 
-  "Patterns:":"",
+  "Patterns:": "",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",
   "hexcasting.action.slate_work:check_item": "Check Item",
   "hexcasting.action.slate_work:store_item": "Lay Item",
@@ -19,6 +19,9 @@
   "hexcasting.action.slate_work:wave_normal": "Wave Facing Rfln.",
   "hexcasting.action.slate_work:wave_speed": "Wave Speed Rfln.",
   "hexcasting.action.slate_work:media_reflection": "Circle Media Rfln.",
+
+  "Items:": "",
+  "item.slate_work.allay_pigment": "Quenched Pigment",
 
   "Entries:": "",
   "slate_work.entry.storage_loci": "Vessels Patterns",
@@ -56,7 +59,7 @@
 
   "slate_work.entry.macro_loci": "Spell Imprinter",
   "slate_work.page.macro_loci.macro_loci": "During my travels I have heard mutterances about things called \"macros,\" patterns that represent larger hexes (I believe these to be linked to a possible $(l:greatwork/akashiclib)Akashic Library/$?) Nonetheless, I am able to recreate these \"macros\" with Spell Circles using the $(thing)Spell Imprinter/$.",
-  "slate_work.page.macro_loci.macro_loci_loci": "",
+  "slate_work.page.macro_loci.macro_loci_cont": "When the $(thing)Spell Imprinter/$ is activated by a $(l:greatwork/spellcircles)Spell Circle/$, it sets all future runs of the set Pattern to the linked Hex.",
 
   "slate_work.entry.slate_reflection": "Slate Reflections",
   "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",
