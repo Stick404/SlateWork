@@ -7,6 +7,9 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
 import at.petrak.hexcasting.api.casting.eval.vm.FrameEvaluate
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
+import at.petrak.hexcasting.api.casting.getBool
+import at.petrak.hexcasting.api.casting.getInt
+import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.utils.getList
@@ -15,6 +18,8 @@ import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
+import miyucomics.hexpose.iotas.ItemStackIota
+import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
@@ -27,7 +32,7 @@ class FrameSearch(
     val code: SpellList,
     val baseStack: List<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
-    val toReturn: List<Triple<CircleHelper.ItemSlot, Vec3d, Int>>
+    var toReturn: MutableList<Triple<CircleHelper.ItemSlot, Vec3d, Int>>
 ) : ContinuationFrame {
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
@@ -38,19 +43,33 @@ class FrameSearch(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack
+        val stack = baseStack.toMutableList()
         val slot = toCheck.removeFirstOrNull()
-        val cont = continuation
-        if (slot != null) {
+
+        val realStack = harness.image.stack.reversed()
+
+        if (slot != null){
+            stack.add(ItemStackIota(slot.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+            if (realStack.getBool(0, 3)){
+                val amount = realStack.getInt(1,3)
+                val pos = realStack.getVec3(2,3)
+                harness.env.assertVecInRange(pos)
+                toReturn.add(Triple(slot, pos, amount))
+            }
+        }
+
+        val cont = if (slot != null) {
             continuation
-                .pushFrame(FrameSearch(code,stack,toCheck,toReturn))
+                .pushFrame(FrameSearch(code,baseStack,toCheck,toReturn))
                 .pushFrame(FrameEvaluate(code,true))
+        } else {
+            continuation
         }
 
         return CastResult(
             ListIota(code),
             cont,
-            harness.image,
+            harness.image.withUsedOp().copy(stack = stack),
             listOf(), // Do *not* do any Side Effects
             ResolvedPatternType.EVALUATED,
             HexEvalSounds.NORMAL_EXECUTE
