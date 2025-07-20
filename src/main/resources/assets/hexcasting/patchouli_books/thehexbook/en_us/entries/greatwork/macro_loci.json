@@ -16,6 +16,11 @@
     {
       "type": "patchouli:text",
       "text": "slate_work.page.macro_loci.macro_loci_cont"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/macro_loci_flay",
+      "text": "slate_work.page.macro_loci.craft"
     }
   ]
 }
