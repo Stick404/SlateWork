@@ -26,7 +26,7 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
     }
 
     @Inject(method = "getTickSpeed", at = @At("TAIL"), cancellable = true, remap = false)
-    protected void getTickSpeed(CallbackInfoReturnable<Integer> cir) {
+    protected void Slate_work$realValue(CallbackInfoReturnable<Integer> cir) {
         int targetSpeed = this.currentImage.getUserData().getInt("set_speed");
 
         if (targetSpeed != 0 && !slate_work$realValue) cir.setReturnValue(targetSpeed);

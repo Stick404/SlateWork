@@ -11,6 +11,8 @@
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Circle Macros `ALMOST DONE`
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
+* Straight Slate
+  * Slate that only works in a straight direction
 * Accelerator
   * (From Gloop) takes a bit of Media, and accelerates the Media Wave for a few blocks
 * Handed Slate
@@ -23,8 +25,14 @@
   * Takes a pair of blocks that "point" to each other, and gives a small radius of ambit around the "output" portal (must be pointing back to the first one)
 * D.C. al Coda
   * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
-* Use `FrameSearch` instead of Jank VM stuff
 
 ## TODO:
 * Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*
+
+## Problems:
+* Storage Vessel scanning acting funky
+* Crashing out of dev due to mixins
+* Patterned Assembler needing several clicks to work
+* Document Patterned Assembler going only forwards (and fix valid path)
+* Use `FrameSearch` instead of Jank VM stuff

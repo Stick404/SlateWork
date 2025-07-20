@@ -19,7 +19,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -33,8 +32,8 @@ public abstract class MixinBlockSlate {
     @Inject(method = "acceptControlFlow",
             at = @At(value = "INVOKE",
                     target = "Lat/petrak/hexcasting/api/casting/eval/vm/CastingVM;queueExecuteAndWrapIota(Lat/petrak/hexcasting/api/casting/iota/Iota;Lnet/minecraft/server/world/ServerWorld;)Lat/petrak/hexcasting/api/casting/eval/ExecutionClientView;"
-            ), cancellable = true, remap = false)
-    void circleMacros(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
+            ), cancellable = true)
+    void slate_works$acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
                       ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local HexPattern pattern,
                       @Local Stream exitDirs, @Local CastingVM vm){
         var macroNBT = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
@@ -47,7 +46,6 @@ public abstract class MixinBlockSlate {
                     HexPattern.fromNBT(nbtElement.getCompound("pattern")).anglesSignature(),
                     ((ListIota) IotaType.deserialize(nbtElement.getCompound("macro") ,world)).getList()
             );
-
         }
         if (macros.containsKey(angleSig)){
             List<Iota> realSpell = new ArrayList<>();

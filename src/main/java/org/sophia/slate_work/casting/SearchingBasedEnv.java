@@ -30,7 +30,7 @@ public class SearchingBasedEnv extends CastingEnvironment {
 
     @Override
     public @Nullable LivingEntity getCastingEntity() {
-        return null;
+        return parent.getCastingEntity();
     }
 
     @Override
