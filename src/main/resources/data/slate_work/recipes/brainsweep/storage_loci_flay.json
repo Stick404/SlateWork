@@ -7,7 +7,7 @@
   "cost": 1000000,
   "entityIn": {
     "type": "villager",
-    "minLevel": 2,
+    "minLevel": 1,
     "profession": "fisherman"
   },
   "result": {

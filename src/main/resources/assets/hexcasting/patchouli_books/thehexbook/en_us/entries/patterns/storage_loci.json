@@ -62,13 +62,25 @@
       "type": "hexcasting:pattern",
       "op_id": "slate_work:set_craft",
       "anchor": "slate_work:set_craft",
-      "input": "[item|item identifier|null]",
+      "input": "vec, [item|identifier|null]",
       "output": "",
       "text": "slate_work.page.storage_loci.set_craft"
     },
     {
       "type": "patchouli:text",
       "text": "slate_work.page.storage_loci.set_craft_cont"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:set_macro",
+      "anchor": "slate_work:set_macro",
+      "input": "vec, [hex], pattern",
+      "output": "",
+      "text": "slate_work.page.storage_loci.set_macro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.storage_loci.set_macro_cont"
     }
   ]
 }

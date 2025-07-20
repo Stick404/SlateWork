@@ -9,9 +9,10 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity
-import org.sophia.slate_work.casting.mishap.MishapCraftingLocus
+import org.sophia.slate_work.casting.mishap.MishapWrongBlock
 import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.misc.CircleHelper.getItemVariant
+import org.sophia.slate_work.registries.BlockRegistry
 
 @Suppress("UnstableApiUsage")
 object OpSetCraftingLoci : ConstMediaAction{
@@ -34,7 +35,9 @@ object OpSetCraftingLoci : ConstMediaAction{
 
         val entity = env.world.getBlockEntity(BlockPos(target.x, target.y, target.z))
         if (entity !is CraftingLociEntity){
-            throw MishapCraftingLocus(target)
+            throw MishapWrongBlock(target,
+                BlockRegistry.CRAFTING_LOCI,
+                env.world.getBlockState(BlockPos(target.x, target.y, target.z)).block)
         }
         entity.clear()
         i = 0

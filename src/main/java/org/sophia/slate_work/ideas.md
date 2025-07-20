@@ -26,7 +26,5 @@
 * Use `FrameSearch` instead of Jank VM stuff
 
 ## TODO:
-* Make ~~Hex Pose~~ Hexpose required
-* Make the Set Macro spell
-* Work on the Patterned Assembler more
+* Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*

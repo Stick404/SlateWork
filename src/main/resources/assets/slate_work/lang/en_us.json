@@ -13,7 +13,9 @@
   "hexcasting.action.slate_work:store_item": "Lay Item",
   "hexcasting.action.slate_work:get_item": "Reawaken Item",
   "hexcasting.action.slate_work:sort_items": "Reorient Items",
+
   "hexcasting.action.slate_work:set_craft": "Set Recipe",
+  "hexcasting.action.slate_work:set_macro": "Bind Macro",
 
   "hexcasting.action.slate_work:wave_position": "Wave Location Rfln.",
   "hexcasting.action.slate_work:wave_normal": "Wave Facing Rfln.",
@@ -24,7 +26,7 @@
   "item.slate_work.allay_pigment": "Quenched Pigment",
 
   "Entries:": "",
-  "slate_work.entry.storage_loci": "Vessels Patterns",
+  "slate_work.entry.storage_loci": "Slate Works Loci Patterns",
   "slate_work.page.storage_loci.1": "As wonderful as $(thing)Vessels/$ are for storage, they have an... opaque method of interaction. The main way of interaction is with _Hexes; more specifically, using a _Hex to describe what I wish to retrieve. Importantly, these all $(l:casting/mishaps2)mishap when not cast in a Spell Circle/$. $(br2)$(br)$(o)“Riddles,” I said. $(br)“Always preferable to no answer at all,” he responded.",
   "slate_work.page.storage_loci.2": "To elaborate more, $(thing)Vessels/$ respects Nature's silly rules regarding the \"Stack Limit\" by working around them. Rather than directly calling an item based on its name, I more-or-less supply a \"description;\" this is a _Hex that takes an $(l:patterns/scrying/item)Item Stack Iota/$, and needs to return a boolean. Also, all patterns to do with the retrieving of $(thing)Storage Vessels/$ take a copy of the Stack, and puts it onto the 'inner' stack (Much like $(l:patterns/meta#hexcasting:for_each)$(action)Thoth's Gambit/$).",
   "slate_work.page.storage_loci.get_storage": "This simply returns what $(thing)Vessels/$ the current $(l:greatwork/spellcircles)Spell Circle/$ has activated. I should likely use this to check if the $(l:greatwork/spellcircles)Spell Circle/$ has collected any $(thing)Vessels/$.",
@@ -33,8 +35,10 @@
   "slate_work.page.storage_loci.check_item": "Check Item functions much like Reawaken Item; however, it only requires a Boolean from the ran Hex. If the Boolean is ever True, the spell ends, and returns True.",
   "slate_work.page.storage_loci.get_item_cont": "Further explained: this runs the given _Hex on every stored Item in the $(thing)Vessels/$. The _Hex must return either a False (omits the Vector, and Number0, or True, Vector, and Number. The Vector corresponds to where to the position in the World to output the items (respecting ambit), and Number relates to how many of that type of item to retrieve. $(br2)Costs a 1/4 a dust per activated $(thing)Vessel/$.",
   "slate_work.page.storage_loci.sort_items": "In some rare scenarios, $(thing)Vessels/$ can get jumbled up and have items of the same type spread across different Vessels. This is a neat spell to resort them at a cost; that cost being 5 $(l:items/amethyst)Charged Amethyst/$.",
-  "slate_work.page.storage_loci.set_craft": "Sets the crafting recipe of a $(l:greatwork/crafting_loci)Patterned Assembler/$. Takes a list of null, items, or item variants, and applies it to an $(l:greatwork/crafting_loci)Assembler/$.",
+  "slate_work.page.storage_loci.set_craft": "Sets the crafting recipe of a $(l:greatwork/crafting_loci)Patterned Assembler/$. Takes a list of null, items, or item variants, and applies it to the targeted $(l:greatwork/crafting_loci)Assembler/$.",
   "slate_work.page.storage_loci.set_craft_cont": "To note: the given list gets \"formated\" as left to right, top to bottom in the $(l:greatwork/crafting_loci)Patterned Assembler/$. As well, the Nulls represent blank spots in recipes. Finally, the Spell will Mishap if the given list is longer than 9 items (but passes with less than or equal too 9 items). $(br2)Does not Mishap if casted outside of a $(l:greatwork/spellcircles)Spell Circles/$. Costs a negligible amount of _media.",
+  "slate_work.page.storage_loci.set_macro": "This binds both a pattern and a _Hex to a $(l:greatwork/macro_loci)Spell Imprinter/$, which is at the targeted vector.",
+  "slate_work.page.storage_loci.set_macro_cont": "",
 
   "slate_work.entry.storage_loci_block": "Storage Vessels",
   "slate_work.page.storage_loci_block.storage_loci": "After $(o)FAR TOO LONG/$ of lugging my items in clunky, splintery, $(o)chests/$... I have discovered the perfect method of storage, $(thing)Storage Vessels/$. $(br)Despite my current state, I am still far too full of mental garbage to interface with the $(thing)Storage Vessels/$. However, $(l:greatwork/spellcircles)Spell Circles/$ are perfect for insertion and extraction of these new storage methods.",
@@ -58,8 +62,8 @@
   "slate_work.page.crafting_loci.crafting": "The $(thing)Patterned Assembler/$ requires the mind of a villager well adapted to paging through tomes and texts; it seems like the $(thing)Librarian/$ is perfect for this.",
 
   "slate_work.entry.macro_loci": "Spell Imprinter",
-  "slate_work.page.macro_loci.macro_loci": "During my travels I have heard mutterances about things called \"macros,\" patterns that represent larger hexes (I believe these to be linked to a possible $(l:greatwork/akashiclib)Akashic Library/$?) Nonetheless, I am able to recreate these \"macros\" with Spell Circles using the $(thing)Spell Imprinter/$.",
-  "slate_work.page.macro_loci.macro_loci_cont": "When this is activated by a $(l:greatwork/spellcircles)Spell Circle/$, it binds the currently set pattern to the _Hex stored within the focus. Thus whenever the pattern is inscribed into slate, and activated; it instead runs the _Hex rather than the written pattern. $(br)Though, the implications of this are deeply horrifying, this rewrites the definition of a $(o)spell/$. A thing that is deeply intertwined with the fabric of the world itself... does that mean I, could be re-written; altered by a higher force? No. no? no. N$(k)Going mad! Going mad!/$",
+  "slate_work.page.macro_loci.macro_loci": "During my travels I have heard mutterances about things called \"macros,\" patterns that represent larger hexes (I believe these to be linked to a possible $(l:greatwork/akashiclib)Akashic Library/$?). Nonetheless, I am able to recreate these \"macros\" with Spell Circles using the $(thing)Spell Imprinter/$, and a _Hex written inside of a focus placed on top of the Imprinter.",
+  "slate_work.page.macro_loci.macro_loci_cont": "When this is activated by a $(l:greatwork/spellcircles)Spell Circle/$, it binds the$(br)currently set pattern to the _Hex stored within the focus (which can be set via a $(l:patterns/storage_loci#slate_work:set_macro)spell/$). Thus whenever the pattern is inscribed into slate, and activated; it instead runs the _Hex rather than the written pattern. Though, the implications of this are horrifying, rewriting the definition of a $(o)spell/$. A thing that is deeply intertwined with the world itself, does that mean I, could be rewritten; changed by a higher force? No. N$(k)AAAAA!/$",
   "slate_work.page.macro_loci.craft": "Despite the horrors this possibly ascertains... this is still an advantageous block to obtain. I believe a Weaponsmith villager would be the best fit. This is due to their adeptness at reworking broken weapons to new, sharper instruments.",
 
   "slate_work.entry.slate_work_pigments": "Fanciful Pigments",
@@ -79,7 +83,8 @@
 
   "hexcasting.mishap.no_storage_loci_ran": "Did not find any activated Vessels",
   "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",
-  "hexcasting.mishap.crafting_locus": "Required a Patterned Assembler at %s, but did not find one",
+  "hexcasting.mishap.wrong_block": "Required a(n) %s at %s, but found %s",
+  "hexcasting.mishap.needed_focus": "Required a focus at %s, but did find that",
 
   "Scrying Lenses:": "",
   "slate_work.scrying.macro.top": "Pattern: ",

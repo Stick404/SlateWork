@@ -1,6 +1,7 @@
 package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
+import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
@@ -8,12 +9,16 @@ import at.petrak.hexcasting.common.items.storage.ItemFocus;
 import at.petrak.hexcasting.common.lib.HexItems;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import dev.onyxstudios.cca.api.v3.component.ComponentKey;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -33,6 +38,23 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
 
     public HexPattern getPattern() {
         return pattern;
+    }
+
+    public void setFocusContents(Iota iota){
+        if (this.isEmpty()) return;
+        ItemFocus focus = (ItemFocus) this.theSlot.getItem().asItem();
+        focus.writeDatum(this.theSlot, iota);
+        this.markDirty();
+    }
+
+    public void setPattern(HexPattern pattern) {
+        this.pattern = pattern;
+        this.markDirty();
+    }
+
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     @Override
@@ -117,6 +139,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     public void markDirty() {
         super.markDirty();
+        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
     }
 
     @Override
