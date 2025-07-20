@@ -5,7 +5,9 @@
   "name": "Slate Works",
   "description": "Slate Works is an addon that adds in many more Spell Circle blocks and features.",
   "authors": ["Sophia/Stickia"],
-  "contact": {},
+  "contact": {
+    "homepage": " https://github.com/Stick404/SlateWork"
+  },
   "license": "MIT",
   "icon": "assets/slate_work/icon.png",
   "environment": "*",
