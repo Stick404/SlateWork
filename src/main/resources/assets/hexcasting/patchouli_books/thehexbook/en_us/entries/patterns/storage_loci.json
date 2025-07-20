@@ -77,10 +77,6 @@
       "input": "vec, [hex], pattern",
       "output": "",
       "text": "slate_work.page.storage_loci.set_macro"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "slate_work.page.storage_loci.set_macro_cont"
     }
   ]
 }
