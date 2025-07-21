@@ -45,6 +45,33 @@ object CircleHelper {
         return returnList
     }
 
+    fun getOnlySlots(env: CircleCastEnv): List<ItemSlot> {
+        val list = getStorage(env)
+        val returnList: MutableList<ItemSlot> = mutableListOf()
+
+        for (z in list){
+            for (x in z.inventory) {
+                if (!x.left.isBlank) {
+                    returnList.add(ItemSlot(x.left,x.right,z))
+                }
+            }
+        }
+        return returnList
+    }
+
+    fun getOnlySlots(list: List<StorageLociEntity>): List<ItemSlot> {
+        val returnList: MutableList<ItemSlot> = mutableListOf()
+
+        for (z in list){
+            for (x in z.inventory) {
+                if (!x.left.isBlank) {
+                    returnList.add(ItemSlot(x.left,x.right,z))
+                }
+            }
+        }
+        return returnList
+    }
+
     fun getLists(list: List<StorageLociEntity>): HashMap<ItemVariant, ItemSlot> {
         val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
