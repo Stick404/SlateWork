@@ -3,6 +3,7 @@ package org.sophia.slate_work.casting.actions
 import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.castables.SpellAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.getBool
@@ -40,7 +41,7 @@ object OpGetItem : SpellAction {
             hex.add(z)
         }
 
-        val list = CircleHelper.getLists(env)
+        val list = CircleHelper.getLists(storages)
         var data: NbtCompound
         val foundSlots = ArrayList<Triple<CircleHelper.ItemSlot, Vec3d, Int>>()
         val tempStack = env.circleState().currentImage.stack.toMutableList()
@@ -59,12 +60,18 @@ object OpGetItem : SpellAction {
             data = vm.image.userData.copy()
             vm.image = vm.image.copy(newStack, userData = data)
 
-            vm.queueExecuteAndWrapIotas(hex, env.world)
+            val resolution = vm.queueExecuteAndWrapIotas(hex, env.world)
+
+            if (resolution.resolutionType == ResolvedPatternType.ERRORED){
+                foundSlots.clear()
+                break
+            }
+
 
             val realStack = vm.image.stack.reversed()
             if (realStack.getBool(0, 3)){
-                val amount = realStack.getInt(1,3)
-                val pos = realStack.getVec3(2,3)
+                val pos = realStack.getVec3(1,3)
+                val amount = realStack.getInt(2,3)
                 env.assertVecInRange(pos)
                 foundSlots.add(Triple(z.value,pos,amount))
             }
@@ -73,7 +80,7 @@ object OpGetItem : SpellAction {
 
         return SpellAction.Result(
             Spell(foundSlots),
-            list.size*(MediaConstants.DUST_UNIT/4),
+            (((storages.size.toDouble()*0.25)* MediaConstants.DUST_UNIT.toDouble()).toLong()),
             listOf()
         )
     }
@@ -91,14 +98,14 @@ object OpGetItem : SpellAction {
                     summon.left.nbt as NbtCompound
                 ) else Optional.empty())
 
-                while (stack.count > 64){
+                while (stack.count > stack.maxCount){
                     val copy = stack.copy()
-                    copy.count = 64
+                    copy.count = stack.maxCount
                     env.world.spawnEntity(
                     ItemEntity(
                             env.world, vec.x, vec.y, vec.z, copy, 0.0, 0.0, 0.0)
                     )
-                    stack.count -= 64
+                    stack.count -= stack.maxCount
                 }
                 env.world.spawnEntity(
                     ItemEntity(

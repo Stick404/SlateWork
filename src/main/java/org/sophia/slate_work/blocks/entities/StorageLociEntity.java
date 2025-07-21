@@ -115,7 +115,7 @@ public class StorageLociEntity extends BlockEntity {
 
         if (copy == ItemVariant.blank() || pair.getRight() == 0){
             this.slots[slot] = emptySlot;
-            return this.slots[slot];
+            return emptySlot;
         }
         if (pair.getRight() <= amount) {
             returned = pair.getRight();

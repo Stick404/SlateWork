@@ -115,7 +115,6 @@ public class SearchingBasedEnv extends CastingEnvironment {
                         list,
                         result.getResolutionType(),
                         result.getSound()));
-                this.parent.circleState().endExecution(this.parent.getImpetus());
             }
         }
     }

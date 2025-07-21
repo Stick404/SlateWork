@@ -31,7 +31,7 @@
   * Finish up the inv texture *maybe*
 
 ## Problems:
-* Storage Vessel scanning acting funky
+* get_item stack acting funky
 * Patterned Assembler needing several clicks to work
 * Document Patterned Assembler going only forwards (and fix valid path)
 * Use `FrameSearch` instead of Jank VM stuff
