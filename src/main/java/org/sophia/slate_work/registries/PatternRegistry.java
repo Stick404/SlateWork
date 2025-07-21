@@ -34,7 +34,7 @@ public class PatternRegistry {
     public static final HexPattern STORE_ITEM = make("eaqwqaeqwaeaeqqeaeaw", HexDir.SOUTH_WEST,"store_item", OpStoreItem.INSTANCE);
     public static final HexPattern GET_STORAGE = make("eaqwqaeqqdeewweedq", HexDir.SOUTH_WEST,"get_storage", OpGetStorageLoci.INSTANCE);
     public static final HexPattern GET_ITEM = make("eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq", HexDir.SOUTH_WEST,"get_item", OpGetItem.INSTANCE);
-    public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq", HexDir.SOUTH_WEST,"check_item", OpContainsItem.INSTANCE);
+    public static final HexPattern CHECK_ITEM = make("eaqwqaeqqddqeeqddq", HexDir.SOUTH_WEST,"check_item", OpCheckItem.INSTANCE);
     public static final HexPattern SORT_ITEMS = make("eaqwqaeqqwaeadaeawq",HexDir.SOUTH_WEST,"sort_items", OpSortStorageLoci.INSTANCE);
 
     public static final HexPattern SET_CRAFT = make("eaqwqaeqwaeadawwadaeaw", HexDir.SOUTH_WEST, "set_craft", OpSetCraftingLoci.INSTANCE);

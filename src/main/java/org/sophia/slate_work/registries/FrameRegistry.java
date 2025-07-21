@@ -5,6 +5,7 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+import org.sophia.slate_work.casting.contuinations.FrameCheckItems;
 import org.sophia.slate_work.casting.contuinations.FrameGetItems;
 
 import java.util.LinkedHashMap;
@@ -22,7 +23,8 @@ public class FrameRegistry {
         }
     }
 
-    public static final ContinuationFrame.Type<@NotNull FrameGetItems> GET_ITEM = continuation("search", FrameGetItems.TYPE);
+    public static final ContinuationFrame.Type<@NotNull FrameGetItems> GET_ITEM = continuation("get_items", FrameGetItems.TYPE);
+    public static final ContinuationFrame.Type<@NotNull FrameCheckItems> CHECK_ITEM = continuation("check_items", FrameCheckItems.TYPE);
 
 
     // Who would be copying Hex Code :clueless:
