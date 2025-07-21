@@ -62,11 +62,10 @@ object OpGetItem : SpellAction {
 
             val resolution = vm.queueExecuteAndWrapIotas(hex, env.world)
 
-            if (resolution.resolutionType == ResolvedPatternType.ERRORED){
+            if (resolution.resolutionType == ResolvedPatternType.ERRORED){ // If the inner Hex errors, stop running
                 foundSlots.clear()
                 break
             }
-
 
             val realStack = vm.image.stack.reversed()
             if (realStack.getBool(0, 3)){
