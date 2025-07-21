@@ -90,7 +90,7 @@ object CircleHelper {
             val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
             val item = slot.storageLociEntity.getStack(targ)
             item.right += itemStack.count
-            slot.storageLociEntity.setStack(targ,item);
+            slot.storageLociEntity.setStack(targ,item)
             return true
         }
         // If its not a known item yet...

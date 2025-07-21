@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 // We needed a Slate Block without the Attached_Face prop. So that's why this ugly ass file exists
 
+@SuppressWarnings({"deprecation"})
 public abstract class AbstractSlate extends BlockCircleComponent {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final DirectionProperty FACING = Properties.FACING;

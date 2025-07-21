@@ -38,6 +38,7 @@ import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_NORTH_W
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_SOUTH_WALL;
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_WEST_WALL;
 
+@SuppressWarnings("deprecation")
 public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
 
     private static final VoxelShape DOWN_AB = VoxelShapes.union(AABB_FLOOR,

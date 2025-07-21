@@ -13,9 +13,7 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import miyucomics.hexpose.iotas.ItemStackIota
 import net.minecraft.nbt.NbtCompound
 import org.sophia.slate_work.casting.SearchingBasedEnv
-import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
-import org.sophia.slate_work.casting.mishap.MishapWrongBlock
 import org.sophia.slate_work.misc.CircleHelper
 
 @Suppress("UnstableApiUsage")
@@ -30,7 +28,7 @@ object OpContainsItem : ConstMediaAction {
         if (storages.isEmpty())
             throw MishapNoStorageLoci(null)
 
-        val hexTemp = args.getList(0, OpGetItem.argc)
+        val hexTemp = args.getList(0, argc)
 
         val hex = ArrayList<Iota>()
         for (z in hexTemp){

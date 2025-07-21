@@ -24,25 +24,28 @@ import java.util.stream.Stream
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+@Suppress("DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class SpeedLoci : AbstractSlate {
 
     constructor(settings: Settings) : super(settings) {
-        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        this.defaultState = this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.NORTH).with(WATERLOGGED, false)
     }
 
     override fun appendProperties(builder: StateManager.Builder<Block?, BlockState?>?) {
         super.appendProperties(builder)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getRenderType(state: BlockState?): BlockRenderType? {
-        return BlockRenderType.MODEL;
+        return BlockRenderType.MODEL
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getOutlineShape(state: BlockState?, world: BlockView?, pos: BlockPos?, context: ShapeContext?): VoxelShape? {
         return when(state?.get(FACING)){
             Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
             Direction.UP -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
-            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0);
+            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0)
             Direction.SOUTH -> createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 4.0)
             Direction.WEST -> createCuboidShape(16 - 4.0, 0.0, 0.0, 16.0, 16.0, 16.0)
             Direction.EAST -> createCuboidShape(0.0, 0.0, 0.0, 4.0, 16.0, 16.0)
@@ -50,11 +53,12 @@ class SpeedLoci : AbstractSlate {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun getCullingShape(state: BlockState?, world: BlockView?, pos: BlockPos?): VoxelShape? {
         return when(state?.get(FACING)){
             Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
             Direction.UP -> createCuboidShape(0.0,0.0,0.0,16.0,4.0,16.0)
-            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0);
+            Direction.NORTH -> createCuboidShape(0.0, 0.0, 16 -4.0, 16.0, 16.0, 16.0)
             Direction.SOUTH -> createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 4.0)
             Direction.WEST -> createCuboidShape(16 - 4.0, 0.0, 0.0, 16.0, 16.0, 16.0)
             Direction.EAST -> createCuboidShape(0.0, 0.0, 0.0, 4.0, 16.0, 16.0)

@@ -25,6 +25,7 @@ import org.sophia.slate_work.registries.BlockRegistry;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
+@SuppressWarnings("deprecation")
 public class StorageLoci extends AbstractSlate implements Equipment, BlockEntityProvider {
 
     // Hell!
