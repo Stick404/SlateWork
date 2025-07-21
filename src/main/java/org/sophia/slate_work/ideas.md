@@ -9,7 +9,7 @@
   * Pushes a true boolean to the stack if successful, or false if not
 * Ambit Extenders `DONE`
   * Pops a vector from the Stack, and extends the Ambit by that much
-* Circle Macros `ALMOST DONE`
+* Circle Macros `DONE`
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
 * Straight Slate
   * Slate that only works in a straight direction
@@ -31,7 +31,6 @@
   * Finish up the inv texture *maybe*
 
 ## Problems:
-* get_item stack acting funky
 * Patterned Assembler needing several clicks to work
 * Document Patterned Assembler going only forwards (and fix valid path)
-* Use `FrameSearch` instead of Jank VM stuff
+
