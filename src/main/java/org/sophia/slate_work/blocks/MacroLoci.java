@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
+import at.petrak.hexcasting.api.casting.iota.PatternIota;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.Block;
@@ -109,7 +110,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
             int i = 0;
             for (var z : macros){
                 NbtCompound compound = (NbtCompound) z;
-                if (compound.get("pattern") == pattern){
+                if (PatternIota.deserialize(compound.get("pattern")).getPattern().anglesSignature().equals(loci.getPattern().anglesSignature())){
                     macros.remove(i);
                     break;
                 }

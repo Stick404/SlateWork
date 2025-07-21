@@ -32,7 +32,6 @@
 
 ## Problems:
 * Storage Vessel scanning acting funky
-* Crashing out of dev due to mixins
 * Patterned Assembler needing several clicks to work
 * Document Patterned Assembler going only forwards (and fix valid path)
 * Use `FrameSearch` instead of Jank VM stuff
