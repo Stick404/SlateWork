@@ -1,0 +1,19 @@
+{
+  "name": "slate_work.entry.slate_work_pigments",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:allay_pigment",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.slate_work_pigments.slate_work_pigments"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:allay_pigment_craft",
+      "text": "slate_work.page.slate_work_pigments.allay"
+    }
+  ]
+}

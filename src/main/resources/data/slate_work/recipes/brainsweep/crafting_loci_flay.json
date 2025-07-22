@@ -1,0 +1,19 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hexcasting:slate_block"
+  },
+  "cost": 1000000,
+  "entityIn": {
+    "type": "villager",
+    "minLevel": 2,
+    "profession": "librarian"
+  },
+  "result": {
+    "name": "slate_work:crafting_loci",
+    "properties": {
+      "energized": "false"
+    }
+  }
+}

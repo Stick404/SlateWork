@@ -8,11 +8,13 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.getItemEntity
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
+import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.entity.ItemEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
-import org.sophia.slate_work.casting.mishap.MishapNoJars
+import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper
+import kotlin.math.log
 
 object OpStoreItem : SpellAction {
     override val argc: Int = 1
@@ -22,20 +24,19 @@ object OpStoreItem : SpellAction {
             throw MishapNoSpellCircle()
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
-            throw MishapNoJars(null)
+            throw MishapNoStorageLoci(null)
         val entity = args.getItemEntity(0, argc)
         env.assertEntityInRange(entity)
 
         return SpellAction.Result(
             Spell(entity,storages),
-            entity.stack.count.toLong(), //TODO: Make this LOG, rather than LIN
+            storages.size*(MediaConstants.DUST_UNIT/8),
             listOf(ParticleSpray.burst(entity.pos,1.0))
         )
     }
 
     private data class Spell(val entity: ItemEntity, val storages: List<StorageLociEntity>) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
-            // TODO: Make this harder?
             if (!entity.isAlive)
                 return
 
@@ -48,6 +49,7 @@ object OpStoreItem : SpellAction {
                 val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
                 val item = slot.storageLociEntity.getStack(targ)
                 item.right += itemE.count
+                slot.storageLociEntity.setStack(targ,item);
                 entity.kill()
                 return
             }

@@ -1,11 +1,15 @@
 package org.sophia.slate_work.blocks.entities;
 
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +19,10 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
+@SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends BlockEntity {
-    private int slotCount = 15; // This is how many "types" the Loci can hold
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
-    private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(this.slotCount+1, emptySlot).toArray(new Pair[slotCount+1]);
+    private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
 
     public StorageLociEntity(BlockPos pos, BlockState state) {
@@ -57,6 +61,22 @@ public class StorageLociEntity extends BlockEntity {
         }
     }
 
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        var compound = new NbtCompound();
+        this.writeNbt(compound);
+        return compound;
+    }
+
+    private void updateListeners() {
+        this.markDirty();
+        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+    }
+
+    @Override
+    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
 
     public boolean isEmpty() {
         for (var z : this.slots){
@@ -65,7 +85,7 @@ public class StorageLociEntity extends BlockEntity {
         return true;
     }
 
-    // Returns the slot found empty, else returns -1
+    // Returns the slot found empty, else returns -1 if the Locus is full
     public int isFull(){
         int i = 0;
         for (var z : this.slots){
@@ -76,8 +96,11 @@ public class StorageLociEntity extends BlockEntity {
     }
 
 
+    /**
+     *  Returns a *copy*
+     *  **/
     public Pair<ItemVariant,Long> getStack(int slot) {
-        return this.slots[slot];
+        return new Pair<>(this.slots[slot].getLeft(),this.slots[slot].getRight());
     }
 
     // You better know what you are doing...
@@ -92,7 +115,7 @@ public class StorageLociEntity extends BlockEntity {
 
         if (copy == ItemVariant.blank() || pair.getRight() == 0){
             this.slots[slot] = emptySlot;
-            return this.slots[slot];
+            return emptySlot;
         }
         if (pair.getRight() <= amount) {
             returned = pair.getRight();
@@ -102,7 +125,7 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot].setRight(this.slots[slot].getRight() - amount);
             returned = amount;
         }
-
+        this.updateListeners();
         return new Pair<>(copy,returned);
     }
 
@@ -111,6 +134,7 @@ public class StorageLociEntity extends BlockEntity {
             if (item.getItem() == this.slots[i].getLeft().getItem())
                     return i;
         }
+        this.updateListeners();
         return null;
     }
 
@@ -121,14 +145,21 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot] = emptySlot;
             return emptySlot;
         }
+        this.updateListeners();
         return new Pair<>(copy,pair.getRight());
     }
 
     public void setStack(int slot, ItemVariant stack, long amount) {
         this.slots[slot] = new Pair<>(stack, amount);
+        this.updateListeners();
+    }
+
+    public void setStack(int slot, Pair<ItemVariant, Long> pair) {
+        this.setStack(slot, pair.getLeft(), pair.getRight());
     }
 
     public void clear() {
-        this.slots = DefaultedList.ofSize(this.slotCount, emptySlot).toArray(new Pair[slotCount]);
+        this.slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
+        this.updateListeners();
     }
 }

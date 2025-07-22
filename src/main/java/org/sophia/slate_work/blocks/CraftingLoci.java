@@ -31,7 +31,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
-import org.sophia.slate_work.casting.mishap.MishapNoJars;
+import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.misc.CircleHelper;
 
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ import java.util.Map;
 
 import static at.petrak.hexcasting.common.lib.HexSounds.IMPETUS_REDSTONE_DING;
 
+@SuppressWarnings({"deprecation", "UnstableApiUsage"})
 public class CraftingLoci extends BlockCircleComponent implements BlockEntityProvider {
 
     public CraftingLoci(Settings p_49795_) {
@@ -110,7 +111,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             if (storages.isEmpty()) {
                 this.fakeThrowMishap(
                         blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapNoJars(blockPos)
+                        new MishapNoStorageLoci(blockPos)
                 );
                 return new ControlFlow.Stop();
             }
@@ -164,10 +165,6 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                         slot.getStorageLociEntity().getSlot(slot.getItem()),
                         pair.getValue());
             }
-
-            //for (var z : shoppingList.entrySet()){ // Ok cool, we know everything must be valid, now decrement the known items
-            //    storages.compute(z.getKey(), (k, slot) -> new CircleHelper.ItemSlot(slot.getItem(), slot.getCount() - z.getValue(), slot.getStorageLociEntity()));
-            //}
 
             var outputItem = recipeOpt.get().craft(container, serverWorld.getRegistryManager());
             var remainderItems = recipeOpt.get().getRemainder(container);

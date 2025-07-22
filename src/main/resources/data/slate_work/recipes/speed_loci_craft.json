@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    {
+      "item": "hexcasting:slate"
+    }
+  ],
+  "result": {
+    "item": "slate_work:speed_loci"
+  }
+}

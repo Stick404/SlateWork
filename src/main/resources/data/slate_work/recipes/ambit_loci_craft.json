@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    "D": {
+      "tag": "hexcasting:directrices"
+    },
+    "B": {
+      "item": "hexcasting:slate_block"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "ADA",
+    "BAB"
+  ],
+  "result": {
+    "item": "slate_work:ambit_loci"
+  }
+}

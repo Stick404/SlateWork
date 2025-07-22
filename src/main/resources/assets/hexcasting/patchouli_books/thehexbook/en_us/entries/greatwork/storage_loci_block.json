@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.storage_loci_block",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:storage_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:storage_loci",
+      "anchor": "storage_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.storage_loci_block.storage_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.storage_loci_block.storage_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.storage_loci_block.dropping"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/storage_loci_flay",
+      "text": "slate_work.page.storage_loci_block.crafting"
+    }
+  ]
+}

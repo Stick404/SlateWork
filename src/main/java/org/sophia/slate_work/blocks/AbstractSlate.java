@@ -1,19 +1,8 @@
 package org.sophia.slate_work.blocks;
 
 import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
-import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
-import at.petrak.hexcasting.api.casting.eval.ExecutionClientView;
-import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingVM;
-import at.petrak.hexcasting.api.casting.iota.PatternIota;
-import at.petrak.hexcasting.api.casting.math.HexPattern;
-import at.petrak.hexcasting.common.blocks.circles.BlockEntitySlate;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.ShapeContext;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
@@ -34,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 // We needed a Slate Block without the Attached_Face prop. So that's why this ugly ass file exists
 
+@SuppressWarnings({"deprecation"})
 public abstract class AbstractSlate extends BlockCircleComponent {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final DirectionProperty FACING = Properties.FACING;

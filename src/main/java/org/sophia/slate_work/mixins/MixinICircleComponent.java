@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingVM;
 import at.petrak.hexcasting.api.casting.mishaps.Mishap;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,11 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(ICircleComponent.class)
 public interface MixinICircleComponent {
-    @Inject(method = "fakeThrowMishap", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-    // Oh boy, holy shit
+    @Inject(method = "fakeThrowMishap", at = @At("TAIL"))
     default void onFakeThrow(BlockPos pos, BlockState bs, CastingImage image, CircleCastEnv env, Mishap mishap,
-                               CallbackInfo ci, Mishap.Context errorCtx, OperatorSideEffect.DoMishap sideEffect,
-                               CastingVM vm){
+                             CallbackInfo ci, @Local Mishap.Context errorCtx){
         if (env.getImpetus() != null)
             env.getImpetus().postMishap(mishap.errorMessageWithName(env, errorCtx));
         // Makes an Impetus *print* its error without the Spell Circle PR
