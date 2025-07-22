@@ -31,5 +31,4 @@
   * Finish up the inv texture *maybe*
 
 ## Problems:
-* Document scrying lens for Storage Vessels and Spell Imprinter
 

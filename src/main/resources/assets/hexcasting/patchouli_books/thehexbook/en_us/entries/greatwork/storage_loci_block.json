@@ -22,6 +22,10 @@
       "text": "slate_work.page.storage_loci_block.dropping"
     },
     {
+      "type": "patchouli:text",
+      "text": "slate_work.page.storage_loci_block.lens"
+    },
+    {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/storage_loci_flay",
       "text": "slate_work.page.storage_loci_block.crafting"
