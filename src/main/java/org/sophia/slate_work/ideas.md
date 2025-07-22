@@ -31,8 +31,5 @@
   * Finish up the inv texture *maybe*
 
 ## Problems:
-* Document scrying lens for Storage Vessels and Spell Imprinter 
-* Check if Sort is voiding
-* Patterned Assembler needing several clicks to work
-* Document Patterned Assembler going only forwards (and fix valid path)
+* Document scrying lens for Storage Vessels and Spell Imprinter
 
