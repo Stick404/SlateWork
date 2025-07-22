@@ -15,6 +15,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY;
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
@@ -22,7 +24,7 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 @SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends BlockEntity {
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
-    private Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
+    private final Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
 
     public StorageLociEntity(BlockPos pos, BlockState state) {
@@ -46,6 +48,9 @@ public class StorageLociEntity extends BlockEntity {
         }
         if (!nbtList.isEmpty()) {
             nbt.put("Items", nbtList);
+            nbt.putBoolean("Empty", false); // *Just* in case...
+        } else {
+            nbt.putBoolean("Empty", true);
         }
     }
 
@@ -53,6 +58,10 @@ public class StorageLociEntity extends BlockEntity {
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         var items = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
+
+        if (nbt.getBoolean("Empty")){
+            this.clear();
+        }
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
@@ -68,9 +77,11 @@ public class StorageLociEntity extends BlockEntity {
         return compound;
     }
 
-    private void updateListeners() {
+    public void updateListeners() {
         this.markDirty();
-        this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+        if (this.getWorld() != null && !this.getWorld().isClient()) {
+            this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
+        }
     }
 
     @Override
@@ -141,15 +152,19 @@ public class StorageLociEntity extends BlockEntity {
     public Pair<ItemVariant,Long> removeStack(int slot) {
         var pair = this.slots[slot];
         var copy = pair.getLeft();
-        if (copy == ItemVariant.blank() || pair.getRight() == 0){
-            this.slots[slot] = emptySlot;
-            return emptySlot;
+        if (!copy.isBlank()) {
+            this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
         }
         this.updateListeners();
         return new Pair<>(copy,pair.getRight());
     }
 
     public void setStack(int slot, ItemVariant stack, long amount) {
+        if (amount <= 0){ // If this somehow comes from overflow, you kind of deserve it
+            this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
+            this.updateListeners();
+            return;
+        }
         this.slots[slot] = new Pair<>(stack, amount);
         this.updateListeners();
     }
@@ -159,7 +174,7 @@ public class StorageLociEntity extends BlockEntity {
     }
 
     public void clear() {
-        this.slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
+        Arrays.fill(this.slots, new Pair<>(emptySlot.getLeft(),emptySlot.getLeft()));
         this.updateListeners();
     }
 }

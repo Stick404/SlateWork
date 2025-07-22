@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.item.ItemStack
+import net.minecraft.item.Items
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper.getStorage
 import java.util.HashMap
@@ -27,15 +28,18 @@ object OpSortStorageLoci : ConstMediaAction{
 
         val returnList = HashMap<ItemVariant, Long>(1)
         for (z in storages){
-            for (x in z.inventory){
+            var i = 0
+            for (item in z.inventory){
+                val x = z.removeStack(i)
                 if (x.left == ItemVariant.of(ItemStack.EMPTY)) continue
+                z.setStack(i, ItemVariant.of(Items.AIR),0L)
                 if (returnList.contains(x.left)){
                     returnList[x.left] = x.right + returnList.get(x.left)!!
                 } else {
                     returnList.put(x.left, x.right)
                 }
+                i++
             }
-            z.clear()
         }
 
         var storageI = 0
