@@ -15,6 +15,7 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.getList
+import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
@@ -37,6 +38,7 @@ class FrameGetItems(
     val code: SpellList,
     val baseStack: List<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
+    val oldReturn: CircleHelper.ItemSlot?,
     val isFirst: Boolean = false
 ) : ContinuationFrame {
     override val type: ContinuationFrame.Type<*>
@@ -49,14 +51,13 @@ class FrameGetItems(
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
         val stack = baseStack.toMutableList()
-        val slot = toCheck.first()
-        if (!this.isFirst) {
-            toCheck.removeFirst()
-        }
+        val slot = toCheck.removeFirst()
+
+
         val realStack = harness.image.stack.reversed()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
-        if (!isFirst && !slot.item.isBlank){
+        if (!isFirst && oldReturn != null){
             try {
                 if (harness.env !is CircleCastEnv) {
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
@@ -67,7 +68,7 @@ class FrameGetItems(
                     val pos = realStack.getVec3(2,3)
                     harness.env.assertVecInRange(pos)
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
-                        Triple(slot,pos,amount)
+                        Triple(oldReturn,pos,amount)
                     )))
                 }
             } catch (e : Mishap){
@@ -87,7 +88,7 @@ class FrameGetItems(
         val cont = if (toCheck.isNotEmpty()) {
             stack.add(ItemStackIota(slot.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
             continuation
-                .pushFrame(FrameGetItems(code,baseStack,toCheck))
+                .pushFrame(FrameGetItems(code,baseStack,toCheck,slot))
                 .pushFrame(FrameEvaluate(code,true))
         } else {
             continuation
@@ -117,6 +118,9 @@ class FrameGetItems(
             listCheck.add(tempCompound)
         }
         compound.putList("to_check",listCheck)
+        if (this.oldReturn != null) {
+            compound.putCompound("old_item", this.oldReturn.save())
+        }
         return compound
     }
 
@@ -135,7 +139,9 @@ class FrameGetItems(
                         toCheck.add(slot)
                     }
                 }
-                return FrameGetItems(code, stack,toCheck)
+                //val oldReturn = ItemVariant.fromNbt(tag.getCompound("old_item"))
+                val oldReturn = CircleHelper.ItemSlot.load(tag.getCompound("old_item"), world)
+                return FrameGetItems(code, stack,toCheck, oldReturn)
             }
 
         }
