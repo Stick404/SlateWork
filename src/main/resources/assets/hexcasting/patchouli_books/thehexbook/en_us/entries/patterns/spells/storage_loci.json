@@ -1,6 +1,6 @@
 {
   "name": "slate_work.entry.storage_loci",
-  "category": "hexcasting:patterns",
+  "category": "hexcasting:patterns/spells",
   "icon": "hexcasting:slate_amethyst_pillar",
   "sortnum": 11,
   "advancement": "hexcasting:enlightenment",
