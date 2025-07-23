@@ -6,6 +6,7 @@
   "block.slate_work.crafting_loci": "Patterned Assembler",
   "block.slate_work.speed_loci": "Wave Regulator",
   "block.slate_work.macro_loci": "Spell Imprinter",
+  "block.slate_work.mute_loci": "Muffling Slate",
 
   "Patterns:": "",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",
@@ -65,7 +66,12 @@
   "slate_work.page.macro_loci.macro_loci": "During my travels I have heard mutterances about things called \"macros,\" patterns that represent larger hexes (I believe these to be linked to a possible $(l:greatwork/akashiclib)Akashic Library/$?). Nonetheless, I am able to recreate these \"macros\" with Spell Circles using the $(thing)Spell Imprinter/$, and a _Hex written inside of a focus placed on top of the Imprinter.",
   "slate_work.page.macro_loci.macro_loci_cont": "When this is activated by a $(l:greatwork/spellcircles)Spell Circle/$, it binds the$(br)currently set pattern to the _Hex stored within the focus (which can be set via a $(l:patterns/storage_loci#slate_work:set_macro)spell/$). Thus whenever the pattern is inscribed into slate, and activated; it instead runs the _Hex rather than the written pattern. Though, the implications of this are horrifying, rewriting the definition of a $(o)spell/$. A thing that is deeply intertwined with the world itself, does that mean I, could be rewritten; changed by a higher force? No. N$(k)AAAAA!/$",
   "slate_work.page.macro_loci.lens": "A quite handy feature of the $(thing)Spell Imprinter/$ is being able to wear a $(l:items/lens)Scrying lens/$ and observing the bound pattern and the _Hex to be ran with the bound pattern. $(br2)On closer observation of a freshly... \"constructed\" $(thing)Spell Imprinter/$, it has a pre-inscribed pattern of $(l:patterns/basics#hexcasting:get_caster)Mind's Reflection/$. Whilst useful, it is deeply unsetting for reasons I can not put into words...",
-  "slate_work.page.macro_loci.craft": "Despite the horrors this possibly ascertains... this is still an advantageous block to obtain. I believe a Weaponsmith villager would be the best fit. This is due to their adeptness at reworking broken weapons to new, sharper instruments.",
+  "slate_work.page.macro_loci.crafting": "Despite the horrors this possibly ascertains... this is still an advantageous block to obtain. I believe a Weaponsmith villager would be the best fit. This is due to their adeptness at reworking broken weapons to new, sharper instruments.",
+
+  "slate_work.entry.mute_loci": "Muffling Slate",
+  "slate_work.page.mute_loci.mute_loci": "While I work with $(l:greatwork/spellcircles)Spell Circles/$ more and more, the constant $(o)crackles/$ from the Media Wave has begun to ring in my ears. And with some of my more... esoteric $(l:greatwork/spellcircles)Circles/$, nearly deafening me. $(br2)Luckily, this, the $(thing)Muffling Slate/$, can protect my ears from the obnoxious sounds and noises.",
+  "slate_work.page.mute_loci.mute_loci_cont": "When activated by a $(l:greatwork/spellcircles)Spell Circles/$, this pops a number between 1 and 0 (inclusive for both), and sets the \"volume\" of the crackles and rackets to that. For example, 0.5 would make the sounds half as loud, saving my ears from a terrible fate. $(br2)$(br)$(o)\"Nat, he's made sound! He's an audiomage!\" $(br)\"I hear it,\" Nat replies, not looking back. \"And stop inventing words.\"",
+  "slate_work.page.mute_loci.crafting": "Thankfully, the $(thing)Muffling Slate/$ is a cheap and simple craft; taking a scrap of wool, and some slate. $(br2)$(br)$(o)Silence is gold for some, or even iron for more; but for my self, silence is diamonds.",
 
   "slate_work.entry.slate_work_pigments": "Fanciful Pigments",
   "slate_work.page.slate_work_pigments.slate_work_pigments": "Just as my staves have evolved, so too must my pigments. These may not gift any glorious or grand amenities or effects, but all their boons are purely visual. $(br2)Additionally, those who know of these pigments, will now know of my $(o)Awakening/$.",

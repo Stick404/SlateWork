@@ -24,7 +24,7 @@
     {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/macro_loci_flay",
-      "text": "slate_work.page.macro_loci.craft"
+      "text": "slate_work.page.macro_loci.crafting"
     }
   ]
 }

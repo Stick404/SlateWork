@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "tag": "minecraft:wool"
+    },
+    {
+      "item": "hexcasting:slate"
+    }
+  ],
+  "result": {
+    "item": "slate_work:mute_loci"
+  }
+}
