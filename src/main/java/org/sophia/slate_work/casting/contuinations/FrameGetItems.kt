@@ -39,7 +39,7 @@ class FrameGetItems(
     val baseStack: List<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
     val oldReturn: CircleHelper.ItemSlot?,
-    val isFirst: Boolean = false
+    var isFirst: JankyMaybe = JankyMaybe.RUNNING
 ) : ContinuationFrame {
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
@@ -51,13 +51,17 @@ class FrameGetItems(
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
         val stack = baseStack.toMutableList()
-        val slot = toCheck.removeFirst()
+        val slot = if (isFirst != JankyMaybe.LAST){
+            toCheck.removeFirst()
+        } else {
+            null
+        }
 
 
         val realStack = harness.image.stack.reversed()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
-        if (!isFirst && oldReturn != null){
+        if (isFirst != JankyMaybe.FIRST && oldReturn != null){
             try {
                 if (harness.env !is CircleCastEnv) {
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
@@ -84,15 +88,25 @@ class FrameGetItems(
                 )
             }
         }
-
-        val cont = if (toCheck.isNotEmpty()) {
-            stack.add(ItemStackIota(slot.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
-            continuation
-                .pushFrame(FrameGetItems(code,baseStack,toCheck,slot))
-                .pushFrame(FrameEvaluate(code,true))
-        } else {
-            continuation
+        if (this.toCheck.isEmpty() && this.isFirst != JankyMaybe.LAST){
+            this.isFirst = JankyMaybe.PENULTIMATE
         }
+
+        val cont = if (isFirst != JankyMaybe.LAST){
+            stack.add(ItemStackIota(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+             when (isFirst){
+                JankyMaybe.PENULTIMATE -> {
+                    continuation
+                        .pushFrame(FrameGetItems(code,baseStack,toCheck, slot, JankyMaybe.LAST))
+                        .pushFrame(FrameEvaluate(code,true))
+                }
+                else -> { // When FIRST or RUNNING push the frame
+                    continuation
+                        .pushFrame(FrameGetItems(code,baseStack,toCheck,slot))
+                        .pushFrame(FrameEvaluate(code,true))
+                }
+            }
+        } else continuation
 
         return CastResult(
             ListIota(code),
@@ -121,6 +135,7 @@ class FrameGetItems(
         if (this.oldReturn != null) {
             compound.putCompound("old_item", this.oldReturn.save())
         }
+        compound.putString("jank_maybe", this.isFirst.name)
         return compound
     }
 
@@ -141,7 +156,8 @@ class FrameGetItems(
                 }
                 //val oldReturn = ItemVariant.fromNbt(tag.getCompound("old_item"))
                 val oldReturn = CircleHelper.ItemSlot.load(tag.getCompound("old_item"), world)
-                return FrameGetItems(code, stack,toCheck, oldReturn)
+                val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
+                return FrameGetItems(code, stack,toCheck, oldReturn,stepEval)
             }
 
         }
