@@ -6,6 +6,7 @@
   "mixins": [
     "MixinBlockSlate",
     "MixinCircleComponent",
+    "MixinCircleEnv",
     "MixinCircleExec",
     "MixinCircleExecInvoker",
     "MixinICircleComponent"
