@@ -51,9 +51,10 @@ class FrameGetItems(
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
         val stack = baseStack.toMutableList()
-        val slot = if (isFirst != JankyMaybe.LAST){
+        val slot = if (isFirst != JankyMaybe.LAST && !toCheck.isEmpty()){
             toCheck.removeFirst()
         } else {
+            isFirst = JankyMaybe.LAST
             null
         }
 
