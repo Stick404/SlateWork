@@ -51,38 +51,20 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         Inventories.readNbt(nbt,this.inv);
     }
 
-    public int size() {
-        return 10;
-    }
-
-    public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
-        return false;
-    }
-
-    public boolean isEmpty() {
-        return false; // Hmm, might be wrong...
-    }
-
     public ItemStack getStack(int slot) {
         return inv.get(slot);
     }
 
-    public ItemStack removeStack(int slot, int amount) {
-        return this.removeStack(slot);
-    }
-
     public ItemStack removeStack(int slot) {
         this.inv.set(slot, ItemStack.EMPTY);
+        this.markDirty();
         return ItemStack.EMPTY;
     }
 
     public void setStack(int slot, ItemStack stack) {
         stack = stack.copy();
         this.inv.set(slot,stack);
-    }
-
-    public boolean canPlayerUse(PlayerEntity player) {
-        return true;
+        this.markDirty();
     }
 
     public void clear() {
@@ -93,9 +75,5 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     @Override
     public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
         buf.writeBlockPos(this.pos);
-    }
-
-    public void setCraftSlot(ItemStack stack) {
-        this.inv.set(9,stack);
     }
 }
