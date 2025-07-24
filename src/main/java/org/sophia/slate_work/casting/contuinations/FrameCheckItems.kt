@@ -59,7 +59,7 @@ class FrameCheckItems(
         val realStack = harness.image.stack.reversed().toMutableList()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
-        if (isFirst != JankyMaybe.FIRST && isFirst != JankyMaybe.LAST){
+        if (isFirst != JankyMaybe.FIRST){
             try {
                 if (harness.env !is CircleCastEnv) {
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
