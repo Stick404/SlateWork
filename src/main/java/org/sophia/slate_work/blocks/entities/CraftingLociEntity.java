@@ -18,18 +18,15 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.GUI.IGhostCrafting;
+import org.sophia.slate_work.misc.DumbDumbInv;
 
 import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
 
-public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, IGhostCrafting {
+public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory {
     DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
 
     public CraftingLociEntity(BlockPos pos, BlockState state) {
         super(CRAFTING_LOCI_ENTITY, pos, state);
-    }
-
-    public DefaultedList<ItemStack> getInv() {
-        return inv;
     }
 
     @Override
@@ -39,7 +36,7 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new Ghost3x3ScreenHandler(syncId, playerInventory, this);
+        return new Ghost3x3ScreenHandler(syncId, playerInventory, new DumbDumbInv(this));
     }
 
     @Override
@@ -54,49 +51,40 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         Inventories.readNbt(nbt,this.inv);
     }
 
-    @Override
     public int size() {
         return 10;
     }
 
-    @Override
     public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
         return false;
     }
 
-    @Override
     public boolean isEmpty() {
         return false; // Hmm, might be wrong...
     }
 
-    @Override
     public ItemStack getStack(int slot) {
         return inv.get(slot);
     }
 
-    @Override
     public ItemStack removeStack(int slot, int amount) {
         return this.removeStack(slot);
     }
 
-    @Override
     public ItemStack removeStack(int slot) {
         this.inv.set(slot, ItemStack.EMPTY);
         return ItemStack.EMPTY;
     }
 
-    @Override
     public void setStack(int slot, ItemStack stack) {
         stack = stack.copy();
         this.inv.set(slot,stack);
     }
 
-    @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return true;
     }
 
-    @Override
     public void clear() {
         this.inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
         this.markDirty();
@@ -107,7 +95,6 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         buf.writeBlockPos(this.pos);
     }
 
-    @Override
     public void setCraftSlot(ItemStack stack) {
         this.inv.set(9,stack);
     }

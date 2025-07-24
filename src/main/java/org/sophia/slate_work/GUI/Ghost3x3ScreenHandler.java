@@ -14,6 +14,8 @@ import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.CraftingLoci;
+import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
+import org.sophia.slate_work.misc.DumbDumbInv;
 
 import static org.sophia.slate_work.Slate_work.GHOST_3X3_SCREEN;
 
@@ -27,7 +29,8 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
 
     public Ghost3x3ScreenHandler(int id, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
         this(id,playerInventory, playerInventory,
-                (Inventory) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos()));
+                new DumbDumbInv((CraftingLociEntity) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos()))
+        );
     }
 
     public Ghost3x3ScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
