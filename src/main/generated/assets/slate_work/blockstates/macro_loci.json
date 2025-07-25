@@ -15,7 +15,8 @@
     },
     "energized=false,facing=south": {
       "model": "slate_work:block/macro_loci",
-      "x": 270
+      "x": 90,
+      "y": 180
     },
     "energized=false,facing=up": {
       "model": "slate_work:block/macro_loci",
@@ -41,7 +42,8 @@
     },
     "energized=true,facing=south": {
       "model": "slate_work:block/macro_loci_energized",
-      "x": 270
+      "x": 90,
+      "y": 180
     },
     "energized=true,facing=up": {
       "model": "slate_work:block/macro_loci_energized",

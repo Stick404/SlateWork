@@ -31,29 +31,29 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     // Hell!
     // This was Hell to make. All of these *hand made*
     private static final VoxelShape DOWN_AB = VoxelShapes.union(AABB_FLOOR,
-            BlockSlate.createCuboidShape(2,1,2,14,4,14),
-            BlockSlate.createCuboidShape(4,4,4,12,7,12),
-            BlockSlate.createCuboidShape(2,7,2,14,10,14));
+            createCuboidShape(2,1,2,14,4,14),
+            createCuboidShape(4,4,4,12,7,12),
+            createCuboidShape(2,7,2,14,10,14));
     private static final VoxelShape UP_AB = VoxelShapes.union(AABB_CEILING,
-            BlockSlate.createCuboidShape(2,12,2,14,15,14),
-            BlockSlate.createCuboidShape(4,9,4,12,12,12),
-            BlockSlate.createCuboidShape(2,6,2,14,9,14));
+            createCuboidShape(2,12,2,14,15,14),
+            createCuboidShape(4,9,4,12,12,12),
+            createCuboidShape(2,6,2,14,9,14));
     private static final VoxelShape EAST_AB = VoxelShapes.union(AABB_EAST_WALL,
-            BlockSlate.createCuboidShape(1,2,2,4,14,14),
-            BlockSlate.createCuboidShape(4,4,4,7,12,12),
-            BlockSlate.createCuboidShape(7,2,2,10,14,14));
+            createCuboidShape(1,2,2,4,14,14),
+            createCuboidShape(4,4,4,7,12,12),
+            createCuboidShape(7,2,2,10,14,14));
     private static final VoxelShape WEST_AB = VoxelShapes.union(AABB_WEST_WALL,
-            BlockSlate.createCuboidShape(12,2,2,15,14,14),
-            BlockSlate.createCuboidShape(9,4,4,15,12,12),
-            BlockSlate.createCuboidShape(6,2,2,9,14,14));
+            createCuboidShape(12,2,2,15,14,14),
+            createCuboidShape(9,4,4,15,12,12),
+            createCuboidShape(6,2,2,9,14,14));
     private static final VoxelShape NORTH_AB = VoxelShapes.union(AABB_NORTH_WALL,
-            BlockSlate.createCuboidShape(2,2,12,14,14,15),
-            BlockSlate.createCuboidShape(4,4,9,12,12,15),
-            BlockSlate.createCuboidShape(2,2,6,14,14,9));
+            createCuboidShape(2,2,12,14,14,15),
+            createCuboidShape(4,4,9,12,12,15),
+            createCuboidShape(2,2,6,14,14,9));
     private static final VoxelShape SOUTH_AB = VoxelShapes.union(AABB_SOUTH_WALL,
-            BlockSlate.createCuboidShape(2,2,1,14,14,4),
-            BlockSlate.createCuboidShape(4,4,4,12,12,7),
-            BlockSlate.createCuboidShape(2,2,7,14,14,10));
+            createCuboidShape(2,2,1,14,14,4),
+            createCuboidShape(4,4,4,12,12,7),
+            createCuboidShape(2,2,7,14,14,10));
 
     public StorageLoci(Settings p_53182_) {
         super(p_53182_);

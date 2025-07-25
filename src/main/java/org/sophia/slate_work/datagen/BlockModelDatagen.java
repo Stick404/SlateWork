@@ -27,6 +27,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("speed_loci", BlockRegistry.SPEED_LOCI, generator);
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
+        registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
@@ -45,7 +46,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
         var RotNorth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotDown = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180);
-        var RotSouth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        var RotSouth = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotEast = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotWest = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.X, VariantSettings.Rotation.R90);
 

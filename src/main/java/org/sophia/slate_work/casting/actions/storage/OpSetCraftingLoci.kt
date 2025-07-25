@@ -1,4 +1,4 @@
-package org.sophia.slate_work.casting.actions
+package org.sophia.slate_work.casting.actions.storage
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment

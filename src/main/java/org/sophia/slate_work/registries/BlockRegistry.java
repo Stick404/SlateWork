@@ -19,6 +19,7 @@ import net.minecraft.util.Identifier;
 import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
+import org.sophia.slate_work.blocks.entities.SentinelLociEntity;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.item.AllayPigment;
 
@@ -40,6 +41,7 @@ public class BlockRegistry {
     public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
     public static MacroLoci MACRO_LOCI = registerBlockItem("macro_loci", new MacroLoci(slateSetting));
     public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(slateSetting));
+    public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(slateSetting));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
@@ -48,6 +50,8 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(CraftingLociEntity::new, CRAFTING_LOCI).build());
     public static BlockEntityType<MacroLociEntity> MACRO_LOCI_ENTITY = registerBlockEntity("macro_loci",
             FabricBlockEntityTypeBuilder.create(MacroLociEntity::new, MACRO_LOCI).build());
+    public static BlockEntityType<SentinelLociEntity> SENTINEL_LOCI_ENTITY = registerBlockEntity("sentinel_loci",
+            FabricBlockEntityTypeBuilder.create(SentinelLociEntity::new, SENTINEL_LOCI).build());
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));

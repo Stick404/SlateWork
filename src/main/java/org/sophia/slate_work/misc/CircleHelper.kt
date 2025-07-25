@@ -16,10 +16,25 @@ import net.minecraft.nbt.NbtHelper
 import net.minecraft.registry.Registries
 import net.minecraft.server.world.ServerWorld
 import org.sophia.slate_work.Slate_work.LOGGER
+import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
 
 @Suppress("UnstableApiUsage")
 object CircleHelper {
+    fun getSentLoci(env: CircleCastEnv): List<SentinelLociEntity> {
+        val list: ArrayList<SentinelLociEntity> = ArrayList()
+        val nbt = env.circleState().currentImage.userData.getList("sentinel_loci", NbtElement.COMPOUND_TYPE.toInt())
+
+        for (temp in nbt){
+            val z = temp as NbtCompound
+            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z))
+            if (entity is SentinelLociEntity){
+                list.add(entity)
+            }
+        }
+        return list
+    }
+
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
         val list: ArrayList<StorageLociEntity> = ArrayList()
         val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.COMPOUND_TYPE.toInt())
@@ -31,7 +46,7 @@ object CircleHelper {
                 list.add(entity)
         }
 
-        return list.reversed() //So we "find" the first storages last
+        return list
     }
 
     fun getLists(env: CircleCastEnv): HashMap<ItemVariant, ItemSlot> {

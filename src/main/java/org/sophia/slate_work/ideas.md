@@ -7,6 +7,7 @@
   * Define a pattern either in GUI, or with Hex (via Item Types)
   * When the Media Wave runs over the Patterned Assembler it tries to craft the items in the Storage Vessels into that
   * Pushes a true boolean to the stack if successful, or false if not
+  * "Enlightened Mode," takes a hex like the rest of the Vessel stuff, and must return a number, this would be the slot to set with that item. -1 would mean to not do anything with that item `NOT DONE`
 * Ambit Extenders `DONE`
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Circle Macros `DONE`

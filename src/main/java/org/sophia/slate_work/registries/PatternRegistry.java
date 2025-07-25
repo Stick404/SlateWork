@@ -12,8 +12,10 @@ import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-import org.apache.commons.codec.binary.Hex;
 import org.sophia.slate_work.casting.actions.*;
+import org.sophia.slate_work.casting.actions.sentinel.OpGetSents;
+import org.sophia.slate_work.casting.actions.sentinel.OpSetSents;
+import org.sophia.slate_work.casting.actions.storage.*;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 
 import java.util.LinkedHashMap;
@@ -39,6 +41,9 @@ public class PatternRegistry {
 
     public static final HexPattern SET_CRAFT = make("eaqwqaeqwaeadawwadaeaw", HexDir.SOUTH_WEST, "set_craft", OpSetCraftingLoci.INSTANCE);
     public static final HexPattern SET_MARCO = make("qqqwqqqqqaqeeaqwqae", HexDir.WEST, "set_macro", OpSetMacro.INSTANCE);
+
+    public static final HexPattern SET_SENTS = make("waeawaewawwa", HexDir.EAST, "set_sents", OpSetSents.INSTANCE);
+    public static final HexPattern GET_SENTS = make("waeawaewawwaeq", HexDir.EAST, "get_sents", OpGetSents.INSTANCE);
 
 
     // Got permission from Walks to add these to Slate Works
