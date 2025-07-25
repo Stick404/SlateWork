@@ -22,14 +22,11 @@ import org.sophia.slate_work.misc.CircleHelper
 
 object OpSetSents : Action {
 
-    override fun operate(
-        env: CastingEnvironment,
-        image: CastingImage,
-        continuation: SpellContinuation
-    ): OperationResult {
+    override fun operate(env: CastingEnvironment, image: CastingImage, continuation: SpellContinuation): OperationResult {
         if (env !is CircleCastEnv){
             throw MishapNoSpellCircle()
         }
+
         val args = image.stack.toMutableList()
         val inputList = args.getList(0,1)
         args.removeLast() // I think?
@@ -38,7 +35,6 @@ object OpSetSents : Action {
 
         for (z in inputList){
             val vec = inputList.toList().getVec3(i)
-            env.assertVecInRange(vec)
             realList.add(vec)
             i++
         }
@@ -55,13 +51,16 @@ object OpSetSents : Action {
         if (realList.size > loci.size){ // If there are too many items in the list, mishap
             throw MishapListLength(loci.size, realList.size)
         }
+
+        env.extractMedia(MediaConstants.DUST_UNIT, false).let {
+            if (it != 0L) throw MishapNotEnoughMedia(it)
+        }
+
         i = 0
-        val list = mutableListOf<Pair<Vec3d, SentinelLociEntity>>()
-        var cost = MediaConstants.DUST_UNIT
-
-        for (z in realList){
-
+        for (z in realList){ // I am not using z because I do not trust it to match with `loci`
             val nbt = (sentList[i] as NbtCompound)
+            env.assertVecInRange(realList[i])
+
             if (sentTime != env.world.time){
                 nbt.putLong("count", 0) // Clears the current "count" if its not the world time
             }
@@ -69,22 +68,15 @@ object OpSetSents : Action {
             if (loci[i].sentPos != realList[i]){
                 nbt.putLong("count", nbt.getLong("count")+1)
                 sentList[i] = nbt
-                list.add(Pair(realList[i], loci[i]))
             }
 
-            cost += (nbt.getLong("count") -1)* (MediaConstants.DUST_UNIT/8)
+            env.extractMedia((nbt.getLong("count") -1)* (MediaConstants.DUST_UNIT/8), false).let {
+                if (it != 0L) throw MishapNotEnoughMedia(it)
+            }
+
+            loci[i].sentPos = realList[i]
             i++
         }
-
-        val media = env.extractMedia(cost, false)
-        if (media != 0L) {
-            throw MishapNotEnoughMedia(media)
-        } // Ok cool, we have enough Media if we get past this point
-
-        for (z in list){
-            z.second.sentPos = z.first
-        }
-
 
         data.putList("sentinel_loci",sentList)
         data.putLong("sentinel_time", env.world.time)

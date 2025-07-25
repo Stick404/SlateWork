@@ -3,8 +3,10 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.server.world.ServerWorld;
@@ -24,7 +26,7 @@ import java.util.EnumSet;
 // We needed a Slate Block without the Attached_Face prop. So that's why this ugly ass file exists
 
 @SuppressWarnings({"deprecation"})
-public abstract class AbstractSlate extends BlockCircleComponent {
+public abstract class AbstractSlate extends BlockCircleComponent implements Equipment {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final DirectionProperty FACING = Properties.FACING;
 
@@ -114,5 +116,10 @@ public abstract class AbstractSlate extends BlockCircleComponent {
 
     public BlockState mirror(BlockState state, BlockMirror mirror) {
         return state.rotate(mirror.getRotation(state.get(FACING)));
+    }
+
+    @Override
+    public EquipmentSlot getSlotType() {
+        return EquipmentSlot.HEAD;
     }
 }

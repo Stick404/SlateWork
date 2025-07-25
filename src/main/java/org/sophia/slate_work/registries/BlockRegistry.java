@@ -25,6 +25,7 @@ import org.sophia.slate_work.item.AllayPigment;
 
 import java.util.HashMap;
 
+import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static net.minecraft.util.Rarity.UNCOMMON;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
@@ -34,6 +35,7 @@ public class BlockRegistry {
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Item> ITEM_REGISTRY = new HashMap<>();
+    public static HashMap<Identifier, Item> ITEMS = new HashMap<>();
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(slateSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
@@ -68,6 +70,9 @@ public class BlockRegistry {
 
         for (var e : ITEM_REGISTRY.entrySet()){
             Registry.register(Registries.ITEM, e.getKey(), e.getValue());
+            if (e.getValue() instanceof BlockItem){
+                ITEMS.put(e.getKey(), e.getValue());
+            }
             ItemGroupEvents.modifyEntriesEvent(SLATE_WORK_GROUP_KEY).register(group -> group.add(e.getValue()));
         }
 
@@ -77,7 +82,7 @@ public class BlockRegistry {
 
     private static <T extends Block> T registerBlockItem(String name, T block){
         BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block, new Item.Settings().rarity(UNCOMMON)));
+        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().with(ENERGIZED, true).getBlock(), new Item.Settings().rarity(UNCOMMON)));
         return block;
     }
 

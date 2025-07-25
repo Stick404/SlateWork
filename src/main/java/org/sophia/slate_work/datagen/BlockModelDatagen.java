@@ -8,9 +8,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.registries.BlockRegistry;
 
+import java.util.Optional;
+
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
+import static org.sophia.slate_work.registries.BlockRegistry.ITEMS;
 
 public class BlockModelDatagen extends FabricModelProvider {
 
@@ -63,6 +66,12 @@ public class BlockModelDatagen extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        for (var item : ITEMS.entrySet()){
+            itemModelGenerator.register(item.getValue(), new Model(
+                    Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
+                    Optional.empty()
+            ));
+        }
 
     }
 }
