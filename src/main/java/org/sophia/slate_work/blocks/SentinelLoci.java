@@ -9,6 +9,7 @@ import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Equipment;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
@@ -48,11 +49,19 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
             );
             return new ControlFlow.Stop();
         }
+        var sentTime = data.getLong("sentinel_time");
+        if (sentTime == 0L){
+            // To make sure this is never 0
+            data.putLong("sentinel_time", circleCastEnv.getWorld().getTime());
+        }
 
         var entity = serverWorld.getBlockEntity(blockPos);
         if (entity instanceof SentinelLociEntity sent){
             var list = data.getList("sentinel_loci", NbtElement.COMPOUND_TYPE);
-            list.add(NbtHelper.fromBlockPos(sent.getPos()));
+            var compound = new NbtCompound();
+            compound.put("pos",NbtHelper.fromBlockPos(sent.getPos()));
+            compound.putLong("count", 0);
+            list.add(compound);
             data.put("sentinel_loci",list);
             return new ControlFlow.Continue(
                     castingImage.copy(castingImage.getStack(),castingImage.getParenCount(),castingImage.getParenthesized(),

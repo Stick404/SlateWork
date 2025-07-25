@@ -1,0 +1,38 @@
+{
+  "name": "slate_work.entry.sentinel_loci_patterns",
+  "category": "hexcasting:patterns/spells",
+  "icon": "hexcasting:quenched_allay_shard",
+  "sortnum": 11,
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci_patterns.1"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci_patterns.break_space"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:set_sents",
+      "anchor": "slate_work:set_sents",
+      "input": "[vectors]",
+      "output": "",
+      "text": "slate_work.page.sentinel_loci_patterns.set_sents"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci_patterns.set_sents_cont"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:get_sents",
+      "anchor": "slate_work:get_sents",
+      "input": "",
+      "output": "[vectors]",
+      "text": "slate_work.page.sentinel_loci_patterns.get_sents"
+    }
+  ]
+}

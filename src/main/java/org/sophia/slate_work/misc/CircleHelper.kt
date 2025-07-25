@@ -27,7 +27,8 @@ object CircleHelper {
 
         for (temp in nbt){
             val z = temp as NbtCompound
-            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z))
+            // Z contains both "pos" and "count"
+            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z.getCompound("pos")))
             if (entity is SentinelLociEntity){
                 list.add(entity)
             }

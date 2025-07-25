@@ -4,7 +4,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "slate_work:block/sentinel_loci_energized",
-		"particle": "slate_work:block/sentinel_loci_energized"
+		"particle": "hexcasting:block/slate"
 	},
 	"elements": [
 		{

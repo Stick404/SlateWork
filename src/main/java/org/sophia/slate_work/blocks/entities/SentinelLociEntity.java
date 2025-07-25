@@ -1,16 +1,27 @@
 package org.sophia.slate_work.blocks.entities;
 
+import at.petrak.hexcasting.api.casting.ParticleSpray;
+import at.petrak.hexcasting.api.pigment.FrozenPigment;
+import at.petrak.hexcasting.common.lib.HexItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.DyeColor;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.registries.BlockRegistry;
+
+import static at.petrak.hexcasting.common.lib.HexItems.DYE_PIGMENTS;
+import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 
 public class SentinelLociEntity extends BlockEntity {
     private Vec3d pos = this.getPos().toCenterPos();
@@ -45,6 +56,14 @@ public class SentinelLociEntity extends BlockEntity {
     public void setSentPos(Vec3d pos) {
         this.pos = pos;
         this.markDirty();
+        if (this.world instanceof ServerWorld world){
+            var facing = new Vec3d(this.getCachedState().get(FACING).getOpposite().getUnitVector());
+            ParticleSpray sprayDown = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing, 0.1d, (Math.PI /  4), 15);
+            sprayDown.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+
+            ParticleSpray sprayUp = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing.multiply(-1), 0.1d, (Math.PI /  4), 15);
+            sprayUp.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+        }
     }
 
     @Override

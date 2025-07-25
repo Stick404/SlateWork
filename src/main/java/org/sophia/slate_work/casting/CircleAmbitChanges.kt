@@ -43,7 +43,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         val sents = data.getList("sentinel_loci", NbtElement.COMPOUND_TYPE.toInt())
         for (temp in sents){
             val posTemp = temp as NbtCompound
-            val pos = NbtHelper.toBlockPos(posTemp)
+            val pos = NbtHelper.toBlockPos(posTemp.getCompound("pos"))
             val entity = env.world.getBlockEntity(pos)
             if (entity !is SentinelLociEntity){
                 continue
