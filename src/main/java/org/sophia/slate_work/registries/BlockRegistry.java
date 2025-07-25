@@ -39,6 +39,7 @@ public class BlockRegistry {
     public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(slateSetting));
     public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
     public static MacroLoci MACRO_LOCI = registerBlockItem("macro_loci", new MacroLoci(slateSetting));
+    public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(slateSetting));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",

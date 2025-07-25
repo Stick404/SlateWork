@@ -1,0 +1,26 @@
+{
+  "name": "slate_work.entry.mute_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:mute_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:mute_loci",
+      "anchor": "mute_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.mute_loci.mute_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.mute_loci.mute_loci_cont"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:mute_loci_craft",
+      "text": "slate_work.page.mute_loci.crafting"
+    }
+  ]
+}

@@ -27,7 +27,7 @@ public class AllayPigment extends Item implements PigmentItem {
             return ADPigment.morphBetweenColors(new int[]{
                     0xFF6fe4d3, 0xFF2db6d0, //Blue
                     0xFFcfa0f3, 0xFFfecbe6 // Amethyst
-            },new Vec3d(0.1,0.1,0.1), v / 20 / 20, vec3d);
+            },new Vec3d(0.1,0.1,0.1), v / 70, vec3d);
         }
     }
 }

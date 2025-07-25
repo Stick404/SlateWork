@@ -26,6 +26,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("storage_loci", BlockRegistry.STORAGE_LOCI, generator);
         registerEnergizedFacing("speed_loci", BlockRegistry.SPEED_LOCI, generator);
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
+        registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){

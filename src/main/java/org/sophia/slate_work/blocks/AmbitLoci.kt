@@ -84,13 +84,24 @@ class AmbitLoci: BlockCircleComponent {
             willPushNeg = willPushNeg.add(0,0,toPush.z)
         }
 
-        val posPush = willPushPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
-        val negPush = willPushNeg.getManhattanDistance(BlockPos(0, 0, 0)).absoluteValue
+        val posPush: Int = willPushPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPush: Int = willPushNeg.getManhattanDistance(BlockPos(0, 0, 0)).absoluteValue
 
-        val posPushed = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
-        val negPushed = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val posPushed: Int = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
+        val negPushed: Int = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
 
-        val cost = ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.DUST_UNIT)
+          //= ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.DUST_UNIT)
+
+        val cost = try { //So. There was an overflow glitch.
+            Math.multiplyExact(Math.subtractExact(
+                Math.multiplyExact(posPush + negPush, posPush + negPush).toLong(),
+                Math.multiplyExact(posPush + negPush, posPush + negPush).toLong()
+            ), MediaConstants.DUST_UNIT)
+
+        } catch (e: ArithmeticException){
+            Long.MAX_VALUE -1 // If you have Long MAX -1 media, fuck it, you can have free Ambit
+        }
+
         val extracted = env?.extractMedia(cost,false)
         if (0L != extracted) {
             this.fakeThrowMishap(
@@ -99,6 +110,7 @@ class AmbitLoci: BlockCircleComponent {
             )
             return ControlFlow.Stop()
         }
+
         data.putCompound("ambit_pushed_pos", NbtHelper.fromBlockPos(willPushPos))
         data.putCompound("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
 

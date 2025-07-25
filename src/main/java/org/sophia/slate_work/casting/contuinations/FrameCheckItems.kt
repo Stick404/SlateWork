@@ -1,8 +1,7 @@
 package org.sophia.slate_work.casting.contuinations
 
-import at.petrak.hexcasting.api.casting.*
+import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.eval.CastResult
-import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.sideeffects.OperatorSideEffect
@@ -10,6 +9,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
 import at.petrak.hexcasting.api.casting.eval.vm.FrameEvaluate
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
+import at.petrak.hexcasting.api.casting.getBool
 import at.petrak.hexcasting.api.casting.iota.BooleanIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
@@ -21,17 +21,13 @@ import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import miyucomics.hexpose.iotas.ItemStackIota
-import net.minecraft.entity.ItemEntity
-import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.nbt.NbtList
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
-import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.misc.CircleHelper
-import java.util.*
 
 // Almost exactly like FrameGetItems, but it returns early/with only bool!
 @Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
@@ -39,7 +35,7 @@ class FrameCheckItems(
     val code: SpellList,
     val baseStack: MutableList<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
-    val isFirst: Boolean
+    var isFirst: JankyMaybe = JankyMaybe.RUNNING
 ) : ContinuationFrame {
 
     override val type: ContinuationFrame.Type<*>
@@ -52,15 +48,18 @@ class FrameCheckItems(
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
         val stack = baseStack.toMutableList()
-        val slot = toCheck.first()
-        if (!this.isFirst) {
+        val slot = if (isFirst != JankyMaybe.LAST && !toCheck.isEmpty()){
             toCheck.removeFirst()
+        } else {
+            isFirst = JankyMaybe.LAST
+            null
         }
+
         var hasFound = false
         val realStack = harness.image.stack.reversed().toMutableList()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
-        if (!isFirst && !slot.item.isBlank){
+        if (isFirst != JankyMaybe.FIRST){
             try {
                 if (harness.env !is CircleCastEnv) {
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
@@ -84,11 +83,20 @@ class FrameCheckItems(
             }
         }
 
-        val cont = if (toCheck.isNotEmpty() && !hasFound) {
-            stack.add(ItemStackIota(slot.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
-            continuation
-                .pushFrame(FrameCheckItems(code,baseStack,toCheck, false))
-                .pushFrame(FrameEvaluate(code,true))
+        val cont = if (isFirst != JankyMaybe.LAST) {
+            stack.add(ItemStackIota(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+            when (isFirst){
+                JankyMaybe.PENULTIMATE -> {
+                    continuation
+                        .pushFrame(FrameCheckItems(code,baseStack,toCheck, JankyMaybe.LAST))
+                        .pushFrame(FrameEvaluate(code,true))
+                }
+                else -> { // When FIRST or RUNNING push the frame
+                    continuation
+                        .pushFrame(FrameCheckItems(code,baseStack,toCheck))
+                        .pushFrame(FrameEvaluate(code,true))
+                }
+            }
         } else {
             stack.add(BooleanIota(hasFound))
             continuation
@@ -118,6 +126,7 @@ class FrameCheckItems(
             listCheck.add(tempCompound)
         }
         compound.putList("to_check",listCheck)
+        compound.putString("jank_maybe", this.isFirst.name)
         return compound
     }
 
@@ -136,38 +145,10 @@ class FrameCheckItems(
                         toCheck.add(slot)
                     }
                 }
-                return FrameCheckItems(code, stack as MutableList<Iota>,toCheck, false)
+                val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
+                return FrameCheckItems(code, stack as MutableList<Iota>,toCheck, stepEval)
             }
 
-        }
-    }
-
-    // So. You can not make your own `OperatorSideEffect` (its sealed), so we have to make a *Rendered Spell* to spawn the items in
-    private data class DumpDumbHexIsStupid(val itemSlotTup: Triple<CircleHelper.ItemSlot, Vec3d, Int>) : RenderedSpell{
-        override fun cast(env: CastingEnvironment) {
-            val itemSlot = itemSlotTup.first
-            val vec = itemSlotTup.second
-            val amount = itemSlotTup.third
-
-            val slot = itemSlot.storageLociEntity.getSlot(itemSlot.item)!!
-            val summon = itemSlot.storageLociEntity.removeStack(slot, amount)
-            val stack = ItemStack(summon.left.item, summon.right.toInt(), if (summon.left.nbt != null) Optional.of(
-                summon.left.nbt as NbtCompound
-            ) else Optional.empty())
-
-            while (stack.count > stack.maxCount){
-                val copy = stack.copy()
-                copy.count = stack.maxCount
-                env.world.spawnEntity(
-                    ItemEntity(
-                        env.world, vec.x, vec.y, vec.z, copy, 0.0, 0.0, 0.0)
-                )
-                stack.count -= stack.maxCount
-            }
-            env.world.spawnEntity(
-                ItemEntity(
-                    env.world, vec.x, vec.y, vec.z, stack, 0.0,0.0, 0.0)
-            )
         }
     }
 }

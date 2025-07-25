@@ -22,6 +22,7 @@ object OpSetCraftingLoci : ConstMediaAction{
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val list = args.getList(1,argc).toList()
         val target = args.getBlockPos(0,argc)
+        env.assertPosInRange(target)
 
         if (list.size > 9) { // Since this a crafting table, we need a list smaller than 9
             throw MishapListLength(9,list.size)

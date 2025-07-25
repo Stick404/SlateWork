@@ -12,6 +12,7 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import org.sophia.slate_work.casting.contuinations.FrameGetItems
+import org.sophia.slate_work.casting.contuinations.JankyMaybe
 import org.sophia.slate_work.misc.CircleHelper
 
 @Suppress("DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
@@ -31,7 +32,8 @@ object OpGetItem : Action {
         val storages = CircleHelper.getStorage(env)
         val toCheck = CircleHelper.getOnlySlots(storages)
 
-        val frame = FrameGetItems(hex,stack,toCheck.toMutableList(),true)
+        // This `ItemVariant#blank` does not get used, and gets replaced
+        val frame = FrameGetItems(hex,stack,toCheck.toMutableList(), null, JankyMaybe.FIRST)
         val image2 = image.withUsedOp().copy(stack = stack)
 
         val media = env.extractMedia(((storages.size.toDouble()*0.25)* MediaConstants.DUST_UNIT.toDouble()).toLong(), false)

@@ -27,10 +27,9 @@
   * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
 
 ## TODO:
+* Model/Texture/Document the Mute_Loci
 * Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*
 
 ## Problems:
-* Patterned Assembler needing several clicks to work
-* Document Patterned Assembler going only forwards (and fix valid path)
 

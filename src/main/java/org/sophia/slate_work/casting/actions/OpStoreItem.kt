@@ -11,10 +11,10 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.entity.ItemEntity
+import net.minecraft.item.ItemStack
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
 import org.sophia.slate_work.misc.CircleHelper
-import kotlin.math.log
 
 object OpStoreItem : SpellAction {
     override val argc: Int = 1
@@ -50,7 +50,7 @@ object OpStoreItem : SpellAction {
                 val item = slot.storageLociEntity.getStack(targ)
                 item.right += itemE.count
                 slot.storageLociEntity.setStack(targ,item);
-                entity.kill()
+                entity.stack = ItemStack.EMPTY
                 return
             }
             // If its not a known item yet...
@@ -58,7 +58,7 @@ object OpStoreItem : SpellAction {
                 val x = z.isFull
                 if (x != -1) {
                     z.setStack(x, ItemVariant.of(itemE.item,itemE.nbt),itemE.count.toLong())
-                    entity.kill()
+                    entity.stack = ItemStack.EMPTY
                     return
                 }
             }

@@ -85,14 +85,13 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
     }
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
-        return direction != Direction.UP && direction != Direction.DOWN;
+        return direction != Direction.UP;
     }
 
     @Override
     public EnumSet<Direction> possibleExitDirections(BlockPos blockPos, BlockState blockState, World world) {
         EnumSet<Direction> z = EnumSet.allOf(Direction.class);
         z.remove(Direction.UP);
-        z.remove(Direction.DOWN);
         return z;
     }
 
@@ -102,10 +101,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
 
         if (entity instanceof CraftingLociEntity craftingLoci) {
             ArrayList<Iota> stack = new ArrayList<>(castingImage.getStack());
-            ArrayList<Pair<BlockPos, Direction>> exits = new ArrayList<>();
-            if (this.possibleExitDirections(blockPos,blockState,serverWorld).contains(direction)){
-                exits.add(new Pair<>(blockPos.offset(direction), direction));
-            }
+            var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
+            exitDirsSet.remove(direction.getOpposite());
+            var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir)).toList();
 
             var storages = CircleHelper.INSTANCE.getLists(circleCastEnv);
             if (storages.isEmpty()) {

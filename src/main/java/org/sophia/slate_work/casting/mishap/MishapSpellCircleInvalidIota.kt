@@ -40,7 +40,7 @@ class MishapSpellCircleInvalidIota(
         }
 
         @JvmStatic
-        fun of(perpetrator: Iota, reverseIdx: Int, name: String, vararg translations: Any, pos: BlockPos): MishapSpellCircleInvalidIota {
+        fun of(perpetrator: Iota, reverseIdx: Int, name: String, pos: BlockPos, vararg translations: Any): MishapSpellCircleInvalidIota {
             val key = "hexcasting.mishap.invalid_value.$name"
             return MishapSpellCircleInvalidIota(perpetrator, reverseIdx, key.asTranslatedComponent(*translations), pos)
         }

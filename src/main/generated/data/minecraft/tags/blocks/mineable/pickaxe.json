@@ -5,6 +5,7 @@
     "slate_work:macro_loci",
     "slate_work:crafting_loci",
     "slate_work:speed_loci",
-    "slate_work:storage_loci"
+    "slate_work:storage_loci",
+    "slate_work:mute_loci"
   ]
 }
