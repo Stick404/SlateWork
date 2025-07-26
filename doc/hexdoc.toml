@@ -10,10 +10,14 @@ resource_dirs = [  # top takes priority
     "{$_common.src}/main/resources",
     { path="{$_common.src}/generated/resources", required=false },
     # other hexdoc plugins
+    { modid="hexcasting" },
     { modid="minecraft" },
     { modid="hexdoc" },
 ]
 export_dir = "src/hexdoc_slate_work/_export/generated"
+
+[extra.hexcasting]
+_pattern_regex = { "!Raw"='HexPattern[\s\S]+?make\(\"(?P<signature>[qweasd]+)\", HexDir\.(?P<startdir>[A-Z_]+), \"(?P<name>[^\"]+?)\"' }
 
 [template]
 icon = "icon.png"
