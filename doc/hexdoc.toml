@@ -23,6 +23,7 @@ _pattern_regex = { "!Raw"='HexPattern[\s\S]+?make\(\"(?P<signature>[qweasd]+)\",
 icon = "icon.png"
 include = [
     "slate_work",
+    "hexcasting",
     "hexdoc",
 ]
 
