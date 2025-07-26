@@ -12,6 +12,7 @@ resource_dirs = [  # top takes priority
     # other hexdoc plugins
     { modid="hexcasting" },
     { modid="minecraft" },
+    { modid="hexpose" },
     { modid="hexdoc" },
 ]
 export_dir = "src/hexdoc_slate_work/_export/generated"
@@ -24,6 +25,7 @@ icon = "icon.png"
 include = [
     "slate_work",
     "hexcasting",
+    "hexpose",
     "hexdoc",
 ]
 
