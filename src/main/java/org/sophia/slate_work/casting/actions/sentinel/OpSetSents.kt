@@ -15,7 +15,6 @@ import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.math.Vec3d
-import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.casting.mishap.MishapNoSentinelLoci
 import org.sophia.slate_work.misc.CircleHelper
@@ -57,9 +56,22 @@ object OpSetSents : Action {
         }
 
         i = 0
+        val radius = 4
         for (z in realList){ // I am not using z because I do not trust it to match with `loci`
             val nbt = (sentList[i] as NbtCompound)
-            env.assertVecInRange(realList[i])
+
+            var found = false
+            for (check in loci){
+                if (realList[i].squaredDistanceTo(check.sentPos) < radius * radius +0.00000000001) {
+                    // Ambit checks can be *really* laggy, so we optimize it with this little loop
+                    found = true
+                    break;
+                }
+            }
+            if (!found){
+                env.assertVecInRange(realList[i])
+            }
+            //TODO: Make this skip most of this other checks and stuff if its not moving the sent
 
             if (sentTime != env.world.time){
                 nbt.putLong("count", 0) // Clears the current "count" if its not the world time
