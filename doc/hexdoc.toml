@@ -7,8 +7,8 @@ resource_dirs = [  # top takes priority
     # hexdoc-only resources
     "resources",
     # resource dirs for Slate Work
-    "{_common.src}/main/resources",
-    { path="{_common.src}/main/generated", required=false },
+    "{$_common.src}/main/resources",
+    { path="{$_common.src}/main/generated", required=false },
     # other hexdoc plugins
     { modid="hexcasting" },
     { modid="minecraft" },
