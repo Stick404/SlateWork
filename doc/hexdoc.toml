@@ -1,0 +1,33 @@
+modid = "slate_work"
+book = "hexcasting:thehexbook"
+default_lang = "en_us"
+default_branch = "main"
+
+resource_dirs = [  # top takes priority
+    # hexdoc-only resources
+    "resources",
+    # resource dirs for Slate Work
+    "{$_common.src}/main/resources",
+    { path="{$_common.src}/generated/resources", required=false },
+    # other hexdoc plugins
+    { modid="minecraft" },
+    { modid="hexdoc" },
+]
+export_dir = "src/hexdoc_slate_work/_export/generated"
+
+[template]
+icon = "icon.png"
+include = [
+    "slate_work",
+    "hexdoc",
+]
+
+[template.args]
+mod_name = "Slate Work"
+author = "Stick404"
+show_landing_text = true
+
+# platforms
+
+[_common]
+src = "../src"

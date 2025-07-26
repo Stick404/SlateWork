@@ -1,0 +1,16 @@
+# Changes here will be overwritten by Copier. NEVER EDIT MANUALLY
+# See: https://copier.readthedocs.io/en/stable/configuring/#the-copier-answersyml-file
+_commit: v0.1.6
+_src_path: gh:hexdoc-dev/hexdoc-mod-template
+add_gitignore: false
+add_vscode: false
+advanced: false
+author: Stick404
+book_id: hexcasting:thehexbook
+capitalize_platforms: false
+github_repo: SlateWork
+gradle_minecraft_version_key: minecraft_version
+gradle_mod_version_key: mod_version
+mod_display_name: Slate Work
+modid: slate_work
+multiloader: false

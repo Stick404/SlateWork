@@ -1,0 +1,111 @@
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-gradle-version>=0.8.0",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "hexdoc-slate-work"
+dynamic = ["version", "dependencies", "optional-dependencies"]
+description = "hexdoc plugin for Slate Work's web book."
+readme = "doc/README.md"
+authors = [
+    { name="Stick404" },
+]
+keywords = [
+    "hexdoc",
+]
+requires-python = ">=3.11"
+
+[project.urls]
+Homepage = "https://stick404.github.io/SlateWork/"
+Source = "https://github.com/Stick404/SlateWork"
+
+[tool.hatch.metadata.hooks.gradle-properties]
+dependencies = [
+    "hexdoc~=1!0.1.0a24",
+    { package="hexdoc-minecraft", op="~=", py-version="1.0.dev", key="minecraft_version" },
+]
+
+[tool.hatch.metadata.hooks.gradle-properties.optional-dependencies]
+dev = [
+    "ruff~=0.11.2",
+]
+
+[tool.hatch.version]
+scheme = "gradle"
+source = "gradle-properties"
+py-path = "doc/src/hexdoc_slate_work/__version__.py"
+key = "mod_version"
+
+[project.entry-points.hexdoc]
+slate_work = "hexdoc_slate_work._hooks:Slate_workPlugin"
+
+[tool.hatch.build]
+only-include = [
+    "doc/src",
+    "gradle.properties",
+]
+artifacts = [
+    "/doc/src/hexdoc_slate_work/_export/generated",
+    "/doc/src/hexdoc_slate_work/__gradle_version__.py",
+]
+
+[tool.hatch.build.targets.wheel]
+sources = ["doc/src"]
+
+[tool.pyright]
+pythonVersion = "3.11"
+pythonPlatform = "All"
+
+include = ["doc/src"]
+extraPaths = ["doc/src"]
+
+typeCheckingMode = "basic"
+
+strictDictionaryInference = true
+strictListInference = true
+strictSetInference = true
+
+reportAssertAlwaysTrue = "error"
+reportConstantRedefinition = "error"
+reportDeprecated = "error"
+reportDuplicateImport = "error"
+reportFunctionMemberAccess = "error"
+reportIncompatibleMethodOverride = "error"
+reportIncompatibleVariableOverride = "error"
+reportIncompleteStub = "error"
+reportInconsistentConstructor = "error"
+reportInvalidStringEscapeSequence = "error"
+reportInvalidStubStatement = "error"
+reportInvalidTypeVarUse = "error"
+reportMatchNotExhaustive = "error"
+reportMissingParameterType = "error"
+reportMissingTypeStubs = "error"
+reportOverlappingOverload = "error"
+reportSelfClsParameterName = "error"
+reportTypeCommentUsage = "error"
+reportUnknownParameterType = "error"
+reportUnnecessaryCast = "error"
+reportUnnecessaryContains = "error"
+reportUnsupportedDunderAll = "error"
+reportUntypedBaseClass = "error"
+reportUntypedClassDecorator = "error"
+reportUntypedFunctionDecorator = "error"
+reportUntypedNamedTuple = "error"
+reportWildcardImportFromLibrary = "error"
+
+reportMissingTypeArgument = "warning"
+reportPrivateUsage = "warning"
+reportUnknownArgumentType = "warning"
+reportUnknownLambdaType = "warning"
+reportUnknownMemberType = "warning"
+reportUnknownVariableType = "warning"
+reportUnnecessaryComparison = "warning"
+reportUnnecessaryIsInstance = "warning"
+reportUnusedClass = "warning"
+reportUnusedExpression = "warning"
+reportUnusedFunction = "warning"
+reportUnusedImport = "warning"
+reportUnusedVariable = "warning"

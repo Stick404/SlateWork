@@ -1,0 +1,12 @@
+{
+    "watch": [
+        "doc/src",
+        "doc/resources",
+        "doc/hexdoc.toml",
+        "src/main/resources/assets/*/lang",
+        "src/main/resources/assets/slate_work/patchouli_books"
+    ],
+    "ignore": ["**/generated/**"],
+    "ext": "jinja,html,css,js,ts,toml,json,json5,py",
+    "exec": "hexdoc serve"
+}
