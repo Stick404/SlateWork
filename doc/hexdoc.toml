@@ -13,7 +13,6 @@ resource_dirs = [  # top takes priority
     { modid="hexcasting" },
     { modid="minecraft" },
     { modid="hexpose" },
-    { modid="hexdoc" },
 ]
 export_dir = "src/hexdoc_slate_work/_export/generated"
 
