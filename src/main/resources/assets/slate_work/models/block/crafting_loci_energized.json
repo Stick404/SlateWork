@@ -173,8 +173,8 @@
 				"east": {"uv": [0, 3, 3, 6], "texture": "#1"},
 				"south": {"uv": [3, 0, 6, 3], "texture": "#1"},
 				"west": {"uv": [3, 3, 6, 6], "texture": "#1"},
-				"up": {"uv": [3, 9, 0, 6], "texture": "#1"},
-				"down": {"uv": [9, 0, 6, 3], "texture": "#1"}
+				"up": {"uv": [3, 3, 0, 0], "texture": "#1"},
+				"down": {"uv": [3, 0, 0, 3], "texture": "#1"}
 			}
 		}
 	],

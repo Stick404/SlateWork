@@ -24,8 +24,8 @@ Source = "https://github.com/Stick404/SlateWork"
 
 [tool.hatch.metadata.hooks.gradle-properties]
 dependencies = [
-    "hexdoc~=1!0.1.0a24",
-    { package="hexdoc-minecraft", op="~=", py-version="1.0.dev", key="minecraft_version" },
+    { package="hexdoc-hexcasting", op="~=", py-version="1.0.dev20", key="hex_casting" },
+    { package="hexdoc-hexpose", op="~=", py-version="1.0.dev", key="hex_pose_version" },
 ]
 
 [tool.hatch.metadata.hooks.gradle-properties.optional-dependencies]
