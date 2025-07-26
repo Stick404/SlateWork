@@ -60,17 +60,17 @@ object OpSetSents : Action {
         for (z in realList){ // I am not using z because I do not trust it to match with `loci`
             val nbt = (sentList[i] as NbtCompound)
 
-            var found = false
+            /*var found = false
             for (check in loci){
                 if (realList[i].squaredDistanceTo(check.sentPos) < radius * radius +0.00000000001) {
                     // Ambit checks can be *really* laggy, so we optimize it with this little loop
                     found = true
                     break;
                 }
-            }
-            if (!found){
+            }*/
+            //if (!found){
                 env.assertVecInRange(realList[i])
-            }
+            //}
             //TODO: Make this skip most of this other checks and stuff if its not moving the sent
 
             if (sentTime != env.world.time){

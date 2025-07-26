@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
+import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
@@ -16,7 +17,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
     private val radius = 4
     override fun getKey(): CastingEnvironmentComponent.Key<*>? = key
 
-    override fun onIsVecInRange(vec: Vec3d?, inAmbit: Boolean): Boolean {
+    override fun onIsVecInRange(vec: Vec3d, inAmbit: Boolean): Boolean {
         if (inAmbit || env !is CircleCastEnv)
             return inAmbit
         val state = env.circleState()
@@ -49,7 +50,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
             }
             // adding 0.00000000001 to avoid machine precision errors at specific angles. Source:
             // https://github.com/FallingColors/HexMod/blob/977ccba28b63a5df2b6e15fb29f82879a61f5134/Common/src/main/java/at/petrak/hexcasting/api/casting/eval/env/PlayerBasedCastEnv.java#L115C17-L115C93
-            if (vec!!.squaredDistanceTo(entity.sentPos) <= radius * radius +0.00000000001){
+            if (vec.squaredDistanceTo(entity.sentPos) <= radius * radius +0.00000000001){
                 return true
             }
         }

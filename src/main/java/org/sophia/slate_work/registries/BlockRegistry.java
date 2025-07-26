@@ -1,5 +1,6 @@
 package org.sophia.slate_work.registries;
 
+import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -35,7 +36,7 @@ public class BlockRegistry {
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Item> ITEM_REGISTRY = new HashMap<>();
-    public static HashMap<Identifier, Item> ITEMS = new HashMap<>();
+    public static HashMap<Identifier, Item> ENERGIZED_BLOCKS = new HashMap<>();
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(slateSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
@@ -70,8 +71,8 @@ public class BlockRegistry {
 
         for (var e : ITEM_REGISTRY.entrySet()){
             Registry.register(Registries.ITEM, e.getKey(), e.getValue());
-            if (e.getValue() instanceof BlockItem){
-                ITEMS.put(e.getKey(), e.getValue());
+            if (e.getValue() instanceof BlockItem block && block.getBlock() instanceof BlockCircleComponent){
+                ENERGIZED_BLOCKS.put(e.getKey(), e.getValue());
             }
             ItemGroupEvents.modifyEntriesEvent(SLATE_WORK_GROUP_KEY).register(group -> group.add(e.getValue()));
         }
