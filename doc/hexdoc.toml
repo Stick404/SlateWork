@@ -7,8 +7,8 @@ resource_dirs = [  # top takes priority
     # hexdoc-only resources
     "resources",
     # resource dirs for Slate Work
-    "{$_common.src}/main/resources",
-    { path="{$_common.src}/generated/resources", required=false },
+    "{_common.src}/main/resources",
+    { path="{_common.src}/generated/resources", required=false },
     # other hexdoc plugins
     { modid="hexcasting" },
     { modid="minecraft" },
@@ -21,7 +21,7 @@ export_dir = "src/hexdoc_slate_work/_export/generated"
 _pattern_regex = { "!Raw"='HexPattern[\s\S]+?make\(\"(?P<signature>[qweasd]+)\", HexDir\.(?P<startdir>[A-Z_]+), \"(?P<name>[^\"]+?)\"' }
 
 [[extra.hexcasting.pattern_stubs]]
-path = "src/main/java/org/sophia/slate_work/registries/PatternRegistry.java"
+path = "{src}/mian/java/org/sophia/slate_work/registries/PatternRegistry.java"
 regex = "{^_pattern_regex}"
 
 [template]
