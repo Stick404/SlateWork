@@ -20,6 +20,10 @@ export_dir = "src/hexdoc_slate_work/_export/generated"
 [extra.hexcasting]
 _pattern_regex = { "!Raw"='HexPattern[\s\S]+?make\(\"(?P<signature>[qweasd]+)\", HexDir\.(?P<startdir>[A-Z_]+), \"(?P<name>[^\"]+?)\"' }
 
+[[extra.hexcasting.pattern_stubs]]
+path = "{^^^_common.package}/registries/PatternRegistry.java"
+regex = "{^_pattern_regex}"
+
 [template]
 icon = "icon.png"
 include = [
