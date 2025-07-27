@@ -8,6 +8,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -32,19 +33,20 @@ import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class BlockRegistry {
     private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().strength(1.5F, 6.0F);
+    private static final AbstractBlock.Settings locusSetting = slateSetting.pistonBehavior(PistonBehavior.DESTROY);
 
 
     private static final HashMap<Identifier, Block> BLOCK_REGISTRY = new HashMap<>();
     private static final HashMap<Identifier, Item> ITEM_REGISTRY = new HashMap<>();
     public static HashMap<Identifier, Item> ENERGIZED_BLOCKS = new HashMap<>();
 
-    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(slateSetting));
-    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(slateSetting.nonOpaque()));
-    public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(slateSetting));
-    public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(slateSetting));
-    public static MacroLoci MACRO_LOCI = registerBlockItem("macro_loci", new MacroLoci(slateSetting));
-    public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(slateSetting));
-    public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(slateSetting));
+    public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(locusSetting));
+    public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(locusSetting.nonOpaque()));
+    public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(locusSetting));
+    public static SpeedLoci SPEED_LOCI = registerBlockItem("speed_loci", new SpeedLoci(locusSetting));
+    public static MacroLoci MACRO_LOCI = registerBlockItem("macro_loci", new MacroLoci(locusSetting));
+    public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(locusSetting));
+    public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(locusSetting));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
