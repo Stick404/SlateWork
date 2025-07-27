@@ -31,7 +31,7 @@
   "item.slate_work.allay_pigment": "Quenched Pigment",
 
   "Entries:": "",
-  "slate_work.entry.storage_loci": "Slate Works Loci Patterns",
+  "slate_work.entry.storage_loci": "Locus Spells",
   "slate_work.page.storage_loci.1": "As wonderful as $(thing)Vessels/$ are for storage, they have an... opaque method of interaction. The main way of interaction is with _Hexes; more specifically, using a _Hex to describe what I wish to retrieve. Importantly, these all $(l:casting/mishaps2)mishap when not cast in a Spell Circle/$. $(br2)$(br)$(o)“Riddles,” I said. $(br)“Always preferable to no answer at all,” he responded.",
   "slate_work.page.storage_loci.2": "To elaborate more, $(thing)Vessels/$ respects Nature's silly rules regarding the \"Stack Limit\" by working around them. Rather than directly calling an item based on its name, I more-or-less supply a \"description;\" this is a _Hex that takes an $(l:patterns/scrying/item)Item Stack Iota/$, and needs to return a boolean. Also, all patterns to do with the retrieving of $(thing)Storage Vessels/$ take a copy of the Stack, and puts it onto the 'inner' stack (much like $(l:patterns/meta#hexcasting:for_each)$(action)Thoth's Gambit/$).",
   "slate_work.page.storage_loci.get_storage": "This simply returns what $(thing)Vessels/$ the current $(l:greatwork/spellcircles)Spell Circle/$ has activated. I should likely use this to check if the $(l:greatwork/spellcircles)Spell Circle/$ has collected any $(thing)Vessels/$.",
