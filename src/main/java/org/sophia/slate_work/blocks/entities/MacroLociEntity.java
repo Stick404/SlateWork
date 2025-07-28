@@ -1,12 +1,12 @@
 package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
-import at.petrak.hexcasting.common.items.storage.ItemFocus;
-import at.petrak.hexcasting.common.lib.HexItems;
+import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +18,8 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
@@ -39,10 +41,16 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         return pattern;
     }
 
-    public void setFocusContents(Iota iota){
-        if (this.isEmpty()) return;
-        ItemFocus focus = (ItemFocus) this.theSlot.getItem().asItem();
-        focus.writeDatum(this.theSlot, iota);
+    public void setFocusContents(Iota iota, @Nullable CastingEnvironment env) throws MishapOthersName {
+        var holder = IXplatAbstractions.INSTANCE.findDataHolder(theSlot);
+        if (this.isEmpty() || holder == null) return;
+        var written = holder.writeIota(iota, false);
+        if (written && env != null) {
+            var trueName = MishapOthersName.getTrueNameFromDatum(holder.readIota((ServerWorld) world), (ServerPlayerEntity) env.getCastingEntity());
+            if (trueName != null)
+                throw new MishapOthersName(trueName);
+        }
+
         this.markDirty();
     }
 
@@ -65,9 +73,10 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     }
 
     public @Nullable Text getDisplay(){
-        if (theSlot.getItem() instanceof ItemFocus item){
-            if (item.readIotaTag(theSlot) != null) {
-                return IotaType.getDisplay(item.readIotaTag(theSlot));
+        var holder = IXplatAbstractions.INSTANCE.findDataHolder(theSlot);
+        if (holder != null){
+            if (holder.readIotaTag() != null) {
+                return IotaType.getDisplay(holder.readIotaTag());
             }
         }
         return Text.of("");
@@ -100,7 +109,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     public boolean isValid(int slot, ItemStack stack) {
         ADIotaHolder holder = IXplatAbstractions.INSTANCE.findDataHolder(stack);
-        return holder != null && stack.getItem() == HexItems.FOCUS.asItem();
+        return holder != null;
     }
 
     @Override

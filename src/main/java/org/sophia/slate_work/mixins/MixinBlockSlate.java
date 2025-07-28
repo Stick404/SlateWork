@@ -1,6 +1,5 @@
 package org.sophia.slate_work.mixins;
 
-import at.petrak.hexcasting.api.casting.SpellList;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.ExecutionClientView;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
@@ -39,21 +38,31 @@ public abstract class MixinBlockSlate {
         var macroNBT = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
         String angleSig = pattern.anglesSignature();
 
-        Map<String, SpellList> macros = new HashMap<>();
+        Map<String, Iota> macros = new HashMap<>();
         for (NbtElement temp : macroNBT) {
             NbtCompound nbtElement = (NbtCompound) temp;
             macros.put(
                     HexPattern.fromNBT(nbtElement.getCompound("pattern")).anglesSignature(),
-                    ((ListIota) IotaType.deserialize(nbtElement.getCompound("macro") ,world)).getList()
+                    IotaType.deserialize(nbtElement.getCompound("macro") ,world)
             );
         }
         if (macros.containsKey(angleSig)){
-            List<Iota> realSpell = new ArrayList<>();
-            for (Iota iota : macros.get(angleSig)){
-                realSpell.add(iota);
+            var macro = macros.get(angleSig);
+            ExecutionClientView result;
+
+            if (macro instanceof ListIota pain){
+
+                var spell = new ArrayList<Iota>();
+                for (var iota : pain.getList()){
+                    spell.add(iota);
+                }
+
+                result = vm.queueExecuteAndWrapIotas(spell, world);
+            } else {
+
+                result = vm.queueExecuteAndWrapIota(macro, world);
             }
 
-            ExecutionClientView result = vm.queueExecuteAndWrapIotas(realSpell, world);
             cir.setReturnValue(result.getResolutionType().getSuccess() ? new ICircleComponent.ControlFlow.Continue(vm.getImage(), exitDirs.toList()) : new ICircleComponent.ControlFlow.Stop());
             cir.cancel();
         }

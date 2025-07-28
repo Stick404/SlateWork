@@ -2,13 +2,9 @@ package org.sophia.slate_work.casting.actions
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
-import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.getBlockPos
-import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.getPattern
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.ListIota
-import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import org.sophia.slate_work.blocks.entities.MacroLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNeededFocus
@@ -21,7 +17,7 @@ object OpSetMacro : ConstMediaAction {
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val target = args.getBlockPos(0, argc)
-        val hex = args.getList(1, argc)
+        val iota = args[1]
         val pattern = args.getPattern(2, argc)
 
         val entity = env.world.getBlockEntity(target)
@@ -33,7 +29,7 @@ object OpSetMacro : ConstMediaAction {
         if (entity.isEmpty)
             throw MishapNeededFocus(target)
 
-        entity.setFocusContents(ListIota(hex))
+        entity.setFocusContents(iota, env)
         entity.setPattern(pattern)
 
 

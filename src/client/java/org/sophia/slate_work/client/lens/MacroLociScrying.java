@@ -30,7 +30,7 @@ public class MacroLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 .append(new PatternIota(((MacroLociEntity) loci).getPattern()).display())));
         var item = ((MacroLociEntity) loci).getStack(0);
         try {
-            if (item.getItem() == HexItems.FOCUS) {
+            if (((MacroLociEntity) loci).isValid(0, item.getItem().getDefaultStack())) {
                 list.add(new Pair<>(item,
                         ((MacroLociEntity) loci).getDisplay()
                 ));

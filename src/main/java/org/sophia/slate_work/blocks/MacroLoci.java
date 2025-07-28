@@ -87,6 +87,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
         if (serverWorld.getBlockEntity(blockPos) instanceof MacroLociEntity loci) {
             NbtCompound macro = new NbtCompound();
             ADIotaHolder holder = IXplatAbstractions.INSTANCE.findDataHolder(loci.getStack(0));
+
             if (holder == null){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
                     new MishapSpellCircleReadableFocus(blockPos));
@@ -97,7 +98,10 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                     new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
-            if (!(holder.readIota(serverWorld) instanceof ListIota)){
+
+            System.out.println(holder.readIota(serverWorld));
+
+           if (!(holder.readIota(serverWorld) instanceof ListIota || holder.readIota(serverWorld).executable())){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
                         new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
