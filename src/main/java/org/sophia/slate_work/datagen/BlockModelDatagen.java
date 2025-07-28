@@ -8,9 +8,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.registries.BlockRegistry;
 
+import java.util.Optional;
+
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
+import static org.sophia.slate_work.registries.BlockRegistry.ENERGIZED_BLOCKS;
 
 public class BlockModelDatagen extends FabricModelProvider {
 
@@ -27,6 +30,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("speed_loci", BlockRegistry.SPEED_LOCI, generator);
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
+        registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
@@ -45,7 +49,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
         var RotNorth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotDown = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R180);
-        var RotSouth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        var RotSouth = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180).put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotEast = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90).put(VariantSettings.X, VariantSettings.Rotation.R90);
         var RotWest = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270).put(VariantSettings.X, VariantSettings.Rotation.R90);
 
@@ -62,6 +66,12 @@ public class BlockModelDatagen extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        for (var item : ENERGIZED_BLOCKS.entrySet()){
+            itemModelGenerator.register(item.getValue(), new Model(
+                    Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
+                    Optional.empty()
+            ));
+        }
 
     }
 }

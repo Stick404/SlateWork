@@ -1,0 +1,7 @@
+{% extends "pages/patchouli/text.html.jinja" %}
+
+{% block inner_body %}
+  This is the template for rendering the <tt>slate_work:example</tt> page type.
+  <b>{{ page.example_value }}</b>
+  {{ super() }}
+{% endblock %}

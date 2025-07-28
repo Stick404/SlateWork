@@ -1,0 +1,21 @@
+package org.sophia.slate_work.casting.mishap
+
+import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
+import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
+import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.utils.styledWith
+import net.minecraft.text.Text
+import net.minecraft.util.DyeColor
+import net.minecraft.util.Formatting
+import net.minecraft.util.math.BlockPos
+
+class MishapNoSentinelLoci() : Mishap() {
+    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context) = dyeColor(DyeColor.GRAY)
+
+    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text {
+        return error("no_storage_sentinel_ran")
+    }
+
+    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}
+}

@@ -10,6 +10,8 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.utils.putCompound
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.BlockState
+import net.minecraft.entity.EquipmentSlot
+import net.minecraft.item.Equipment
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.math.BlockPos
@@ -24,7 +26,7 @@ import kotlin.math.absoluteValue
 import kotlin.math.pow
 
 
-class AmbitLoci: BlockCircleComponent {
+class AmbitLoci : BlockCircleComponent, Equipment {
 
     constructor(settings: Settings) : super(settings) {
         this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false))
@@ -124,4 +126,5 @@ class AmbitLoci: BlockCircleComponent {
     override fun possibleExitDirections(p0: BlockPos?, p1: BlockState?, p2: World?) = EnumSet.allOf(Direction::class.java)!!
     override fun normalDir(p0: BlockPos?, p1: BlockState?, p2: World?, p3: Int) = Direction.UP
     override fun particleHeight(p0: BlockPos?, p1: BlockState?, p2: World) = 0.5f
+    override fun getSlotType(): EquipmentSlot? = EquipmentSlot.HEAD
 }

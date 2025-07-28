@@ -1,0 +1,45 @@
+modid = "slate_work"
+book = "hexcasting:thehexbook"
+default_lang = "en_us"
+default_branch = "main"
+
+resource_dirs = [  # top takes priority
+    # hexdoc-only resources
+    "resources",
+    # resource dirs for Slate Work
+    "{$_common.src}/main/resources",
+    { path="{$_common.src}/main/generated", required=false },
+    # other hexdoc plugins
+    { modid="hexcasting" },
+    { modid="minecraft" },
+    { modid="hexpose" },
+    { modid="hexdoc" },
+]
+export_dir = "src/hexdoc_slate_work/_export/generated"
+
+[extra.hexcasting]
+_pattern_regex = { "!Raw"='HexPattern[\s\S]+?make\(\"(?P<signature>[qweasd]+)\", HexDir\.(?P<startdir>[A-Z_]+), \"(?P<name>[^\"]+?)\"' }
+
+[[extra.hexcasting.pattern_stubs]]
+path = "{^^^_common.package}/registries/PatternRegistry.java"
+regex = "{^_pattern_regex}"
+
+# platforms
+
+[_common]
+src = "../src"
+package = "{src}/main/java/org/sophia/slate_work"
+
+[template]
+icon = "icon.png"
+include = [
+    "slate_work",
+    "hexcasting",
+    "hexpose",
+    "hexdoc",
+]
+
+[template.args]
+mod_name = "Slate Work"
+author = "Stick404"
+show_landing_text = true

@@ -1,0 +1,34 @@
+{
+  "name": "slate_work.entry.sentinel_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:sentinel_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": true,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci.intro_cont"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:sentinel_loci",
+      "anchor": "sentinel_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.sentinel_loci.sentinel_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.sentinel_loci.extra"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/sentinel_loci_flay",
+      "text": "slate_work.page.sentinel_loci.crafting"
+    }
+  ]
+}

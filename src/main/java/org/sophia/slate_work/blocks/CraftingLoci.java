@@ -11,8 +11,10 @@ import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.ScreenHandler;
@@ -42,7 +44,7 @@ import java.util.Map;
 import static at.petrak.hexcasting.common.lib.HexSounds.IMPETUS_REDSTONE_DING;
 
 @SuppressWarnings({"deprecation", "UnstableApiUsage"})
-public class CraftingLoci extends BlockCircleComponent implements BlockEntityProvider {
+public class CraftingLoci extends BlockCircleComponent implements BlockEntityProvider, Equipment {
 
     public CraftingLoci(Settings p_49795_) {
         super(p_49795_);
@@ -85,7 +87,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
     }
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
-        return direction != Direction.UP;
+        return direction != Direction.DOWN;
     }
 
     @Override
@@ -199,6 +201,11 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             }
             return ActionResult.CONSUME;
         }
+    }
+
+    @Override
+    public EquipmentSlot getSlotType() {
+        return EquipmentSlot.HEAD;
     }
 
     // Ok so, no clue why Hexal does it this way, but we are just going to copy what it does (and Hexal copies AE2 lmao)

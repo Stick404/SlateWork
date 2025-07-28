@@ -98,19 +98,10 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
                 Ghost3x3ScreenHandler.updateRecipe(this.world,inventory);
             }
         } else super.onSlotClick(slotIndex, button, actionType, player);
-        /*
-        if (!(this.getSlot(slotIndex).inventory instanceof PlayerInventory) || slotIndex > 0 || slotIndex < 10  || (button == 0 || button == 1)) {
-            var copy = this.getCursorStack().copy();
-            copy.setCount(1);
-            this.inventory.setStack(slotIndex -2,copy);
-        } else {
-            super.onSlotClick(slotIndex, button, actionType, player);
-        }
-        */
     }
 
     public static void updateRecipe(World world, Inventory inventory){
-        if (inventory instanceof IGhostCrafting ghostCrafting){
+        if (inventory instanceof DumbDumbInv ghostCrafting){
             var container = new CraftingInventory(new CraftingLoci.AutocraftingMenu(), 3, 3);
             for (int i = 0; i < 9; i++){
                 container.setStack(i,ghostCrafting.getStack(i));
@@ -123,7 +114,7 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
             }
 
             var outputItem = recipeOpt.get().craft(container,world.getRegistryManager());
-            ghostCrafting.setCraftSlot(outputItem);
+            ghostCrafting.setStack(9, outputItem);
         }
     }
 }
