@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <title>Slate Work Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="The Slate Work Book, all in one place." />
+      <meta name="author" content="Stick404" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Slate Work Book" />
+<meta property="og:image" content="https://stick404.github.io/SlateWork/v/latest/main/zh_cn/icon.png" />
+<meta property="og:url" content="https://stick404.github.io/SlateWork/v/latest/main/zh_cn" />
+<meta property="og:description" content="The Slate Work Book, all in one place." />
+<meta property="og:site_name" content="Slate Work (latest/main)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">Slate Work Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/Stick404/SlateWork/tree/413179800ab0db5d1599f4a2bd5bca63cbfade75"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >latest/main <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >简体中文 (中国大陆) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>这是Slate Work文档的在线版本。</p></h1>
+        <p>此版本是根据GitHub上最新代码构建而来的。其中可能包含游戏内暂未实装的<strong>新</strong>特性，就连Modrinth和CurseForge上的最新版本里也找不到！</p>
+      <p><strong>条目的模糊处理相当于剧透警告</strong>。点击条目即可取消模糊，不过这么做有可能破坏游戏后期的进程与体验。也可点击<a href="?nospoiler">此处</a>以取消所有模糊。</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>往事犹若异乡；他们在那里做的事情都不一样。</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+    <header class="jumbotron">
+      <h1 class="book-title">咒术笔记</h1>
+      <p>我似乎发现了一种全新的魔法，一种在六边形网格上画各式奇诡图案的魔法。它深深地迷住了我。我决定着手撰写一本笔记，以此记述我的想法和研究成果。</p><p><a href="https://forum.petra-k.at/index.php" target="_blank">论坛链接</a></p>
+    </header>
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    <span class="nobr">目录<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="显示或收起全部"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#greatwork" class="toc-elem spoilered"><img
+      title="音乐唱片"
+      alt="音乐唱片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 卓伟之作</a></summary>
+      <ul>
+          <li><a href="#greatwork/slate_work_pigments" class="toc-elem spoilered"><div
+      role="img"
+      title="淬灵染色剂"
+      aria-label="淬灵染色剂 (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div> 华丽染色剂</a></li>
+          <li><a href="#greatwork/sentinel_loci" class="toc-elem spoilered"><img
+      title="哨卫缓存器"
+      alt="哨卫缓存器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 哨卫缓存器</a></li>
+          <li><a href="#greatwork/storage_loci_block" class="toc-elem spoilered"><img
+      title="存储容具"
+      alt="存储容具"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 存储容具</a></li>
+          <li><a href="#greatwork/mute_loci" class="toc-elem spoilered"><img
+      title="抑音石板"
+      alt="抑音石板"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 抑音石板</a></li>
+          <li><a href="#greatwork/crafting_loci" class="toc-elem spoilered"><img
+      title="样板组装器"
+      alt="样板组装器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 样板组装器</a></li>
+          <li><a href="#greatwork/macro_loci" class="toc-elem spoilered"><img
+      title="法术刻印器"
+      alt="法术刻印器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 法术刻印器</a></li>
+          <li><a href="#greatwork/speed_loci" class="toc-elem spoilered"><img
+      title="波速调节器"
+      alt="波速调节器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 波速调节器</a></li>
+          <li><a href="#greatwork/ambit_loci" class="toc-elem spoilered"><img
+      title="范围扩展器"
+      alt="范围扩展器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 范围扩展器</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 图案</a></summary>
+      <ul>
+          <li><a href="#patterns/slate_reflections" class="toc-elem spoilered"><img
+      title="制箭师促动石"
+      alt="制箭师促动石"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/look/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 石板精思操作</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/spells" class="toc-elem "><img
+      title="附魔书"
+      alt="附魔书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > 法术</a></summary>
+      <ul>
+          <li><a href="#patterns/spells/sentinel_loci_patterns" class="toc-elem spoilered"><div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div> 哨卫缓存器图案</a></li>
+          <li><a href="#patterns/spells/storage_loci" class="toc-elem spoilered"><img
+      title="板岩紫晶柱"
+      alt="板岩紫晶柱"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_amethyst_pillar.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > 环核图案</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="greatwork">
+    <div class="spoilered">
+      <h2 class="category-title page-header">
+    <img
+      title="音乐唱片"
+      alt="音乐唱片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >卓伟之作<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>我所见……甚多。我已……经历……湮灭与解构与重构。我已听闻世上的原子在被翻转而后被搅乱而后消散为能量时的尖啸。我已见我已见我已冂<span class="obfuscated">get stick bugged lmao</span></p>
+    </div>
+<div id="greatwork/slate_work_pigments" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      role="img"
+      title="淬灵染色剂"
+      aria-label="淬灵染色剂 (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div>华丽染色剂<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/slate_work_pigments"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>我的<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/staff">法杖</a>蜕变了，我的<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/pigments">染色剂</a>也必将蜕变。它们不会带来什么荣耀，也不会招致可怖的事故；它们带来的祝福只存在于视觉。</p><p>而且，知晓这些染色剂的人，即会知晓我的<i>觉醒</i>。</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>淬灵染色剂</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <div
+      role="img"
+      title="淬灵染色剂"
+      aria-label="淬灵染色剂 (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div>
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>自我的……<i>视野</i>蜕变后，我发觉了悦灵的真实面貌——<span style="color: #74b3f2">媒质</span>碎片。也许这块<span style="color: #74b3f2">媒质</span>碎片可以转化成完美而华丽的染色剂？</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/sentinel_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="哨卫缓存器"
+      alt="哨卫缓存器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >哨卫缓存器<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/sentinel_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>那种叫喊、那种尖啸、那种痛苦。那种超出语言极限的痛苦，是我感受到的？看见的？经历的？见证的。那、那种……我分心了。我必须把我<i>见证</i>的东西写下来。从我卓伟……这词合适吗？——启迪的光源、感受和<i>涌流</i>之中，我看见了能增强<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的构造。但它的代价极为高昂。</p>
+<br />
+    <p>那个方块——构造——<i>嵌合体</i>叫作<span style="color: #8d6acc">哨卫缓存器</span>。它也许是<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>可用的方块中最灵活多变的了，但获得它所需经历的痛苦——我真的要造一个吗？它会创建一个伪<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">卓越哨卫</a>（称“伪哨卫”），其影响范围半径为 4 格，计入法术环的影响范围内。伪哨卫会首先“生成”在方块的放置位置，而后可以使用<a href="#patterns/spells/sentinel_loci_patterns">法术</a>转移。让这个怪异的方块苏醒需消耗极少量<span style="color: #74b3f2">媒质</span>。</p>
+<br />
+  <div id="greatwork/sentinel_loci@sentinel_loci" class="">
+<h4 class="spotlight-title page-header">哨卫缓存器<a
+    href="#greatwork/sentinel_loci@sentinel_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="哨卫缓存器"
+      alt="哨卫缓存器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>这种意识的结合体，历经了扭曲、拖拽、破碎、修补。我<i>听到</i>了它们，但它并没发出声音，我<i>听见</i>的是它们的痛苦。多个剥脱的意识塞进一个方块，只是为我自己的方便……但是——石板基座上亮灭舞动的光辉，紫水晶的溢彩流光……<i>它在呼唤我</i></p>
+  </div>
+<br />
+    <p>我的意识在消散。我必须写完我的笔记。<i>现在、马上</i>。</p><p>如果我用<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">探知透镜</a>观察<span style="color: #8d6acc">哨卫缓存器</span>，它即会显示<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">伪哨卫</a>当前的位置。而且，每激活一个<span style="color: #8d6acc">哨卫缓存器</span>，其都会加入到已知<span style="color: #8d6acc">缓存器</span>的列表，<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的影响范围则是所有伪哨卫的和。</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">点击以显示配方</span>
+      <span class="collapse-recipe-hide">点击以隐藏配方</span>
+    </summary>
+  <div>
+<h5>哨卫缓存器</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="大师 村民"
+      alt="大师 村民"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="村庄英雄"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    必须为大师级或更高等级的村民
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="范围扩展器"
+      alt="范围扩展器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">200</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="紫水晶碎片"
+      alt="紫水晶碎片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">40</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="哨卫缓存器"
+      alt="哨卫缓存器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>这种结合式嵌合体的制造需要一个<a href="#greatwork/ambit_loci">范围扩展器</a>，用于赋予修改影响范围的能力；还需一个任意种类的大师级<span style="color: #8d6acc">村民</span>。如果所给的意识太弱，它会在已经饱和的意识受体方块前破碎消散。</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/storage_loci_block" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="存储容具"
+      alt="存储容具"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >存储容具<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/storage_loci_block"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/storage_loci_block@storage_loci" class="">
+<h4 class="spotlight-title page-header">存储容具<a
+    href="#greatwork/storage_loci_block@storage_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="存储容具"
+      alt="存储容具"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>在忍那些到处都是木刺的笨重<i>箱子</i>到<i>快忍不下去</i>之后……我总算发现了完美的存储方法——<span style="color: #8d6acc">存储容具</span>。<br />虽然我已经抛弃了一部分意识垃圾，但还不足以直接操作<span style="color: #8d6acc">存储容具</span>。不过，<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>就是处理这种新存储方法的好工具。</p>
+  </div>
+<br />
+    <p>虽然一个<span style="color: #8d6acc">存储容具</span>只能存储 16“类”物品（就和箱子只有 27 个槽位差不多），但它们却能无视标准堆叠上限，换言之，每个槽里都能存下近乎无限的物品！</p><p>而且，在<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的高密度<span style="color: #8d6acc">媒质波</span>激活容具之后，<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">它</a>就将能够读取和拿出<span style="color: #8d6acc">存储容具</span>里的物品；激活的越多，能操作的就越多。我在<a href="#patterns/spells/storage_loci">这里</a>记录了进行这种操作所需的法术。</p>
+<br />
+    <p>需要格外注意的是，<span style="color: #8d6acc">存储容具</span>遭到破坏时不会喷出其中的物品，而是会将物品小心打包进掉落的方块（和<span style="color: #b0b">潜影盒</span>很像）。</p><p></p><p><i>“噢！是时候找点东西了！”<br />[箱子：开启]<br />[箱子：关闭]<br />[箱子：开启]<br />[箱子：关闭]<br />[箱子：开启]<br />[箱子：关闭]</i></p>
+<br />
+    <p>佩戴<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">探知透镜</a>去观察<span style="color: #8d6acc">存储容具</span>的话，它会显示其内部的物品。这就好像是自然在取笑我，因为我无法把<span style="color: #8d6acc">存储容具</span>里的物品直接拿出来……但还是得承认，看它一眼就知道里面存了什么确实很方便。</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">点击以显示配方</span>
+      <span class="collapse-recipe-hide">点击以隐藏配方</span>
+    </summary>
+  <div>
+<h5>存储容具</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="新手 渔夫"
+      alt="新手 渔夫"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/fisherman.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="村庄英雄"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    必须为新手级或更高等级的渔夫
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="紫水晶碎片"
+      alt="紫水晶碎片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="存储容具"
+      alt="存储容具"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p><span style="color: #8d6acc">存储容具</span>需要能够潜入深渊，还能根据少量提示取回物品的意识。<span style="color: #8d6acc">渔夫村民</span>就很适合。</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/mute_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="抑音石板"
+      alt="抑音石板"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >抑音石板<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/mute_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/mute_loci@mute_loci" class="">
+<h4 class="spotlight-title page-header">抑音石板<a
+    href="#greatwork/mute_loci@mute_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="抑音石板"
+      alt="抑音石板"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>随着<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的使用频率不断上涨，<span style="color: #8d6acc">媒质波</span>发出的<i>噼啪声</i>开始让我耳鸣了。还有某些更……玄妙的<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>，它们的噪声真能把人震聋。</p><p>还好，这块<span style="color: #8d6acc">抑音石板</span>可以帮我的耳朵挡下<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的各种刺耳噪声。</p>
+  </div>
+<br />
+    <p>被<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>激活时，它会从栈中取出一个 0 到 1 之间的数（两端闭），并据此设置各种噼啪声和噪声的“音量”。它对<span style="color: #8d6acc">媒质波</span>发出的各种声音都有效，运行图案、运行<a href="#greatwork/macro_loci">宏</a>、流过石板等声音均在范围内。</p><p><i>“奈特，他让它产生了声音！他是个声音法师！”<br />“我听见了，”奈特回应到，头都没扭一下，“别随便发明称呼。”</i></p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>抑音石板</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: 羊毛"
+      alt="Tag: 羊毛"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="抑音石板"
+      alt="抑音石板"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>还好，<span style="color: #8d6acc">抑音石板</span>并不昂贵，也不复杂；把一团羊毛和石板拼到一起就行。</p><p><i>对某些人来说，沉默是金；更多人甚至会认为沉默是铁。但对我来说，沉默是钻石。</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/crafting_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="样板组装器"
+      alt="样板组装器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >样板组装器<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/crafting_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/crafting_loci@crafting_loci" class="">
+<h4 class="spotlight-title page-header">样板组装器<a
+    href="#greatwork/crafting_loci@crafting_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="样板组装器"
+      alt="样板组装器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>我的双手在<span style="color: #b0b">工作台</span>上不断挥动，带来的只是<i>疼痛</i>和<i>麻木</i>……好在这些都过去了。<span style="color: #8d6acc">样板组装器</span>就是止痛剂。</p><p><i>物品里埋着物品，合成到停不下来，看到停不下来，合成、自动化、更多物品。<span style="color: #5ff">现在就要</span></i>。</p>
+  </div>
+<br />
+    <p><span style="color: #8d6acc">样板组装器</span>的真正原理是：从激活的<a href="#greatwork/storage_loci_block">存储容具</a>中取出物品，按设定合成，再把产物存回<span style="color: #8d6acc">容具</span>。<span style="color: #8d6acc">组装器</span>被<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>触发时即会执行上述操作。可以手工设置配方，也可使用<a href="#patterns/spells/storage_loci@slate_work:set_craft">法术</a>。如果它可以合成给定物品，则它会向栈返回 True，并合成物品；否则（原材料不够，配方没指定等）返回 False，且不会合成。</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">点击以显示配方</span>
+      <span class="collapse-recipe-hide">点击以隐藏配方</span>
+    </summary>
+  <div>
+<h5>样板组装器</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="学徒 图书管理员"
+      alt="学徒 图书管理员"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/librarian.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="村庄英雄"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    必须为学徒级或更高等级的图书管理员
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="板岩块"
+      alt="板岩块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="紫水晶碎片"
+      alt="紫水晶碎片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="样板组装器"
+      alt="样板组装器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p><span style="color: #8d6acc">样板组装器</span>需要熟络典籍和文章，能一目十行的村民的意识。完美之选是<span style="color: #8d6acc">图书管理员</span>。</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/macro_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="法术刻印器"
+      alt="法术刻印器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >法术刻印器<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/macro_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/macro_loci@macro_loci" class="">
+<h4 class="spotlight-title page-header">法术刻印器<a
+    href="#greatwork/macro_loci@macro_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="法术刻印器"
+      alt="法术刻印器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>我在旅行中从其他人的交谈里听到了某种叫“宏”的东西，也即代表咒术的图案（我认为需要和<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">阿卡夏图书馆</a>配合？）。即便如此，我也可以在法术环上重现“宏”。需要用到<span style="color: #8d6acc">法术刻印器</span>，还需在刻印器上放置写有<span style="color: #b38ef3">咒术</span>的核心。</p>
+  </div>
+<br />
+    <p><a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>激活刻印器后，它会将当前图案与核心内的<span style="color: #b38ef3">咒术</span>绑定（也可通过<a href="#patterns/spells/storage_loci@slate_work:set_macro">法术</a>设置）。每当画有该图案的石板被激活，即会执行所给<span style="color: #b38ef3">咒术</span>，而非该图案。这实在是细思恐极；重写<i>法术</i>的定义，重写与世界本身紧密相关的事物。那么，我是不是也会，被更高级的存在改写？不。不<span class="obfuscated">啊啊啊啊啊！</span></p>
+<br />
+    <p><span style="color: #8d6acc">法术刻印器</span>有个方便的特性：戴着<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">探知透镜</a>看它，会显示绑定的图案和该图案对应的<span style="color: #b38ef3">咒术</span>。</p><p>而要是去观察刚……“制造”完毕的<span style="color: #8d6acc">法术刻印器</span>，其中会预先写有一个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/basics@hexcasting:get_caster">意识之精思</a>的图案。这一特性很有用，但真是没来由地让人不安……</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">点击以显示配方</span>
+      <span class="collapse-recipe-hide">点击以隐藏配方</span>
+    </summary>
+  <div>
+<h5>法术刻印器</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="学徒 武器匠"
+      alt="学徒 武器匠"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/weaponsmith.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="村庄英雄"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    必须为学徒级或更高等级的武器匠
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="紫水晶粉"
+      alt="紫水晶粉"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="紫水晶碎片"
+      alt="紫水晶碎片"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="充能紫水晶"
+      alt="充能紫水晶"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="法术刻印器"
+      alt="法术刻印器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>虽然这种做法可能会带来恐惧……但还是很好用。我认为<span style="color: #8d6acc">武器匠</span>是最好的选择，他们的专长就是磨砺和翻新损坏的武器。</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/speed_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="波速调节器"
+      alt="波速调节器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >波速调节器<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/speed_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/speed_loci@speed_loci" class="">
+<h4 class="spotlight-title page-header">波速调节器<a
+    href="#greatwork/speed_loci@speed_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="波速调节器"
+      alt="波速调节器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>自从我开始探索<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">卓伟之作</a>的用途之时，就总有更精细控制这种新事物的需要。因此，我制造了<span style="color: #8d6acc">波速调节器</span>。它会从栈中弹出一个数，并用其设置<span style="color: #8d6acc">媒质波</span>的“速度”。更准确地说，是波在流入下一块石板前应等待多少个 1/20 秒。</p>
+  </div>
+<br />
+    <p>这一体系的确有其局限。例如，速度无法超出<span style="color: #8d6acc">媒质波</span>移速的上限，试图这么做不会产生任何效果。换言之，它只能将等待时间设为大于等于<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的最短等待时间，或是重设为正常速度。后者需要<span style="color: #8d6acc">波速调节器</span>弹出 0，从而将<span style="color: #8d6acc">媒质波</span>的控制权交还给<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>。</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>波速调节器</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="空白石板"
+      alt="空白石板"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="波速调节器"
+      alt="波速调节器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>和我……<i>受赐福</i>的视野中看到的其他东西不一样，<span style="color: #8d6acc">波速调节器</span>显得很奇怪。它需要的只是<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">媒质的碎片</a>，但其中须留有挣扎的痕迹……想必是极为痛苦的——和几块石板，方便嵌入<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>。</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/ambit_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="范围扩展器"
+      alt="范围扩展器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >范围扩展器<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/ambit_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/ambit_loci@ambit_loci" class="">
+<h4 class="spotlight-title page-header">范围扩展器<a
+    href="#greatwork/ambit_loci@ambit_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="范围扩展器"
+      alt="范围扩展器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p><span style="color: #8d6acc">范围扩展器</span>能解<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a><span style="color: #8d6acc">影响范围</span>之忧。它会移除栈顶向量，并据此扩展影响范围（负向量会向负方向扩展法术环影响范围）。</p><p><i>范围越大，消耗越大，呃……</i></p>
+  </div>
+<br />
+    <p>虽然它不及……<a href="https://forum.petra-k.at/viewtopic.php?t=136" target="_blank">其他</a>扩展<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a><span style="color: #8d6acc">影响范围</span>的方法强大，但我确实觉得这种方法可以让自然对我的自由意志友善些。</p><p>这种方法并不便宜，<span style="color: #74b3f2">媒质</span>的耗量（以<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>计）与改变距离的平方相等。</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">点击以显示配方</span>
+    <span class="collapse-recipe-hide">点击以隐藏配方</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>范围扩展器</h5>
+    <div class="crafting-table">
+        <img
+      title="工作台"
+      alt="工作台"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/780c5ccff48c7c103ebd679b7774d3dfd36ba4f9/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="板岩块"
+      alt="板岩块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="板岩块"
+      alt="板岩块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: 导向石"
+      alt="Tag: 导向石"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="石匠导向石"
+      alt="石匠导向石"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/directrix/redstone/lit_unpowered_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="牧羊人导向石"
+      alt="牧羊人导向石"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/directrix/boolean/lit_false_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="板岩块"
+      alt="板岩块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="板岩块"
+      alt="板岩块"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="范围扩展器"
+      alt="范围扩展器"
+      src="https://stick404.github.io/SlateWork/v/latest/main/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>因为<span style="color: #8d6acc">范围扩展器</span>修改的是<span style="color: #8d6acc">影响范围</span>，配备能操纵<span style="color: #8d6acc">媒质波</span>的“核心”应为最佳。自然，创造这种方块需要的是<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">纯净的媒质</a>。</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="书架"
+      alt="书架"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>我所发现的各式图案，和它们的功用。</p>
+<div id="patterns/slate_reflections" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="制箭师促动石"
+      alt="制箭师促动石"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/look/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >石板精思操作<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/slate_reflections"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/slate_reflections@slate_work:wave_position" class="">
+<h4 class="pattern-title">波位之精思 (→ vector)<a
+    href="#patterns/slate_reflections@slate_work:wave_position"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeeaa"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqdaadqaeeaa</canvas>
+  </details>
+      <p>将<span style="color: #8d6acc">媒质波</span>的当前位置压入栈顶。</p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:wave_normal" class="">
+<h4 class="pattern-title">波向之精思 (→ vector)<a
+    href="#patterns/slate_reflections@slate_work:wave_normal"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeewa"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqdaadqaeewa</canvas>
+  </details>
+      <p>将<span style="color: #8d6acc">媒质波</span>的当前朝向压入栈顶。如果当前方块没有朝向，则返回 (0, 0, 0)。</p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:wave_speed" class="">
+<h4 class="pattern-title">波速之精思 (→ number)<a
+    href="#patterns/slate_reflections@slate_work:wave_speed"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeewq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqdaadqaeewq</canvas>
+  </details>
+      <p>将<span style="color: #8d6acc">媒质波</span>的当前速度压入栈顶。测量方法是：在流入下一块<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/slate">石板</a>前，<span style="color: #8d6acc">媒质波</span>需等待多少个 1/20 秒。</p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:media_reflection" class="">
+<h4 class="pattern-title">环质之精思 (→ number)<a
+    href="#patterns/slate_reflections@slate_work:media_reflection"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqae"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqdaadqae</canvas>
+  </details>
+      <p>将<span style="color: #8d6acc">促动石</span>的当前<span style="color: #74b3f2">媒质</span>量压入栈顶，以<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>计。</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/spells">
+    <h2 class="category-title page-header">
+    <img
+      title="附魔书"
+      alt="附魔书"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >法术<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>能以魔法影响到世界的图案和操作。</p>
+<div id="patterns/spells/sentinel_loci_patterns" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="淬灵晶碎片"
+      alt="淬灵晶碎片"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>哨卫缓存器图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/sentinel_loci_patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>相较于不适用于<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>的<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">同类</a>来说，<a href="#greatwork/sentinel_loci">哨卫缓存器</a>的交互方法比较奇怪。它们需通过向量列表交互，而非单个向量。</p><p>这些操作<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/mishaps2">在法术环外使用时均会招致事故</a>。</p>
+<br />
+    <p><i>它在对它同时造成身体上的和精神上的伤害，就好像身体部件、器官、记忆都被吞没，变成了<span style="color: #74b3f2">媒质</span></i>。<i></i></p><i><p>它是在燃烧它的生命。</p></i><p><i></i></p><i><p>它在燃烧它的四肢百骸，燃烧它与物质世界的连接，直至仅余纯粹的意念。</p></i>
+<br />
+  <div id="patterns/spells/sentinel_loci_patterns@slate_work:set_sents" class="">
+<h4 class="pattern-title">安置伪哨卫 ([vectors] →)<a
+    href="#patterns/spells/sentinel_loci_patterns@slate_work:set_sents"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waeawaewawwa"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：waeawaewawwa</canvas>
+  </details>
+      <p>接受一个向量列表，并尝试将伪哨卫移动到对应位置。</p>
+  </div>
+<br />
+    <p>好在，<span style="color: #8d6acc">定位伪哨卫</span>和<span style="color: #8d6acc">安置伪哨卫</span>的顺序是一致的，使用时不必担心顺序的问题。</p><p>所给列表长度大于当前已激活的<a href="#greatwork/sentinel_loci">缓存器</a>数时会招致事故。给伪哨卫下命令需消耗 1 个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>。同时由于命令疲劳，同一实例中每移动过一个伪哨卫额外消耗 1/8 个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>（会叠加）。</p>
+<br />
+  <div id="patterns/spells/sentinel_loci_patterns@slate_work:get_sents" class="">
+<h4 class="pattern-title">定位伪哨卫 (→ [vectors])<a
+    href="#patterns/spells/sentinel_loci_patterns@slate_work:get_sents"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waeawaewawwaeq"
+        data-start="east"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：waeawaewawwaeq</canvas>
+  </details>
+      <p>按激活顺序获取所有伪哨卫当前的位置。无需消耗<span style="color: #74b3f2">媒质</span>。</p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="patterns/spells/storage_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="板岩紫晶柱"
+      alt="板岩紫晶柱"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_amethyst_pillar.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >环核图案<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/storage_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p><span style="color: #8d6acc">容具</span>很适合用来存储，但它们的交互功能……不太方便。主要的交互方式是<span style="color: #b38ef3">咒术</span>；更详细说来，是在<span style="color: #b38ef3">咒术</span>中描述希望取得的物品。同时需要注意，这些法术<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/mishaps2">不在法术环中执行时会招致事故</a>。</p><p><i>“谜题”，我说道。<br />“最好就是不去解答”，他应道。</i></p>
+<br />
+    <p>再详细地说，对于自然对“栈限制”的愚蠢规则，<span style="color: #8d6acc">容具</span>选择以绕过它们的方式尊重它们。它不会直接根据名称请求物品，而是需要我提供一条“说明”——即一条接受<a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/scrying/item">物品组 iota</a> 并返回一个布尔值的<span style="color: #b38ef3">咒术</span>。而且，所有涉及获取<span style="color: #8d6acc">存储容具</span>信息的图案都会复制一份物品组置入“内部”栈（和<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/meta@hexcasting:for_each"><span style="color: #fc77be">托特之策略</span></a>很相似）。</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:store_item" class="">
+<h4 class="pattern-title">容纳物品 (entity →)<a
+    href="#patterns/spells/storage_loci@slate_work:store_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwaeaeqqeaeaw"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqwaeaeqqeaeaw</canvas>
+  </details>
+      <p>向<span style="color: #8d6acc">容具</span>存入物品比取出容易。此图案会接受一个物品实体，并将其轻巧地存入激活的<span style="color: #8d6acc">存储容具</span>。每有一个激活的<span style="color: #8d6acc">容具</span>消耗 1/8 个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>。</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:get_storage" class="">
+<h4 class="pattern-title">获取容具 (→ [vecs])<a
+    href="#patterns/spells/storage_loci@slate_work:get_storage"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqdeewweedq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqqdeewweedq</canvas>
+  </details>
+      <p>返回当前<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>激活的<span style="color: #8d6acc">容具</span>。大概可以用来检查<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>是否获取到了<span style="color: #8d6acc">容具</span>。</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:get_item" class="">
+<h4 class="pattern-title">唤回物品 ([patterns] →)<a
+    href="#patterns/spells/storage_loci@slate_work:get_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq</canvas>
+  </details>
+      <p>此图案接受一个<span style="color: #b38ef3">咒术</span>，并对所存储的所有<a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/scrying/item">物品组</a>（运行时置于栈顶）运行。运行该<span style="color: #b38ef3">咒术</span>后，图案还需要栈中按顺序存在一个<span style="color: #8d6acc">整数</span>，一个<span style="color: #8d6acc">向量</span>和一个<span style="color: #8d6acc">布尔值</span>。</p>
+  </div>
+<br />
+    <p>继续解释说明。它会对<span style="color: #8d6acc">容具</span>中存储的所有物品运行给定<span style="color: #b38ef3">咒术</span>。该<span style="color: #b38ef3">咒术</span>必须从栈顶至栈底依次返回 False（此时省略向量和数）或 True，一个向量，一个数。向量代表向世界输出物品的位置（需在影响范围内），数代表应取出的数量。</p><p>每有一个激活的<span style="color: #8d6acc">容具</span>消耗 1/4 个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">紫水晶粉</a>。</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:check_item" class="">
+<h4 class="pattern-title">检查物品 ([patterns] → bool)<a
+    href="#patterns/spells/storage_loci@slate_work:check_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqddqeeqddq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqqddqeeqddq</canvas>
+  </details>
+      <p>检查物品的功能和唤回物品类似。但它只需要<span style="color: #b38ef3">咒术</span>返回一个布尔值。如果所有布尔值中有一个为 True，则法术结束并返回 True。</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:sort_items" class="">
+<h4 class="pattern-title">重整物品<a
+    href="#patterns/spells/storage_loci@slate_work:sort_items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqwaeadaeawq"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqqwaeadaeawq</canvas>
+  </details>
+      <p>在某些情况下，<span style="color: #8d6acc">容具</span>会变得杂乱无章，同种物品被分散到不同的<span style="color: #8d6acc">容具</span>里去。这条好用的法术就可以整理它们，但它有代价：需消耗 5 个<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">充能紫水晶</a>。</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:set_craft" class="">
+<h4 class="pattern-title">设置配方 (vec, [item|identifier|null] →)<a
+    href="#patterns/spells/storage_loci@slate_work:set_craft"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwaeadawwadaeaw"
+        data-start="south_west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：eaqwqaeqwaeadawwadaeaw</canvas>
+  </details>
+      <p>为<a href="#greatwork/crafting_loci">样板组装器</a>设置合成配方。接受包含 <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Null</span></a>、物品、物品变种的列表，并将此列表应用于目标<a href="#greatwork/crafting_loci">组装器</a>。</p>
+  </div>
+<br />
+    <p>需要注意，<a href="#greatwork/crafting_loci">样板组装器</a>会将所给列表“格式化”为从左至右再从上至下的配方。自然，<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Null</span></a> 代表配方中的空位。最后提一句，法术会在列表长于 9 个元素时招致事故，少于或等于 9 个时则不会。</p><p>在<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>外施放不会招致事故。消耗极少量<span style="color: #74b3f2">媒质</span>。</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:set_macro" class="">
+<h4 class="pattern-title">绑定宏 (vec, [hex], pattern →)<a
+    href="#patterns/spells/storage_loci@slate_work:set_macro"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >渲染方式</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >配色</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqwqqqqqaqeeaqwqae"
+        data-start="west"
+        data-per-world="False"
+      >浏览器不支持图案的可视化。图案代码见此：qqqwqqqqqaqeeaqwqae</canvas>
+  </details>
+      <p>此图案会为目标位置处的<a href="#greatwork/macro_loci">法术刻印器</a>绑定一个图案和一个<span style="color: #b38ef3">咒术</span>。</p><p>在<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">法术环</a>外施放不会招致事故。消耗极少量<span style="color: #74b3f2">媒质</span>。</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>该页面不是Minecraft的官方产品，不隶属于Mojang和Microsoft，且不代表Mojang和Microsoft的意见。</p><p>Minecraft的游戏内容和资源均为各自所有者的知识财产。</p><p>使用<a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>精心制作。❤️</p>
+        </div>
+      </footer>
+  </body>
+</html>
