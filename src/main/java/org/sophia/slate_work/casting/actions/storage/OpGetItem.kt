@@ -32,7 +32,6 @@ object OpGetItem : Action {
         val storages = CircleHelper.getStorage(env)
         val toCheck = CircleHelper.getOnlySlots(storages)
 
-        // This `ItemVariant#blank` does not get used, and gets replaced
         val frame = FrameGetItems(hex,stack,toCheck.toMutableList(), null, JankyMaybe.FIRST)
         val image2 = image.withUsedOp().copy(stack = stack)
 
@@ -40,7 +39,6 @@ object OpGetItem : Action {
         if (media != 0L) {
             throw MishapNotEnoughMedia(media)
         }
-
 
         return OperationResult(image2,
             listOf(),
