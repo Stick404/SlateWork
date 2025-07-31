@@ -4,7 +4,7 @@
   "icon": "hexcasting:impetus/look",
   "sortnum": 11,
   "advancement": "hexcasting:enlightenment",
-  "read_by_default": true,
+  "read_by_default": false,
   "pages": [
     {
       "type": "hexcasting:pattern",

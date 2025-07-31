@@ -3,7 +3,7 @@
   "category": "hexcasting:greatwork",
   "icon": "slate_work:mute_loci",
   "advancement": "hexcasting:enlightenment",
-  "read_by_default": true,
+  "read_by_default": false,
   "sortnum": 11,
   "pages": [
     {

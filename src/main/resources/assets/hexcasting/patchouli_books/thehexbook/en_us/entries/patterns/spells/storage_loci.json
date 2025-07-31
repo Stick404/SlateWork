@@ -4,7 +4,7 @@
   "icon": "hexcasting:slate_amethyst_pillar",
   "sortnum": 11,
   "advancement": "hexcasting:enlightenment",
-  "read_by_default": true,
+  "read_by_default": false,
   "pages": [
     {
       "type": "patchouli:text",

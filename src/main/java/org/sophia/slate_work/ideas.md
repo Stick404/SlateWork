@@ -12,6 +12,8 @@
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Circle Macros `DONE`
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
+* Broadcaster
+  * Prop Iota like block, but in slate form. Pops an iota from the stack, and takes no ambit to read
 * Straight Slate
   * Slate that only works in a straight direction
 * Accelerator
@@ -27,8 +29,11 @@
 * D.C. al Coda
   * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
 
+### New Media Gen
+Takes a processing chain of Hex related stuff to make. Possible ideas are: crafting -> fire -> break block -> recharge -> Energized by a circle.
+This is to limit the speed of media gen, while having something as good as allays without the lag.
+
 ## TODO:
-* Model/Texture/Document the Mute_Loci
 * Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*
 
