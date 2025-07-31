@@ -35,7 +35,7 @@ class FrameCheckItems(
     val code: SpellList,
     val baseStack: MutableList<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
-    var isFirst: JankyMaybe = JankyMaybe.RUNNING
+    var isFirst: JankyMaybe = JankyMaybe.FIRST
 ) : ContinuationFrame {
 
     override val type: ContinuationFrame.Type<*>

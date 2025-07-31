@@ -39,7 +39,7 @@ class FrameGetItems(
     val baseStack: List<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
     val oldReturn: CircleHelper.ItemSlot?,
-    var isFirst: JankyMaybe = JankyMaybe.RUNNING
+    var isFirst: JankyMaybe = JankyMaybe.FIRST
 ) : ContinuationFrame {
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
@@ -69,8 +69,8 @@ class FrameGetItems(
                 }
 
                 if (realStack.getBool(0, 3)){
-                    val amount = realStack.getInt(1,3)
-                    val pos = realStack.getVec3(2,3)
+                    val amount = realStack.getInt(2,3)
+                    val pos = realStack.getVec3(1,3)
                     harness.env.assertVecInRange(pos)
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
                         Triple(oldReturn,pos,amount)
