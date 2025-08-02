@@ -41,14 +41,17 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir));
         var data = castingImage.getUserData().copy();
 
-        var extracted = circleCastEnv.extractMedia(MediaConstants.DUST_UNIT / 100,false);
-        if (0L != extracted) {
-            this.fakeThrowMishap(
-                    blockPos, blockState, castingImage, circleCastEnv,
-                    new MishapSpellCircleMedia(MediaConstants.DUST_UNIT / 100,blockPos)
-            );
-            return new ControlFlow.Stop();
+        if (!blockState.get(ENERGIZED)) {
+            var extracted = circleCastEnv.extractMedia(MediaConstants.DUST_UNIT / 100, false);
+            if (0L != extracted) {
+                this.fakeThrowMishap(
+                        blockPos, blockState, castingImage, circleCastEnv,
+                        new MishapSpellCircleMedia(MediaConstants.DUST_UNIT / 100, blockPos)
+                );
+                return new ControlFlow.Stop();
+            }
         }
+
         var sentTime = data.getLong("sentinel_time");
         if (sentTime == 0L){
             // To make sure this is never 0
