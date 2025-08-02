@@ -88,12 +88,12 @@ class FrameCheckItems(
             when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
                     continuation
-                        .pushFrame(FrameCheckItems(code,baseStack,toCheck, JankyMaybe.LAST))
+                        .pushFrame(FrameCheckItems(code, baseStack, toCheck, JankyMaybe.LAST))
                         .pushFrame(FrameEvaluate(code,true))
                 }
                 else -> { // When FIRST or RUNNING push the frame
                     continuation
-                        .pushFrame(FrameCheckItems(code,baseStack,toCheck))
+                        .pushFrame(FrameCheckItems(code, baseStack, toCheck, JankyMaybe.RUNNING))
                         .pushFrame(FrameEvaluate(code,true))
                 }
             }

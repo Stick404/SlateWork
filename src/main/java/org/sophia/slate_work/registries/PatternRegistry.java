@@ -46,6 +46,7 @@ public class PatternRegistry {
     public static final HexPattern SET_SENTS = make("waeawaewawwa", HexDir.EAST, "set_sents", OpSetSents.INSTANCE);
     public static final HexPattern GET_SENTS = make("waeawaewawwaeq", HexDir.EAST, "get_sents", OpGetSents.INSTANCE);
 
+    public static final HexPattern READ_BROADCAST = make("aqwqaweeeeewwaaw", HexDir.WEST, "read_broadcast", OpReadBroadcast.INSTANCE);
 
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",

@@ -2,13 +2,16 @@ package org.sophia.slate_work;
 
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Identifier;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.casting.CircleAmbitChanges;
+import org.sophia.slate_work.misc.KnownBroadcasters;
 import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.registries.FrameRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
@@ -30,5 +33,14 @@ public class Slate_work implements ModInitializer {
         FrameRegistry.init();
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new CircleAmbitChanges(a)));
+
+        ServerLifecycleEvents.SERVER_STOPPING.register(new ClearBroadcasters());
+    }
+
+    private static class ClearBroadcasters implements ServerLifecycleEvents.ServerStopping {
+        @Override
+        public void onServerStopping(MinecraftServer server) {
+            KnownBroadcasters.INSTANCE.clear();
+        }
     }
 }

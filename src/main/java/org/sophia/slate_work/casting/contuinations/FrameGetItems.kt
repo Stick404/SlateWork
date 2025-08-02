@@ -103,7 +103,7 @@ class FrameGetItems(
                 }
                 else -> { // When FIRST or RUNNING push the frame
                     continuation
-                        .pushFrame(FrameGetItems(code,baseStack,toCheck,slot))
+                        .pushFrame(FrameGetItems(code,baseStack,toCheck,slot, JankyMaybe.RUNNING))
                         .pushFrame(FrameEvaluate(code,true))
                 }
             }

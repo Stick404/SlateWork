@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import org.sophia.slate_work.Slate_work;
 import org.sophia.slate_work.client.blockEntityRenders.MacroLociRenderer;
+import org.sophia.slate_work.client.lens.BroadcasterLociScrying;
 import org.sophia.slate_work.client.lens.MacroLociScrying;
 import org.sophia.slate_work.client.lens.SentinelLociScrying;
 import org.sophia.slate_work.client.lens.StorageLociScrying;
@@ -21,5 +22,6 @@ public class Slate_workClient implements ClientModInitializer {
         ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.MACRO_LOCI, new MacroLociScrying());
         ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.STORAGE_LOCI, new StorageLociScrying());
         ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.SENTINEL_LOCI, new SentinelLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.BROADCASTER_LOCI, new BroadcasterLociScrying());
     }
 }
