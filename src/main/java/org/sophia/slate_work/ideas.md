@@ -33,6 +33,8 @@
 Takes a processing chain of Hex related stuff to make. Possible ideas are: crafting -> fire -> break block -> recharge -> Energized by a circle.
 This is to limit the speed of media gen, while having something as good as allays without the lag.
 
+Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
+
 ## TODO:
 * Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*

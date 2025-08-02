@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.broadcaster_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:broadcaster_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:broadcaster_loci",
+      "anchor": "broadcaster_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.broadcaster_loci.broadcaster_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.broadcaster_loci.broadcaster_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.broadcaster_loci.extra"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:broadcaster_loci_craft",
+      "text": "slate_work.page.broadcaster_loci.crafting"
+    }
+  ]
+}
