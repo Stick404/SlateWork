@@ -87,7 +87,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
     }
     @Override
     public boolean canEnterFromDirection(Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
-        return direction != Direction.DOWN;
+        return direction != Direction.UP;
     }
 
     @Override

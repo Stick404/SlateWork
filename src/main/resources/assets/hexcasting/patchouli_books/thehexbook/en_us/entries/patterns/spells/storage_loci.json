@@ -77,6 +77,14 @@
       "input": "vec, any iota, pattern",
       "output": "",
       "text": "slate_work.page.storage_loci.set_macro"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:read_broadcast",
+      "anchor": "slate_work:read_broadcast",
+      "input": "vec",
+      "output": "any",
+      "text": "slate_work.page.storage_loci.read_broadcast"
     }
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "A": {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    "D": {
+      "item": "hexcasting:akashic_connector"
+    },
+    "B": {
+      "item": "hexcasting:slate_block"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BDB",
+    "ABA"
+  ],
+  "result": {
+    "item": "slate_work:broadcaster_loci"
+  }
+}
