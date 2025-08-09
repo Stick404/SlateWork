@@ -39,7 +39,7 @@ class FrameGetItems(
     val baseStack: List<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
     val oldReturn: CircleHelper.ItemSlot?,
-    var isFirst: JankyMaybe = JankyMaybe.FIRST
+    var isFirst: JankyMaybe
 ) : ContinuationFrame {
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
@@ -57,7 +57,6 @@ class FrameGetItems(
             isFirst = JankyMaybe.LAST
             null
         }
-
 
         val realStack = harness.image.stack.reversed()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
@@ -89,6 +88,7 @@ class FrameGetItems(
                 )
             }
         }
+
         if (this.toCheck.isEmpty() && this.isFirst != JankyMaybe.LAST){
             this.isFirst = JankyMaybe.PENULTIMATE
         }
@@ -158,7 +158,8 @@ class FrameGetItems(
                 //val oldReturn = ItemVariant.fromNbt(tag.getCompound("old_item"))
                 val oldReturn = CircleHelper.ItemSlot.load(tag.getCompound("old_item"), world)
                 val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
-                return FrameGetItems(code, stack,toCheck, oldReturn,stepEval)
+                // If it is a normal "running," then restart it as a "first"
+                return FrameGetItems(code, stack,toCheck, oldReturn,if (stepEval == JankyMaybe.RUNNING) JankyMaybe.FIRST else stepEval)
             }
 
         }
