@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "energized=false,up=false": {
+      "model": "slate_work:block/empty"
+    },
+    "energized=false,up=true": {
+      "model": "slate_work:block/empty"
+    },
+    "energized=true,up=false": {
+      "model": "slate_work:block/empty"
+    },
+    "energized=true,up=true": {
+      "model": "slate_work:block/empty"
+    }
+  }
+}

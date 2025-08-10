@@ -13,6 +13,7 @@ import java.util.Optional;
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
+import static org.sophia.slate_work.blocks.SaveLoci.TOP_PART;
 import static org.sophia.slate_work.registries.BlockRegistry.ENERGIZED_BLOCKS;
 
 public class BlockModelDatagen extends FabricModelProvider {
@@ -32,6 +33,19 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
         registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
+        registerSaveLoci("save_loci", BlockRegistry.SAVE_LOCI, generator);
+    }
+
+    private static void registerSaveLoci(String name, Block block, BlockStateModelGenerator generator){
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/"+name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/" + name + "_energized"));
+        var bsvTop = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/empty"));
+        var bsvBottom = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "`"));
+        var mapTop = BlockStateVariantMap.create(TOP_PART).register(true, bsvTop).register(false, bsvBottom);
+        var map = BlockStateVariantMap.create(ENERGIZED).register(true,bsvEnergized).register(false, bsvNormal);
+
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(map).coordinate(mapTop));
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){

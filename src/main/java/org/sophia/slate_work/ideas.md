@@ -35,6 +35,8 @@ This is to limit the speed of media gen, while having something as good as allay
 
 Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
 
+Make the Sentinel Locus and Save Locus have wall and floor rotation
+
 ## TODO:
 * Work on the Patterned Assembler more maybe
   * Finish up the inv texture *maybe*
