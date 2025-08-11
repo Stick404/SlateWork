@@ -6,9 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.util.math.BlockPos;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.List;
 
@@ -23,7 +21,8 @@ public abstract class MixinDirtyDirtyHack {
             at = @At(value = "FIELD",
                     target = "Lat/petrak/hexcasting/api/casting/circles/CircleExecutionState;reachedPositions:Ljava/util/List;",
                     opcode = Opcodes.AASTORE),
-            remap = false
+            remap = false,
+            require = 0
     )
     private List<BlockPos> Slate_work$DirtyPatch(CircleExecutionState instance, Operation<List<BlockPos>> original){
         var list = instance.reachedPositions;
