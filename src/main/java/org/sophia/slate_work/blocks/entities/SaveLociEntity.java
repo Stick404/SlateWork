@@ -7,6 +7,7 @@ import org.sophia.slate_work.registries.BlockRegistry;
 
 public class SaveLociEntity extends BlockEntity {
     public SaveLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.SAVE_LOCI_ENTITY, pos, state);
+        //super(BlockRegistry.SAVE_LOCI_ENTITY, pos, state);
+        super(null, pos, state);
     }
 }

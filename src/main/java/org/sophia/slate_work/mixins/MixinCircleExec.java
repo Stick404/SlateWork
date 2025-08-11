@@ -32,4 +32,9 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
         if (targetSpeed != 0 && !slate_work$realValue) cir.setReturnValue(targetSpeed);
         if (slate_work$realValue) slate_work$realValue = false;
     }
+
+    @Unique
+    public void Slate_work$setImage(CastingImage image){
+        this.currentImage = image;
+    }
 }

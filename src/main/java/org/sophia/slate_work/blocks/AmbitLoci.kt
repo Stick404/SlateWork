@@ -126,5 +126,5 @@ class AmbitLoci : BlockCircleComponent, Equipment {
     override fun possibleExitDirections(p0: BlockPos?, p1: BlockState?, p2: World?) = EnumSet.allOf(Direction::class.java)!!
     override fun normalDir(p0: BlockPos?, p1: BlockState?, p2: World?, p3: Int) = Direction.UP
     override fun particleHeight(p0: BlockPos?, p1: BlockState?, p2: World) = 0.5f
-    override fun getSlotType(): EquipmentSlot? = EquipmentSlot.HEAD
+    override fun getSlotType(): EquipmentSlot = EquipmentSlot.HEAD
 }

@@ -25,6 +25,6 @@ public class SlateWorkDatagen implements DataGeneratorEntrypoint {
             BlockRegistry.MUTE_LOCI,
             BlockRegistry.SENTINEL_LOCI,
             BlockRegistry.BROADCASTER_LOCI,
-            BlockRegistry.SAVE_LOCI
+            BlockRegistry.LISTENING_IMPETUS
     );
 }

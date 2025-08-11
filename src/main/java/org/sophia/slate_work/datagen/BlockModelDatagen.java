@@ -1,9 +1,14 @@
 package org.sophia.slate_work.datagen;
 
+import at.petrak.hexcasting.api.HexAPI;
+import at.petrak.hexcasting.api.block.circle.BlockAbstractImpetus;
+import at.petrak.hexcasting.client.model.HexModelLayers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.registries.BlockRegistry;
@@ -33,7 +38,55 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
         registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
-        registerSaveLoci("save_loci", BlockRegistry.SAVE_LOCI, generator);
+        //registerSaveLoci("save_loci", BlockRegistry.SAVE_LOCI, generator);
+
+        registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
+    }
+
+    private static String impeti = "block/impeti/";
+
+    private static void registerImpetus(String name, Block block, BlockStateModelGenerator generator){
+        var path = impeti+name+"/";
+        String[] pain = {"top", "bottom", "front", "back", "left", "right"};
+        TextureKey[] morePain = {TextureKey.UP, TextureKey.DOWN, TextureKey.NORTH, TextureKey.SOUTH, TextureKey.WEST, TextureKey.EAST};
+        TextureMap lit = new TextureMap();
+        TextureMap unLit = new TextureMap();
+        lit.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        unLit.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        int i = 0;
+        for (String ouch : pain) {
+            lit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_lit"));
+            unLit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_dim")); //TODO: CHANGE THESE BACK AROUNd
+            i++;
+        }
+        var litModel = Models.CUBE.upload(block, "_lit", lit, generator.modelCollector);
+        var dimModel = Models.CUBE.upload(block, "_dim", unLit, generator.modelCollector);
+
+        var RotNorth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
+        var RotSouth = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180);
+        var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        var RotDown = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
+        var RotEast = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90);
+        var RotWest = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270);
+
+        BlockStateVariantMap mapFac = BlockStateVariantMap.create(FACING)
+                .register(Direction.UP, RotUp)
+                .register(Direction.NORTH, RotNorth)
+                .register(Direction.DOWN, RotDown)
+                .register(Direction.SOUTH, RotSouth)
+                .register(Direction.EAST, RotEast)
+                .register(Direction.WEST, RotWest);
+
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(BlockStateVariantMap.create(ENERGIZED)
+                .registerVariants(((aBoolean) -> {
+                    BlockStateVariant powered;
+                    if (aBoolean) {
+                        powered = BlockStateVariant.create().put(VariantSettings.MODEL, litModel); } else {
+                        powered = BlockStateVariant.create().put(VariantSettings.MODEL, dimModel); }
+                    return java.util.List.of(powered);
+                }))).coordinate(mapFac)
+        );
     }
 
     private static void registerSaveLoci(String name, Block block, BlockStateModelGenerator generator){
@@ -82,10 +135,17 @@ public class BlockModelDatagen extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (var item : ENERGIZED_BLOCKS.entrySet()){
-            itemModelGenerator.register(item.getValue(), new Model(
-                    Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
-                    Optional.empty()
-            ));
+            if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus impetus) {
+                itemModelGenerator.register(item.getValue(), new Model(
+                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
+                        Optional.empty()
+                ));
+            } else {
+                itemModelGenerator.register(item.getValue(), new Model(
+                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
+                        Optional.empty()
+                ));
+            }
         }
 
     }

@@ -20,6 +20,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.*;
+import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
+import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.item.AllayPigment;
 
 import java.util.HashMap;
@@ -45,7 +47,8 @@ public class BlockRegistry {
     public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(locusSetting));
     public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(locusSetting));
     public static BroadcasterLoci BROADCASTER_LOCI = registerBlockItem("broadcaster_loci", new BroadcasterLoci(locusSetting));
-    public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting));
+    //public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting));
+    public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
@@ -58,8 +61,10 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(SentinelLociEntity::new, SENTINEL_LOCI).build());
     public static BlockEntityType<BroadcasterLociEntity> BROADCASTER_LOCI_ENTITY = registerBlockEntity("broadcaster_loci",
             FabricBlockEntityTypeBuilder.create(BroadcasterLociEntity::new, BROADCASTER_LOCI).build());
-    public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci",
-            FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+    //public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci", // Turned off for now
+    //         FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+    public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
+            FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));

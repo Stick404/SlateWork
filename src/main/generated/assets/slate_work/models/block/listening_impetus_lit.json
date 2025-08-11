@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "slate_work:block/impeti/listening/bottom_lit",
+    "east": "slate_work:block/impeti/listening/right_lit",
+    "north": "slate_work:block/impeti/listening/front_lit",
+    "particle": "hexcasting:block/slate",
+    "south": "slate_work:block/impeti/listening/back_lit",
+    "up": "slate_work:block/impeti/listening/top_lit",
+    "west": "slate_work:block/impeti/listening/left_lit"
+  }
+}
