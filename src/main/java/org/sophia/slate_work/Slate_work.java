@@ -1,10 +1,7 @@
 package org.sophia.slate_work;
 
-import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
-import gay.object.ioticblocks.IoticBlocks;
-import gay.object.ioticblocks.api.IoticBlocksAPI;
 import miyucomics.hexpose.iotas.TextIota;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -17,7 +14,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
@@ -27,10 +23,7 @@ import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.registries.FrameRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.logging.Logger;
 
 public class Slate_work implements ModInitializer {
@@ -60,7 +53,7 @@ public class Slate_work implements ModInitializer {
                     if (entity.isRunning()){
                         continue;
                     }
-                    if (sender.squaredDistanceTo(pos.toCenterPos()) < 16*16 & compared.startsWith(entity.getString())) { //Doing the loaded check *just* in case
+                    if (sender.squaredDistanceTo(pos.toCenterPos()) < 16*16 && (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString()))) {
                         String string = compared.substring(entity.getString().length()).stripLeading();
                         if (string.isBlank()) string = " ";
 
