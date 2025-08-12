@@ -23,7 +23,6 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import java.util.*
 import java.util.stream.Stream
 import kotlin.math.absoluteValue
-import kotlin.math.pow
 
 
 class AmbitLoci : BlockCircleComponent, Equipment {
@@ -36,7 +35,7 @@ class AmbitLoci : BlockCircleComponent, Equipment {
     override fun acceptControlFlow(
         imageIn: CastingImage?, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
         bs: BlockState?, world: ServerWorld?,
-    ): ControlFlow? {
+    ): ControlFlow {
         val data = imageIn!!.userData.copy()
 
         val exitDirsSet = this.possibleExitDirections(pos, bs, world)

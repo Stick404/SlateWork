@@ -6,7 +6,6 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity

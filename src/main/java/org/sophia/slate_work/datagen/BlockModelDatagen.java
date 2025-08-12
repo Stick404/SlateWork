@@ -2,13 +2,11 @@ package org.sophia.slate_work.datagen;
 
 import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.api.block.circle.BlockAbstractImpetus;
-import at.petrak.hexcasting.client.model.HexModelLayers;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.data.client.*;
 import net.minecraft.item.BlockItem;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.registries.BlockRegistry;
@@ -43,7 +41,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
     }
 
-    private static String impeti = "block/impeti/";
+    private static final String impeti = "block/impeti/";
 
     private static void registerImpetus(String name, Block block, BlockStateModelGenerator generator){
         var path = impeti+name+"/";
