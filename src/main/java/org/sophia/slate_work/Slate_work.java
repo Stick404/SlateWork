@@ -1,12 +1,16 @@
 package org.sophia.slate_work;
 
+import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
+import gay.object.ioticblocks.IoticBlocks;
+import gay.object.ioticblocks.api.IoticBlocksAPI;
 import miyucomics.hexpose.iotas.TextIota;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
@@ -53,6 +57,9 @@ public class Slate_work implements ModInitializer {
                 for (var listener : LISTENERS.entrySet()) {
                     var entity = listener.getValue();
                     var pos = listener.getKey();
+                    if (entity.isRunning()){
+                        continue;
+                    }
                     if (sender.squaredDistanceTo(pos.toCenterPos()) < 16*16 & compared.startsWith(entity.getString())) { //Doing the loaded check *just* in case
                         String string = compared.substring(entity.getString().length()).stripLeading();
                         if (string.isBlank()) string = " ";
@@ -66,6 +73,10 @@ public class Slate_work implements ModInitializer {
                 return true;
             });
         });
+
+        if (FabricLoader.getInstance().isModLoaded("ioticblocks")) {
+            SlateWorksIoticBlocks.init();
+        }
     }
 
     private static class ClearBroadcasters implements ServerLifecycleEvents.ServerStopping {

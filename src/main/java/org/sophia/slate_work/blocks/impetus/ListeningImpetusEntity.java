@@ -1,16 +1,16 @@
 package org.sophia.slate_work.blocks.impetus;
 
+import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import at.petrak.hexcasting.api.casting.circles.BlockEntityAbstractImpetus;
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
-import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.NullIota;
+import at.petrak.hexcasting.common.lib.HexSounds;
 import com.mojang.datafixers.util.Pair;
 import miyucomics.hexpose.iotas.TextIota;
-import miyucomics.hexpose.utils.ChatHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -18,8 +18,8 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
-import net.minecraft.util.Colors;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -33,7 +33,7 @@ import org.sophia.slate_work.registries.BlockRegistry;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListeningImpetusEntity extends BlockEntityAbstractImpetus {
+public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implements ADIotaHolder {
     public static final String DEFAULT = "You know, people dont need to know that this is the default string for these. Like, I just need to check if this matches this to see if its blank";
     private String string = DEFAULT;
     private EntityIota playerIota = null;
@@ -48,14 +48,19 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus {
         this.playerIota = player;
     }
 
-    @Override
-    public void startExecution(@Nullable ServerPlayerEntity player) {
+    public boolean isRunning(){
+        return this.executionState != null;
+    }
 
+    @Override
+    public void startExecution(ServerPlayerEntity player) {
+        var realPlayer = player;
+        player = null;
         if (this.world == null)
             return; // TODO: error here?
-        if (player.getWorld().isClient())
+        if (this.world.isClient)
             return; // TODO: error here?
-        this.world = player.getWorld(); // Hate.
+
         if (playerIota == null && textIota == null)
             return;
 
@@ -77,6 +82,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus {
 
             return;
         }
+        realPlayer.playSound(HexSounds.IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1f, 0.5f);
         this.executionState = result.unwrap();
         var image = this.executionState.currentImage;
         var stack = new ArrayList<Iota>();
@@ -142,5 +148,40 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus {
         if (world != null && !world.isClient()){
              Slate_work.LISTENERS.put(this.pos, this);
         }
+    }
+
+    @Override
+    public @Nullable NbtCompound readIotaTag() {
+        return (NbtCompound) new TextIota(Text.literal(this.string)).serialize();
+    }
+
+    @Override
+    public @Nullable Iota readIota(ServerWorld world) {
+        return new TextIota(Text.literal(this.string));
+    }
+
+    @Override
+    public boolean writeIota(@Nullable Iota iota, boolean simulate) {
+        if (iota instanceof TextIota text){
+            if (!text.getText().getString().isBlank()){
+                if (!simulate) {
+                    this.string = text.getText().getString();
+                    this.sync();
+                }
+                return true;
+            }
+        } else if (iota instanceof NullIota) {
+            if (!simulate){
+                this.string = ListeningImpetusEntity.DEFAULT;
+                this.sync();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean writeable() {
+        return true;
     }
 }
