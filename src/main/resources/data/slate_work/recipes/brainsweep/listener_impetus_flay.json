@@ -1,0 +1,20 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hexcasting:impetus/empty"
+  },
+  "cost": 500000,
+  "entityIn": {
+    "type": "villager",
+    "minLevel": 2,
+    "profession": "librarian"
+  },
+  "result": {
+    "name": "slate_work:listening_impetus",
+    "properties": {
+      "energized": "false",
+      "facing": "up"
+    }
+  }
+}

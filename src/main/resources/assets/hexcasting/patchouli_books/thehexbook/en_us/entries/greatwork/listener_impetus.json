@@ -1,0 +1,27 @@
+{
+  "name": "slate_work.entry.impeti",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:listening_impetus",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.impeti.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.impeti.filler"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/listener_impetus_flay",
+      "text": "slate_work.page.impeti.listener"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.impeti.listener_cont"
+    }
+  ]
+}

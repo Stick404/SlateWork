@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
+import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity
 import kotlin.random.Random
 
 class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironmentComponent.IsVecInRange{
@@ -20,6 +21,13 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
     override fun onIsVecInRange(vec: Vec3d, inAmbit: Boolean): Boolean {
         if (inAmbit || env !is CircleCastEnv)
             return inAmbit
+
+        if (env.impetus is ListeningImpetusEntity) {
+            if (vec.squaredDistanceTo(env.impetus?.pos?.toCenterPos()) <= radius * radius +0.00000000001){
+                return true
+            }
+        }
+
         val state = env.circleState()
         val data = state.currentImage.userData
         /** This is for the Ambit Extender **/
