@@ -111,7 +111,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
         return false;
     }
 
-    public boolean IsDefault(){
+    public boolean isDefault(){
         return DEFAULT.equals(string);
     }
 
@@ -124,7 +124,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
     public void applyScryingLensOverlay(List<Pair<ItemStack, Text>> lines, BlockState state, BlockPos pos,
                                         PlayerEntity observer, World world, Direction hitFace) {
         super.applyScryingLensOverlay(lines, state, pos, observer, world, hitFace);
-        if (this.IsDefault()){
+        if (this.isDefault()){
             lines.add(new Pair<>(Items.NAME_TAG.getDefaultStack(), Text.translatable("slate_work.scrying.impetus.listening.unbound")));
         } else {
             lines.add(new Pair<>(Items.NAME_TAG.getDefaultStack(),

@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.whispering",
+  "category": "hexcasting:items",
+  "icon": "slate_work:whispering_stone",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:whispering_stone",
+      "anchor": "whispering_stone",
+      "link_recipe": true,
+      "text": "slate_work.page.whispering.whispering_stone"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.whispering.cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.whispering.bound"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:whispering_stone",
+      "text": "slate_work.page.whispering.crafting"
+    }
+  ]
+}

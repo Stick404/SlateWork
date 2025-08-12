@@ -15,14 +15,15 @@ import kotlin.random.Random
 class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironmentComponent.IsVecInRange{
     private val key = Key(Keygen.randid())
     private val radius = 4
-    override fun getKey(): CastingEnvironmentComponent.Key<*>? = key
+    override fun getKey(): CastingEnvironmentComponent.Key<*> = key
 
     override fun onIsVecInRange(vec: Vec3d, inAmbit: Boolean): Boolean {
         if (inAmbit || env !is CircleCastEnv)
             return inAmbit
 
+        /** This is for the Librarian Impetus **/
         if (env.impetus is ListeningImpetusEntity) {
-            if (vec.squaredDistanceTo(env.impetus?.pos?.toCenterPos()) <= radius * radius +0.00000000001){
+            if (vec.squaredDistanceTo(env.impetus?.pos?.toCenterPos()) <= 16 * 16 +0.00000000001){
                 return true
             }
         }

@@ -17,7 +17,8 @@
     {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/listener_impetus_flay",
-      "text": "slate_work.page.impeti.listener"
+      "text": "slate_work.page.impeti.listener",
+      "anchor": "slate_work:listener"
     },
     {
       "type": "patchouli:text",

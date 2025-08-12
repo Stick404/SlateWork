@@ -23,6 +23,7 @@ import org.sophia.slate_work.blocks.entities.*;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.item.AllayPigment;
+import org.sophia.slate_work.item.WhisperingStone;
 
 import java.util.HashMap;
 
@@ -68,6 +69,7 @@ public class BlockRegistry {
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
+    public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
