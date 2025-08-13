@@ -104,6 +104,8 @@ dependencies {
     modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FABRIC"
     modImplementation "com.samsthenerd.inline:inline-fabric:$minecraft_version-$inline_version"
 
+    //modImplementation "dev.emi:trinkets:$trinkets_version"
+
     modApi ("gay.object.ioticblocks:ioticblocks-fabric:1.0.1+1.20.1")
 
 }

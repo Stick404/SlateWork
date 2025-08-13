@@ -22,6 +22,7 @@ import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import java.util.List;
 
 public class WhisperingStone extends Item {
+    //TODO: Maybe make this wearable/use Attributes?
     public WhisperingStone(Settings settings) {
         super(settings);
     }

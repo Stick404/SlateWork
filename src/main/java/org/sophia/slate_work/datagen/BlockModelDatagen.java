@@ -16,8 +16,10 @@ import java.util.Optional;
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
+import static org.sophia.slate_work.blocks.SaveLoci.HORIZONTAL;
 import static org.sophia.slate_work.blocks.SaveLoci.TOP_PART;
 import static org.sophia.slate_work.registries.BlockRegistry.ENERGIZED_BLOCKS;
+import static org.sophia.slate_work.registries.BlockRegistry.SAVE_LOCI;
 
 public class BlockModelDatagen extends FabricModelProvider {
 
@@ -36,7 +38,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
         registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
-        //registerSaveLoci("save_loci", BlockRegistry.SAVE_LOCI, generator);
+        registerSaveLoci("save_loci", SAVE_LOCI, generator);
 
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
     }
@@ -90,13 +92,20 @@ public class BlockModelDatagen extends FabricModelProvider {
     private static void registerSaveLoci(String name, Block block, BlockStateModelGenerator generator){
         var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/"+name));
         var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/" + name + "_energized"));
+
         var bsvTop = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/empty"));
-        var bsvBottom = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "`"));
+        var bsvBottom = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/save_loci"));
+
         var mapTop = BlockStateVariantMap.create(TOP_PART).register(true, bsvTop).register(false, bsvBottom);
         var map = BlockStateVariantMap.create(ENERGIZED).register(true,bsvEnergized).register(false, bsvNormal);
 
+        var facMap = BlockStateVariantMap.create(HORIZONTAL)
+                .register(Direction.NORTH, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R0))
+                .register(Direction.EAST, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90))
+                .register(Direction.SOUTH, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180))
+                .register(Direction.WEST, BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270));
 
-        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(map).coordinate(mapTop));
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(map).coordinate(mapTop).coordinate(facMap));
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
@@ -133,6 +142,7 @@ public class BlockModelDatagen extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (var item : ENERGIZED_BLOCKS.entrySet()){
+            if (item.getKey().getPath().equals("save_loci")) continue;
             if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus impetus) {
                 itemModelGenerator.register(item.getValue(), new Model(
                         Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
@@ -145,6 +155,9 @@ public class BlockModelDatagen extends FabricModelProvider {
                 ));
             }
         }
-
+        itemModelGenerator.register(SAVE_LOCI.asItem(), new Model(
+                Optional.of(new Identifier(MOD_ID, "block/save_loci")),
+                Optional.empty()
+        ));
     }
 }

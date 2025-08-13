@@ -9,6 +9,7 @@
   "block.slate_work.mute_loci": "Muffling Slate",
   "block.slate_work.sentinel_loci": "Sentinel Cache",
   "block.slate_work.broadcaster_loci": "Iotic Door",
+  "block.slate_work.save_loci": "Restoration Mainframe",
 
   "block.slate_work.listening_impetus": "Librarian Impetus",
 
@@ -146,5 +147,13 @@
   "slate_work.scrying.macro.top": "Pattern: ",
   "slate_work.scrying.macro.error": "Could not display Iota(s)",
   "slate_work.scrying.impetus.listening.bound": "The bound moniker is:",
-  "slate_work.scrying.impetus.listening.unbound": "Not currently monikered"
+  "slate_work.scrying.impetus.listening.unbound": "Not currently monikered",
+
+  "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
+  "slate_work.scrying.save.escaping": "Is Escaping: ",
+  "slate_work.scrying.save.ops": "Ops Consumed: ",
+  "slate_work.scrying.save.paren": "Total Levels of Escape: ",
+  "slate_work.scrying.save.escaped": "Iotas Escaped: ",
+  "slate_work.scrying.save.stack": "The Stack: ",
+  "slate_work.scrying.save.ravenmind": "The Ravenmind: "
 }

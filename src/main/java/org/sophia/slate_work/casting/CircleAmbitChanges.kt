@@ -30,6 +30,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
 
         val state = env.circleState()
         val data = state.currentImage.userData
+
         /** This is for the Ambit Extender **/
         val hasPushedPos = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_pos"))
         val hasPushedNeg = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_neg"))
