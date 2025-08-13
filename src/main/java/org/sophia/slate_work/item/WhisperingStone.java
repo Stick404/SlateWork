@@ -54,6 +54,7 @@ public class WhisperingStone extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient){
+
             var stack = user.getStackInHand(hand);
             var cordNBT = stack.getSubNbt("cords");
             if (cordNBT != null && world.getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity listening){

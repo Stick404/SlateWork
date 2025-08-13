@@ -5,6 +5,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.random.Random;
 import org.joml.Quaternionf;
 import org.sophia.slate_work.blocks.entities.SaveLociEntity;
 
@@ -12,9 +13,7 @@ import static org.sophia.slate_work.Slate_work.MOD_ID;
 import static org.sophia.slate_work.blocks.SaveLoci.HORIZONTAL;
 
 public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
-
     public SaveLociRenderer(BlockEntityRendererFactory.Context context){
-
     }
 
     @Override
