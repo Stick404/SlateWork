@@ -102,15 +102,18 @@ public class Slate_work implements ModInitializer {
 
         if (ref.stack != null) {
             var cordNBT = ref.stack.getSubNbt("cords");
-            if (cordNBT != null && sender.getWorld().getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
-                found = true;
-                if (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString())){
-                    if (entity.isRunning()) {
-                        return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
-                    } else {
-                        return of(true, true, compared, Optional.of(entity), false, Optional.of(ref.stack));
+            if (cordNBT != null) {
+                if (sender.getWorld().getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
+                    found = true;
+                    if (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString())){
+                        if (entity.isRunning()) {
+                            return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
+                        } else {
+                            return of(true, true, compared, Optional.of(entity), false, Optional.of(ref.stack));
+                        }
                     }
-                }
+                } else return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
+
             }
         }
 

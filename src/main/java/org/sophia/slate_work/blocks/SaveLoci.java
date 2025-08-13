@@ -129,7 +129,7 @@ public class SaveLoci extends BlockCircleComponent implements BlockEntityProvide
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         super.onStateReplaced(state, world, pos, newState, moved);
-        if (!state.isOf(newState.getBlock())){
+        if (!state.isOf(newState.getBlock()) || state.get(FACING) != newState.get(FACING)){
             if (!world.isClient) {
                 BlockPos blockPos;
                 if (state.get(TOP_PART)) blockPos = pos.down();

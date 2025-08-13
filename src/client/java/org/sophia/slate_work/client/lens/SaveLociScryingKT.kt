@@ -61,7 +61,7 @@ class SaveLociScryingKT : OverlayBuilder {
         val text: MutableText = Text.empty()
 
         for (subtag: NbtElement in parenIotasTag.toList()) {
-            text.append(IotaType.getDisplay(subtag.downcast(NbtCompound.TYPE)))
+            text.append(IotaType.getDisplay(subtag.downcast(NbtCompound.TYPE))).append(" ")
         }
         return text
     }
@@ -69,7 +69,7 @@ class SaveLociScryingKT : OverlayBuilder {
         val text: MutableText = Text.empty()
         val stack = data.getList(CastingImage.TAG_STACK,NbtElement.COMPOUND_TYPE)
         for (subtag: NbtElement in stack.toList()) {
-            text.append(IotaType.getDisplay(subtag.downcast(NbtCompound.TYPE)))
+            text.append(IotaType.getDisplay(subtag.downcast(NbtCompound.TYPE))).append(", ")
         }
         return text
     }

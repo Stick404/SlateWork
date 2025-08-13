@@ -21,6 +21,7 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
         if (entity.getWorld() != null) {
             var bs = entity.getWorld().getBlockState(entity.getPos());
             if (bs.isAir()) return;
+            if (!bs.contains(HORIZONTAL)) return;
             matrices.push();
             int rotation = 0;
             float rad = (float) (Math.PI/180)*(entity.getWorld().getTime()*8);
