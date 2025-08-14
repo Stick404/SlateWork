@@ -48,9 +48,9 @@ public class BlockRegistry {
     public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(locusSetting));
     public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(locusSetting));
     public static BroadcasterLoci BROADCASTER_LOCI = registerBlockItem("broadcaster_loci", new BroadcasterLoci(locusSetting));
-    public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting));
+    public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
-    public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting));
+    public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
