@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.save_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:save_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.save_loci.intro"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:save_loci",
+      "anchor": "save_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.save_loci.save_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.save_loci.scrying"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:save_loci_craft",
+      "text": "slate_work.page.save_loci.crafting"
+    }
+  ]
+}

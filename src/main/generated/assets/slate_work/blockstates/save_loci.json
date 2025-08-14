@@ -1,0 +1,68 @@
+{
+  "variants": {
+    "energized=false,facing=east,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 90
+    },
+    "energized=false,facing=east,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 90
+    },
+    "energized=false,facing=north,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 0
+    },
+    "energized=false,facing=north,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 0
+    },
+    "energized=false,facing=south,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 180
+    },
+    "energized=false,facing=south,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 180
+    },
+    "energized=false,facing=west,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 270
+    },
+    "energized=false,facing=west,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 270
+    },
+    "energized=true,facing=east,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 90
+    },
+    "energized=true,facing=east,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 90
+    },
+    "energized=true,facing=north,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 0
+    },
+    "energized=true,facing=north,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 0
+    },
+    "energized=true,facing=south,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 180
+    },
+    "energized=true,facing=south,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 180
+    },
+    "energized=true,facing=west,up=false": {
+      "model": "slate_work:block/save_loci",
+      "y": 270
+    },
+    "energized=true,facing=west,up=true": {
+      "model": "slate_work:block/empty",
+      "y": 270
+    }
+  }
+}

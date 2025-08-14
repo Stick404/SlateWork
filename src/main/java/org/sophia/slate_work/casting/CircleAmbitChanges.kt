@@ -6,22 +6,31 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
+import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity
 import kotlin.random.Random
 
 class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironmentComponent.IsVecInRange{
     private val key = Key(Keygen.randid())
     private val radius = 4
-    override fun getKey(): CastingEnvironmentComponent.Key<*>? = key
+    override fun getKey(): CastingEnvironmentComponent.Key<*> = key
 
     override fun onIsVecInRange(vec: Vec3d, inAmbit: Boolean): Boolean {
         if (inAmbit || env !is CircleCastEnv)
             return inAmbit
+
+        /** This is for the Librarian Impetus **/
+        if (env.impetus is ListeningImpetusEntity) {
+            if (vec.squaredDistanceTo(env.impetus?.pos?.toCenterPos()) <= 16 * 16 +0.00000000001){
+                return true
+            }
+        }
+
         val state = env.circleState()
         val data = state.currentImage.userData
+
         /** This is for the Ambit Extender **/
         val hasPushedPos = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_pos"))
         val hasPushedNeg = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_neg"))
