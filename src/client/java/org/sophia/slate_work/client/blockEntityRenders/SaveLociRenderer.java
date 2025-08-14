@@ -5,7 +5,6 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
 import org.joml.Quaternionf;
 import org.sophia.slate_work.blocks.entities.SaveLociEntity;
 
@@ -24,7 +23,8 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
             if (!bs.contains(HORIZONTAL)) return;
             matrices.push();
             int rotation = 0;
-            float rad = (float) (Math.PI/180)*(entity.getWorld().getTime()*8);
+            float rad = (float) (Math.PI/180)*((entity.getWorld().getTime()%360)+entity.getWorld().getTime())*4;
+
             var buf = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(MOD_ID,"textures/white_texture.png")));
             switch (bs.get(HORIZONTAL)){
                 case EAST -> rotation = 270;

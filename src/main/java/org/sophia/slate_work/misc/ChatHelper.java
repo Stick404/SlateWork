@@ -1,0 +1,101 @@
+package org.sophia.slate_work.misc;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtHelper;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Pair;
+import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
+import org.sophia.slate_work.registries.BlockRegistry;
+
+import java.util.Optional;
+
+import static org.sophia.slate_work.Slate_work.LISTENERS;
+
+public class ChatHelper {
+    private static ChatHelper helper;
+    public Pair<String, Long> LAST_CHECK_DATA = new Pair<>("", 0L);
+    public ShouldRun LAST_CHECK = new ShouldRun(false, false, "", Optional.empty(), false, Optional.empty());
+
+    public static ChatHelper getHelper() {
+        if (helper == null){
+            return new ChatHelper();
+        }
+        return helper;
+    }
+    private ChatHelper(){
+        helper = this;
+    }
+
+    public ShouldRun of(boolean blocked, boolean item, String string, Optional<ListeningImpetusEntity> entity, boolean failed, Optional<ItemStack> whispering){
+        ShouldRun record = new ShouldRun(blocked, item, string, entity, failed, whispering);
+        if (entity.isPresent() && entity.get().getWorld() != null) {
+            this.LAST_CHECK = record;
+            this.LAST_CHECK_DATA = new Pair<>(string, entity.get().getWorld().getTime());
+        }
+        return record;
+    }
+
+    public ChatHelper.ShouldRun willBlock(String compared, ServerPlayerEntity sender){
+        if (compared.equals(LAST_CHECK_DATA.getLeft()) && sender.getWorld().getTime() == LAST_CHECK_DATA.getRight()){
+            return LAST_CHECK;
+        }
+        boolean running = false;
+        var ref = new Object() { // Hate. But. It works
+            ItemStack stack;
+        };
+
+        sender.getHandItems().iterator().forEachRemaining((item) -> {
+            if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
+                ref.stack = item;
+            }
+        });
+
+        if (ref.stack != null) {
+            var cordNBT = ref.stack.getSubNbt("cords");
+            if (cordNBT != null) {
+                if (sender.getWorld().getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
+                    if (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString())){
+                        if (entity.isRunning()) {
+                            return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
+                        } else {
+                            return of(true, true, compared, Optional.of(entity), false, Optional.of(ref.stack));
+                        }
+                    }
+                } else {
+                    var mon = ref.stack.getSubNbt("string");
+                    if (mon != null) {
+                        var string = mon.getString("stringed");
+                        if (compared.startsWith(string + " ") ^ compared.equals(string)) {
+                            return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
+                        }
+                    }
+                }
+
+            }
+        }
+
+        for (var listener : LISTENERS.entrySet()) {
+            var entity = listener.getValue();
+            var pos = listener.getKey();
+            if (entity.isRunning()){
+                continue;
+            }
+            if (sender.squaredDistanceTo(pos.toCenterPos()) < 16*16 && (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString()))) {
+                return of(true, false, compared, Optional.of(entity), false, Optional.empty());
+            }
+        }
+        return of(running, false, compared, Optional.empty(), false, Optional.empty());
+    }
+
+
+    /**
+     * @param blocked is if the message should be blocked
+     * @param item is if it was casted via the item
+     * @param string is the message that will be sent to the Listening Impetus Entity
+     * @param entity is the Listening Impetus Entity
+     * @param failed is if the item "hard failed" (IE: if it should be cleared)
+     * @param whispering is the Whispering Stone that was used
+     *
+     * **/
+    public record ShouldRun(boolean blocked, boolean item, String string, Optional<ListeningImpetusEntity> entity, boolean failed, Optional<ItemStack> whispering){}
+}

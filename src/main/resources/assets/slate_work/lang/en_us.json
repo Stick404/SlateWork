@@ -104,7 +104,7 @@
   "slate_work.entry.save_loci": "Restoration Mainframe",
   "slate_work.page.save_loci.intro": "After careful research of $(thing)$(l:patterns/meta#hexcasting:eval/cc)Iris's Gambit/$, I now understand it stores the state of the cast as an Iota. And after hours of tinkering and failed experiments, I have recreated this, but for Spell Circles.$(br2)The $(thing)Restoration Mainframe/$ stores the total state of a $(l:greatwork/spellcircles)Spell Circle/$, most found Loci are saved into this, as well as: the stack, ravenmind, and escaping patterns.",
   "slate_work.page.save_loci.save_loci": "This works by \"swapping\" the internal stored state with the current running state. So whenever it is activated by a $(l:greatwork/spellcircles)Spell Circle/$, it will exchange the 2 states. Additionally, it seems like this stored state does not remember its \"orignal\" $(l:greatwork/spellcircles)Spell Circle/$, so it can be traded between $(l:greatwork/spellcircles)Spell Circles/$ if proper application of $(l:greatwork/directrix)$(item)Directrices/$ are used.",
-  "slate_work.page.save_loci.scrying": "An important useful tidbit: if I don a $(l:items/lens)Scrying Lens/$ and observe the $(thing)Restoration Mainframe/$, I can see all the data it holds, which is: $(li)The Stack,$(li)The Ravenmind,$(li)Ops Consumed,$(li)Is Escaping,$(li)Iotas that been escaped,$(li)And total level of escaped.$(br2)I can foresee this will be an extremely useful tool for debugging Spell Circles among other uses.",
+  "slate_work.page.save_loci.scrying": "An important useful tidbit: if I don a $(l:items/lens)Scrying Lens/$ and observe the $(thing)Restoration Mainframe/$, I can see all the data it holds, which is: $(li)The Stack,$(li)The Ravenmind,$(li)Ops Consumed,$(li)Is Running Consideration,$(li)Iotas that been escaped,$(li)And total level of escaped.$(br2)I can foresee this will be an extremely useful tool for debugging Spell Circles among other uses.",
   "slate_work.page.save_loci.crafting": "$(o)bleep boop.",
 
   "slate_work.entry.slate_work_pigments": "Fanciful Pigments",
@@ -156,7 +156,7 @@
   "slate_work.scrying.impetus.listening.unbound": "Not currently monikered",
 
   "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
-  "slate_work.scrying.save.escaping": "Is Escaping: ",
+  "slate_work.scrying.save.escaping": "Is Running Consideration: ",
   "slate_work.scrying.save.ops": "Ops Consumed: ",
   "slate_work.scrying.save.paren": "Total Levels of Escape: ",
   "slate_work.scrying.save.escaped": "Iotas Escaped: ",

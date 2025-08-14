@@ -60,6 +60,7 @@ public class SaveLoci extends BlockCircleComponent implements BlockEntityProvide
     public ControlFlow acceptControlFlow(CastingImage castingImage, CircleCastEnv circleCastEnv, Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
         BlockPos entityPos = blockPos;
         if (blockState.get(TOP_PART)) entityPos = blockPos.down();
+        if (serverWorld.getBlockState(entityPos.up()).isAir()) return new ControlFlow.Stop(); // Carry on is now *BANNED*
         if (serverWorld.getBlockEntity(entityPos) instanceof SaveLociEntity entity) {
             var newCastingImage = entity.swapSave(castingImage, serverWorld);
 
