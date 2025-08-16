@@ -3,13 +3,13 @@ package org.sophia.slate_work.misc;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Pair;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.saving.Listeners;
 
 import java.util.Optional;
-
-import static org.sophia.slate_work.Slate_work.LISTENERS;
 
 public class ChatHelper {
     private static ChatHelper helper;
@@ -22,6 +22,7 @@ public class ChatHelper {
         }
         return helper;
     }
+
     private ChatHelper(){
         helper = this;
     }
@@ -39,11 +40,10 @@ public class ChatHelper {
         if (compared.equals(LAST_CHECK_DATA.getLeft()) && sender.getWorld().getTime() == LAST_CHECK_DATA.getRight()){
             return LAST_CHECK;
         }
-        boolean running = false;
+        ServerWorld world = sender.getServerWorld();
         var ref = new Object() { // Hate. But. It works
             ItemStack stack;
         };
-
         sender.getHandItems().iterator().forEachRemaining((item) -> {
             if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
                 ref.stack = item;
@@ -53,8 +53,8 @@ public class ChatHelper {
         if (ref.stack != null) {
             var cordNBT = ref.stack.getSubNbt("cords");
             if (cordNBT != null) {
-                if (sender.getWorld().getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
-                    if (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString())){
+                if (world.getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
+                    if (compared.startsWith(entity.getString())){
                         if (entity.isRunning()) {
                             return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
                         } else {
@@ -65,7 +65,7 @@ public class ChatHelper {
                     var mon = ref.stack.getSubNbt("string");
                     if (mon != null) {
                         var string = mon.getString("stringed");
-                        if (compared.startsWith(string + " ") ^ compared.equals(string)) {
+                        if (compared.startsWith(string)) {
                             return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
                         }
                     }
@@ -73,18 +73,14 @@ public class ChatHelper {
 
             }
         }
-
-        for (var listener : LISTENERS.entrySet()) {
-            var entity = listener.getValue();
-            var pos = listener.getKey();
-            if (entity.isRunning()){
-                continue;
-            }
-            if (sender.squaredDistanceTo(pos.toCenterPos()) < 16*16 && (compared.startsWith(entity.getString() + " ") ^ compared.equals(entity.getString()))) {
-                return of(true, false, compared, Optional.of(entity), false, Optional.empty());
+        for (var listen : Listeners.getListenersAroundPos(sender.getServerWorld(), sender.getBlockPos())){
+            if (world.getBlockEntity(listen) instanceof ListeningImpetusEntity entity){
+                if (entity.isRunning()) continue;
+                if (entity.getPos().getSquaredDistance(sender.getPos()) < 16*16 && compared.startsWith(entity.getString()))
+                    return of(true, false, compared, Optional.of(entity), false, Optional.empty());
             }
         }
-        return of(running, false, compared, Optional.empty(), false, Optional.empty());
+        return of(false, false, compared, Optional.empty(), false, Optional.empty());
     }
 
 

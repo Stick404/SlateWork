@@ -3,8 +3,11 @@ package org.sophia.slate_work;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.common.lib.HexSounds;
+import com.mojang.serialization.Codec;
 import miyucomics.hexpose.iotas.TextIota;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
@@ -18,7 +21,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
-import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.casting.CircleAmbitChanges;
 import org.sophia.slate_work.misc.ChatHelper;
 import org.sophia.slate_work.misc.KnownBroadcasters;
@@ -26,14 +28,18 @@ import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.registries.FrameRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+@SuppressWarnings("UnstableApiUsage")
 public class Slate_work implements ModInitializer {
     public static final String MOD_ID = "slate_work";
     public static final Logger LOGGER = Logger.getLogger("Slate Works");
-    public static final HashMap<BlockPos, ListeningImpetusEntity> LISTENERS = new HashMap<>();
-    // Boolean for if it passed
+    public static final AttachmentType<List<BlockPos>> chunk_listeners = AttachmentRegistry.<List<BlockPos>>builder()
+            .initializer(ArrayList::new)
+            .copyOnDeath().persistent(Codec.list(BlockPos.CODEC))
+            .buildAndRegister(new Identifier(MOD_ID, "listening_attachment"));
 
     public static ScreenHandlerType<Ghost3x3ScreenHandler> GHOST_3X3_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
             new Identifier(MOD_ID,"ghost3x3screen"),
