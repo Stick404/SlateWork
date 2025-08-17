@@ -1,8 +1,15 @@
 package org.sophia.slate_work.item;
 
+import at.petrak.hexcasting.common.items.HexBaubleItem;
 import at.petrak.hexcasting.common.lib.HexSounds;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.EquipmentSlot;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Equipment;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -18,14 +25,20 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
+import org.sophia.slate_work.registries.AttributeRegistry;
 
 import java.util.List;
+import java.util.UUID;
 
-public class WhisperingStone extends Item {
+public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
     //TODO: Maybe make this wearable/use Attributes?
     public WhisperingStone(Settings settings) {
         super(settings);
     }
+
+    public static final EntityAttributeModifier WHISPERING = new EntityAttributeModifier(
+            UUID.fromString("8fe68dab-717e-4970-b0b3-be869fe608dd"),
+            "Whispering Stone Speech", 1, EntityAttributeModifier.Operation.ADDITION);
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -84,5 +97,26 @@ public class WhisperingStone extends Item {
         } else {
             tooltip.add(Text.translatable("item.slate_work.whispering_stone.no_cords").formatted(Formatting.RED));
         }
+    }
+
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getAttributeModifiers(EquipmentSlot slot) {
+        var out = HashMultimap.create(super.getAttributeModifiers(slot));
+        if (slot == EquipmentSlot.CHEST || slot == EquipmentSlot.MAINHAND || slot == EquipmentSlot.OFFHAND) {
+            out.put(AttributeRegistry.WHISPERING, WHISPERING);
+        }
+        return out;
+    }
+
+    @Override
+    public Multimap<EntityAttribute, EntityAttributeModifier> getHexBaubleAttrs(ItemStack stack) {
+        HashMultimap<EntityAttribute, EntityAttributeModifier> out = HashMultimap.create();
+        out.put(AttributeRegistry.WHISPERING, WHISPERING);
+        return out;
+    }
+
+    @Override
+    public EquipmentSlot getSlotType() {
+        return EquipmentSlot.CHEST;
     }
 }

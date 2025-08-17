@@ -5,7 +5,10 @@ import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Pair;
+import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
+import org.sophia.slate_work.compat.SlateWorksTrinkets;
+import org.sophia.slate_work.registries.AttributeRegistry;
 import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.saving.Listeners;
 
@@ -13,6 +16,7 @@ import java.util.Optional;
 
 public class ChatHelper {
     private static ChatHelper helper;
+    private Boolean TRINKETS = false;
     public Pair<String, Long> LAST_CHECK_DATA = new Pair<>("", 0L);
     public ShouldRun LAST_CHECK = new ShouldRun(false, false, "", Optional.empty(), false, Optional.empty());
 
@@ -25,6 +29,10 @@ public class ChatHelper {
 
     private ChatHelper(){
         helper = this;
+    }
+
+    public void setTRINKETS(Boolean TRINKETS) {
+        this.TRINKETS = TRINKETS;
     }
 
     public ShouldRun of(boolean blocked, boolean item, String string, Optional<ListeningImpetusEntity> entity, boolean failed, Optional<ItemStack> whispering){
@@ -41,36 +49,46 @@ public class ChatHelper {
             return LAST_CHECK;
         }
         ServerWorld world = sender.getServerWorld();
-        var ref = new Object() { // Hate. But. It works
-            ItemStack stack;
-        };
-        sender.getHandItems().iterator().forEachRemaining((item) -> {
-            if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
-                ref.stack = item;
-            }
-        });
-
-        if (ref.stack != null) {
-            var cordNBT = ref.stack.getSubNbt("cords");
-            if (cordNBT != null) {
-                if (world.getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
-                    if (compared.startsWith(entity.getString())){
-                        if (entity.isRunning()) {
-                            return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
-                        } else {
-                            return of(true, true, compared, Optional.of(entity), false, Optional.of(ref.stack));
-                        }
-                    }
-                } else {
-                    var mon = ref.stack.getSubNbt("string");
-                    if (mon != null) {
-                        var string = mon.getString("stringed");
-                        if (compared.startsWith(string)) {
-                            return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
-                        }
-                    }
+        if (sender.getAttributeValue(AttributeRegistry.WHISPERING) > 0) {
+            var ref = new ItemHold();
+            sender.getHandItems().iterator().forEachRemaining((item) -> {
+                if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
+                    ref.stack = item;
                 }
+            });
+            if (ref.stack == null) {
+                sender.getArmorItems().forEach((item) -> {
+                    if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
+                        ref.stack = item;
+                    }
+                });
+            }
+            if (ref.stack == null && TRINKETS) {
+                SlateWorksTrinkets.finder(ref, sender);
+            }
 
+            if (ref.stack != null) {
+                var cordNBT = ref.stack.getSubNbt("cords");
+                if (cordNBT != null) {
+                    if (world.getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
+                        if (compared.startsWith(entity.getString())) {
+                            if (entity.isRunning()) {
+                                return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
+                            } else {
+                                return of(true, true, compared, Optional.of(entity), false, Optional.of(ref.stack));
+                            }
+                        }
+                    } else {
+                        var mon = ref.stack.getSubNbt("string");
+                        if (mon != null) {
+                            var string = mon.getString("stringed");
+                            if (compared.startsWith(string)) {
+                                return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
+                            }
+                        }
+                    }
+
+                }
             }
         }
         for (var listen : Listeners.getListenersAroundPos(sender.getServerWorld(), sender.getBlockPos())){
@@ -94,4 +112,15 @@ public class ChatHelper {
      *
      * **/
     public record ShouldRun(boolean blocked, boolean item, String string, Optional<ListeningImpetusEntity> entity, boolean failed, Optional<ItemStack> whispering){}
+    public class ItemHold{
+        @Nullable ItemStack stack;
+
+        public @Nullable ItemStack getStack() {
+            return stack;
+        }
+
+        public void setStack(@Nullable ItemStack stack) {
+            this.stack = stack;
+        }
+    }
 }

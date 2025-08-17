@@ -136,18 +136,12 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
     protected void saveModData(NbtCompound tag) {
         super.saveModData(tag);
         tag.putString("string_listen", string);
-        if (world != null && !world.isClient()){
-            Slate_work.LISTENERS.put(this.pos, this);
-        }
     }
 
     @Override
     protected void loadModData(NbtCompound tag) {
         super.loadModData(tag);
         this.setString(tag.getString("string_listen"));
-        if (world != null && !world.isClient()){
-             Slate_work.LISTENERS.put(this.pos, this);
-        }
     }
 
     @Override

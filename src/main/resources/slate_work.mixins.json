@@ -12,7 +12,8 @@
     "MixinCircleExecInvoker",
     "MixinDirtyDirtyHack",
     "MixinHahaWearAllCircleBlocks",
-    "MixinICircleComponent"
+    "MixinICircleComponent",
+    "MixinPlayer"
   ],
   "injectors": {
     "defaultRequire": 1

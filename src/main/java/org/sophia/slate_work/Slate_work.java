@@ -22,11 +22,14 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.casting.CircleAmbitChanges;
+import org.sophia.slate_work.compat.SlateWorksIoticBlocks;
+import org.sophia.slate_work.compat.SlateWorksTrinkets;
 import org.sophia.slate_work.misc.ChatHelper;
 import org.sophia.slate_work.misc.KnownBroadcasters;
 import org.sophia.slate_work.registries.BlockRegistry;
 import org.sophia.slate_work.registries.FrameRegistry;
 import org.sophia.slate_work.registries.PatternRegistry;
+import org.sophia.slate_work.registries.AttributeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +48,12 @@ public class Slate_work implements ModInitializer {
             new Identifier(MOD_ID,"ghost3x3screen"),
             new ExtendedScreenHandlerType<>(Ghost3x3ScreenHandler::new));
 
-    public static ChatHelper.ShouldRun getCheck(){
-        return ChatHelper.getHelper().LAST_CHECK;
-    }
-
     @Override
     public void onInitialize() {
         BlockRegistry.init();
         PatternRegistry.init();
         FrameRegistry.init();
+        AttributeRegistry.init();
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new CircleAmbitChanges(a)));
 
@@ -83,6 +83,10 @@ public class Slate_work implements ModInitializer {
 
         if (FabricLoader.getInstance().isModLoaded("ioticblocks")) {
             SlateWorksIoticBlocks.init();
+        }
+        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+            SlateWorksTrinkets.init();
+            ChatHelper.getHelper().setTRINKETS(true);
         }
     }
 

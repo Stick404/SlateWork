@@ -161,5 +161,7 @@
   "slate_work.scrying.save.paren": "Total Levels of Escape: ",
   "slate_work.scrying.save.escaped": "Iotas Escaped: ",
   "slate_work.scrying.save.stack": "The Stack: ",
-  "slate_work.scrying.save.ravenmind": "The Ravenmind: "
+  "slate_work.scrying.save.ravenmind": "The Ravenmind: ",
+
+  "slate_work.attributes.whispering": "Whispering Stone Speech"
 }
