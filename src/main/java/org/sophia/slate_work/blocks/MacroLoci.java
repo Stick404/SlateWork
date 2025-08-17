@@ -99,8 +99,6 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                 return new ControlFlow.Stop();
             }
 
-            System.out.println(holder.readIota(serverWorld));
-
            if (!(holder.readIota(serverWorld) instanceof ListIota || holder.readIota(serverWorld).executable())){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
                         new MishapSpellCircleReadableFocus(blockPos));

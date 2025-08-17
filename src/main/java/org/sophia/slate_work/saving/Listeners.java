@@ -36,7 +36,6 @@ public class Listeners {
         var chunk = world.getChunk(pos);
         var z = new ArrayList<>(chunk.getAttachedOrCreate(chunk_listeners)); // it *really* doesn't like messing with the given Array
         z.add(pos.toImmutable()); // Sometimes they were added as "mutable," so just to make sure they are all the same type
-        System.out.println(z);
         chunk.setAttached(chunk_listeners, z);
         checkListeners(world, pos);
         chunk.setNeedsSaving(true); // Might not need this? But not a bad idea
