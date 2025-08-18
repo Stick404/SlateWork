@@ -1,28 +1,34 @@
 package org.sophia.slate_work.blocks.entities;
 
+import at.petrak.hexcasting.api.block.HexBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.transfer.v1.storage.SlottedStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
+import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.network.listener.ClientPlayPacketListener;
-import net.minecraft.network.packet.Packet;
-import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
+import org.sophia.slate_work.storage.LociIterator;
+import org.sophia.slate_work.storage.StorageLociSlot;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY;
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
 @SuppressWarnings(value = "UnstableApiUsage")
-public class StorageLociEntity extends BlockEntity {
+public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant> {
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
     private final Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
@@ -32,8 +38,7 @@ public class StorageLociEntity extends BlockEntity {
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
+    protected void saveModData(NbtCompound nbt) {
         NbtList nbtList = new NbtList();
 
         for(int i = 0; i < this.slots.length; ++i) {
@@ -55,8 +60,7 @@ public class StorageLociEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    protected void loadModData(NbtCompound nbt) {
         var items = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
 
         if (nbt.getBoolean("Empty")){
@@ -68,25 +72,6 @@ public class StorageLociEntity extends BlockEntity {
             Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.fromNbt(compound.getCompound("Item")),(compound.getLong("Count")));
             this.slots[i] = stack;
         }
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        var compound = new NbtCompound();
-        this.writeNbt(compound);
-        return compound;
-    }
-
-    public void updateListeners() {
-        this.markDirty();
-        if (this.getWorld() != null && !this.getWorld().isClient()) {
-            this.getWorld().updateListeners(this.getPos(), this.getCachedState(), this.getCachedState(), Block.NOTIFY_ALL);
-        }
-    }
-
-    @Override
-    public @Nullable Packet<ClientPlayPacketListener> toUpdatePacket() {
-        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     public boolean isEmpty() {
@@ -120,6 +105,7 @@ public class StorageLociEntity extends BlockEntity {
     }
 
     public Pair<ItemVariant,Long> removeStack(int slot, int amount) {
+        if (amount == 0) return emptySlot;
         var pair = this.slots[slot];
         var copy = pair.getLeft();
         long returned;
@@ -136,7 +122,7 @@ public class StorageLociEntity extends BlockEntity {
             this.slots[slot].setRight(this.slots[slot].getRight() - amount);
             returned = amount;
         }
-        this.updateListeners();
+        this.sync();
         return new Pair<>(copy,returned);
     }
 
@@ -145,7 +131,7 @@ public class StorageLociEntity extends BlockEntity {
             if (item.getItem() == this.slots[i].getLeft().getItem())
                     return i;
         }
-        this.updateListeners();
+        this.sync();
         return null;
     }
 
@@ -155,18 +141,18 @@ public class StorageLociEntity extends BlockEntity {
         if (!copy.isBlank()) {
             this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
         }
-        this.updateListeners();
+        this.sync();
         return new Pair<>(copy,pair.getRight());
     }
 
     public void setStack(int slot, ItemVariant stack, long amount) {
         if (amount <= 0){ // If this somehow comes from overflow, you kind of deserve it
             this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
-            this.updateListeners();
+            this.sync();
             return;
         }
         this.slots[slot] = new Pair<>(stack, amount);
-        this.updateListeners();
+        this.sync();
     }
 
     public void setStack(int slot, Pair<ItemVariant, Long> pair) {
@@ -175,6 +161,67 @@ public class StorageLociEntity extends BlockEntity {
 
     public void clear() {
         Arrays.fill(this.slots, new Pair<>(emptySlot.getLeft(),emptySlot.getLeft()));
-        this.updateListeners();
+        this.sync();
+    }
+
+    @Override
+    public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
+        var slot = getSlot(resource);
+        if (slot == null) slot = this.isFull();
+        if (slot  == -1) return 0;
+
+        var stack = getStack(slot);
+        if (stack.getLeft().isBlank()) this.setStack(slot, new Pair<>(resource, maxAmount));
+        else this.setStack(slot, new Pair<>(stack.getLeft(), stack.getRight() + maxAmount));
+        this.markDirty();
+        return maxAmount;
+    }
+
+    @Override
+    public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
+        var slot = getSlot(resource);
+        if (slot == null) return 0;
+        if (maxAmount == 0) return 0;
+
+        var pair = this.slots[slot];
+        var copy = pair.getLeft();
+        long returned;
+
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+        }
+        if (pair.getRight() <= maxAmount) {
+            returned = pair.getRight();
+        }
+        else {
+            returned = maxAmount;
+        }
+        this.markDirty();
+        transaction.addCloseCallback((a,z) -> {
+            if (z.wasCommitted()) {
+                this.removeStack(slot, (int) maxAmount);
+            }
+        });
+        return returned;
+    }
+
+    @Override
+    public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
+        return new LociIterator(this);
+    }
+
+    @Override
+    public int getSlotCount() {
+        return 16;
+    }
+
+    @Override
+    public StorageLociSlot getSlot(int slot) {
+        return new StorageLociSlot(this, slot);
+    }
+
+    @Override
+    public @UnmodifiableView List<SingleSlotStorage<ItemVariant>> getSlots() {
+        return SlottedStorage.super.getSlots();
     }
 }

@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -54,6 +56,7 @@ public class Slate_work implements ModInitializer {
         PatternRegistry.init();
         FrameRegistry.init();
         AttributeRegistry.init();
+        ItemStorage.SIDED.registerSelf(BlockRegistry.STORAGE_LOCI_ENTITY);
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new CircleAmbitChanges(a)));
 
