@@ -17,7 +17,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
-import org.sophia.slate_work.GUI.IGhostCrafting;
 import org.sophia.slate_work.misc.DumbDumbInv;
 
 import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
@@ -31,7 +30,7 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
 
     @Override
     public Text getDisplayName() {
-        return Text.translatable("block.slate_work.crafting_slate");
+        return Text.translatable("block.slate_work.crafting_loci");
     }
 
     @Override

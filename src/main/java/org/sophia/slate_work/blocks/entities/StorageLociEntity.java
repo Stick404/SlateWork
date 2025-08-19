@@ -161,7 +161,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
     public void clear() {
         Arrays.fill(this.slots, new Pair<>(emptySlot.getLeft(),emptySlot.getLeft()));
-        this.sync();
+        if (this.world != null) this.sync();
     }
 
     @Override

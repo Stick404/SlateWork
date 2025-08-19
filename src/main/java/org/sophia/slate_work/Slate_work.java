@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerType;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
-import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -23,6 +22,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
+import org.sophia.slate_work.GUI.HotbarLociScreenHandler;
 import org.sophia.slate_work.casting.CircleAmbitChanges;
 import org.sophia.slate_work.compat.SlateWorksIoticBlocks;
 import org.sophia.slate_work.compat.SlateWorksTrinkets;
@@ -49,6 +49,9 @@ public class Slate_work implements ModInitializer {
     public static ScreenHandlerType<Ghost3x3ScreenHandler> GHOST_3X3_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
             new Identifier(MOD_ID,"ghost3x3screen"),
             new ExtendedScreenHandlerType<>(Ghost3x3ScreenHandler::new));
+    public static ScreenHandlerType<HotbarLociScreenHandler> HOTBAR_LOCI_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
+            new Identifier(MOD_ID, "hotbar_loci_screen"),
+            new ExtendedScreenHandlerType<>(HotbarLociScreenHandler::new));
 
     @Override
     public void onInitialize() {

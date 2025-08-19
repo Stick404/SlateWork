@@ -16,7 +16,7 @@ public class LociIterator<T extends SlottedStorage<ItemVariant>> implements Iter
 
     @Override
     public boolean hasNext() {
-        return index <= entity.getSlotCount();
+        return index < entity.getSlotCount();
     }
 
     @Override

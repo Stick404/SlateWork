@@ -49,6 +49,7 @@ public class BlockRegistry {
     public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(locusSetting));
     public static BroadcasterLoci BROADCASTER_LOCI = registerBlockItem("broadcaster_loci", new BroadcasterLoci(locusSetting));
     public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
+    public static HotbarLoci HOTBAR_LOCI = registerBlockItem("hotbar_loci", new HotbarLoci(locusSetting));
 
     public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
@@ -64,10 +65,12 @@ public class BlockRegistry {
     public static BlockEntityType<BroadcasterLociEntity> BROADCASTER_LOCI_ENTITY = registerBlockEntity("broadcaster_loci",
             FabricBlockEntityTypeBuilder.create(BroadcasterLociEntity::new, BROADCASTER_LOCI).build());
     public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci", // Turned off for now
-             FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+            FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+    public static BlockEntityType<HotbarLociEntity> HOTBAR_LOCI_ENTITY = registerBlockEntity("hotbar_loci",
+            FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, SAVE_LOCI).build());
     
     public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
-            FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());
+            FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, HOTBAR_LOCI).build());
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));

@@ -38,6 +38,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
         registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
         registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
+        registerEnergizedFacing("hotbar_loci", BlockRegistry.HOTBAR_LOCI, generator);
         registerSaveLoci("save_loci", SAVE_LOCI, generator);
 
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
@@ -56,7 +57,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         int i = 0;
         for (String ouch : pain) {
             lit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_lit"));
-            unLit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_dim")); //TODO: CHANGE THESE BACK AROUNd
+            unLit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_dim"));
             i++;
         }
         var litModel = Models.CUBE.upload(block, "_lit", lit, generator.modelCollector);
