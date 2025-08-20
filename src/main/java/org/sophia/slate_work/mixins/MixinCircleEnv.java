@@ -1,10 +1,13 @@
 package org.sophia.slate_work.mixins;
 
+import at.petrak.hexcasting.api.HexAPI;
+import at.petrak.hexcasting.api.addldata.ADMediaHolder;
 import at.petrak.hexcasting.api.casting.circles.BlockEntityAbstractImpetus;
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.sideeffects.EvalSound;
+import at.petrak.hexcasting.api.utils.MediaHelper;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.item.ItemStack;
@@ -23,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -92,6 +96,30 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
                 }
                 slot++;
             }
+        }
+    }
+
+    @Inject(method = "extractMediaEnvironment", at = @At("RETURN"), cancellable = true, remap = false)
+    private void slate_work$extractMedia(long cost, boolean simulate, CallbackInfoReturnable<Long> cir){
+        var data = this.execState.currentImage.getUserData();
+        if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
+            var media = cir.getReturnValue();
+
+            ArrayList<ADMediaHolder> sources = new ArrayList<>();
+            for (ItemStack item : entity.getStacks()) {
+                var holder = HexAPI.instance().findMediaHolder(item);
+                if (holder != null && holder.canProvide()) sources.add(holder);
+            }
+            sources.sort(MediaHelper::compareMediaItem);
+
+            for (var source : sources) {
+                var found = MediaHelper.extractMedia(source, media, false, simulate);
+                media -= found;
+                if (media <= 0) {
+                    break;
+                }
+            }
+            cir.setReturnValue(media);
         }
     }
 }

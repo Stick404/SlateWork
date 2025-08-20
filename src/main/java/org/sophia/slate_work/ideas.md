@@ -37,8 +37,24 @@
 Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
 
 ## TODO:
-* Work on the Patterned Assembler more maybe
-  * Finish up the inv texture *maybe*
+* Harbar Loci
+  * Make the GUI Texture
+  * Make the Book Pages
+  * Make the Name
+* Redstone Pulser (Redstone Loci)
+  * Make the Functionality
+  * Make the Model
+  * Make the toggle switch model/datagen
+    * Toggle being between popping a number from the stack, and a flat output of 16
+  * Make the Book Pages
+* Random Tick Loci
+  * Make the Functionality
+  * Make the Model
+  * Make the Book Pages
+* Accelerator
+  * Make the Functionality
+  * Make the Model
+  * Make the Book Pages (reference Gloop in there. Likely "a slightly gloop aura emanates from this." )
 
 ## Problems:
 

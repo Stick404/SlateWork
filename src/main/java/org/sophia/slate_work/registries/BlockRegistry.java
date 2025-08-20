@@ -64,13 +64,13 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(SentinelLociEntity::new, SENTINEL_LOCI).build());
     public static BlockEntityType<BroadcasterLociEntity> BROADCASTER_LOCI_ENTITY = registerBlockEntity("broadcaster_loci",
             FabricBlockEntityTypeBuilder.create(BroadcasterLociEntity::new, BROADCASTER_LOCI).build());
-    public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci", // Turned off for now
+    public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci",
             FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
     public static BlockEntityType<HotbarLociEntity> HOTBAR_LOCI_ENTITY = registerBlockEntity("hotbar_loci",
-            FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, SAVE_LOCI).build());
+            FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, HOTBAR_LOCI).build());
     
     public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
-            FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, HOTBAR_LOCI).build());
+            FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));

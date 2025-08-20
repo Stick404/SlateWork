@@ -74,6 +74,7 @@ public class HotbarLociEntity extends HexBlockEntity implements Inventory, Exten
 
     @Override
     public ItemStack getStack(int slot) {
+        if (!world.isClient) this.sync();
         return this.stacks.get(slot);
     }
 
