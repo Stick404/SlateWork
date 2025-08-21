@@ -1,4 +1,4 @@
-// 1.20.1	2025-08-21T11:03:13.344682946	Slate Works/Model Definitions
+// 1.20.1	2025-08-21T13:05:02.981893743	Slate Works/Model Definitions
 7ad63dd7ef4036429f10b4cca6d928df699531cd assets/slate_work/models/item/listening_impetus.json
 c09b9ac5680eb16f9fc8663336c6557fd5e6dbcd assets/slate_work/models/item/storage_loci.json
 e7eb554c6dd2e1c67132fd7cb8b236aa6de0b72f assets/slate_work/blockstates/macro_loci.json
@@ -25,4 +25,5 @@ bd02a8abac6ef2ddabb0d77bcde8d84576acd868 assets/slate_work/models/item/crafting_
 0524bf843f19a6985d1448b6f3689eeeba6acfe3 assets/slate_work/models/item/ambit_loci.json
 1da03a0139c326b405fd81b462310a8679abd05f assets/slate_work/models/item/broadcaster_loci.json
 6686eb2803f4a07de0bb7bf1f914779da3aaa94c assets/slate_work/models/item/accelerator_loci.json
+90bf1e34ff3654dc2aff8ba1fe5e59ae4254b645 assets/slate_work/blockstates/accelerator_loci.json
 2b252bf6f17f42b3bd2c13863bb4d26985be1802 assets/slate_work/models/item/save_loci.json

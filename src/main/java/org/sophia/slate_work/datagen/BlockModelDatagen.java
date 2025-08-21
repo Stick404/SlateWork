@@ -42,6 +42,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("hotbar_loci", BlockRegistry.HOTBAR_LOCI, generator);
         registerSaveLoci("save_loci", SAVE_LOCI, generator);
         registerRedstoneLocus("redstone_loci", BlockRegistry.REDSTONE_LOCI, generator);
+        registerEnergizedFacing("accelerator_loci", BlockRegistry.ACCELERATOR_LOCI, generator);
 
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
     }
