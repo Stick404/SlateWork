@@ -151,6 +151,9 @@
   "hexcasting.mishap.needed_focus": "Required a focus at %s, but did find that",
   "hexcasting.mishap.no_storage_sentinel_ran": "Did not find any activated Caches",
 
+  "hexcasting.mishap.circle.empty_stack": "expected %s or more arguments but the stack was empty at %s",
+  "hexcasting.mishap.circle.invalid_value": "expected %s at index %s of the stack at %s, but got %s",
+
   "Scrying Lenses:": "",
   "slate_work.scrying.macro.top": "Pattern: ",
   "slate_work.scrying.macro.error": "Could not display Iota(s)",

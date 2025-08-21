@@ -40,12 +40,8 @@ Maybe make a full Abstract Locus class that contains helpers/common code for Loc
 * Harbar Loci
   * Make the GUI Texture
   * Make the Book Pages
-  * Make the Name
-* Redstone Pulser (Redstone Loci)
-  * Make the Functionality
+* Redstone Pulser (Redstone Loci)]
   * Make the Model
-  * Make the toggle switch model/datagen
-    * Toggle being between popping a number from the stack, and a flat output of 16
   * Make the Book Pages
 * Random Tick Loci
   * Make the Functionality
@@ -55,6 +51,13 @@ Maybe make a full Abstract Locus class that contains helpers/common code for Loc
   * Make the Functionality
   * Make the Model
   * Make the Book Pages (reference Gloop in there. Likely "a slightly gloop aura emanates from this." )
+
+
+Changed in 1.0:
+* Added some missing translation keys
+* Made the Storage Vessel compatible with hoppers
+* TODO: ADD IN THE OTHER BLOCKS WHEN THEY ARE DONE
+* A few small bug fixes and print statements
 
 ## Problems:
 
