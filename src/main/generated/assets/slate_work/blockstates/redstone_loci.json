@@ -1,0 +1,58 @@
+{
+  "variants": {
+    "facing=down,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 180
+    },
+    "facing=down,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 180
+    },
+    "facing=east,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 90
+    },
+    "facing=north,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 90
+    },
+    "facing=south,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 0
+    },
+    "facing=up,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 0
+    },
+    "facing=west,powered=false": {
+      "model": "slate_work:block/redstone_loci",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,powered=true": {
+      "model": "slate_work:block/redstone_loci_energized",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

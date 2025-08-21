@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -14,11 +15,14 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
+import org.sophia.slate_work.misc.ICircleSpeedValue;
+import org.sophia.slate_work.mixins.MixinCircleExec;
 
 import java.util.ArrayList;
 
@@ -60,13 +64,7 @@ public class RedstoneLoci extends AbstractSlate{
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-        if (state.get(POWERED)){
-            world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
-        } else {
-            world.setBlockState(pos, state.with(POWERED, true), Block.NOTIFY_LISTENERS);
-            world.scheduleBlockTick(pos, this, 10);
-        }
-
+        world.setBlockState(pos, state.with(POWERED, false), Block.NOTIFY_LISTENERS);
         this.updateNeighbors(world, pos, state);
     }
 
@@ -75,9 +73,9 @@ public class RedstoneLoci extends AbstractSlate{
         world.updateNeighborsAlways(pos.offset(bs.get(FACING).getOpposite()), this);
     }
 
-    private void scheduleTick(WorldAccess world, BlockPos pos) {
+    private void scheduleTick(WorldAccess world, BlockPos pos, int time) {
         if (!world.isClient()) {
-            world.scheduleBlockTick(pos, this, 2);
+            world.scheduleBlockTick(pos, this, time);
         }
     }
 
@@ -107,7 +105,6 @@ public class RedstoneLoci extends AbstractSlate{
             );
             return new ControlFlow.Stop();
         }
-
         var power = (int) ((DoubleIota) last).getDouble();
         if (power > 15 || power < 0) {
             this.fakeThrowMishap(
@@ -116,13 +113,35 @@ public class RedstoneLoci extends AbstractSlate{
             );
             return new ControlFlow.Stop();
         }
-        world.setBlockState(pos, bs.with(POWER, power));
-        this.scheduleTick(world, pos);
+        var newbs = bs.with(POWER, power).with(POWERED, true);
+        world.setBlockState(pos, newbs);
+        this.updateNeighbors(world, pos, newbs);
+
+        var imp = env.getImpetus();
+        if (imp != null && imp.getExecutionState() != null){
+            this.scheduleTick(world, pos,
+                    ((ICircleSpeedValue) env.getImpetus().getExecutionState()).slate_work$getTickSpeed()
+            );
+        }
+
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
 
         return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
                 imageIn.getEscapeNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+    }
+
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
+        return switch (pState.get(FACING)){
+            case DOWN -> createCuboidShape(0.0, 16 -5.0, 0.0, 16.0, 16.0, 16.0);
+            case UP -> createCuboidShape(0.0,0.0,0.0,16.0,5.0,16.0);
+            case NORTH -> createCuboidShape(0.0, 0.0, 16 -5.0, 16.0, 16.0, 16.0);
+            case SOUTH -> createCuboidShape(0.0, 0.0, 0.0, 16.0, 16.0, 5.0);
+            case WEST -> createCuboidShape(16 -5.0, 0.0, 0.0, 16.0, 16.0, 16.0);
+            case EAST -> createCuboidShape(0.0, 0.0, 0.0, 5.0, 16.0, 16.0);
+        };
     }
 }

@@ -10,6 +10,8 @@
     "slate_work:sentinel_loci",
     "slate_work:broadcaster_loci",
     "slate_work:listening_impetus",
-    "slate_work:hotbar_loci"
+    "slate_work:hotbar_loci",
+    "slate_work:redstone_loci",
+    "slate_work:accelerator_loci"
   ]
 }

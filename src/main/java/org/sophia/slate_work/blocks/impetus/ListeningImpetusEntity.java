@@ -89,7 +89,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
         stack.add(textIota);
         stack.add(playerIota);
         var newImage = image.copy(stack, image.getParenCount(), image.getParenthesized(), image.getEscapeNext(), image.getOpsConsumed(), image.getUserData());
-        ((ICircleSpeedValue) this.executionState).Slate_work$setImage(newImage);
+        ((ICircleSpeedValue) this.executionState).slate_work$setImage(newImage);
 
         this.clearDisplay();
         var serverLevel = (ServerWorld) this.world;

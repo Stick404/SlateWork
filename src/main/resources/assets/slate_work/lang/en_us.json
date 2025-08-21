@@ -10,7 +10,9 @@
   "block.slate_work.sentinel_loci": "Sentinel Cache",
   "block.slate_work.broadcaster_loci": "Iotic Door",
   "block.slate_work.save_loci": "Restoration Mainframe",
-  "block.slate_work.hotbar_loci": "Supply Supplier",
+  "block.slate_work.hotbar_loci": "Pocket Simulator",
+  "block.slate_work.redstone_loci": "Redstone Agitator",
+  "block.slate_work.accelerator_loci": "Gloopy Accelerator",
 
   "block.slate_work.listening_impetus": "Librarian Impetus",
 

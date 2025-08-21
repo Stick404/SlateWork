@@ -40,17 +40,14 @@ Maybe make a full Abstract Locus class that contains helpers/common code for Loc
 * Harbar Loci
   * Make the GUI Texture
   * Make the Book Pages
-* Redstone Pulser (Redstone Loci)]
-  * Make the Model
+  * Recipe
+* Redstone Pulser (Redstone Loci)
   * Make the Book Pages
-* Random Tick Loci
-  * Make the Functionality
-  * Make the Model
-  * Make the Book Pages
+  * Recipe
 * Accelerator
-  * Make the Functionality
   * Make the Model
   * Make the Book Pages (reference Gloop in there. Likely "a slightly gloop aura emanates from this." )
+  * Recipe (slime maybe?)
 
 
 Changed in 1.0:
