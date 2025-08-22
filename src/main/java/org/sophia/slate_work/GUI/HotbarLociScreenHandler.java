@@ -1,5 +1,6 @@
 package org.sophia.slate_work.GUI;
 
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -8,28 +9,31 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
+import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
 import static org.sophia.slate_work.Slate_work.HOTBAR_LOCI_SCREEN;
 
 public class HotbarLociScreenHandler extends ScreenHandler {
-    private final Inventory inventory;
-    private final World world;
+    private final HotbarLociEntity inventory;
 
-    public HotbarLociScreenHandler(int syncId, PlayerInventory inventory, PlayerInventory playerInventory, Inventory blockEntity) {
+    public HotbarLociEntity getInventory() {
+        return inventory;
+    }
+
+    public HotbarLociScreenHandler(int syncId, PlayerInventory inventory, PlayerInventory playerInventory, HotbarLociEntity blockEntity) {
         this(syncId, playerInventory, blockEntity);
     }
 
     public HotbarLociScreenHandler(int id, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
         this(id,playerInventory, playerInventory,
-                (Inventory) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos())
+                (HotbarLociEntity) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos())
         );
     }
 
-    public HotbarLociScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
+    public HotbarLociScreenHandler(int syncId, PlayerInventory playerInventory, HotbarLociEntity entity) {
         super(HOTBAR_LOCI_SCREEN, syncId);
+        this.inventory = entity;
         checkSize(inventory, 6);
-        this.inventory = inventory;
-        this.world = playerInventory.player.getWorld();
         inventory.onOpen(playerInventory.player);
 
         // 80x, 32y is the center

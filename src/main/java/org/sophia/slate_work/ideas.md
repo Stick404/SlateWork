@@ -37,17 +37,14 @@
 Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
 
 ## TODO:
-* Harbar Loci
-  * Make the GUI Texture
+* Hatbar Loci
   * Make the Book Pages
-  * Recipe
 * Redstone Pulser (Redstone Loci)
   * Make the Book Pages
-  * Recipe
 * Accelerator
-  * Make the Model
   * Make the Book Pages (reference Gloop in there. Likely "a slightly gloop aura emanates from this." )
-  * Recipe (slime maybe?)
+* Akashic Record
+  * Book Pages
 
 
 Changed in 1.0:
