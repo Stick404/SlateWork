@@ -66,7 +66,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
             var list = cir.getReturnValue();
-            list.addAll(entity.getStacks());
+            list.addAll(entity.getStacksSorted());
             cir.setReturnValue(list);
         }
     }
@@ -76,7 +76,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
             var list = new ArrayList<>(cir.getReturnValue()); //makes it Mutable
-            list.add(new HeldItemInfo(entity.getCurrentSlot(), Hand.MAIN_HAND));
+            list.add(new HeldItemInfo(entity.getCurrentSlot(), Hand.OFF_HAND));
             cir.setReturnValue(list);
         }
     }
@@ -87,7 +87,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
             int slot = 0;
-            for (ItemStack stack: entity.getStacks()){
+            for (ItemStack stack: entity.getStacksSorted()){
                 if (stackOk.test(stack)){
                     entity.setStack(slot, replaceWith);
                     entity.sync();
@@ -106,7 +106,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
             var media = cir.getReturnValue();
 
             ArrayList<ADMediaHolder> sources = new ArrayList<>();
-            for (ItemStack item : entity.getStacks()) {
+            for (ItemStack item : entity.getStacksSorted()) {
                 var holder = HexAPI.instance().findMediaHolder(item);
                 if (holder != null && holder.canProvide()) sources.add(holder);
             }

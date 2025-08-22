@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.GUI.HotbarLociScreenHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.sophia.slate_work.registries.BlockRegistry.HOTBAR_LOCI_ENTITY;
@@ -50,17 +51,25 @@ public class HotbarLociEntity extends HexBlockEntity implements Inventory, Exten
     public List<ItemStack> getStacks(){
         return this.stacks;
     }
+    public List<ItemStack> getStacksSorted(){
+        List<ItemStack> list = new ArrayList<>();
+        for (int i = 0; i < this.size(); i++){
+            list.add(this.getStack(Math.floorMod(this.getSlot()+i, this.size())));
+        }
+        return list;
+    }
 
     public ItemStack getCurrentSlot(){
-        return this.stacks.get(this.slot);
+        return this.stacks.get(this.getSlot());
     }
 
     public int getSlot() {
-        return slot;
+        return Math.floorMod(slot, 5); // In case someone fucks shit up (me)
     }
 
     public void setSlot(int slot) {
         this.slot = slot;
+        this.sync();
     }
 
     @Override
@@ -93,6 +102,7 @@ public class HotbarLociEntity extends HexBlockEntity implements Inventory, Exten
     @Override
     public void setStack(int slot, ItemStack stack) {
         this.stacks.set(slot, stack);
+        this.sync();
     }
 
     @Override

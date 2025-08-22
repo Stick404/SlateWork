@@ -1,14 +1,12 @@
 package org.sophia.slate_work.GUI;
 
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.world.World;
+import net.minecraft.screen.slot.SlotActionType;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
 import static org.sophia.slate_work.Slate_work.HOTBAR_LOCI_SCREEN;
@@ -74,6 +72,12 @@ public class HotbarLociScreenHandler extends ScreenHandler {
             }
         }
         return itemStack;
+    }
+
+    @Override
+    public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
+        super.onSlotClick(slotIndex, button, actionType, player);
+        if (!player.getWorld().isClient()) inventory.sync();
     }
 
     @Override
