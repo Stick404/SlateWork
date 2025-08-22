@@ -35,8 +35,15 @@ public class HotbarLociScreen extends HandledScreen<HotbarLociScreenHandler> {
         this.renderBackground(context);
         super.render(context, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
-        int centerX = (int) (80*5.89);
-        int centerY = (int) (32*6.42);
+    }
+
+    @Override
+    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+        int i = (this.width - this.backgroundWidth) / 2;
+        int j = (this.height - this.backgroundHeight) / 2;
+        context.drawTexture(BACKGROUND, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
+        int centerX = 79+i;
+        int centerY = 32+j;
         Pair<Integer, Integer> vec = switch(entity.getSlot()){
             case 0 -> new Pair<>(centerX-16, centerY-16-4);
             case 1 -> new Pair<>(centerX+16, centerY-16-4);
@@ -49,12 +56,5 @@ public class HotbarLociScreen extends HandledScreen<HotbarLociScreenHandler> {
         };
         int amount = 1;
         context.drawTexture(SELECTED, vec.getLeft()*amount, vec.getRight()*amount, 0, 0, 18, 18, 18, 18);
-    }
-
-    @Override
-    protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        int i = (this.width - this.backgroundWidth) / 2;
-        int j = (this.height - this.backgroundHeight) / 2;
-        context.drawTexture(BACKGROUND, i, j, 0, 0, this.backgroundWidth, this.backgroundHeight);
     }
 }

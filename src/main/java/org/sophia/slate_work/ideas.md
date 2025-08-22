@@ -33,25 +33,24 @@
 * D.C. al Coda
   * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
 
-
 Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
 
 ## TODO:
-* Hatbar Loci
-  * Make the Book Pages
-* Redstone Pulser (Redstone Loci)
-  * Make the Book Pages
-* Accelerator
-  * Make the Book Pages (reference Gloop in there. Likely "a slightly gloop aura emanates from this." )
+* Hotbar Loci `Done!`
+* Redstone Agitator (Redstone Loci) `Done!`
+* Gloopy Accelerator `Done!`
 * Akashic Record
   * Book Pages
+* Add in a page explaining Loci/Locus
 
 
 Changed in 1.0:
 * Added some missing translation keys
 * Made the Storage Vessel compatible with hoppers
-* TODO: ADD IN THE OTHER BLOCKS WHEN THEY ARE DONE
+* **TODO: ADD IN THE OTHER BLOCKS WHEN THEY ARE DONE**
+* Added the Pocket Simulator, which give Spell Circles a small inventory
+* Added the Gloopy Accelerator, which gives the Spell Circles a large boost in speed for a few blocks
+* Added the Redstone Agitator, which outputs redstone based on a provided number.
 * A few small bug fixes and print statements
 
 ## Problems:
-

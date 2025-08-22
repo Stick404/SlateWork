@@ -1,0 +1,22 @@
+{
+  "name": "slate_work.entry.akashic_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "hexcasting:akashic_connector",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.akashic_loci.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.akashic_loci.akashic_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.akashic_loci.extra"
+    }
+  ]
+}

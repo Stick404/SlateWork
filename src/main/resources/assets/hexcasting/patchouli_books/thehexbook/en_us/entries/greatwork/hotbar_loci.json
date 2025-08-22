@@ -1,0 +1,26 @@
+{
+  "name": "slate_work.entry.hotbar_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:hotbar_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.hotbar_loci.intro"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:hotbar_loci",
+      "anchor": "hotbar_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.hotbar_loci.hotbar_loci"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/hotbar_loci_flay",
+      "text": "slate_work.page.hotbar_loci.crafting"
+    }
+  ]
+}

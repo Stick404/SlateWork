@@ -1,0 +1,23 @@
+{
+  "name": "slate_work.entry.redstone_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:redstone_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.redstone_loci.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.redstone_loci.redstone_loci"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:redstone_loci_craft",
+      "text": "slate_work.page.redstone_loci.crafting"
+    }
+  ]
+}

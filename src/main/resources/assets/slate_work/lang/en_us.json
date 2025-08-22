@@ -30,6 +30,9 @@
   "hexcasting.action.slate_work:set_sents": "Apply Pseudosentinels",
   "hexcasting.action.slate_work:get_sents": "Locate Pseudosentinels",
 
+  "hexcasting.action.slate_work:set_slot": "Set Slot",
+  "hexcasting.action.slate_work:get_items": "List Items",
+
   "hexcasting.action.slate_work:wave_position": "Wave Location Rfln.",
   "hexcasting.action.slate_work:wave_normal": "Wave Facing Rfln.",
   "hexcasting.action.slate_work:wave_speed": "Wave Speed Rfln.",
@@ -111,9 +114,34 @@
   "slate_work.page.save_loci.scrying": "An important useful tidbit: if I don a $(l:items/lens)Scrying Lens/$ and observe the $(thing)Restoration Mainframe/$, I can see all the data it holds, which is: $(li)The Stack,$(li)The Ravenmind,$(li)Ops Consumed,$(li)Is Running Consideration,$(li)Iotas that been escaped,$(li)And total level of escaped.$(br2)I can foresee this will be an extremely useful tool for debugging Spell Circles among other uses.",
   "slate_work.page.save_loci.crafting": "$(o)bleep boop.",
 
+  "slate_work.entry.hotbar_loci": "Pocket Simulator",
+  "slate_work.page.hotbar_loci.intro": "As I strive to expand my domain, I found it mind $(o)numbingly/$ boring to lug items around in my pockets and bags. And whilst _Hexes help automate this, I find my self requiring to hold items still... I must engineer a better solution to this; it seems like the $(thing)Allays/$ can hold items, perhaps I can use that?",
+  "slate_work.page.hotbar_loci.hotbar_loci": "The $(thing)Pocket Simulator/$ solves my inventory woes!$(br) Using an $(thing)Allay/$ as the core of it, it can hold up to 6 \"stacks\" of items, playfully dancing around the $(thing)Simulator/$. As well, I can denote 1 of those stacks to being a $(l:patterns/spells/itempicking)held item/$, meaning blockwork spells will pull from that first.$(br2)Once a $(l:greatwork/spellcircles)Spell Circle/$ activates this, it becomes \"bound\", being able to use the $(thing)Simulator/$.",
+  "slate_work.page.hotbar_loci.crafting": "$(o)Quite Handy, isn't it?/$",
+
+  "slate_work.entry.accelerator_loci": "Gloopy Accelerator",
+  "slate_work.page.accelerator_loci.intro": "After diving into libraries of old, I discovered blueprints for something called a \"Accelerator\"/$, which was described as speeding up $(l:greatwork/spellcircles)Spell Circle/$ greatly. After some time of reverse engineering some materials lost to time, I have recreated it as the $(thing)Gloopy Accelerator/$!",
+  "slate_work.page.accelerator_loci.accelerator_loci": "How the $(thing)Gloopy Accelerator/$ works exactly, is it takes 2 $(l:items/amethyst)dust/$ to speed the $(l:greatwork/spellcircles)Circle/$ up to a slate per 1/20th of a second for 13 blocks. Interestingly, I can \"stack\" their boosts, making the accelerated state last for much longer; But this also increases the cost by the square of the total acceleration as well. So I must be careful when spacing them out.",
+  "slate_work.page.accelerator_loci.crafting": "While I could not recreate the lost material of \"gloop\", a mixture of slime and $(l:greatwork/quenching_allays)Quenched Allay/$ seems to emulate it well enough.$(br2)$(o)This is glooptastic !",
+
+  "slate_work.entry.redstone_loci": "Redstone Agitator",
+  "slate_work.page.redstone_loci.intro": "As I build more complex $(l:greatwork/spellcircles)Spell Circles/$, I require finer control over redstone output of the slates.$(br)While a comparator works for more basic circles; it only gives off a flat redstone output of 15, and stays triggered until the $(l:greatwork/spellcircles)Circles/$ ends.",
+  "slate_work.page.redstone_loci.redstone_loci": "Thus, is why I have created the $(thing)Redstone Agitator/$. This pops a number between 0 and 15 (inclusive) from the stack, and sets the redstone output of the $(thing)Agitator/$ to that number. Additionally, it stops giving off redstone power when the $(thing)Media Wave/$  leaves the slate. $(br2)While not quite intended, this seems to have coevolved with another ancient blueprint, the \"Undulator\" from the same libraries as the $(l:greatwork/accelerator_loci)Accelerator/$.",
+  "slate_work.page.redstone_loci.crafting": "Combing a mixture of $(item)redstone dust/$ and $(l:items/amethyst)amethyst dust/$, and intertwining it with a slate creates the exact mixture of redstone conductivity I need.",
+
+  "slate_work.entry.akashic_loci": "Akashic Locus",
+  "slate_work.page.akashic_loci.intro": "It appears like the $(l:greatwork/akashiclib)Akashic Record/$ is an extremely powerful conductor of _Media and Thoughts; to the point of it being able to be used by a $(l:greatwork/spellcircles)Spell Circle/$.$(br2)$(br2)$(o)I have come to learn So Much. I might as well share it with my proudest creation.",
+  "slate_work.page.akashic_loci.akashic_loci": "Whenever an $(l:greatwork/akashiclib)Akashic Record/$ is activated by a $(l:greatwork/spellcircles)Spell Circle/$'s $(thing)Media Wave/$, it requires either a Pattern Iota, or any Iota and a Pattern Iota, and pops the given iotas.$(br2)If a single Pattern Iota is supplied, it dives into the records, and reads the iota associated with the given pattern.$(br2)If both any Iota, and a Pattern Iota are given, it will attempt to associate the iota with the given pattern.",
+  "slate_work.page.akashic_loci.extra": "It seems like the functionalities closely resemble the $(l:patterns/akashic_patterns)Akashic Patterns/$; however, these are ran without any cost. Meaning it is completely free to index an $(l:greatwork/akashiclib)Akashic Library/$ with a $(l:greatwork/spellcircles)Spell Circle/$. $(br2)Importantly: it seems like this has the abnormal ability to clear shelves; if I attempt to store a Null Iota with this technique, it will instead clear the shelf associated with that pattern.",
+
   "slate_work.entry.slate_work_pigments": "Fanciful Pigments",
   "slate_work.page.slate_work_pigments.slate_work_pigments": "Just as my $(l:items/staff)Staves/$ have evolved, so too must my $(l:items/pigments)Pigments/$. These may not gift any glorious or grand amenities or effects, but all their boons are purely visual. $(br2)Additionally, those who know of these pigments, will now know of my $(o)Awakening/$.",
-  "slate_work.page.slate_work_pigments.allay": "Since my... $(o)Visions/$, I have awoken to see the true form of Allays, nothing more than a scrap of _media. Perhaps this scrap of _media could be turned into a picture perfect pigment?",
+  "slate_work.page.slate_work_pigments.allay": "Since my... $(o)Visions/$, I have awoken to see the true form of $(thing)Allays/$, nothing more than a scrap of _media. Perhaps this scrap of _media could be turned into a picture perfect pigment?",
+
+  "slate_work.entry.hotbar_loci_patterns": "Pocket Simulator Patterns",
+  "slate_work.page.hotbar_loci_patterns.intro": "As nice as the $(l:greatwork/hotbar_loci)Pocket Simulator/$ is, it gains true power through these basic patterns.$(br2)These $(l:casting/mishaps2)mishap when not cast in a Spell Circle/$. However, these preform nothing if the current $(l:greatwork/spellcircles)Spell Circle/$ is not bound to a $(l:greatwork/hotbar_loci)Pocket Simulator/$.",
+  "slate_work.page.hotbar_loci_patterns.set_slot": "This takes a number between 0 and 5 (inclusive), and sets the held slot of the bound $(l:greatwork/hotbar_loci)Pocket Simulator/$. Free.",
+  "slate_work.page.hotbar_loci_patterns.get_items": "This returns all the items held within the $(l:greatwork/hotbar_loci)Pocket Simulator/$ as $(l:patterns/scrying/item)Item Stack Iotas/$. Free.",
 
   "slate_work.entry.slate_reflection": "Slate Reflections",
   "slate_work.page.storage_loci.wave_position": "Adds the current position of the $(thing)Media Wave/$ to the top of the stack.",
