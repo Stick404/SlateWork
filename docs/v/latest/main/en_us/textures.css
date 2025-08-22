@@ -1261,7 +1261,7 @@
   .texture-slate_work-textures-item-allay_pigment-png {
     animation: texture-slate_work-textures-item-allay_pigment-png 2.05s linear infinite;
     background-size: 100%;
-    background-image: url("https://raw.githubusercontent.com/Stick404/SlateWork/08b13ab6b423b98a04daeea6e9dd36cc432e5c16/src/main/resources/assets/slate_work/textures/item/allay_pigment.png");
+    background-image: url("https://raw.githubusercontent.com/Stick404/SlateWork/3123ad3df2faccb29ce2fd57cd38ce38dec8adab/src/main/resources/assets/slate_work/textures/item/allay_pigment.png");
   }
   @keyframes texture-slate_work-textures-item-allay_pigment-png {
       0%, 24.38% { background-position-y: 0% }
