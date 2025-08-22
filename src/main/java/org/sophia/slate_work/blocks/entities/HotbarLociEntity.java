@@ -52,7 +52,7 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
 
     @Override
     protected void loadModData(NbtCompound tag) {
-        stacks.clear(); // Hopefully not a bad idea?
+        if (world != null && world.isClient) stacks.clear(); // Done only on the client as a basic protection
         Inventories.readNbt(tag, stacks);
         slot = tag.getInt("select");
     }
