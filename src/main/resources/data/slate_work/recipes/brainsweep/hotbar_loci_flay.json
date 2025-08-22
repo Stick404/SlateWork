@@ -1,0 +1,15 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hexcasting:slate"
+  },
+  "cost": 100000,
+  "entityIn": {
+    "type": "entity_type",
+    "entityType": "minecraft:allay"
+  },
+  "result": {
+    "name": "slate_work:hotbar_loci"
+  }
+}
