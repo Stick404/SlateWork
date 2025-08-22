@@ -60,6 +60,7 @@ public class Slate_work implements ModInitializer {
         FrameRegistry.init();
         AttributeRegistry.init();
         ItemStorage.SIDED.registerSelf(BlockRegistry.STORAGE_LOCI_ENTITY);
+        ItemStorage.SIDED.registerSelf(BlockRegistry.HOTBAR_LOCI_ENTITY);
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new CircleAmbitChanges(a)));
 

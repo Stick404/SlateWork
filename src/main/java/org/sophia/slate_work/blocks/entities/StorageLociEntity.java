@@ -207,7 +207,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
     @Override
     public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
-        return new LociIterator(this);
+        return new LociIterator<>(this);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.sophia.slate_work.GUI;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
@@ -12,10 +13,15 @@ import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 import static org.sophia.slate_work.Slate_work.HOTBAR_LOCI_SCREEN;
 
 public class HotbarLociScreenHandler extends ScreenHandler {
-    private final HotbarLociEntity inventory;
+    private final HotbarLociEntity entity;
+    private final Inventory inventory;
 
-    public HotbarLociEntity getInventory() {
+    public Inventory getInventory() {
         return inventory;
+    }
+
+    public HotbarLociEntity getEntity() {
+        return entity;
     }
 
     public HotbarLociScreenHandler(int syncId, PlayerInventory inventory, PlayerInventory playerInventory, HotbarLociEntity blockEntity) {
@@ -30,8 +36,8 @@ public class HotbarLociScreenHandler extends ScreenHandler {
 
     public HotbarLociScreenHandler(int syncId, PlayerInventory playerInventory, HotbarLociEntity entity) {
         super(HOTBAR_LOCI_SCREEN, syncId);
-        this.inventory = entity;
-        checkSize(inventory, 6);
+        this.entity = entity;
+        this.inventory = entity.getInv();
         inventory.onOpen(playerInventory.player);
 
         // 80x, 32y is the center
@@ -77,7 +83,7 @@ public class HotbarLociScreenHandler extends ScreenHandler {
     @Override
     public void onSlotClick(int slotIndex, int button, SlotActionType actionType, PlayerEntity player) {
         super.onSlotClick(slotIndex, button, actionType, player);
-        if (!player.getWorld().isClient()) inventory.sync();
+        if (!player.getWorld().isClient()) entity.sync();
     }
 
     @Override

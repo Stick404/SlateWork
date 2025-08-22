@@ -6,7 +6,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
-import net.minecraft.util.math.Vec2f;
 import org.sophia.slate_work.GUI.HotbarLociScreenHandler;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
@@ -19,7 +18,7 @@ public class HotbarLociScreen extends HandledScreen<HotbarLociScreenHandler> {
 
     public HotbarLociScreen(HotbarLociScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
-        entity = handler.getInventory();
+        entity = handler.getEntity();
     }
 
     @Override

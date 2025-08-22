@@ -83,7 +83,7 @@ public class HotbarLoci extends AbstractSlate implements BlockEntityProvider {
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         if (!newState.isOf(state.getBlock())) {
             if (world instanceof ServerWorld sWorld && sWorld.getBlockEntity(pos) instanceof HotbarLociEntity entity) {
-                ItemScatterer.spawn(world, pos, entity);
+                ItemScatterer.spawn(world, pos, entity.getInv());
             }
         }
         super.onStateReplaced(state, world, pos, newState, moved);
