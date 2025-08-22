@@ -39,8 +39,7 @@ Maybe make a full Abstract Locus class that contains helpers/common code for Loc
 * Hotbar Loci `Done!`
 * Redstone Agitator (Redstone Loci) `Done!`
 * Gloopy Accelerator `Done!`
-* Akashic Record
-  * Book Pages
+* Akashic Record `Done!`
 * Add in a page explaining Loci/Locus
 
 
@@ -50,7 +49,8 @@ Changed in 1.0:
 * **TODO: ADD IN THE OTHER BLOCKS WHEN THEY ARE DONE**
 * Added the Pocket Simulator, which give Spell Circles a small inventory
 * Added the Gloopy Accelerator, which gives the Spell Circles a large boost in speed for a few blocks
-* Added the Redstone Agitator, which outputs redstone based on a provided number.
+* Added the Redstone Agitator, which outputs redstone based on a provided number
+* Made the Akashic Record a locus, so it can read/write iotas to the shelves for free
 * A few small bug fixes and print statements
 
 ## Problems:

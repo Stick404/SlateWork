@@ -18,6 +18,10 @@
       "text": "slate_work.page.hotbar_loci.hotbar_loci"
     },
     {
+      "type": "patchouli:text",
+      "text": "slate_work.page.hotbar_loci.extra"
+    },
+    {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/hotbar_loci_flay",
       "text": "slate_work.page.hotbar_loci.crafting"
