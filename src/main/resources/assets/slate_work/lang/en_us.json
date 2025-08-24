@@ -122,7 +122,7 @@
 
   "slate_work.entry.accelerator_loci": "Gloopy Accelerator",
   "slate_work.page.accelerator_loci.intro": "After diving into libraries of old, I discovered blueprints for something called an \"Accelerator,\"/$ which was described as speeding up $(l:greatwork/spellcircles)Spell Circle/$ greatly. After some time of reverse engineering some materials lost to time, I have recreated it as the $(thing)Gloopy Accelerator/$!",
-  "slate_work.page.accelerator_loci.accelerator_loci": "How the $(thing)Gloopy Accelerator/$ works exactly, is it takes 2 $(l:items/amethyst)dust/$ to speed the $(l:greatwork/spellcircles)Circle/$ up to a slate per 1/20th of a second for 13 blocks. Interestingly, I can \"stack\" their boosts, making the accelerated state last for much longer. But this also increases the cost by the square of the blocks to be accelerated as well. So I must be careful when spacing them out.",
+  "slate_work.page.accelerator_loci.accelerator_loci": "How the $(thing)Gloopy Accelerator/$ works exactly, is it takes 2 $(l:items/amethyst)dust/$ to speed the $(l:greatwork/spellcircles)Circle/$ up to a slate per 1/20th of a second for 13 blocks; however, it needs to spend some of those 13 blocks speeding up. Interestingly, I can \"stack\" their boosts, making the accelerated state last for much longer. But this also increases the cost by the square of the blocks to be accelerated as well. So I must be careful when spacing them out.",
   "slate_work.page.accelerator_loci.crafting": "While I could not recreate the lost material of \"gloop,\" a mixture of slime and $(l:greatwork/quenching_allays)Quenched Allay/$ seems to emulate it well enough.$(br2)$(o)This is glooptastic !",
 
   "slate_work.entry.redstone_loci": "Redstone Agitator",

@@ -25,7 +25,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.Slate_work;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 import org.sophia.slate_work.registries.BlockRegistry;

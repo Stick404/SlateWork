@@ -105,7 +105,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     public Pair<ItemVariant,Long> removeStack(int slot, int amount) {
-        if (amount == 0) return emptySlot;
+        if (amount <= 0) return emptySlot; //Pain.
         var pair = this.slots[slot];
         var copy = pair.getLeft();
         long returned;
@@ -181,7 +181,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         var slot = getSlot(resource);
         if (slot == null) return 0;
-        if (maxAmount == 0) return 0;
+        if (maxAmount <= 0) return 0;
 
         var pair = this.slots[slot];
         var copy = pair.getLeft();

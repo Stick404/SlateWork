@@ -21,6 +21,7 @@ import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import miyucomics.hexpose.iotas.ItemStackIota
+import net.fabricmc.fabric.impl.transfer.transaction.TransactionManagerImpl
 import net.minecraft.entity.ItemEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
@@ -68,7 +69,7 @@ class FrameGetItems(
                 }
 
                 if (realStack.getBool(0, 3)){
-                    val amount = realStack.getInt(2,3)
+                    val amount = realStack.getPositiveInt(2,3)
                     val pos = realStack.getVec3(1,3)
                     harness.env.assertVecInRange(pos)
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
@@ -170,27 +171,32 @@ class FrameGetItems(
         override fun cast(env: CastingEnvironment) {
             val itemSlot = itemSlotTup.first
             val vec = itemSlotTup.second
-            val amount = itemSlotTup.third
+            val amount = itemSlotTup.third.toLong()
 
-            val slot = itemSlot.storageLociEntity.getSlot(itemSlot.item)!!
-            val summon = itemSlot.storageLociEntity.removeStack(slot, amount)
-            val stack = ItemStack(summon.left.item, summon.right.toInt(), if (summon.left.nbt != null) Optional.of(
-                summon.left.nbt as NbtCompound
-            ) else Optional.empty())
+            val trans = TransactionManagerImpl().openOuter()
+            itemSlot.storageLociEntity.extract(itemSlot.item, amount, trans)
+            trans.addCloseCallback { transaction, result ->
+                if (result.wasCommitted()) {
+                    val stack = ItemStack(itemSlot.item.item, amount.toInt(), if (itemSlot.item.nbt != null) Optional.of(
+                        itemSlot.item.nbt as NbtCompound
+                    ) else Optional.empty())
 
-            while (stack.count > stack.maxCount){
-                val copy = stack.copy()
-                copy.count = stack.maxCount
-                env.world.spawnEntity(
-                    ItemEntity(
-                        env.world, vec.x, vec.y, vec.z, copy, 0.0, 0.0, 0.0)
-                )
-                stack.count -= stack.maxCount
+                    while (stack.count > stack.maxCount){
+                        val copy = stack.copy()
+                        copy.count = stack.maxCount
+                        env.world.spawnEntity(
+                            ItemEntity(
+                                env.world, vec.x, vec.y, vec.z, copy, 0.0, 0.0, 0.0)
+                        )
+                        stack.count -= stack.maxCount
+                    }
+                    env.world.spawnEntity(
+                        ItemEntity(
+                            env.world, vec.x, vec.y, vec.z, stack, 0.0,0.0, 0.0)
+                    )
+                }
             }
-            env.world.spawnEntity(
-                ItemEntity(
-                    env.world, vec.x, vec.y, vec.z, stack, 0.0,0.0, 0.0)
-            )
+            trans.commit()
         }
     }
 }

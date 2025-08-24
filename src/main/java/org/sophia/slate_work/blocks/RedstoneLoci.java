@@ -22,12 +22,11 @@ import net.minecraft.world.WorldAccess;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
-import org.sophia.slate_work.mixins.MixinCircleExec;
 
 import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
-public class RedstoneLoci extends AbstractSlate{
+public class RedstoneLoci extends AbstractSlate {
     public static final BooleanProperty POWERED = Properties.POWERED;
     public static final IntProperty POWER = Properties.POWER;
 

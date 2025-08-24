@@ -3,7 +3,6 @@ package org.sophia.slate_work.mixins;
 
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,17 +11,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.UUID;
-
 
 @Mixin(CircleExecutionState.class)
 public abstract class MixinCircleExec implements ICircleSpeedValue {
 
     @Shadow public CastingImage currentImage;
-
-    @Shadow
-    @Nullable
-    public UUID caster;
 
     @Shadow
     protected abstract int getTickSpeed();

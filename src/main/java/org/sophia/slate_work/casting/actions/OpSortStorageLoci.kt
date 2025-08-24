@@ -34,9 +34,9 @@ object OpSortStorageLoci : ConstMediaAction {
                 if (x.left == ItemVariant.of(ItemStack.EMPTY)) continue
                 z.setStack(i, ItemVariant.of(Items.AIR),0L)
                 if (returnList.contains(x.left)){
-                    returnList[x.left] = x.right + returnList.get(x.left)!!
+                    returnList[x.left] = x.right + returnList[x.left]!!
                 } else {
-                    returnList.put(x.left, x.right)
+                    returnList[x.left] = x.right
                 }
                 i++
             }
