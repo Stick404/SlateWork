@@ -9,10 +9,13 @@ import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.lib.hex.HexActions;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.PumpkinBlock;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import org.sophia.slate_work.casting.actions.*;
+import org.sophia.slate_work.casting.actions.hotbar.OpGetItems;
+import org.sophia.slate_work.casting.actions.hotbar.OpSetSlot;
 import org.sophia.slate_work.casting.actions.sentinel.OpGetSents;
 import org.sophia.slate_work.casting.actions.sentinel.OpSetSents;
 import org.sophia.slate_work.casting.actions.storage.*;
@@ -47,6 +50,9 @@ public class PatternRegistry {
     public static final HexPattern GET_SENTS = make("waeawaewawwaeq", HexDir.EAST, "get_sents", OpGetSents.INSTANCE);
 
     public static final HexPattern READ_BROADCAST = make("aqwqaweeeeewwaaw", HexDir.WEST, "read_broadcast", OpReadBroadcast.INSTANCE);
+
+    public static final HexPattern SET_SLOT = make("eaqwqaeqawawa", HexDir.SOUTH_WEST, "set_slot", OpSetSlot.INSTANCE);
+    public static final HexPattern GET_ITEMS = make("eaqwqaeqawawaedd", HexDir.SOUTH_WEST, "get_items", OpGetItems.INSTANCE);
 
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",

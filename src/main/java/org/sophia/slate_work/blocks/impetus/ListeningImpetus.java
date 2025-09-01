@@ -19,7 +19,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.Slate_work;
+import org.sophia.slate_work.saving.Listeners;
 
 public class ListeningImpetus extends BlockAbstractImpetus {
 
@@ -32,7 +32,7 @@ public class ListeningImpetus extends BlockAbstractImpetus {
         super.onPlaced(world, pos, state, placer, itemStack);
         if (!world.isClient){
             if (world.getBlockEntity(pos) instanceof ListeningImpetusEntity entity) {
-                Slate_work.LISTENERS.put(pos, entity);
+                Listeners.saveListener((ServerWorld) world, pos);
             }
         }
     }
@@ -41,8 +41,7 @@ public class ListeningImpetus extends BlockAbstractImpetus {
     public void onStateReplaced(BlockState pState, World pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         super.onStateReplaced(pState, pLevel, pPos, pNewState, pIsMoving);
         if (!pLevel.isClient && !pState.isOf(pNewState.getBlock())){
-            var z = Slate_work.LISTENERS.remove(pPos);
-            System.out.println(z);
+            Listeners.removeListener((ServerWorld) pLevel, pPos);
         }
     }
 

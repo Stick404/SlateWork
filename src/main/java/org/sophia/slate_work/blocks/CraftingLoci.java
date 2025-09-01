@@ -23,7 +23,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -161,9 +160,11 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                     return new ControlFlow.Continue(
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
-                } else slot.getStorageLociEntity().removeStack(
-                        slot.getStorageLociEntity().getSlot(slot.getItem()),
-                        pair.getValue());
+                } else {
+                            slot.getStorageLociEntity().removeStack(
+                            slot.getStorageLociEntity().getSlot(slot.getItem()),
+                            pair.getValue());
+                }
             }
 
             var outputItem = recipeOpt.get().craft(container, serverWorld.getRegistryManager());

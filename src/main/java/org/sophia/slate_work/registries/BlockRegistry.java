@@ -48,9 +48,12 @@ public class BlockRegistry {
     public static MuteLoci MUTE_LOCI = registerBlockItem("mute_loci", new MuteLoci(locusSetting));
     public static SentinelLoci SENTINEL_LOCI = registerBlockItem("sentinel_loci", new SentinelLoci(locusSetting));
     public static BroadcasterLoci BROADCASTER_LOCI = registerBlockItem("broadcaster_loci", new BroadcasterLoci(locusSetting));
-    public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting));
+    public static SaveLoci SAVE_LOCI = registerBlockItem("save_loci", new SaveLoci(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
+    public static HotbarLoci HOTBAR_LOCI = registerBlockItem("hotbar_loci", new HotbarLoci(locusSetting));
+    public static RedstoneLoci REDSTONE_LOCI = registerBlockItem("redstone_loci", new RedstoneLoci(locusSetting));
+    public static AcceleratorLoci ACCELERATOR_LOCI = registerBlockItem("accelerator_loci", new AcceleratorLoci(locusSetting));
 
-    public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting));
+    public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
 
     public static BlockEntityType<StorageLociEntity> STORAGE_LOCI_ENTITY = registerBlockEntity("storage_loci",
@@ -63,8 +66,10 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(SentinelLociEntity::new, SENTINEL_LOCI).build());
     public static BlockEntityType<BroadcasterLociEntity> BROADCASTER_LOCI_ENTITY = registerBlockEntity("broadcaster_loci",
             FabricBlockEntityTypeBuilder.create(BroadcasterLociEntity::new, BROADCASTER_LOCI).build());
-    public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci", // Turned off for now
-             FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+    public static BlockEntityType<SaveLociEntity> SAVE_LOCI_ENTITY = registerBlockEntity("save_loci",
+            FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
+    public static BlockEntityType<HotbarLociEntity> HOTBAR_LOCI_ENTITY = registerBlockEntity("hotbar_loci",
+            FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, HOTBAR_LOCI).build());
     
     public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
             FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());

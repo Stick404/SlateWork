@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "B": {
+      "item": "minecraft:copper_block"
+    },
+    "S": {
+      "item": "hexcasting:slate_block"
+    },
+    "J": {
+      "item": "minecraft:slime_ball"
+    },
+    "A": {
+      "item": "hexcasting:quenched_allay"
+    }
+  },
+  "pattern": [
+    "IBI",
+    "JAJ",
+    "SSS"
+  ],
+  "result": {
+    "item": "slate_work:accelerator_loci"
+  }
+}

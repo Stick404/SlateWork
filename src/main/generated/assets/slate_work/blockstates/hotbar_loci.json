@@ -1,0 +1,58 @@
+{
+  "variants": {
+    "energized=false,facing=down": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 180
+    },
+    "energized=false,facing=east": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 90,
+      "y": 90
+    },
+    "energized=false,facing=north": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 90
+    },
+    "energized=false,facing=south": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 90,
+      "y": 180
+    },
+    "energized=false,facing=up": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 0
+    },
+    "energized=false,facing=west": {
+      "model": "slate_work:block/hotbar_loci",
+      "x": 90,
+      "y": 270
+    },
+    "energized=true,facing=down": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 180
+    },
+    "energized=true,facing=east": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 90,
+      "y": 90
+    },
+    "energized=true,facing=north": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 90
+    },
+    "energized=true,facing=south": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 90,
+      "y": 180
+    },
+    "energized=true,facing=up": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 0
+    },
+    "energized=true,facing=west": {
+      "model": "slate_work:block/hotbar_loci_energized",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

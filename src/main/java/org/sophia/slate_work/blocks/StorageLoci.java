@@ -2,7 +2,6 @@ package org.sophia.slate_work.blocks;
 
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
@@ -110,7 +109,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StorageLociEntity storageLoci && newState.isAir()) {
+        if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock())) {
             if (!world.isClient && !storageLoci.isEmpty()) {
                 ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
                 blockEntity.setStackNbt(itemStack);

@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.hotbar_loci_patterns",
+  "category": "hexcasting:patterns",
+  "icon": "slate_work:hotbar_loci",
+  "sortnum": 11,
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.hotbar_loci_patterns.intro"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:set_slot",
+      "anchor": "slate_work:set_slot",
+      "input": "int",
+      "output": "",
+      "text": "slate_work.page.hotbar_loci_patterns.set_slot"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:get_items",
+      "anchor": "slate_work:get_items",
+      "input": "",
+      "output": "[item stack]",
+      "text": "slate_work.page.hotbar_loci_patterns.get_items"
+    }
+  ]
+}

@@ -17,6 +17,9 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
 
     @Shadow public CastingImage currentImage;
 
+    @Shadow
+    protected abstract int getTickSpeed();
+
     @Unique protected boolean slate_work$realValue = false;
 
     // Makes the nex return of `CircleExecutionState#getTickSpeed` return its true speed
@@ -25,16 +28,39 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
         slate_work$realValue = true;
     }
 
+    @Override
+    public int slate_work$getTickSpeed() {
+        return this.getTickSpeed();
+    }
+
     @Inject(method = "getTickSpeed", at = @At("TAIL"), cancellable = true, remap = false)
     protected void Slate_work$realValue(CallbackInfoReturnable<Integer> cir) {
-        int targetSpeed = this.currentImage.getUserData().getInt("set_speed");
+        var data = this.currentImage.getUserData().copy();
+        int targetSpeed = data.getInt("set_speed");
 
-        if (targetSpeed != 0 && !slate_work$realValue) cir.setReturnValue(targetSpeed);
+        if (targetSpeed == 0 && !slate_work$realValue){
+            int accel_left = data.getInt("accel_left");
+            if (accel_left > 0){
+                data.putInt("accel_left", accel_left-1);
+
+                var img = this.currentImage;
+                this.slate_work$setImage(img.copy(img.getStack(),img.getParenCount(),img.getParenthesized(),
+                        img.getEscapeNext(),img.getOpsConsumed(),data));
+
+                this.slate_work$getRealValue();
+                int currentSpeed = this.getTickSpeed();
+                cir.setReturnValue(Math.max(currentSpeed-accel_left, 1));
+                return;
+            }
+        }
+        if (targetSpeed != 0 && !slate_work$realValue) {
+            cir.setReturnValue(targetSpeed);
+        }
         if (slate_work$realValue) slate_work$realValue = false;
     }
 
     @Unique
-    public void Slate_work$setImage(CastingImage image){
+    public void slate_work$setImage(CastingImage image){
         this.currentImage = image;
     }
 }

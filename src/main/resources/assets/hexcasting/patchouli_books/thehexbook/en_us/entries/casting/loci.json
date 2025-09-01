@@ -1,0 +1,18 @@
+{
+  "name": "slate_work.entry.loci",
+  "category": "hexcasting:casting",
+  "icon": "slate_work:ambit_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.loci.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.loci.explained"
+    }
+  ]
+}

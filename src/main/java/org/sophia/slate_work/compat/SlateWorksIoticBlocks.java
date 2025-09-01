@@ -1,4 +1,4 @@
-package org.sophia.slate_work;
+package org.sophia.slate_work.compat;
 
 import gay.object.ioticblocks.api.IoticBlocksAPI;
 import net.minecraft.util.Identifier;

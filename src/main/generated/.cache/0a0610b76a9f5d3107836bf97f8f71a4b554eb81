@@ -1,10 +1,12 @@
-// 1.20.1	2025-08-12T18:30:04.88278479	Slate Works/Block Loot Tables
+// 1.20.1	2025-08-23T11:43:31.588471947	Slate Works/Block Loot Tables
 746dcff2f1e3ffa9405e5df07d7ee51cc12da902 data/slate_work/loot_tables/blocks/macro_loci.json
 26483543e658c5208839bcd9ccf4853fa2a25df5 data/slate_work/loot_tables/blocks/ambit_loci.json
 b3d3c0122b696566387427e6e7ab32f0bb771e54 data/slate_work/loot_tables/blocks/speed_loci.json
+dccff6b32cdd69f7b15f97e505ac8adfcf90a63f data/slate_work/loot_tables/blocks/hotbar_loci.json
 1ed37373afc08fd8cebbedeed751a4ce2a973849 data/slate_work/loot_tables/blocks/sentinel_loci.json
 89a6578cd3491e7a95d473f16f2255d92ca1ec67 data/slate_work/loot_tables/blocks/mute_loci.json
-b5712a128ecf05e727f4608efaec748f69152ca0 data/slate_work/loot_tables/blocks/storage_loci.json
+0865edf39e17d6299a2121889e23ce9db891551b data/slate_work/loot_tables/blocks/accelerator_loci.json
+89f4e4e540fea8a3173a89a31a0e9874909b3e2d data/slate_work/loot_tables/blocks/redstone_loci.json
 1501d6e9af9af23b643bc80f69a947da8f54641b data/slate_work/loot_tables/blocks/listening_impetus.json
 75449423e049453be111e67ef8add892284aa14c data/slate_work/loot_tables/blocks/broadcaster_loci.json
 9c7c0854a1be03d889dcd12225dedc29d63290a3 data/slate_work/loot_tables/blocks/crafting_loci.json

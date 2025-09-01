@@ -1,4 +1,11 @@
 # Ideas!
+### Styles:
+* Slate is the default
+* Allay colors, "meta" circle stuff (media wave speed, ambit, etc)
+* Edified Wood, storage/"memory" maybe?
+* Copper colors, more "high impact" loci. Such as speeding up the Media wave *greatly*
+
+## Loci Ideas!
 * Storage Vessel `DONE`
   * Look into Continuation Frames rather than a new Env 
   * Add Costs (for real)
@@ -7,39 +14,52 @@
   * Define a pattern either in GUI, or with Hex (via Item Types)
   * When the Media Wave runs over the Patterned Assembler it tries to craft the items in the Storage Vessels into that
   * Pushes a true boolean to the stack if successful, or false if not
-  * "Enlightened Mode," takes a hex like the rest of the Vessel stuff, and must return a number, this would be the slot to set with that item. -1 would mean to not do anything with that item `NOT DONE`
 * Ambit Extenders `DONE`
   * Pops a vector from the Stack, and extends the Ambit by that much
 * Circle Macros `DONE`
   * Takes a Pattern, and a Hex, and makes that pattern into a Macro for the Spell Circle
-* Broadcaster
+* Broadcaster `DONE`
   * Prop Iota like block, but in slate form. Pops an iota from the stack, and takes no ambit to read
+* Inventory Locus `DONE`
+  * Gives the Spell Circle 6 slots of inventory to work with, can select the held slot via a Spell (1-6)
+  * Likely have a reflection spell to return the item stacks in the Locus
+  * Make it hopper compatible!
+* Redstone Locus `DONE`
+  * Outputs redstone for a few seconds after being ran over (can be toggled to use top of the stack number, or 15)
+* Accelerator `DONE`
+  * (From Gloop) takes a bit of Media, and accelerates the Media Wave for a few blocks
 * Straight Slate
   * Slate that only works in a straight direction
-* Accelerator
-  * (From Gloop) takes a bit of Media, and accelerates the Media Wave for a few blocks
-* Handed Slate
-  * Lets Spell Circles hold invs/hands
-  * (if you put 2 together, maybe get a secret advancement)
-* Vector Dirx
-  * Pops a vector from the Stack, and tries to move the Media Wave that way
-* Binding any entity to a Spell Circle
-* Ambit Portals
-  * Takes a pair of blocks that "point" to each other, and gives a small radius of ambit around the "output" portal (must be pointing back to the first one)
-* D.C. al Coda
-  * Being able to "jump" to an old point of the Spell Circle (runs over the patterns again, doesn't fuck around with Stack/Evals)
+* Trading set of Loci
+  * Can Trade Dirx
+    * Goes down either to the left or right based on if it can or cant trade
+  * Buy Locus
+    * Tries to buy a trade based on the items set in it (no GUI?)
+    * Mishaps if it cant maybe
+* Warp Tunnel(?)
+  * Instantly moves the Media Wave down a line of connected (CAN NOT TURN)
+  * Could be copper lined
+* In World Crafting
+  * https://discord.com/channels/@me/1386726525633560620/1409191847288508516
+* ~~Gemini Dirx~~
+  * ~~Yep.~~ Can **not** be done without removing parity between Circle PR and Base Hex
 
-### New Media Gen
-Takes a processing chain of Hex related stuff to make. Possible ideas are: crafting -> fire -> break block -> recharge -> Energized by a circle.
-This is to limit the speed of media gen, while having something as good as allays without the lag.
+## Impti Ideas!
+* Chat Impti `Done`
+  * Takes a chat message, and starts it on the stack
+
+## Dirx Ideas!
+* Try-Catch Dirx
+    * Goes forward, running the Hex as normal, but when it encounters a Mishap, it "teleports" back to the Dirx, and goes down the path to the left
+    * Mixin to:
+        * `CircleEnv#postExecution`, to not post the Mishap
+        * `CircleExecutionState#tick`, to ignore the "Stop," and to change the "currentPos"
 
 Maybe make a full Abstract Locus class that contains helpers/common code for Locus blocks.
 
-Make the Sentinel Locus and Save Locus have wall and floor rotation
-
+Maybe could do some "fucky" custom scanning for `CircleExecutionState`, to allow for Syntrexs and stuff akin to it. 
+This would likely be checking over the list again and checking inherited blocks. Would be the best to just change the scanning, but that removes the parity between Circle PR and Base Hex...
 ## TODO:
-* Work on the Patterned Assembler more maybe
-  * Finish up the inv texture *maybe*
+* maybe reword the Gloopy Accelerator page, so its a bit clearer on the speed changes
 
 ## Problems:
-

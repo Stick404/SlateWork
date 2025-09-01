@@ -33,7 +33,7 @@ public abstract class AbstractSlate extends BlockCircleComponent implements Equi
 
     public AbstractSlate(Settings p_49795_) {
         super(p_49795_);
-        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.NORTH).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false).with(FACING, Direction.UP).with(WATERLOGGED, false));
     }
 
     public boolean isTransparent(BlockState state, BlockView reader, BlockPos pos) {
@@ -71,6 +71,13 @@ public abstract class AbstractSlate extends BlockCircleComponent implements Equi
 
     public @Nullable BlockState getPlacementState(ItemPlacementContext pContext) {
         FluidState fluidState = pContext.getWorld().getFluidState(pContext.getBlockPos());
+        if (pContext.getPlayer() == null){
+            BlockState blockstate = this.getDefaultState().with(WATERLOGGED, fluidState.isIn(FluidTags.WATER) && fluidState.getLevel() == 8);
+            if (blockstate.canPlaceAt(pContext.getWorld(), pContext.getBlockPos())) {
+                return blockstate;
+            }
+            return null;
+        }
 
         for(Direction direction : pContext.getPlacementDirections()) {
             BlockState blockstate;

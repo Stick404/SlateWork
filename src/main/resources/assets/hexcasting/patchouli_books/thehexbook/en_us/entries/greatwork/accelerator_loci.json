@@ -1,0 +1,23 @@
+{
+  "name": "slate_work.entry.accelerator_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:accelerator_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.accelerator_loci.intro"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.accelerator_loci.accelerator_loci"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:accelerator_loci_craft",
+      "text": "slate_work.page.accelerator_loci.crafting"
+    }
+  ]
+}

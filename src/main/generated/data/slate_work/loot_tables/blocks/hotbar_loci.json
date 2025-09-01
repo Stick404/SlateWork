@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "slate_work:storage_loci"
+          "name": "slate_work:hotbar_loci"
         }
       ],
       "rolls": 1.0
