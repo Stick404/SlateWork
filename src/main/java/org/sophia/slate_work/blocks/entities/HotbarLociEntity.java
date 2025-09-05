@@ -73,10 +73,11 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
     public List<ItemStack> getStacks(){
         return this.stacks;
     }
+
     public List<ItemStack> getStacksSorted(){
         List<ItemStack> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
-            list.add(this.getSlotStack(Math.floorMod(this.getSlot()+i, 5)));
+        for (int i = 0; i < 6; i++){
+            list.add(this.getSlotStack(Math.floorMod(this.getSlot()+i, 6)));
         }
         return list;
     }
