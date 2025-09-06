@@ -26,17 +26,19 @@ object OpSortStorageLoci : ConstMediaAction {
         if (storages.isEmpty())
             throw MishapNoStorageLoci(null)
 
-        val returnList = HashMap<ItemVariant, Long>(1)
+        val returnList = HashMap<ItemVariant, Long>()
         for (z in storages){
             var i = 0
-            for (item in z.inventory){
+            for (notUsed in z.inventory){
                 val x = z.removeStack(i)
-                if (x.left == ItemVariant.of(ItemStack.EMPTY)) continue
+                val item = x.left
+                if (item == ItemVariant.of(ItemStack.EMPTY)) continue
                 z.setStack(i, ItemVariant.of(Items.AIR),0L)
-                if (returnList.contains(x.left)){
-                    returnList[x.left] = x.right + returnList[x.left]!!
+                if (returnList.contains(item)){
+                    val count = returnList[item]!!
+                    returnList[item] = x.right + count
                 } else {
-                    returnList[x.left] = x.right
+                    returnList[item] = x.right
                 }
                 i++
             }

@@ -110,7 +110,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock())) {
-            if (!world.isClient && !storageLoci.isEmpty()) {
+            if (!world.isClient) {
                 ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
                 blockEntity.setStackNbt(itemStack);
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);

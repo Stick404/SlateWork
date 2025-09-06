@@ -12,6 +12,7 @@
     "slate_work:listening_impetus",
     "slate_work:hotbar_loci",
     "slate_work:redstone_loci",
-    "slate_work:accelerator_loci"
+    "slate_work:accelerator_loci",
+    "slate_work:save_loci"
   ]
 }
