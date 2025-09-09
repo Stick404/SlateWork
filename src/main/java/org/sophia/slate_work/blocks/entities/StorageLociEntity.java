@@ -166,16 +166,17 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
     @Override
     public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        var slot = getSlot(resource);
-        if (slot == null) slot = this.isFull();
-        if (slot  == -1) return 0;
+        var slotT = getSlot(resource);
+        if (slotT == null) slotT = this.isFull();
+        if (slotT  == -1) return 0;
+        int slot = slotT;
 
         var stack = getStack(slot);
         transaction.addCloseCallback((a,z) -> {
             if (z.wasCommitted()) {
                 if (stack.getLeft().isBlank()) this.setStack(slot, new Pair<>(resource, maxAmount));
                 else this.setStack(slot, new Pair<>(stack.getLeft(), stack.getRight() + maxAmount));
-                this.markDirty();
+                this.sync();
             }
         });
         return maxAmount;

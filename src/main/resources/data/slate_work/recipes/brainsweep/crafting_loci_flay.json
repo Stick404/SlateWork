@@ -2,7 +2,7 @@
   "type": "hexcasting:brainsweep",
   "blockIn": {
     "type": "block",
-    "block": "hexcasting:slate_block"
+    "block": "minecraft:crafting_table"
   },
   "cost": 1000000,
   "entityIn": {
