@@ -197,8 +197,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         }
         if (pair.getRight() <= maxAmount) {
             returned = pair.getRight();
-        }
-        else {
+        } else {
             returned = maxAmount;
         }
         this.markDirty();

@@ -174,10 +174,10 @@ class FrameGetItems(
             val amount = itemSlotTup.third.toLong()
 
             val trans = TransactionManagerImpl().openOuter()
-            itemSlot.storageLociEntity.extract(itemSlot.item, amount, trans)
+            val extracted = itemSlot.storageLociEntity.extract(itemSlot.item, amount, trans)
             trans.addCloseCallback { transaction, result ->
                 if (result.wasCommitted()) {
-                    val stack = ItemStack(itemSlot.item.item, amount.toInt(), if (itemSlot.item.nbt != null) Optional.of(
+                    val stack = ItemStack(itemSlot.item.item, extracted.toInt(), if (itemSlot.item.nbt != null) Optional.of(
                         itemSlot.item.nbt as NbtCompound
                     ) else Optional.empty())
 
