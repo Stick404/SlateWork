@@ -7,6 +7,7 @@
   "mixins": [
     "MixinAkashicLoci",
     "MixinBlockSlate",
+    "MixinCastEnv",
     "MixinCircleComponent",
     "MixinCircleEnv",
     "MixinCircleExec",

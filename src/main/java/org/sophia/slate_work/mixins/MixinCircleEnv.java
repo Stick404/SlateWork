@@ -8,8 +8,12 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.sideeffects.EvalSound;
 import at.petrak.hexcasting.api.utils.MediaHelper;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import kotlin.Suppress;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +23,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
+import org.sophia.slate_work.misc.CircleHelper;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+@Suppress(names = "UnstableApiUsage")
 @Mixin(CircleCastEnv.class)
 public abstract class MixinCircleEnv extends CastingEnvironment{
     public MixinCircleEnv(ServerWorld world, CircleExecutionState execState) {
