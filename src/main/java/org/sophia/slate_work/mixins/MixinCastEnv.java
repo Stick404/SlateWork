@@ -21,26 +21,33 @@ abstract public class MixinCastEnv extends Object {
         if (!((Object) this instanceof CircleCastEnv)) return original.call(stackOk, count, actuallyRemove);
 
         // reimplement withdrawItem with storage loci itemslots instead
-        var storages = CircleHelper.INSTANCE.getStorage((CircleCastEnv) (Object) this);
-        if (storages.isEmpty()) return original.call(stackOk, count, actuallyRemove);
-
-        var hashMap = CircleHelper.INSTANCE.getLists(storages);
+        var hashMap = CircleHelper.INSTANCE.getLists((CircleCastEnv) (Object) this);
+        if (hashMap.isEmpty()) return original.call(stackOk, count, actuallyRemove);
 
         long presentCount = 0;
         var matches = new ArrayList<CircleHelper.ItemSlot>();
         for (CircleHelper.ItemSlot item : hashMap.values()) {
-            if (stackOk.test(item.getItem().toStack((int) item.getCount()))) {
+            if (stackOk.test(item.getItem().toStack())) {
                 presentCount += item.getCount();
                 matches.add(item);
 
                 if (presentCount >= count) break;
             }
         }
-        if (presentCount < count) return false;
+
+        long remaining = count;
+
+        // if not enough items in storage loci, also check hotbar locus
+        if (presentCount < count) {
+            var countHotbar = count - (int) presentCount;
+            var success = original.call(stackOk, countHotbar, actuallyRemove);
+            if (!success) return false;
+            remaining = presentCount;
+        }
+
         if (!actuallyRemove) return true;
 
         // i don't actually know if a transaction is necessary here; copying from DumbDumbHexIsStupid
-        long remaining = count;
         var trans = Transaction.openOuter();
         for (CircleHelper.ItemSlot item : matches) {
             var extracted = item.getStorageLociEntity().extract(item.getItem(), remaining, trans);
