@@ -6,6 +6,7 @@ import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
+import net.minecraft.util.annotation.ClientFieldsAreNonnullByDefault;
 import org.sophia.slate_work.Slate_work;
 import org.sophia.slate_work.client.blockEntityRenders.HotbarLociRenderer;
 import org.sophia.slate_work.client.blockEntityRenders.MacroLociRenderer;
@@ -15,6 +16,7 @@ import org.sophia.slate_work.client.screen.Ghost3x3Screen;
 import org.sophia.slate_work.client.screen.HotbarLociScreen;
 import org.sophia.slate_work.registries.BlockRegistry;
 
+@ClientFieldsAreNonnullByDefault
 public class Slate_workClient implements ClientModInitializer {
 
     @Override

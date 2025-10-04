@@ -65,8 +65,9 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
     private void slate_work$getUsableStacks(CastingEnvironment.StackDiscoveryMode mode, CallbackInfoReturnable<List<ItemStack>> cir){
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
-            var list = cir.getReturnValue();
-            list.addAll(entity.getStacksSorted());
+            //var list = cir.getReturnValue();
+            var list = new ArrayList<>(entity.getStacksSorted());
+            list.addAll(cir.getReturnValue());
             cir.setReturnValue(list);
         }
     }
