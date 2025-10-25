@@ -27,7 +27,7 @@ object OpSetSents : Action {
         }
 
         val args = image.stack.toMutableList()
-        val inputList = args.getList(0,1)
+        val inputList = args.getList(args.lastIndex,1)
         args.removeLast() // I think?
         val realList = mutableListOf<Vec3d>()
         var i = 0
