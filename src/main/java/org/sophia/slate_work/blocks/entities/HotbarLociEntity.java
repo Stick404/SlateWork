@@ -164,24 +164,34 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
     @Override
     public long insert(ItemVariant resource, long maxAmount, TransactionContext transaction) {
         var slot = getFreeSlot(resource);
-        if (slot == -1) return 0;
-
-        var stack = getSlotStack(slot);
-        var copy = stack.copy();
-        if (copy.isEmpty()) {
-            this.setStack(slot, resource.toStack((int) maxAmount));
-            this.sync();
+        if (slot == -1) {
+            return 0;
         }
 
-        if (copy.getCount()+maxAmount > copy.getMaxCount()) {
-            stack.setCount(copy.getMaxCount());
-            this.sync();
-            return maxAmount-copy.getCount();
+        var callbackStack = getSlotStack(slot);
+        var stack = callbackStack.copy();
+        long ret = 0;
+
+        if (stack.getCount()+maxAmount > stack.getMaxCount()) {
+            ret = maxAmount -stack.getCount();
         } else {
-            stack.setCount(copy.getCount() + (int) maxAmount);
-            this.sync();
-            return maxAmount;
+            ret = maxAmount;
         }
+
+        transaction.addCloseCallback((a, b) -> {
+            if (b.wasCommitted()) {
+                if (stack.isEmpty()) {
+                    this.setStack(slot, resource.toStack((int) maxAmount));
+                }
+                if (stack.getCount()+maxAmount > stack.getMaxCount()) {
+                    stack.setCount(stack.getMaxCount());
+                } else {
+                    stack.setCount(stack.getCount() + (int) maxAmount);
+                }
+                this.sync();
+            }
+        });
+        return ret;
     }
 
     @Override
