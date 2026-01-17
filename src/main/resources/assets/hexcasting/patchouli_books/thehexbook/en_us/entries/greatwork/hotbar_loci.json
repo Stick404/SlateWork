@@ -22,6 +22,10 @@
       "text": "slate_work.page.hotbar_loci.extra"
     },
     {
+      "type": "patchouli:text",
+      "text": "slate_work.page.hotbar_loci.storage_loci"
+    },
+    {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/hotbar_loci_flay",
       "text": "slate_work.page.hotbar_loci.crafting"

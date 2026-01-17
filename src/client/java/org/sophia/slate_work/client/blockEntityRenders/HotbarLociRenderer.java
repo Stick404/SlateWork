@@ -47,7 +47,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
             if (bs.getBlock() == BlockRegistry.HOTBAR_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
                 double speed = 3;
                 if (bs.get(ENERGIZED)) speed = 8;
-                long time = entity.getWorld().getTime();
+                double time = entity.getWorld().getTime() +tickDelta;
 
                 int rotationX = 0;
                 int rotationY = 0;
@@ -71,7 +71,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
                 matrices.scale(1,1,1);
                 matrices.translate(0,-0.7,0);
 
-                double spin = (Math.PI/180)*time%360*speed;
+                double spin = (Math.PI/180) *time%360*speed;
                 matrices.multiply(new Quaternionf(0,Math.sin(spin/2),0,Math.cos(spin/2f)));
 
                 var itemsTemp = entity.getStacks();
