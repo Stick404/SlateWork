@@ -21,8 +21,8 @@ import java.util.Set;
 
 @Mixin(CircleExecutionState.class)
 public class CircleNBTOptimizations {
-    public static String TAG_POSITIVE_POS = "positive_pos";
-    public static String TAG_NEGATIVE_POS = "negative_pos";
+    private static String TAG_POSITIVE_POS = "positive_pos";
+    private static String TAG_NEGATIVE_POS = "negative_pos";
 
     @Unique
     private static final SlateWorkConfig configScanning = AutoConfig.getConfigHolder(SlateWorkConfig.class).getConfig();
