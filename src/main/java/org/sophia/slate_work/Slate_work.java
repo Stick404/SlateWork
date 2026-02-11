@@ -4,6 +4,10 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.common.lib.HexSounds;
 import com.mojang.serialization.Codec;
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
+import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import miyucomics.hexpose.iotas.TextIota;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
@@ -55,6 +59,8 @@ public class Slate_work implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        AutoConfig.register(SlateWorkConfig.class, JanksonConfigSerializer::new);
+
         BlockRegistry.init();
         PatternRegistry.init();
         FrameRegistry.init();

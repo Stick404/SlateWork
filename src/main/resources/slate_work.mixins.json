@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "plugin": "org.sophia.slate_work.SlateWorkMixinPlugin",
   "mixins": [
+    "CircleNBTOptimizations",
+    "CircleScanningOptimizations",
     "MixinAkashicLoci",
     "MixinBlockSlate",
     "MixinCastEnv",
