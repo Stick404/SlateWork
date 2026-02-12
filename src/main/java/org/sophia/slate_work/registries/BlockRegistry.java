@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityT
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.CakeBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
@@ -24,7 +23,6 @@ import org.sophia.slate_work.blocks.entities.*;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.item.AllayPigment;
-import org.sophia.slate_work.item.TestItem;
 import org.sophia.slate_work.item.WhisperingStone;
 
 import java.util.HashMap;
@@ -82,8 +80,6 @@ public class BlockRegistry {
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
     public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
-
-    public static TestItem TEST_ITEM = registerItem("test_item", new TestItem(new Item.Settings().maxCount(1)));
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
