@@ -13,6 +13,7 @@
   "block.slate_work.hotbar_loci": "Pocket Simulator",
   "block.slate_work.redstone_loci": "Redstone Agitator",
   "block.slate_work.accelerator_loci": "Gloopy Accelerator",
+  "block.slate_work.fake_player_loci": "Recounting Dreamer",
 
   "block.slate_work.listening_impetus": "Librarian Impetus",
 
@@ -180,6 +181,7 @@
   "hexcasting.mishap.circle.readable": "At %s required a List in a Focus, but did not get that",
   "hexcasting.mishap.circle.simpler_iota": "At %s required a simpler Iota",
   "hexcasting.mishap.invalid_value.simpler_iota": "a simpler Iota",
+  "hexcasting.mishap.invalid_value.axis_vector_sw": "a unit vector",
 
   "hexcasting.mishap.no_storage_loci_ran": "Did not find any activated Vessels",
   "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",
@@ -195,6 +197,8 @@
   "slate_work.scrying.macro.error": "Could not display Iota(s)",
   "slate_work.scrying.impetus.listening.bound": "The bound moniker is:",
   "slate_work.scrying.impetus.listening.unbound": "Not currently monikered",
+  "slate_work.scrying.fake_player": "Optional Vector: ",
+  "slate_work.scrying.fake_player.true": "True",
 
   "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
   "slate_work.scrying.save.escaping": "Is Running Consideration: ",

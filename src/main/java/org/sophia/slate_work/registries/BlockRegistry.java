@@ -24,6 +24,7 @@ import org.sophia.slate_work.blocks.entities.*;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.item.AllayPigment;
+import org.sophia.slate_work.item.TestItem;
 import org.sophia.slate_work.item.WhisperingStone;
 
 import java.util.HashMap;
@@ -53,6 +54,7 @@ public class BlockRegistry {
     public static HotbarLoci HOTBAR_LOCI = registerBlockItem("hotbar_loci", new HotbarLoci(locusSetting));
     public static RedstoneLoci REDSTONE_LOCI = registerBlockItem("redstone_loci", new RedstoneLoci(locusSetting));
     public static AcceleratorLoci ACCELERATOR_LOCI = registerBlockItem("accelerator_loci", new AcceleratorLoci(locusSetting));
+    public static FakePlayerLoci FAKE_PLAYER_LOCI = registerBlockItem("fake_player_loci", new FakePlayerLoci(locusSetting));
 
     public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
@@ -80,6 +82,8 @@ public class BlockRegistry {
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
     public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
+
+    public static TestItem TEST_ITEM = registerItem("test_item", new TestItem(new Item.Settings().maxCount(1)));
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()

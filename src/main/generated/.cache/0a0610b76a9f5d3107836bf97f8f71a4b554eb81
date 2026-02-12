@@ -1,7 +1,7 @@
-// 1.20.1	2025-09-05T22:25:28.449150628	Slate Works/Block Loot Tables
+// 1.20.1	2026-02-08T23:49:38.94169286	Slate Works/Block Loot Tables
 746dcff2f1e3ffa9405e5df07d7ee51cc12da902 data/slate_work/loot_tables/blocks/macro_loci.json
-26483543e658c5208839bcd9ccf4853fa2a25df5 data/slate_work/loot_tables/blocks/ambit_loci.json
 131a3091ac3d302a4d2bee654e1523a4d303e7d3 data/slate_work/loot_tables/blocks/save_loci.json
+26483543e658c5208839bcd9ccf4853fa2a25df5 data/slate_work/loot_tables/blocks/ambit_loci.json
 1ed37373afc08fd8cebbedeed751a4ce2a973849 data/slate_work/loot_tables/blocks/sentinel_loci.json
 89a6578cd3491e7a95d473f16f2255d92ca1ec67 data/slate_work/loot_tables/blocks/mute_loci.json
 89f4e4e540fea8a3173a89a31a0e9874909b3e2d data/slate_work/loot_tables/blocks/redstone_loci.json

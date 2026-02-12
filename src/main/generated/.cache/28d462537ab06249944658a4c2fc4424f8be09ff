@@ -1,4 +1,4 @@
-// 1.20.1	2025-09-05T22:25:28.448808861	Slate Works/Model Definitions
+// 1.20.1	2026-02-08T23:49:38.940668685	Slate Works/Model Definitions
 7ad63dd7ef4036429f10b4cca6d928df699531cd assets/slate_work/models/item/listening_impetus.json
 c09b9ac5680eb16f9fc8663336c6557fd5e6dbcd assets/slate_work/models/item/storage_loci.json
 e7eb554c6dd2e1c67132fd7cb8b236aa6de0b72f assets/slate_work/blockstates/macro_loci.json
@@ -6,6 +6,7 @@ b0e5ee1815be76f6a73a94457bca6187598b8e8e assets/slate_work/blockstates/crafting_
 05148848bfb3693c1e4d125c5332ba6157d8d068 assets/slate_work/blockstates/ambit_loci.json
 a0e110195f48a483826c32bcb19fcfaaeabdba43 assets/slate_work/models/item/redstone_loci.json
 5d3e3ec84d1e252e62b75a033b154d53559f64a9 assets/slate_work/models/item/macro_loci.json
+50f292e6caf8feb662cc918a157211882fd23578 assets/slate_work/models/item/fake_player_loci.json
 c2c148fe9df9bcb952cb5358e71654d11bed5335 assets/slate_work/blockstates/hotbar_loci.json
 56fce66043c059e3e57f5d7442b9088857b6fb64 assets/slate_work/blockstates/sentinel_loci.json
 59cb5516d4ad73bab471d362e54d55fda9dbf697 assets/slate_work/models/item/hotbar_loci.json
@@ -26,4 +27,5 @@ bd02a8abac6ef2ddabb0d77bcde8d84576acd868 assets/slate_work/models/item/crafting_
 1da03a0139c326b405fd81b462310a8679abd05f assets/slate_work/models/item/broadcaster_loci.json
 6686eb2803f4a07de0bb7bf1f914779da3aaa94c assets/slate_work/models/item/accelerator_loci.json
 90bf1e34ff3654dc2aff8ba1fe5e59ae4254b645 assets/slate_work/blockstates/accelerator_loci.json
+fe4e608b07f8d071e67ed35672b26a184739525b assets/slate_work/blockstates/fake_player_loci.json
 2b252bf6f17f42b3bd2c13863bb4d26985be1802 assets/slate_work/models/item/save_loci.json
