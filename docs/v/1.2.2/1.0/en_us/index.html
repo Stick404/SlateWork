@@ -1,0 +1,3819 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+      <title>Slate Work Book</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <meta name="description" content="The Slate Work Book, all in one place." />
+      <meta name="author" content="Stick404" />
+        <link rel="None" type="image/ico" href="favicon.ico" />
+        <link rel="icon" type="image/png" href="favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="favicon-32x32.png" />
+        <link rel="icon" type="image/png" href="favicon-64x64.png" />
+        <link rel="icon" type="image/png" href="favicon-96x96.png" />
+        <link rel="icon" type="image/png" href="favicon-180x180.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-57x57.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-60x60.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-72x72.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-76x76.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-114x114.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-120x120.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-144x144.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-152x152.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-167x167.png" />
+        <link rel="apple-touch-icon" type="image/png" href="apple-touch-icon-180x180.png" />
+        <link rel="None" type="image/png" href="mstile-70x70.png" />
+        <link rel="None" type="image/png" href="mstile-270x270.png" />
+        <link rel="None" type="image/png" href="mstile-310x310.png" />
+        <link rel="None" type="image/png" href="mstile-310x150.png" />
+        <link rel="shortcut icon" type="image/png" href="favicon-196x196.png" />
+      <link rel="mask-icon" href="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/main/media/safari-pinned-tab.svg" color="#332233">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Slate Work Book" />
+<meta property="og:image" content="https://stick404.github.io/SlateWork/v/1.2.2/1.0/en_us/icon.png" />
+<meta property="og:url" content="https://stick404.github.io/SlateWork/v/1.2.2/1.0/en_us" />
+<meta property="og:description" content="The Slate Work Book, all in one place." />
+<meta property="og:site_name" content="Slate Work (1.2.2)" />
+      <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+      integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="index.css">
+      <link rel="stylesheet" href="textures.css">
+      <noscript>
+        <style>
+          /* for accessibility */
+          .spoilered {
+            filter: none !important;
+          }
+        </style>
+      </noscript>
+        <script type="module" src="index.js"></script>
+  <script type="module" src="hexcasting.js"></script>
+  <script type="module" src="hexcasting_render.js"></script>
+  </head>
+  <body>
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button
+        type="button"
+        class="navbar-toggle collapsed"
+        data-toggle="collapse"
+        data-target="#navbar-collapse"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="../../../..">Slate Work Book</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+            <li>
+    <a
+      href="https://github.com/Stick404/SlateWork/tree/10fad10dac6df897c897c08824390ea6f8bdbc19"
+        target="_blank"
+      class="navbar-link"
+      role="button"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >GitHub <i class="bi bi-box-arrow-up-right external-link-icon"></i></a>
+  </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >1.2.2 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="version-dropdown"></ul>
+        </li>
+        <li class="dropdown">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >English (United States) <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-left" id="lang-dropdown"></ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="margin-top: 3em;">
+  <blockquote>
+      <h1><p>This is the online version of the Slate Work documentation.</p></h1>
+      <p><strong>Entries which are blurred are spoilers</strong>. Click to reveal them, but be aware that they may spoil endgame progression. Alternatively, click <a href="?nospoiler">here</a> to get a version with all spoilers showing.</p>
+      <span id="old-version-notice" class="hidden">
+        <br />
+        <p><i>The past is a foreign country; they do things differently there.</i></p>
+      </span>
+  </blockquote>
+</div>
+<div class="container">
+    <header class="jumbotron">
+      <h1 class="book-title">Hex Notebook</h1>
+      <p>I seem to have discovered a new method of magical arts, in which one draws patterns strange and wild onto a hexagonal grid. It fascinates me. I&#39;ve decided to start a journal of my thoughts and findings.</p><p><a href="https://forum.petra-k.at/index.php" target="_blank">Forum Link</a></p>
+    </header>
+<div id="table-of-contents"></div>
+<nav class="toc-container">
+  <h2 class="page-header">
+    Table of <span class="nobr">Contents<a
+      href="javascript:void(0)"
+      class="permalink toggle-link small"
+      data-target="toc-category"
+      title="Toggle all"
+    ><i class="bi bi-list-nested"></i></a><a
+    href="#table-of-contents"
+    class="permalink small toc-permalink"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></span>
+  </h2>
+    <details class="toc-category">
+      <summary><a href="#casting" class="toc-elem "><img
+      title="Oak Staff"
+      alt="Oak Staff"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/staff/oak.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Hex Casting</a></summary>
+      <ul>
+          <li><a href="#casting/loci" class="toc-elem spoilered"><img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Loci?</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#items" class="toc-elem "><img
+      title="Focus"
+      alt="Focus"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Items</a></summary>
+      <ul>
+          <li><a href="#items/whispering_stone" class="toc-elem spoilered"><img
+      title="Whispering Stone"
+      alt="Whispering Stone"
+      src="https://raw.githubusercontent.com/Stick404/SlateWork/10fad10dac6df897c897c08824390ea6f8bdbc19/src/main/resources/assets/slate_work/textures/item/whispering_stone.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Whispering Stone</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#greatwork" class="toc-elem spoilered"><img
+      title="Music Disc"
+      alt="Music Disc"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > The Great Work</a></summary>
+      <ul>
+          <li><a href="#greatwork/slate_work_pigments" class="toc-elem spoilered"><div
+      role="img"
+      title="Quenched Pigment"
+      aria-label="Quenched Pigment (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div> Fanciful Pigments</a></li>
+          <li><a href="#greatwork/listener_impetus" class="toc-elem spoilered"><img
+      title="Librarian Impetus"
+      alt="Librarian Impetus"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/listening_impetus_lit.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Slate Work Impeti</a></li>
+          <li><a href="#greatwork/akashic_loci" class="toc-elem spoilered"><img
+      title="Akashic Ligature"
+      alt="Akashic Ligature"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/akashic_ligature.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Akashic Locus</a></li>
+          <li><a href="#greatwork/ambit_loci" class="toc-elem spoilered"><img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Ambit Extenders</a></li>
+          <li><a href="#greatwork/accelerator_loci" class="toc-elem spoilered"><img
+      title="Gloopy Accelerator"
+      alt="Gloopy Accelerator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/accelerator_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Gloopy Accelerator</a></li>
+          <li><a href="#greatwork/broadcaster_loci" class="toc-elem spoilered"><img
+      title="Iotic Door"
+      alt="Iotic Door"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/broadcaster_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Iotic Door</a></li>
+          <li><a href="#greatwork/mute_loci" class="toc-elem spoilered"><img
+      title="Muffling Slate"
+      alt="Muffling Slate"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Muffling Slate</a></li>
+          <li><a href="#greatwork/crafting_loci" class="toc-elem spoilered"><img
+      title="Patterned Assembler"
+      alt="Patterned Assembler"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Patterned Assemblers</a></li>
+          <li><a href="#greatwork/hotbar_loci" class="toc-elem spoilered"><img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Pocket Simulator</a></li>
+          <li><a href="#greatwork/redstone_loci" class="toc-elem spoilered"><img
+      title="Redstone Agitator"
+      alt="Redstone Agitator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/redstone_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Redstone Agitator</a></li>
+          <li><a href="#greatwork/save_loci" class="toc-elem spoilered"><img
+      title="Restoration Mainframe"
+      alt="Restoration Mainframe"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/save_loci.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Restoration Mainframe</a></li>
+          <li><a href="#greatwork/sentinel_loci" class="toc-elem spoilered"><img
+      title="Sentinel Cache"
+      alt="Sentinel Cache"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Sentinel Cache</a></li>
+          <li><a href="#greatwork/macro_loci" class="toc-elem spoilered"><img
+      title="Spell Imprinter"
+      alt="Spell Imprinter"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Spell Imprinter</a></li>
+          <li><a href="#greatwork/storage_loci_block" class="toc-elem spoilered"><img
+      title="Storage Vessel"
+      alt="Storage Vessel"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Storage Vessels</a></li>
+          <li><a href="#greatwork/fake_player_loci" class="toc-elem spoilered"><img
+      title="Synthetic Dreamer"
+      alt="Synthetic Dreamer"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/fake_player_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Synthetic Dreamer</a></li>
+          <li><a href="#greatwork/speed_loci" class="toc-elem spoilered"><img
+      title="Wave Regulator"
+      alt="Wave Regulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Wave Regulators</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns" class="toc-elem "><img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Patterns</a></summary>
+      <ul>
+          <li><a href="#patterns/hotbar_loci_patterns" class="toc-elem spoilered"><img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Pocket Simulator Patterns</a></li>
+          <li><a href="#patterns/slate_reflections" class="toc-elem spoilered"><img
+      title="Fletcher Impetus"
+      alt="Fletcher Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/look/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Slate Reflections</a></li>
+      </ul>
+    </details>
+    <details class="toc-category">
+      <summary><a href="#patterns/spells" class="toc-elem "><img
+      title="Enchanted Book"
+      alt="Enchanted Book"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    > Spells</a></summary>
+      <ul>
+          <li><a href="#patterns/spells/storage_loci" class="toc-elem spoilered"><img
+      title="Slate & Amethyst Pillar"
+      alt="Slate &amp; Amethyst Pillar"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_amethyst_pillar.png"
+      loading="lazy"
+      class="item-texture  texture "
+    > Locus Spells</a></li>
+          <li><a href="#patterns/spells/sentinel_loci_patterns" class="toc-elem spoilered"><div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div> Sentinel Cache Patterns</a></li>
+      </ul>
+    </details>
+</nav>
+  <main class="book-body">
+<section id="casting">
+    <h2 class="category-title page-header">
+    <img
+      title="Oak Staff"
+      alt="Oak Staff"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/staff/oak.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Hex Casting<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#casting"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>I&#39;ve started to understand how the old masters cast their <span style="color: #b38ef3">Hexes</span>! It&#39;s a bit complicated, but I&#39;m sure I can figure it out. Let&#39;s see...</p>
+<div id="casting/loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Loci?<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#casting/loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>During my <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/the_work">grand awakening</a>, there was a term that pounded within my head. Begging to be made and released. <span style="color: #5ff">Locus</span>. </p><p>After countless days of research within my libraries, and the knowledge I had gained during my <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/the_work">awakening</a>, I have discovered the meaning of <span style="color: #8d6acc">Locus</span> and <span style="color: #8d6acc">Loci</span>.</p>
+<br />
+    <p>Summerized, <span style="color: #8d6acc">loci</span> is the plural form of <span style="color: #8d6acc">locus</span>, and a <span style="color: #8d6acc">locus</span> is a block that interacts with a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> in a unique way. <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/slate">Slates</a>, however, do not count as <span style="color: #8d6acc">loci</span>. But, I may see <span style="color: #8d6acc">loci</span> as a &#34;subset&#34; of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/slate">Slates</a>.</p><p><i>Inlaid with each-other, endless pathways bending and wefting through a labyrinthine depths. A dance that which no single mind can comprehend. A song that sings to the universe; and the universe whispers back.</i></p>
+<br />
+    </div>
+</div>
+</section>
+<section id="items">
+    <h2 class="category-title page-header">
+    <img
+      title="Focus"
+      alt="Focus"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/cad/0_focus_empty.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Items<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>I devote this section to the magical and mysterious items I might encounter in my studies.</p>
+<div id="items/whispering_stone" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Whispering Stone"
+      alt="Whispering Stone"
+      src="https://raw.githubusercontent.com/Stick404/SlateWork/10fad10dac6df897c897c08824390ea6f8bdbc19/src/main/resources/assets/slate_work/textures/item/whispering_stone.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Whispering Stone<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#items/whispering_stone"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="items/whispering_stone@whispering_stone" class="">
+<h4 class="spotlight-title page-header">Whispering Stone<a
+    href="#items/whispering_stone@whispering_stone"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Whispering Stone"
+      alt="Whispering Stone"
+      src="https://raw.githubusercontent.com/Stick404/SlateWork/10fad10dac6df897c897c08824390ea6f8bdbc19/src/main/resources/assets/slate_work/textures/item/whispering_stone.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+      <p>After finalizing the construction of my <a href="#greatwork/listener_impetus@slate_work:listener">Librarian Impetus</a>, I have found my self needing to be able to &#34;reach&#34; it from further away. After a flash of genius, combining a <span style="color: #b0b">slate</span>, some <span style="color: #b0b">amethyst dust</span> as a binding agent, and an <span style="color: #b0b">Echo Shard</span>; I now have a device that can listen to what I say whenever I hold it and speak.</p>
+  </div>
+<br />
+    <p>When I click this onto a <a href="#greatwork/listener_impetus@slate_work:listener">Librarian Impetus</a>, it binds its self to the Impetus, stating its location and moniker. Then, whenever I state the moniker while holding the item, it silents me, and starts the bound <a href="#greatwork/listener_impetus@slate_work:listener">Librarian Impetus</a>.</p><p>However, if the <span style="color: #8d6acc">impetus</span> has had its moniker changed, I simply can just lightly &#34;shake&#34; the <span style="color: #8d6acc">stone</span>, and it will update.</p>
+<br />
+    <p>Finally, the <span style="color: #b0b">Whispering Stone</span> can be unbound in 2 ways. If I crouch and use the <span style="color: #8d6acc">stone</span>, it clears its bound <span style="color: #8d6acc">impetus</span>. As well, if I attempt to speak into the <span style="color: #8d6acc">stone</span> while the bound <span style="color: #8d6acc">impetus</span> is destroyed and or relocated, it will unbind its self; but still silencing me for one last time.</p><p>Importantly: the <span style="color: #8d6acc">Whispering Stone</span> can not start the Impetus if it lays outside of &#34;chunk loading&#34;&#39;s range.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Whispering Stone</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Echo Shard"
+      alt="Echo Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/echo_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Whispering Stone"
+      alt="Whispering Stone"
+      src="https://raw.githubusercontent.com/Stick404/SlateWork/10fad10dac6df897c897c08824390ea6f8bdbc19/src/main/resources/assets/slate_work/textures/item/whispering_stone.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p><i>Whispers and mutterances, gasps and fears, I can hear these faintly echo from this <span style="color: #8d6acc">stone</span></i><i>. What was done to that <span style="color: #5ff">shard</span></i><i>?</i></p>
+<br />
+    </div>
+</div>
+</section>
+<section id="greatwork">
+    <div class="spoilered">
+      <h2 class="category-title page-header">
+    <img
+      title="Music Disc"
+      alt="Music Disc"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/music_disc_11.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >The Great Work<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>I have seen... so much. I have... experienced... annihilation and deconstruction and reconstruction. I have seen the atoms of the world screaming as they were inverted and subverted and demoted to energy. I have seen I have seen I have s<span class="obfuscated">get stick bugged lmao</span></p>
+    </div>
+<div id="greatwork/slate_work_pigments" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      role="img"
+      title="Quenched Pigment"
+      aria-label="Quenched Pigment (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div>Fanciful Pigments<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/slate_work_pigments"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Just as my <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/staff">Staves</a> have evolved, so too must my <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/pigments">Pigments</a>. These may not gift any glorious or grand amenities or effects, but all their boons are purely visual. </p><p>Additionally, those who know of these pigments, will now know of my <i>Awakening</i>.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Quenched Pigment</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div></div>  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <div
+      role="img"
+      title="Quenched Pigment"
+      aria-label="Quenched Pigment (animated)"
+      class="item-texture  texture animated-sync texture-slate_work-textures-item-allay_pigment-png pixelated"
+    ></div>
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Since my... <i>Visions</i>, I have awoken to see the true form of <span style="color: #8d6acc">Allays</span>, nothing more than a scrap of <span style="color: #74b3f2">media</span>. Perhaps this scrap of <span style="color: #74b3f2">media</span> could be turned into a picture perfect pigment?</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/listener_impetus" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Librarian Impetus"
+      alt="Librarian Impetus"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/listening_impetus_lit.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Slate Work Impeti<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/listener_impetus"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As I dive deeper and deeper into my <span style="color: #8d6acc">Awakening</span>, I have discovered new <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/impetus">Impeti</a> locked away within my self. Why did Nature bury and hide these designs and blueprints? Perhaps, it assumed that I could not handle them? Even after my <span style="color: #8d6acc">Awakening</span>? Or perchance, it was because they could not exist when I <span style="color: #8d6acc">Awoke</span>? </p><p>Whatever it may be, I can now utilize them.</p>
+<br />
+    <p><i>It&#39;s large enough to require a finely calculated deliberate warping, of just a few centimetres from one end of the circle to the other, to account for the curvature of the Earth underneath it. Bright red and green beacons mark important loci and enable the accurate guiding of energy from one side of the circle to the other.</i></p>
+<br />
+  <div id="greatwork/listener_impetus@slate_work:listener" class="">
+<details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Librarian Impetus</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Apprentice Librarian"
+      alt="Apprentice Librarian"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/librarian.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Apprentice Librarian or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Empty Impetus"
+      alt="Empty Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/empty/dim_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">50</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">5</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Librarian Impetus"
+      alt="Librarian Impetus"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/listening_impetus_lit.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>The first design freed and conceptualized is the <span style="color: #b0b">Librarian Impetus</span>. This reuses the Librarian&#39;s extensive vocabulary into a tool to understand what I say out loud.</p>
+  </div>
+<br />
+    <p>To first use this, one must first &#34;bind&#34; a moniker to the <span style="color: #b0b">Impetus</span> by using a <a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/text_iotas">Text Iota</a> held within an item, such as a <span style="color: #b0b">Focus</span>, on the <span style="color: #b0b">Impetus</span>. Then if a message is spoken within 16 blocks (or more if I use a <a href="#items/whispering_stone">Whispering Stone</a>) of the <span style="color: #b0b">Impetus</span> and starts with that moniker; it silences that message, and starts the <span style="color: #b0b">Librarian Impetus</span> with the content of the rest of the message and the speaker on its stack. Thankfully, this will <i>not</i> cast as the one who spoke. Finaly, this gains a 16 block radius of ambit around the <span style="color: #b0b">Impetus</span>.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/akashic_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Akashic Ligature"
+      alt="Akashic Ligature"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/akashic_ligature.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Akashic Locus<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/akashic_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>It appears like the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">Akashic Record</a> is an extremely powerful conductor of <span style="color: #74b3f2">Media</span> and Thoughts; to the point of it being able to be used by a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>.</p><p></p><p><i>I have come to learn So Much. I might as well share it with my proudest creation.</i></p>
+<br />
+    <p>Whenever an <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">Akashic Record</a> is activated by a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>&#39;s <span style="color: #8d6acc">Media Wave</span>, it requires either a Pattern Iota, or any Iota and a Pattern Iota, and pops the given iotas.</p><p>If a single Pattern Iota is supplied, it dives into the records, and reads the iota associated with the given pattern.</p><p>If both any Iota, and a Pattern Iota are given, it will attempt to associate the iota with the given pattern.</p>
+<br />
+    <p>It seems like the functionalities closely resemble the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/akashic_patterns">Akashic Patterns</a>; however, these are ran without any cost. Meaning it is completely free to index an <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">Akashic Library</a> with a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>. </p><p>Importantly: it seems like this has the abnormal ability to clear shelves; if I attempt to store a Null Iota with this technique, it will instead clear the shelf associated with that pattern.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/ambit_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Ambit Extenders<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/ambit_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/ambit_loci@ambit_loci" class="">
+<h4 class="spotlight-title page-header">Ambit Extender<a
+    href="#greatwork/ambit_loci@ambit_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>The <span style="color: #8d6acc">Ambit Extender</span> is a fabulous answer to my <span style="color: #8d6acc">Ambit</span> woes when it comes to <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>. This pops a vector from the stack, and extends ambit in the direction (negative vectors extending the negative corner of Circle Ambit). </p><p><i>With great range comes with great costs, err-</i></p>
+  </div>
+<br />
+    <p>While this is not as strong as... <a href="https://forum.petra-k.at/viewtopic.php?t=136" target="_blank">other</a> methods of giving a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> more <span style="color: #8d6acc">Ambit</span>, I do feel like Nature takes a kinder approach to my amalgamation of free will if I use this.</p><p>This does not come cheap however, the <span style="color: #74b3f2">media</span> cost increases with the square of the total distance extended in <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a>.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Ambit Extender</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Directrices"
+      alt="Tag: Directrices"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Mason Directrix"
+      alt="Mason Directrix"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/directrix/redstone/lit_unpowered_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Shepherd Directrix"
+      alt="Shepherd Directrix"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/directrix/boolean/lit_false_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Since the <span style="color: #8d6acc">Ambit Extender</span> operates on <span style="color: #8d6acc">Ambit</span>, having a &#34;core&#34; block that can operate on <span style="color: #8d6acc">Media Waves</span> would be beneficial. As well, having nearly <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">Pure Media</a> would also be required for this construction.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/accelerator_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Gloopy Accelerator"
+      alt="Gloopy Accelerator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/accelerator_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Gloopy Accelerator<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/accelerator_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>After diving into libraries of old, I discovered blueprints for something called an &#34;Accelerator,&#34; which was described as speeding up <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> greatly. After some time of reverse engineering some materials lost to time, I have recreated it as the <span style="color: #8d6acc">Gloopy Accelerator</span>!</p>
+<br />
+    <p>How the <span style="color: #8d6acc">Gloopy Accelerator</span> works exactly, is it takes 2 <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a> to speed the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circle</a> up to a slate per 1/20th of a second for 13 blocks; however, it needs to spend some of those 13 blocks speeding up. Interestingly, I can &#34;stack&#34; their boosts, making the accelerated state last for much longer. But this also increases the cost by the square of the blocks to be accelerated as well. So I must be careful when spacing them out.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Gloopy Accelerator</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Copper Ingot"
+      alt="Copper Ingot"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/copper_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Copper"
+      alt="Block of Copper"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/copper_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Copper Ingot"
+      alt="Copper Ingot"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/copper_ingot.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Slimeball"
+      alt="Slimeball"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/slime_ball.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_1.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_2.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        <img
+      title="Quenched Allay"
+      alt="Quenched Allay"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/quenched_allay_3.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Slimeball"
+      alt="Slimeball"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/slime_ball.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Gloopy Accelerator"
+      alt="Gloopy Accelerator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/accelerator_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>While I could not recreate the lost material of &#34;gloop,&#34; a mixture of slime and <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">Quenched Allay</a> seems to emulate it well enough.</p><p><i>This is glooptastic !</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/broadcaster_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Iotic Door"
+      alt="Iotic Door"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/broadcaster_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Iotic Door<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/broadcaster_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/broadcaster_loci@broadcaster_loci" class="">
+<h4 class="spotlight-title page-header">Iotic Door<a
+    href="#greatwork/broadcaster_loci@broadcaster_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Iotic Door"
+      alt="Iotic Door"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/broadcaster_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>After close examination of the enigmatic gifted <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">Akashic Libraries</a>, I believe that I may recreate their iota storage for <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>; albeit, in a cruder manner. </p><p><i>&#34;The door is open, if you&#39;re ready?&#34; <br />&#34;No, not... not really, but...&#34; <br />*sigh* *click*</i></p>
+  </div>
+<br />
+    <p>The <span style="color: #8d6acc">Iotic Door</span> creates a &#34;back door&#34; into reality its self, broadcasting the iota it holds within. Which, is set by popping the top iota of the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>&#39;s stack when activated. </p><p>As well, the <span style="color: #8d6acc">Door</span> can be read from anywhere in the world (as long as its being read in the same dimension), even bypassing the mysterious forces of chunkloading! The spell to read these are jotted down <a href="#patterns/spells/storage_loci@slate_work:read_broadcast">here</a>.</p>
+<br />
+    <p>Important to note, if the targeted position does not contain an <span style="color: #8d6acc">Iotic Door</span>, it returns garbage. I may only assume this is somehow from the background noise of Nature? </p><p>Just as importantly, due to the crude nature of the <span style="color: #8d6acc">Iotic Door</span>, it may only hold &#34;simple&#34; iotas; therefore lists (and any player references as well) can not be stored. <br />Finally, if I adorn a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a>, I may see the iota this stores.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Iotic Door</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Akashic Ligature"
+      alt="Akashic Ligature"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/akashic_ligature.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Iotic Door"
+      alt="Iotic Door"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/broadcaster_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Due to the <span style="color: #8d6acc">Iotic Door</span>&#39;s odd nature of being read from anywhere, it requires a suitable amount of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays"><span style="color: #b0b">Quenched Allay</span></a> and parts from an <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib"><span style="color: #b0b">Akashic Library</span></a>.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/mute_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Muffling Slate"
+      alt="Muffling Slate"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Muffling Slate<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/mute_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/mute_loci@mute_loci" class="">
+<h4 class="spotlight-title page-header">Muffling Slate<a
+    href="#greatwork/mute_loci@mute_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Muffling Slate"
+      alt="Muffling Slate"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>While I work with <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a> more and more, the constant <i>crackles</i> from the <span style="color: #8d6acc">Media Wave</span> has begun to ring in my ears. And with some of my more... esoteric <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circles</a>, nearly deafening me. </p><p>Luckily, this, the <span style="color: #8d6acc">Muffling Slate</span>, can protect my ears from the obnoxious sounds and noises.</p>
+  </div>
+<br />
+    <p>When activated by a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, this pops a number between 1 and 0 (inclusive for both), and sets the &#34;volume&#34; of the crackles and rackets to that. This applies to all sounds that the <span style="color: #8d6acc">Media Wave</span> makes, so executing patterns, <a href="#greatwork/macro_loci">Macros</a>, or moving will be silenced. </p><p><i>&#34;Nat, he&#39;s made sound! He&#39;s an audiomage!&#34; <br />&#34;I hear it,&#34; Nat replies, not looking back. &#34;And stop inventing words.&#34;</i></p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Muffling Slate</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Wool"
+      alt="Tag: Wool"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Muffling Slate"
+      alt="Muffling Slate"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/mute_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Thankfully, the <span style="color: #8d6acc">Muffling Slate</span> is a cheap and simple craft; taking a scrap of wool, and some slate. </p><p><i>Silence is gold for some, or even iron for more; but for my self, silence is diamonds.</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/crafting_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Patterned Assembler"
+      alt="Patterned Assembler"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Patterned Assemblers<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/crafting_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/crafting_loci@crafting_loci" class="">
+<h4 class="spotlight-title page-header">Patterned Assembler<a
+    href="#greatwork/crafting_loci@crafting_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Patterned Assembler"
+      alt="Patterned Assembler"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>Oh how my hands <i>Ache</i> and <i>Buzz</i> from countless hours of slaving over a <span style="color: #b0b">Crafting Table</span>... luckily these days are over. The <span style="color: #8d6acc">Patterned Assembler</span> solves these pains and problems. </p><p><i>Items ever deeper in items, I cant stop crafting, I cant stop looking; more items must be crafted and automated. <span style="color: #5ff">NOW</span></i>.</p>
+  </div>
+<br />
+    <p>Precisely what the <span style="color: #8d6acc">Patterned Assembler</span> does is it attempts to craft whatever item is set within, pulling from activated <a href="#greatwork/storage_loci_block">Storage Vessels</a>, and placing the resulting item(s) back into the <span style="color: #8d6acc">Vessels</span>. This is triggered when the <span style="color: #8d6acc">Assembler</span> is activated with a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>. The recipe can be set by hand, or via a <a href="#patterns/spells/storage_loci@slate_work:set_craft">Spell</a>. If it can craft the inscribed item, it returns a True to the stack and crafts the item, else it does not craft the item (not enough ingredients, no recipe, etc) and returns a False.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Patterned Assembler</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Apprentice Librarian"
+      alt="Apprentice Librarian"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/librarian.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Apprentice Librarian or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/crafting_table.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Patterned Assembler"
+      alt="Patterned Assembler"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/crafting_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>The <span style="color: #8d6acc">Patterned Assembler</span> requires the mind of a villager well adapted to paging through tomes and texts; it seems like the <span style="color: #8d6acc">Librarian</span> is perfect for this.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/hotbar_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Pocket Simulator<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/hotbar_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As I strive to expand my domain, I found it mind <i>numbingly</i> boring to lug items around in my pockets and bags. And whilst <span style="color: #b38ef3">Hexes</span> help automate this, I find my self requiring to hold items still... I must engineer a better solution to this; it seems like the <span style="color: #8d6acc">Allays</span> can hold items, perhaps I can use that?</p>
+<br />
+  <div id="greatwork/hotbar_loci@hotbar_loci" class="">
+<h4 class="spotlight-title page-header">Pocket Simulator<a
+    href="#greatwork/hotbar_loci@hotbar_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>The <span style="color: #8d6acc">Pocket Simulator</span> solves my inventory woes!<br />Using an <span style="color: #8d6acc">Allay</span> as the core of it, it can hold up to 6 &#34;stacks&#34; of items, playfully dancing around the <span style="color: #8d6acc">Simulator</span>. As well, I can denote 1 of those stacks to being a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/spells/itempicking">held item</a>, meaning blockwork spells will pull from that first.</p>
+  </div>
+<br />
+    <p>Once a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> activates this, it becomes &#34;bound,&#34; being able to use the <span style="color: #8d6acc">Simulator</span>.</p><p>Wonderfully, the <span style="color: #8d6acc">Pocket Simulator</span> can be interacted via my hands, or <a href="#patterns/hotbar_loci_patterns">spells</a>. If I interact with it via my hands, I am greeted with the 6 slots it stores, and the held item slot will be glowing with <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">Quenched Allay</a> colors.</p>
+<br />
+    <p>A fascinating discovery is that the <span style="color: #8d6acc">Pocket Simulator</span> seems to function much like common <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/spells/itempicking">item picking behaviors</a>. This allows the <span style="color: #8d6acc">Pocket Simulator</span> to &#34;hold&#34; items, thus when <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/spells/blockworks">block spells</a> attempt to pull an item, they will pull from the <a href="#greatwork/storage_loci_block">Storage Vessels</a> instead of the <span style="color: #8d6acc">Pocket Simulator</span>.</p><p>Important to note, this also functions just as a plain held item. Thus letting the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> read from <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/focus">Foci</a> (and other iota holding items) as well as pull <span style="color: #74b3f2">media</span> from phials.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Pocket Simulator</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Allay"
+      alt="Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/allay.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">2</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p><i>Quite Handy, isn&#39;t it?</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/redstone_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Redstone Agitator"
+      alt="Redstone Agitator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/redstone_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Redstone Agitator<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/redstone_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As I build more complex <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>, I require finer control over redstone output of the slates.<br />While a comparator works for more basic circles; it only gives off a flat redstone output of 15, and stays triggered until the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circle</a> ends.</p>
+<br />
+    <p>Thus, is why I have created the <span style="color: #8d6acc">Redstone Agitator</span>. This pops a number between 0 and 15 (inclusive) from the stack, and sets the redstone output of the <span style="color: #8d6acc">Agitator</span> to that number. Additionally, it stops giving off redstone power when the <span style="color: #8d6acc">Media Wave</span> leaves the slate. </p><p>While not quite intended, this seems to have coevolved with another ancient blueprint, the &#34;Undulator&#34; from the same libraries as the <a href="#greatwork/accelerator_loci">Accelerator</a>.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Redstone Agitator</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Redstone Dust"
+      alt="Redstone Dust"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/redstone.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Redstone Agitator"
+      alt="Redstone Agitator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/redstone_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p>Combing a mixture of <span style="color: #b0b">redstone dust</span> and <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">amethyst dust</a>, and intertwining it with a slate creates the exact mixture of redstone conductivity I require.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/save_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Restoration Mainframe"
+      alt="Restoration Mainframe"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/save_loci.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Restoration Mainframe<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/save_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>After careful research of <span style="color: #8d6acc"><a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/meta@hexcasting:eval/cc">Iris&#39;s Gambit</a></span>, I now understand it stores the state of the cast as an Iota. And after hours of tinkering and failed experiments, I have recreated this, but for Spell Circles.</p><p>The <span style="color: #8d6acc">Restoration Mainframe</span> stores the total state of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, most found Loci are saved into this, as well as: the stack, ravenmind, and escaping patterns.</p>
+<br />
+  <div id="greatwork/save_loci@save_loci" class="">
+<h4 class="spotlight-title page-header">Restoration Mainframe<a
+    href="#greatwork/save_loci@save_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Restoration Mainframe"
+      alt="Restoration Mainframe"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/save_loci.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>This works by &#34;swapping&#34; the internal stored state with the current running state. So whenever it is activated by a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, it will exchange the 2 states. Additionally, it seems like this stored state does not remember its &#34;orignal&#34; <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, so it can be traded between <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a> if proper application of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/directrix"><span style="color: #b0b">Directrices</span></a> are used.</p>
+  </div>
+<br />
+    <p>An important useful tidbit: if I don a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a> and observe the <span style="color: #8d6acc">Restoration Mainframe</span>, I can see all the data it holds, which is: </p><p class="fake-li " style="--level: 1;">The Stack,</p><p class="fake-li " style="--level: 1;">The Ravenmind,</p><p class="fake-li " style="--level: 1;">Ops Consumed,</p><p class="fake-li " style="--level: 1;">Is Running Consideration,</p><p class="fake-li " style="--level: 1;">Iotas that been escaped,</p><p class="fake-li " style="--level: 1;">And total level of escaped.</p><p>I can foresee this will be an extremely useful tool for debugging Spell Circles among other uses.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Restoration Mainframe</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Tag: Impeti"
+      alt="Tag: Impeti"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAC4jAAAuIwF4pT92AAAANUlEQVQ4y2NgGJRAXV39v7q6+n9cfGTARKllFBvAiOxMUjTevHmTkSouGPhAHA0DWnmBrgAANLIZgSXEQxIAAAAASUVORK5CYII="
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+      <img
+      title="Fletcher Impetus"
+      alt="Fletcher Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/look/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Toolsmith Impetus"
+      alt="Toolsmith Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/rightclick/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+      <img
+      title="Cleric Impetus"
+      alt="Cleric Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/redstone/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Akashic Ligature"
+      alt="Akashic Ligature"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/akashic_ligature.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Edified Planks"
+      alt="Edified Planks"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/edified_planks.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Restoration Mainframe"
+      alt="Restoration Mainframe"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/save_loci.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p><i>bleep boop.</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/sentinel_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Sentinel Cache"
+      alt="Sentinel Cache"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Sentinel Cache<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/sentinel_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>The yells, the screams, the agony. The unimaginable pain I felt? Saw? Experienced? Witnessed. The- the... I am getting distracted. I must write down what I have <i>witnessed</i>. During the lights, feelings, and <i>surge</i> of my grand... does that even fit?- enlightenment, I saw a vision of a construct that would improve <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>. But at an extreme cost.</p>
+<br />
+    <p>The block- construct- <i>amalgamation</i> is called the <span style="color: #8d6acc">Sentinel Cache</span>. It is possibly the most flexible <br /> block for <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>, but the anguish required for its vision- am I going to make this? This creates a pseudo <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">Greater Sentinel</a> (called &#34;Pseudosentinel&#34;) with a radius of 4 blocks that the circle can affect. This Pseudosentinel first &#34;spawns&#34; where ever the block is placed, but can be moved around with <a href="#patterns/spells/sentinel_loci_patterns">spells</a>. Costs a negligible amount of <span style="color: #74b3f2">media</span> to awaken this monstrosity.</p>
+<br />
+  <div id="greatwork/sentinel_loci@sentinel_loci" class="">
+<h4 class="spotlight-title page-header">Sentinel Cache<a
+    href="#greatwork/sentinel_loci@sentinel_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Sentinel Cache"
+      alt="Sentinel Cache"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>This agglomeration of minds, twisted, pulled, shattered, and mended. I <i>hear</i> them, yet no sound is made, I <i>hear</i> their pain. Several minds ripped and combined into a block. All for my gain... But- the way the light shimmers and dances off of the slate foundation, the wetted amethyst&#39;s gleam... <i>It calls to me</i></p>
+  </div>
+<br />
+    <p>My mind is degrading. I must finish my notes. <i>Now</i>. </p><p>If I observe the <span style="color: #8d6acc">Sentinel Cache</span> with a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a>, it displays the current location of the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">Pseudosentinel</a>. As well, activating more <span style="color: #8d6acc">Sentinel Caches</span> adds to the list of all known <span style="color: #8d6acc">Caches</span>, and the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circle</a> gains ambit from each.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Sentinel Cache</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Master Villager"
+      alt="Master Villager"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/none.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Master or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Ambit Extender"
+      alt="Ambit Extender"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/ambit_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">200</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">40</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Sentinel Cache"
+      alt="Sentinel Cache"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/sentinel_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>For this amalgamation of agglomerations, it takes an <a href="#greatwork/ambit_loci">Ambit Extender</a>, to generate the ambit modifications, and a Master level <span style="color: #8d6acc">Villager</span> of any kind. If the mind was weaker, it would shatter against the already saturated Flayed Block.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/macro_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Spell Imprinter"
+      alt="Spell Imprinter"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Spell Imprinter<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/macro_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/macro_loci@macro_loci" class="">
+<h4 class="spotlight-title page-header">Spell Imprinter<a
+    href="#greatwork/macro_loci@macro_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Spell Imprinter"
+      alt="Spell Imprinter"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>During my travels I have heard mutterances about things called &#34;macros,&#34; patterns that represent larger <span style="color: #b38ef3">Hexes</span> (I believe these to be linked to a possible <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/akashiclib">Akashic Library</a>?). Nonetheless, I am able to recreate these &#34;macros&#34; with Spell Circles using the <span style="color: #8d6acc">Spell Imprinter</span>, and an iota written inside of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/focus">any iota holder</a> placed on top of the <span style="color: #8d6acc">Imprinter</span>.</p>
+  </div>
+<br />
+    <p>When this is activated by a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, it binds the<br />currently set pattern to the iota stored within the held item (which can be set via a <a href="#patterns/spells/storage_loci@slate_work:set_macro">spell</a>). Thus whenever the pattern is inscribed into slate and activated, it instead runs the iota rather than the written pattern. Though, the implications of this are horrifying, rewriting the definition of a <i>spell</i>. A thing that is deeply intertwined with the world itself, does that mean I, could be rewritten; changed by a higher force? No. N<span class="obfuscated">AAAAA!</span></p>
+<br />
+    <p>A quite handy feature of the <span style="color: #8d6acc">Spell Imprinter</span> is being able to wear a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a> and observing the bound pattern and the iota to be ran with the bound pattern. </p><p>On closer observation of a freshly... &#34;constructed&#34; <span style="color: #8d6acc">Spell Imprinter</span>, it has a pre-inscribed pattern of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/basics@hexcasting:get_caster">Mind&#39;s Reflection</a>. Whilst useful, it is deeply unsettling for reasons I can not put into words...</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Spell Imprinter</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Apprentice Weaponsmith"
+      alt="Apprentice Weaponsmith"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/weaponsmith.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Apprentice Weaponsmith or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Spell Imprinter"
+      alt="Spell Imprinter"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/macro_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>Despite the horrors this possibly ascertains... this is still an advantageous block to obtain. I believe a <span style="color: #8d6acc">Weaponsmith villager</span> would be the best fit. This is due to their adeptness at reworking broken weapons to new, sharper instruments.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/storage_loci_block" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Storage Vessel"
+      alt="Storage Vessel"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Storage Vessels<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/storage_loci_block"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/storage_loci_block@storage_loci" class="">
+<h4 class="spotlight-title page-header">Storage Vessel<a
+    href="#greatwork/storage_loci_block@storage_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Storage Vessel"
+      alt="Storage Vessel"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>After <i>FAR TOO LONG</i> of lugging my items in clunky, splintery, <i>chests</i>... I have discovered the perfect method of storage, <span style="color: #8d6acc">Storage Vessels</span>. <br />Despite my current state, I am still far too full of mental garbage to interface with the <span style="color: #8d6acc">Storage Vessels</span>. However, <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a> are perfect for insertion and extraction of these new storage methods.</p>
+  </div>
+<br />
+    <p>While <span style="color: #8d6acc">Storage Vessels</span> can only hold 16 &#34;types&#34; of items each (much like a single chest holding only 27 slots), they ignore the standard stack limit, holding a near-infinite amount of each slot! </p><p>Additionally, as a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> activates these with its high-density <span style="color: #8d6acc">Media Wave</span>, the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circle</a> gains the ability to read and retrieve items from the <span style="color: #8d6acc">Storage Vessels</span> (stacking as more are activated). I have noted down the Spells for doing just that <a href="#patterns/spells/storage_loci">here</a>.</p>
+<br />
+    <p>Important to note: when <span style="color: #8d6acc">Storage Vessels</span> are broken, they do not eject the items stored within. Instead, they carefully pack all of their items into the resulting broken block (much like a <span style="color: #b0b">Shulker Box</span>). </p><p></p><p><i>&#34;Oh boy! Time to get my items!&#34;<br />[sound of chest opening]<br />[sound of chest closing]<br />[sound of chest opening]<br />[sound of chest closing]<br />[sound of chest opening]<br />[sound of chest closing]</i></p>
+<br />
+    <p>Whenever I wear a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a> and observe a <span style="color: #8d6acc">Storage Vessel</span>, it displays the items held within, to me. This feels almost like Nature is toying with me, since there is no way to pull items directly out of a <span style="color: #8d6acc">Storage Vessel</span>... I will admit however, it is handy to see what I have with a glance.</p>
+<br />
+    <p>It seems like the Villager used in the <span style="color: #8d6acc">Storage Vessel</span>&#39;s construction has retained their ability to access chests! Meaning, the <span style="color: #8d6acc">Storage Vessel</span> can be inserted and extracted from hoppers. This lets me have buffer storages that have a near unlimited inputs; but with only 16 slots.</p>
+<br />
+  <details class="details-collapsible flay-recipe-details">
+    <summary class="collapse-details">
+      <span class="collapse-recipe-show">Click to show recipes</span>
+      <span class="collapse-recipe-hide">Click to hide recipes</span>
+    </summary>
+  <div>
+<h5>Storage Vessel</h5>
+    <div class="flay-recipe">
+        <img
+          class="flay-recipe-background"
+          alt="Flay Mind Recipe GUI"
+          src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/hexcasting/textures/gui/hexdoc/brainsweep.png"
+        >
+<img
+      title="Novice Fisherman"
+      alt="Novice Fisherman"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/doc/resources/assets/minecraft/textures/entities/villagers/fisherman.png"
+      loading="lazy"
+      class="flay-recipe-entity texture pixelated"
+    >
+<div class="flay-recipe-villager-details">
+  <img
+    class="flay-recipe-villager-detail-icon"
+    alt="Hero of the Village"
+    src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/mob_effect/hero_of_the_village.png"
+    style="width: 16px; height:16px"
+  >
+    Villager must be a Novice Fisherman or higher
+</div>
+        <div class="flay-recipe-block-ingredient">
+          <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        </div>
+        <div class="flay-recipe-cost texture item-texture multi-textures cycle-textures">
+            <div class="texture item-texture multi-texture-active">
+              <img
+      title="Amethyst Dust"
+      alt="Amethyst Dust"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/amethyst_dust.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">100</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Amethyst Shard"
+      alt="Amethyst Shard"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/amethyst_shard.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">20</div>
+            </div>
+            <div class="texture item-texture ">
+              <img
+      title="Charged Amethyst"
+      alt="Charged Amethyst"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/charged_amethyst.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    ><div class="badge item-texture-count">10</div>
+            </div>
+        </div>
+        <div class="flay-recipe-result">
+          <img
+      title="Storage Vessel"
+      alt="Storage Vessel"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/storage_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+        </div>
+    </div>
+  </div>
+</details>
+  <p>The <span style="color: #8d6acc">Storage Vessel</span> requires a mind capable of diving into the depths, and retrieving something based on only a hint. A <span style="color: #8d6acc">Fisherman villager</span> is perfect for this.</p>
+<br />
+    </div>
+</div>
+<div id="greatwork/fake_player_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Synthetic Dreamer"
+      alt="Synthetic Dreamer"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/fake_player_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Synthetic Dreamer<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/fake_player_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>Despite my advancements in <a href="#greatwork/storage_loci_block">Storage</a>, <a href="#greatwork/crafting_loci">Crafting</a>, and <a href="#greatwork/hotbar_loci">Utilization</a> in <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circles</a>, I have always lacked a fundamental action that I take; an action that I take for granted every moment of my existence. Being able to use items.</p><p>Until now with the <span style="color: #8d6acc">Synthetic Dreamer</span>.</p>
+<br />
+  <div id="greatwork/fake_player_loci@fake_player_loci" class="">
+<h4 class="spotlight-title page-header">Synthetic Dreamer<a
+    href="#greatwork/fake_player_loci@fake_player_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Synthetic Dreamer"
+      alt="Synthetic Dreamer"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/fake_player_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>After much research I have found something quite peculiar, items always require a person to use them. Which means I can not just slap a hand onto a rod and thrust it into blocks (though it would be humorous). Instead, I must look towards the <span style="color: #8d6acc">Allays</span> and their ever fascinating properties...</p>
+  </div>
+<br />
+    <p>Using <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays"><span style="color: #b0b">Quenched Allay&#39;s</span></a> shifting abilities, I can extract a being that resembles a person out of the shards for just a moment, and force them to use the item. This figment of a being acts much like my self when I attempt to use an item on an entity, block, or by its self. Additionally, it seems like it has a reach of 10 blocks.</p>
+<br />
+    <p>However, due to the ethereal nature of these beings, special accommodations must be made for what items they hold and use. Thus, the &#34;Hotbar&#34; of these beings must be from a <a href="#greatwork/hotbar_loci">Pocket Simulator</a>. </p><p>The main item of these beings will be the selected slot of the <a href="#greatwork/hotbar_loci">Pocket Simulator</a>; as well, they do not have an inventory, only the hotbar the <a href="#greatwork/hotbar_loci">Pocket Simulator</a> provides.</p>
+<br />
+    <p>Finally, the look direction of the being is based on either the facing of the block, or an optional axis-aligned <span style="color: #8d6acc">Vector</span>. When I crouch and use the block, it toggles between taking the facing of the block, or the <span style="color: #8d6acc">Vector</span>. </p><p>If I where to equip a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/lens">Scrying Lens</a>, I may see if the block will take the <span style="color: #8d6acc">Vector</span> or not.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Synthetic Dreamer</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div></div>        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Block of Slate"
+      alt="Block of Slate"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_block.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture "
+    >
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Synthetic Dreamer"
+      alt="Synthetic Dreamer"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/fake_player_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p><i>Boltzmann Brains? Never heard of them.</i></p>
+<br />
+    </div>
+</div>
+<div id="greatwork/speed_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Wave Regulator"
+      alt="Wave Regulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Wave Regulators<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#greatwork/speed_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="greatwork/speed_loci@speed_loci" class="">
+<h4 class="spotlight-title page-header">Wave Regulator<a
+    href="#greatwork/speed_loci@speed_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <div class="spotlight">
+    <img
+      alt="Spotlight inventory slot"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/hexdoc/textures/gui/spotlight.png"
+    >
+    <img
+      title="Wave Regulator"
+      alt="Wave Regulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+      <p>As I begin to explore the uses of the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Great Work</a>, I find my self needing more control over these fascinating possibilities. So I have created the <span style="color: #8d6acc">Wave Regulator</span>; what this does is it pops a number from the stack, and attempts to set the &#34;speed&#34; of the wave. More specifically, how many 20ths of a second the wave should wait before going to the next slate.</p>
+  </div>
+<br />
+    <p>This system does have some limitations however. For one, it cannot set the speed to be faster than the wave could possibly move, doing nothing if I try to set the speed higher. Explained, it can only set the time to wait to any number above or equal the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">circle&#39;s</a> default acquired speed, or back to its regular speed. To do this, the <span style="color: #8d6acc">Wave Regulator</span> needs to pop a 0 from the stack, and it gives the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> full control of the <span style="color: #8d6acc">Media Wave</span> again.</p>
+<br />
+  <details class="details-collapsible recipe-details">
+      <summary class="collapse-details">
+    <span class="collapse-recipe-show">Click to show recipes</span>
+    <span class="collapse-recipe-hide">Click to hide recipes</span>
+  </summary>
+    <div class="crafting-tables">
+<div>
+    <h5>Wave Regulator</h5>
+    <div class="crafting-table">
+        <img
+      title="Crafting Table"
+      alt="Crafting Table"
+      src="https://raw.githubusercontent.com/hexdoc-dev/hexdoc/22a49013742017517d0985217702e5381b1bed5e/src/hexdoc/_export/resources/assets/minecraft/textures/gui/hexdoc/crafting_table.png"
+      class="texture pixelated"
+    >
+  <div class="crafting-table-grid">
+        <div class="texture item-texture multi-textures cycle-textures">
+                <div
+      class="texture item-texture multi-textures gaslight-textures multi-texture-active"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>
+        </div>
+        <div class="texture item-texture multi-textures cycle-textures">
+                <img
+      title="Blank Slate"
+      alt="Blank Slate"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/slate_blank.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        </div>
+  </div>
+  <div class="crafting-table-result recipe-item-slot">
+    <img
+      title="Wave Regulator"
+      alt="Wave Regulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/speed_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >
+  </div>
+    </div>
+</div>    </div>
+  </details>
+      <p><span style="color: #8d6acc">Wave Regulators</span> are odd in their construction compared to the rest of my... <i>Gifted</i> visions. All they require is a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/quenching_allays">scrap of Media</a> with some writhing will still left in it... how it must be in pain-- and some slate to make it compatible with the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Circle</a>.</p>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns">
+    <h2 class="category-title page-header">
+    <img
+      title="Bookshelf"
+      alt="Bookshelf"
+      src="https://hexdoc-dev.github.io/hexdoc-minecraft/v/1.20.1/1.0.dev1/assets/minecraft/textures/block/bookshelf.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>A list of all the patterns I&#39;ve discovered, as well as what they do.</p>
+<div id="patterns/hotbar_loci_patterns" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Pocket Simulator"
+      alt="Pocket Simulator"
+      src="https://stick404.github.io/SlateWork/v/1.2.2/1.0/assets/slate_work/textures/block/hotbar_loci_energized.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Pocket Simulator Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/hotbar_loci_patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As nice as the <a href="#greatwork/hotbar_loci">Pocket Simulator</a> is, it amplifies its power through these patterns and spells.</p><p>These <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/mishaps2">mishap when not cast in a Spell Circle</a>. However, these preform nothing if the current <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> is not bound to a <a href="#greatwork/hotbar_loci">Pocket Simulator</a>.</p>
+<br />
+  <div id="patterns/hotbar_loci_patterns@slate_work:set_slot" class="">
+<h4 class="pattern-title">Set Slot (int →)<a
+    href="#patterns/hotbar_loci_patterns@slate_work:set_slot"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqawawa"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqawawa</canvas>
+  </details>
+      <p>This takes a number between 0 and 5 (inclusive), and sets the held slot of the bound <a href="#greatwork/hotbar_loci">Pocket Simulator</a>. Free.</p>
+  </div>
+<br />
+  <div id="patterns/hotbar_loci_patterns@slate_work:get_items" class="">
+<h4 class="pattern-title">List Items (→ [item stack])<a
+    href="#patterns/hotbar_loci_patterns@slate_work:get_items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqawawaedd"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqawawaedd</canvas>
+  </details>
+      <p>This returns all the items held within the <a href="#greatwork/hotbar_loci">Pocket Simulator</a> as <a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/scrying/item">Item Stack Iotas</a>. Free.</p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="patterns/slate_reflections" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Fletcher Impetus"
+      alt="Fletcher Impetus"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/circle/impetus/look/lit_east.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Slate Reflections<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/slate_reflections"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+  <div id="patterns/slate_reflections@slate_work:wave_position" class="">
+<h4 class="pattern-title">Wave Location Rfln. (→ vector)<a
+    href="#patterns/slate_reflections@slate_work:wave_position"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeeaa"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqdaadqaeeaa</canvas>
+  </details>
+      <p>Adds the current position of the <span style="color: #8d6acc">Media Wave</span> to the top of the stack.</p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:wave_normal" class="">
+<h4 class="pattern-title">Wave Facing Rfln. (→ vector)<a
+    href="#patterns/slate_reflections@slate_work:wave_normal"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeewa"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqdaadqaeewa</canvas>
+  </details>
+      <p>Adds the current facing of the <span style="color: #8d6acc">Media Wave</span> to the top of the stack. If the current block does not have a facing, it returns a vector of [0,0,0].</p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:wave_speed" class="">
+<h4 class="pattern-title">Wave Speed Rfln. (→ number)<a
+    href="#patterns/slate_reflections@slate_work:wave_speed"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqaeewq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqdaadqaeewq</canvas>
+  </details>
+      <p>Adds the current speed of the <span style="color: #8d6acc">Media Wave</span> to the top of the stack. This is measured in how many 20ths of a second the <span style="color: #8d6acc">Media Wave</span> waits until going to the next <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/slate">Slate.</a></p>
+  </div>
+<br />
+  <div id="patterns/slate_reflections@slate_work:media_reflection" class="">
+<h4 class="pattern-title">Circle Media Rfln. (→ number)<a
+    href="#patterns/slate_reflections@slate_work:media_reflection"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqdaadqae"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqdaadqae</canvas>
+  </details>
+      <p>Adds the current amount of <span style="color: #74b3f2">Media</span> in the <span style="color: #8d6acc">Impetus</span> to the stack, in units of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a>.</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+<section id="patterns/spells">
+    <h2 class="category-title page-header">
+    <img
+      title="Enchanted Book"
+      alt="Enchanted Book"
+      src="https://raw.githubusercontent.com/PrismarineJS/minecraft-assets/a14c64362abe4a12c2dfd87f8d1673af9d1b09f4/data/1.20.2/items/enchanted_book.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h2>
+    <p>Patterns and actions that perform a magical effect on the world.</p>
+<div id="patterns/spells/storage_loci" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <img
+      title="Slate & Amethyst Pillar"
+      alt="Slate &amp; Amethyst Pillar"
+      src="https://hexcasting.hexxy.media/v/0.11.2/1.0/assets/hexcasting/textures/block/slate_amethyst_pillar.png"
+      loading="lazy"
+      class="item-texture  texture "
+    >Locus Spells<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/storage_loci"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p>As wonderful as <span style="color: #8d6acc">Vessels</span> are for storage, they have an... opaque method of interaction. The main way of interaction is with <span style="color: #b38ef3">Hexes</span>; more specifically, using a <span style="color: #b38ef3">Hex</span> to describe what I wish to retrieve. Importantly, these all <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/mishaps2">mishap when not cast in a Spell Circle</a>. </p><p><i>“Riddles,” I said. <br />“Always preferable to no answer at all,” he responded.</i></p>
+<br />
+    <p>To elaborate more, <span style="color: #8d6acc">Vessels</span> respects Nature&#39;s silly rules regarding the &#34;Stack Limit&#34; by working around them. Rather than directly calling an item based on its name, I more-or-less supply a &#34;description;&#34; this is a <span style="color: #b38ef3">Hex</span> that takes an <a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/scrying/item">Item Stack Iota</a>, and needs to return a boolean. Also, all patterns to do with the retrieving of <span style="color: #8d6acc">Storage Vessels</span> take a copy of the Stack, and puts it onto the &#39;inner&#39; stack (much like <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/meta@hexcasting:for_each"><span style="color: #fc77be">Thoth&#39;s Gambit</span></a>).</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:store_item" class="">
+<h4 class="pattern-title">Lay Item (entity →)<a
+    href="#patterns/spells/storage_loci@slate_work:store_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwaeaeqqeaeaw"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqwaeaeqqeaeaw</canvas>
+  </details>
+      <p>It is much easier to store an item into a <span style="color: #8d6acc">Vessel</span> than to pull it out. This pattern simply takes an Item Entity, and neatly sorts it into the activated <span style="color: #8d6acc">Storage Vessels</span>. Costs an 1/8th of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a> per activated <span style="color: #8d6acc">Vessel</span>.</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:get_storage" class="">
+<h4 class="pattern-title">Get Vessels (→ [vecs])<a
+    href="#patterns/spells/storage_loci@slate_work:get_storage"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqdeewweedq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqqdeewweedq</canvas>
+  </details>
+      <p>This simply returns what <span style="color: #8d6acc">Vessels</span> the current <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> has activated. I should likely use this to check if the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> has collected any <span style="color: #8d6acc">Vessels</span>.</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:get_item" class="">
+<h4 class="pattern-title">Reawaken Item ([patterns] →)<a
+    href="#patterns/spells/storage_loci@slate_work:get_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqwqqwqwwqwqqweqwaweadwawwwawdaewawq</canvas>
+  </details>
+      <p>This takes a <span style="color: #b38ef3">Hex</span> and runs it on every <a href="https://miyucomics.github.io/hexpose/v/1.0.0/1.0.0/en_us#patterns/scrying/item">Item Stack</a> stored (with it on top of the stack). Once the <span style="color: #b38ef3">Hex</span> is executed, it requires a <span style="color: #8d6acc">Integer</span>, <span style="color: #8d6acc">Vector</span>, and <span style="color: #8d6acc">Boolean</span>, left on the stack, in that order.</p>
+  </div>
+<br />
+    <p>Further explained: this runs the given <span style="color: #b38ef3">Hex</span> on every stored Item in the <span style="color: #8d6acc">Vessels</span>. The <span style="color: #b38ef3">Hex</span> must return (top to bottom) either a False (omits the Vector, and Number) or True, Vector, and Number. The Vector corresponds to where to output the items into the world (respecting ambit), and Number relates to how many of that type of item to retrieve. </p><p>Costs a 1/4th of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a> per activated <span style="color: #8d6acc">Vessel</span>.</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:check_item" class="">
+<h4 class="pattern-title">Check Item ([patterns] → bool)<a
+    href="#patterns/spells/storage_loci@slate_work:check_item"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqddqeeqddq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqqddqeeqddq</canvas>
+  </details>
+      <p>Check Item functions much like Reawaken Item; however, it only requires a Boolean from the inputted <span style="color: #b38ef3">Hex</span>. If the Boolean is ever True, the spell ends, and returns True.</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:sort_items" class="">
+<h4 class="pattern-title">Reorient Items<a
+    href="#patterns/spells/storage_loci@slate_work:sort_items"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqqwaeadaeawq"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqqwaeadaeawq</canvas>
+  </details>
+      <p>In some rare scenarios, <span style="color: #8d6acc">Vessels</span> can get jumbled up and have items of the same type spread across different  <span style="color: #8d6acc">Vessels</span>. This is a neat spell to resort them at a cost. That cost being 5 <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">Charged Amethyst</a>.</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:set_craft" class="">
+<h4 class="pattern-title">Set Recipe (vec, [item|identifier|null] →)<a
+    href="#patterns/spells/storage_loci@slate_work:set_craft"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="eaqwqaeqwaeadawwadaeaw"
+        data-start="south_west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: eaqwqaeqwaeadawwadaeaw</canvas>
+  </details>
+      <p>Sets the crafting recipe of a <a href="#greatwork/crafting_loci">Patterned Assembler</a>. Takes a list of <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Nulls</span></a>, items, or item variants, and applies it to the targeted <a href="#greatwork/crafting_loci">Assembler</a>.</p>
+  </div>
+<br />
+    <p>To note: the given list gets &#34;formatted&#34; as left to right, top to bottom in the <a href="#greatwork/crafting_loci">Patterned Assembler</a>. As well, the <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/influences"><span style="color: #8d6acc">Nulls</span></a> represent blank spots in recipes. Finally, the Spell will mishap if the given list is longer than 9 items (but passes with less than or equal to 9 items). </p><p>Does not mishap if cast outside of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>. Costs a negligible amount of <span style="color: #74b3f2">media</span>.</p>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:set_macro" class="">
+<h4 class="pattern-title">Bind Macro (vec, any iota, pattern →)<a
+    href="#patterns/spells/storage_loci@slate_work:set_macro"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="qqqwqqqqqaqeeaqwqae"
+        data-start="west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: qqqwqqqqqaqeeaqwqae</canvas>
+  </details>
+      <p>This binds both a pattern and an iota to a <a href="#greatwork/macro_loci">Spell Imprinter</a>, which is at the targeted vector. </p><p>Does not mishap if casted outside of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>. Costs a negligible amount of <span style="color: #74b3f2">media</span>.</p>
+  </div>
+<br />
+  <div id="patterns/spells/storage_loci@slate_work:read_broadcast" class="">
+<h4 class="pattern-title">Review Broadcast (vec → any)<a
+    href="#patterns/spells/storage_loci@slate_work:read_broadcast"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="aqwqaweeeeewwaaw"
+        data-start="west"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: aqwqaweeeeewwaaw</canvas>
+  </details>
+      <p>Attempts to read an <a href="#greatwork/broadcaster_loci">Iotic Door</a> at the given vector. If there is not a <a href="#greatwork/broadcaster_loci">Door</a>, returns garbage. <br />Does not mishap if casted outside of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a>, free, and does not require ambit.</p>
+  </div>
+<br />
+    </div>
+</div>
+<div id="patterns/spells/sentinel_loci_patterns" class="entry">
+    <div class="spoilered">
+      <h3 class="entry-title page-header">
+    <div
+      class="texture item-texture multi-textures gaslight-textures "
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_0.png"
+      loading="lazy"
+      class="item-texture multi-texture-active texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_1.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_2.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+        <img
+      title="Shard of Quenched Allay"
+      alt="Shard of Quenched Allay"
+      src="https://raw.githubusercontent.com/FallingColors/HexMod/5831d9e2867f2369b8016aed83fbbd401fd7ad3d/Common/src/main/resources/assets/hexcasting/textures/item/quenched_shard_3.png"
+      loading="lazy"
+      class="item-texture  texture pixelated"
+    >
+    </div>Sentinel Cache Patterns<a
+    href="#table-of-contents"
+    class="permalink small"
+    title="Jump to top"
+  ><i class="bi bi-box-arrow-up"></i></a><a
+    href="#patterns/spells/sentinel_loci_patterns"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h3>
+    <p><a href="#greatwork/sentinel_loci">Sentinel Caches</a> have an odd method of interaction compared to their non-<a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#greatwork/spellcircles">Spell Circle</a> <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#patterns/great_spells/greater_sentinel">counter parts</a>. They are interfaced via a list of vectors, opposed to a single vector. </p><p>These all <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#casting/mishaps2">mishap when not cast in a Spell Circle</a>.</p>
+<br />
+    <p><i>It&#39;s doing physical and mental damage to it, as if it had body parts and organs and memories being consumed as <span style="color: #74b3f2">Media</span></i>. <i></i></p><i><p>It burns its life story for fuel. </p></i><p><i></i></p><i><p>It burns its fingers and toes and its attachments to the ground until there&#39;s nothing but pure cognition.</p></i>
+<br />
+  <div id="patterns/spells/sentinel_loci_patterns@slate_work:set_sents" class="">
+<h4 class="pattern-title">Apply Pseudosentinels ([vectors] →)<a
+    href="#patterns/spells/sentinel_loci_patterns@slate_work:set_sents"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waeawaewawwa"
+        data-start="east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: waeawaewawwa</canvas>
+  </details>
+      <p>This takes a list of vectors, and attempts to move the Pseudosentinels to the positions.</p>
+  </div>
+<br />
+    <p>Helpfully, the list of vectors from <span style="color: #8d6acc">Locate Pseudosentinels</span> will always match the order of <span style="color: #8d6acc">Apply Pseudosentinels</span>, meaning I need not worry about the ordering. </p><p>This will mishap if the given list is larger than the current awoken <a href="#greatwork/sentinel_loci">Cache</a> amount. Costs 1 <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a> to command the Pseudosentinel, and due to fatigue, an extra 1/8th of a <a href="https://hexcasting.hexxy.media/v/0.11.2/1.0/en_us#items/amethyst">dust</a> (stacking) for each Pseudosentinel that was already moved in the same instance.</p>
+<br />
+  <div id="patterns/spells/sentinel_loci_patterns@slate_work:get_sents" class="">
+<h4 class="pattern-title">Locate Pseudosentinels (→ [vectors])<a
+    href="#patterns/spells/sentinel_loci_patterns@slate_work:get_sents"
+    class="permalink small"
+    title="Permalink"
+  ><i class="bi bi-link-45deg"></i></a></h4>
+  <details class="details-collapsible">
+    <summary class="collapse-details collapse-spell"></summary>
+    <div class="dropdown spell-settings-dropdown">
+      <span
+        href=""
+        class="dropdown-toggle spell-settings-toggle"
+        data-toggle="dropdown"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="bi bi-gear-fill"></i>
+      </span>
+      <ul class="dropdown-menu">
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Renders</a>
+          <ul class="dropdown-menu dropdown-menu-left render-dropdowns"></ul>
+        </li>
+        <li class="dropdown-submenu">
+          <a
+            href=""
+            class="dropdown-toggle"
+            data-toggle="dropdown"
+            role="button"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >Palettes</a>
+          <ul class="dropdown-menu dropdown-menu-left palette-dropdowns"></ul>
+        </li>
+      </ul>
+    </div>
+      <canvas
+        class="spell-viz"
+        width="216"
+        height="216"
+        data-string="waeawaewawwaeq"
+        data-start="east"
+        data-per-world="False"
+      >Your browser does not support visualizing patterns. Pattern code: waeawaewawwaeq</canvas>
+  </details>
+      <p>This retrieves the current positions of all Pseudosentinels in the order they were awoken. Free to cast.</p>
+  </div>
+<br />
+    </div>
+</div>
+</section>
+  </main>
+</div>
+      <footer class="footer">
+        <div class="container text-muted">
+          <p>Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.</p><p>Minecraft content and materials are the intellectual property of their respective owners.</p><p>Made with ❤️ using <a href="https://pypi.org/project/hexdoc/" target="_blank">hexdoc</a>.</p>
+        </div>
+      </footer>
+  </body>
+</html>
