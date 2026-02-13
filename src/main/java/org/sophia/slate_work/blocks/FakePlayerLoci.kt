@@ -1,10 +1,8 @@
 package org.sophia.slate_work.blocks
 
-import at.petrak.hexcasting.api.casting.circles.ICircleComponent
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent.ControlFlow
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
-import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
@@ -46,6 +44,7 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import org.sophia.slate_work.storage.SlateFakePlayer
 import java.util.stream.Collectors
 import java.util.stream.Stream
+import kotlin.math.sign
 
 
 class FakePlayerLoci : AbstractSlate {
@@ -70,7 +69,6 @@ class FakePlayerLoci : AbstractSlate {
     ): ActionResult? {
         if (player.isSneaky) {
             val sta = state.get(TOGGLED).not()
-            println(sta)
             world.setBlockState(pos, state.with(TOGGLED, sta))
             world.playSound(player, pos, HexSounds.ABACUS_SHAKE, SoundCategory.BLOCKS, 1.0f, 1f)
             return ActionResult.CONSUME
@@ -140,7 +138,6 @@ class FakePlayerLoci : AbstractSlate {
     ): ControlFlow {
         val hotbar = world.getBlockEntity(NbtHelper.toBlockPos(imageIn.userData.getCompound("hotbar_loci")))
         if (hotbar !is HotbarLociEntity) {
-            // todo: give this a proper error message
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
                 MishapSpellCircleNotEnoughArgs(1,0,pos)
@@ -167,7 +164,7 @@ class FakePlayerLoci : AbstractSlate {
                 return ControlFlow.Stop()
             }
             val offset = last.vec3
-            val temp = Direction.fromVector(offset.x.toInt(), offset.y.toInt(), offset.z.toInt())
+            val temp = Direction.fromVector(offset.x.toInt().sign, offset.y.toInt().sign, offset.z.toInt().sign)
             if (temp == null) {
                 this.fakeThrowMishap(
                     pos, bs, imageIn, env,
