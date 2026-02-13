@@ -1,4 +1,4 @@
-package org.sophia.slate_work.casting.actions
+package org.sophia.slate_work.casting.actions.storage
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
@@ -7,11 +7,11 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
-import net.minecraft.item.ItemStack
 import net.minecraft.item.Items
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci
-import org.sophia.slate_work.misc.CircleHelper.getStorage
+import org.sophia.slate_work.misc.CircleHelper
 import java.util.HashMap
+import kotlin.collections.iterator
 
 @Suppress("UnstableApiUsage")
 object OpSortStorageLoci : ConstMediaAction {
@@ -22,7 +22,7 @@ object OpSortStorageLoci : ConstMediaAction {
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         if (env !is CircleCastEnv)
             throw MishapNoSpellCircle()
-        val storages = getStorage(env)
+        val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
             throw MishapNoStorageLoci(null)
 
@@ -32,9 +32,9 @@ object OpSortStorageLoci : ConstMediaAction {
             for (notUsed in z.inventory){
                 val x = z.removeStack(i)
                 val item = x.left
-                if (item == ItemVariant.of(ItemStack.EMPTY)) continue
+                if (item.isBlank) continue
                 z.setStack(i, ItemVariant.of(Items.AIR),0L)
-                if (returnList.contains(item)){
+                if (returnList.contains(item)) {
                     val count = returnList[item]!!
                     returnList[item] = x.right + count
                 } else {
@@ -49,7 +49,7 @@ object OpSortStorageLoci : ConstMediaAction {
         for (items in returnList){
             val storage = storages[storageI]
             if (slotI >= 16) {storageI++; slotI = 0}
-            storage.setStack(slotI,items.key,items.value)
+            storage.setStack(slotI, items.key,items.value)
             slotI++
         }
 

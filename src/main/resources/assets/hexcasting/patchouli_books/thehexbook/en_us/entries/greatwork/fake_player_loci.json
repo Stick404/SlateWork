@@ -1,0 +1,38 @@
+{
+  "name": "slate_work.entry.fake_player_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:fake_player_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.fake_player_loci.intro"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:fake_player_loci",
+      "anchor": "fake_player_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.fake_player_loci.fake_player_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.fake_player_loci.fake_player_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.fake_player_loci.extra"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.fake_player_loci.lens"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:fake_player_loci_craft",
+      "text": "slate_work.page.fake_player_loci.crafting"
+    }
+  ]
+}

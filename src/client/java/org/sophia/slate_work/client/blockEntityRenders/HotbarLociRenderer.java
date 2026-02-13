@@ -38,6 +38,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
         return BlockEntityRenderer.super.getRenderDistance();
     }
 
+
     @Override
     public void render(HotbarLociEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
         matrices.push();
@@ -45,9 +46,9 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
         if (entity.getWorld() != null) {
             var bs = entity.getWorld().getBlockState(entity.getPos());
             if (bs.getBlock() == BlockRegistry.HOTBAR_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
-                double speed = 3;
-                if (bs.get(ENERGIZED)) speed = 8;
-                double time = entity.getWorld().getTime() +tickDelta;
+                double speed = 2;
+                if (bs.get(ENERGIZED)) speed = 5;
+                double time = (((double) entity.getWorld().getTime() + tickDelta) * (1 * speed));
 
                 int rotationX = 0;
                 int rotationY = 0;
@@ -71,7 +72,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
                 matrices.scale(1,1,1);
                 matrices.translate(0,-0.7,0);
 
-                double spin = (Math.PI/180) *time%360*speed;
+                double spin = (Math.PI/180) *time%360;
                 matrices.multiply(new Quaternionf(0,Math.sin(spin/2),0,Math.cos(spin/2f)));
 
                 var itemsTemp = entity.getStacks();
@@ -87,7 +88,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
                 for (ItemStack item : items){
                     matrices.push();
                     matrices.translate(Math.sin(radius*i)*scale,
-                            Math.sin((double) time/10)/(6+4/speed) +1, //Math.sin((time/100)/(speed/4)) +1
+                            Math.sin(time/10)/(10+speed) +1,
                             Math.cos(radius*i)*scale);
                     if (item == selectedSlot){
                         matrices.translate(0,0.2,0);

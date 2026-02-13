@@ -23,7 +23,8 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
             if (!bs.contains(HORIZONTAL)) return;
             matrices.push();
             int rotation = 0;
-            float rad = (float) (Math.PI/180)*((entity.getWorld().getTime()%360)+entity.getWorld().getTime())*4;
+            double time = entity.getWorld().getTime() + tickDelta;
+            double rad = (Math.PI/180)*((time%360)+time)*4;
 
             var buf = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(MOD_ID,"textures/white_texture.png")));
             switch (bs.get(HORIZONTAL)){
@@ -52,7 +53,7 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
 
             matrices.push();
             matrices.translate(0,0,0.1);
-            rad = rad + (float) Math.PI;
+            rad = rad + Math.PI;
             matrices.push();
             matrices.multiply(new Quaternionf(0,0,Math.cos(rad/2),Math.sin(rad/2f)),0.25f*(1/scale)+0.5f,0.45f*(1/scale)+0.5f,0);
             matrices.translate(0.25*(1/scale),0.45*(1/scale),0); //Right
@@ -71,7 +72,7 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
     }
 
     public static void rotateY(MatrixStack matrices, int y){
-        float rad = (float) (Math.PI/180)*y;
+        double rad = (Math.PI/180)*y;
         matrices.multiply(new Quaternionf(0,Math.sin(rad/2),0f,Math.cos(rad/2f)),0.5f,0.5f,0.5f);
     }
 

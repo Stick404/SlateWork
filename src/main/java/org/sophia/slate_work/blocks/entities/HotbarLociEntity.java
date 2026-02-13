@@ -180,13 +180,13 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
 
         transaction.addCloseCallback((a, b) -> {
             if (b.wasCommitted()) {
-                if (stack.isEmpty()) {
+                if (callbackStack.isEmpty()) {
                     this.setStack(slot, resource.toStack((int) maxAmount));
                 }
                 if (stack.getCount()+maxAmount > stack.getMaxCount()) {
-                    stack.setCount(stack.getMaxCount());
+                    callbackStack.setCount(stack.getMaxCount());
                 } else {
-                    stack.setCount(stack.getCount() + (int) maxAmount);
+                    callbackStack.setCount(stack.getCount() + (int) maxAmount);
                 }
                 this.sync();
             }
