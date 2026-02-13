@@ -129,8 +129,9 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     public @Nullable Integer getSlot(ItemVariant item){
         for (int i = 0; i < slots.length; i++) {
             var stored = this.slots[i].getLeft();
-            if (item.getItem() == stored.getItem() && item.toStack() == stored.toStack()){}
-                    return i;
+            if (item.getItem() == stored.getItem() && item.nbtMatches(stored.getNbt())) {
+                return i;
+            }
         }
         this.sync();
         return null;

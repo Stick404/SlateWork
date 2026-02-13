@@ -88,11 +88,11 @@ object CircleHelper {
         return returnList
     }
 
-    fun getLists(list: List<StorageLociEntity>): HashMap<ItemVariant, ItemSlot> {
-        val returnList = HashMap<ItemVariant, ItemSlot>()
+    fun getLists(list: List<StorageLociEntity>): HashMap<NbtCompound, ItemSlot> {
+        val returnList = HashMap<NbtCompound, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList.put(x.left, ItemSlot(x.left,x.right,z))
+                returnList.put(x.left.toNbt(), ItemSlot(x.left,x.right,z))
             }
         }
         return returnList
@@ -101,8 +101,8 @@ object CircleHelper {
     fun storeItems(env: CircleCastEnv, itemStack: ItemStack): Boolean {
         val list = getStorage(env)
         val hashMap = getLists(list)
-        if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.nbt))) {
-            val slot = hashMap.get(ItemVariant.of(itemStack.item, itemStack.nbt))!!
+        if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.nbt).toNbt())) {
+            val slot = hashMap.get(ItemVariant.of(itemStack.item, itemStack.nbt).toNbt())!!
             val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
             val item = slot.storageLociEntity.getStack(targ)
             item.right += itemStack.count
