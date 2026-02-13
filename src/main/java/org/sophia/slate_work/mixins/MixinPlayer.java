@@ -1,20 +1,29 @@
 package org.sophia.slate_work.mixins;
 
-import dev.architectury.event.events.common.TickEvent;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.registries.AttributeRegistry;
 import org.sophia.slate_work.storage.SlateFakePlayer;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
-public class MixinPlayer {
+public abstract class MixinPlayer {
+
+    @Shadow
+    public abstract PlayerInventory getInventory();
+
+    @Shadow
+    public abstract @Nullable ItemEntity dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership);
 
     @Inject(at = @At("RETURN"), method = "createPlayerAttributes")
     private static void slate_work$addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir){
@@ -32,6 +41,13 @@ public class MixinPlayer {
 
             cir.setReturnValue(itemEntity);
             cir.cancel();
+        }
+    }
+
+    @Inject(method = "equipStack", at = @At("RETURN"))
+    private void slate_work$IDontWantTheseGetRidOfThem(EquipmentSlot slot, ItemStack stack, CallbackInfo ci){
+        if ((Object)this instanceof SlateFakePlayer player && !stack.isEmpty()) {
+            this.dropItem(stack, true, false);
         }
     }
 }

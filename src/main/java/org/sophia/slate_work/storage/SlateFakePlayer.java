@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.entity.FakePlayer;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
@@ -18,6 +17,16 @@ public class SlateFakePlayer extends FakePlayer {
     public SlateFakePlayer(ServerWorld world, HotbarLociEntity entity) {
         super(world, new GameProfile(DEFAULT_UUID, "[SlateFakePlayer]"));
         inventory = new SlateFakePlayerInv(this, entity);
+
+        // Experimental way not to wear armor, kind of doesn't work though
+        /*ItemStack jankyJankyStack = new ItemStack(Items.DIRT);
+        var enchant = new HashMap<Enchantment, Integer>();
+        enchant.put(Enchantments.BINDING_CURSE, 1);
+        EnchantmentHelper.set(enchant,jankyJankyStack);
+        for(int i = 0; i < inventory.armor.size(); i++) {
+            inventory.armor.set(i, jankyJankyStack.copy());
+        }*/
+
     }
 
     @Override
@@ -40,7 +49,6 @@ public class SlateFakePlayer extends FakePlayer {
         return inventory;
     }
 
-    // TODO: Mixin!
     @Override
     public ItemEntity dropItem(ItemStack stack, boolean throwRandomly, boolean retainOwnership) {
         return super.dropItem(stack, throwRandomly, retainOwnership);

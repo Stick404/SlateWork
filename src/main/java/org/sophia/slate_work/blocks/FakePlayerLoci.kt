@@ -8,9 +8,11 @@ import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate
 import at.petrak.hexcasting.common.lib.HexSounds
+import at.petrak.hexcasting.interop.HexInterop
 import com.mojang.datafixers.util.Pair
 import net.fabricmc.fabric.api.event.player.UseBlockCallback
 import net.fabricmc.fabric.api.event.player.UseEntityCallback
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.ShapeContext
@@ -41,6 +43,7 @@ import org.sophia.slate_work.Slate_work.TOGGLED
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota.Companion.ofType
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
+import org.sophia.slate_work.compat.SlateWorksTrinkets
 import org.sophia.slate_work.storage.SlateFakePlayer
 import java.util.stream.Collectors
 import java.util.stream.Stream
@@ -48,8 +51,7 @@ import kotlin.math.sign
 
 
 class FakePlayerLoci : AbstractSlate {
-
-
+    val hasTrinkets: Boolean = FabricLoader.getInstance().isModLoaded(HexInterop.Fabric.TRINKETS_API_ID)
     constructor(settings: Settings) : super(settings) {
         this.defaultState = this.stateManager.getDefaultState().with(TOGGLED, false).with(ENERGIZED, false)
     }
@@ -208,7 +210,7 @@ class FakePlayerLoci : AbstractSlate {
         fake.setPos(fakePos.x, fakePos.y, fakePos.z)
         fake.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, hit.pos)
 
-        val entities: MutableList<Entity?>? = world.getEntitiesByClass(Entity::class.java, Box(pos, pos.subtract(hit.pos))) { true }
+        val entities: MutableList<Entity?>? = world.getEntitiesByClass(Entity::class.java, Box(pos, hit.pos)) { true }
             .stream()
             .collect(Collectors.toList())
 
@@ -221,8 +223,10 @@ class FakePlayerLoci : AbstractSlate {
                     if (entity is VillagerEntity) {
                         if (entity.customer is SlateFakePlayer) entity.customer = null
                     }
+                    end(fake)
                     return ControlFlow.Continue(imageIn, exitDirs!!.toList())
                 } else if (entity is LivingEntity && stack.useOnEntity(fake, entity, Hand.MAIN_HAND) == ActionResult.CONSUME) {
+                    end(fake)
                     return ControlFlow.Continue(imageIn, exitDirs!!.toList())
                 }
             }
@@ -238,10 +242,16 @@ class FakePlayerLoci : AbstractSlate {
             }
         }
 
-		fake.stopUsingItem()
+        end(fake)
+        return ControlFlow.Continue(imageIn, exitDirs!!.toList())
+    }
+
+    private fun end(fake: SlateFakePlayer){
+        if (hasTrinkets) {
+            SlateWorksTrinkets.makeFakeDropTrinkets(fake)
+        }
+        fake.stopUsingItem()
         fake.getInventory().dropAll()
         fake.discard()
-
-        return ControlFlow.Continue(imageIn, exitDirs!!.toList())
     }
 }

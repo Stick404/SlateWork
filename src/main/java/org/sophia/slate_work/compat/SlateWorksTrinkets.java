@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.sophia.slate_work.misc.ChatHelper;
 import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.storage.SlateFakePlayer;
 
 import java.util.UUID;
 
@@ -32,6 +33,15 @@ public class SlateWorksTrinkets {
         for (var z : opt.get().getEquipped(BlockRegistry.WHISPERING_STONE)){
             hold.setStack(z.getRight());
             break;
+        }
+    }
+
+    public static void makeFakeDropTrinkets(SlateFakePlayer fakePlayer) {
+        var check = TrinketsApi.getTrinketComponent(fakePlayer);
+        if (check.isPresent()) {
+            for (var slot : check.get().getAllEquipped()){
+                fakePlayer.dropItem(slot.getRight(), true, false);
+            }
         }
     }
 }

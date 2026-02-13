@@ -3,11 +3,10 @@ package org.sophia.slate_work;
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.common.lib.HexSounds;
+import at.petrak.hexcasting.interop.HexInterop;
 import com.mojang.serialization.Codec;
 import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import miyucomics.hexpose.iotas.TextIota;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
@@ -102,7 +101,7 @@ public class Slate_work implements ModInitializer {
         if (FabricLoader.getInstance().isModLoaded("ioticblocks")) {
             SlateWorksIoticBlocks.init();
         }
-        if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+        if (FabricLoader.getInstance().isModLoaded(HexInterop.Fabric.TRINKETS_API_ID)) {
             SlateWorksTrinkets.init();
             ChatHelper.getHelper().setTRINKETS(true);
         }
