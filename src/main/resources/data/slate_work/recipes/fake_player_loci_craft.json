@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    "S": {
+      "item": "hexcasting:slate"
+    },
+    "B": {
+      "item": "hexcasting:slate_block"
+    }
+  },
+  "pattern": [
+    " A ",
+    "SBS"
+  ],
+  "result": {
+    "item": "slate_work:fake_player_loci"
+  }
+}
