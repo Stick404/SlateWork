@@ -113,9 +113,9 @@ class SpeedLoci : AbstractSlate {
         (env!!.circleState() as ICircleSpeedValue).`slate_work$getRealValue`()
         val speed: Int = (env.circleState() as MixinCircleExecInvoker).`slate_work$getTickSpeed`()
 
-        if (rounded >= speed || rounded == 0) { // the `rounded == 0` will make the circle run at its normal speed
+        //if (rounded == 0) { // the `rounded == 0` will make the circle run at its normal speed
             data.putInt("set_speed", rounded)
-        }
+        //}
 
         return ControlFlow.Continue(image.copy(userData = data, stack = stack), exitDirs?.toList())
     }

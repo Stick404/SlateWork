@@ -44,7 +44,7 @@ public abstract class MixinPlayer {
         }
     }
 
-    @Inject(method = "equipStack", at = @At("RETURN"))
+    @Inject(method = "equipStack", at = @At("HEAD"))
     private void slate_work$IDontWantTheseGetRidOfThem(EquipmentSlot slot, ItemStack stack, CallbackInfo ci){
         if ((Object)this instanceof SlateFakePlayer player && !stack.isEmpty()) {
             this.dropItem(stack, true, false);

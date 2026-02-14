@@ -54,7 +54,9 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
             }
         }
         if (targetSpeed != 0 && !slate_work$realValue) {
-            cir.setReturnValue(targetSpeed);
+            if (cir.getReturnValue() < targetSpeed){
+                cir.setReturnValue(targetSpeed);
+            }
         }
         if (slate_work$realValue) slate_work$realValue = false;
     }
