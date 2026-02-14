@@ -37,13 +37,10 @@ class ChunkScanning(var level: ServerWorld) {
     }
 
     fun getBlock(blockPos: BlockPos): BlockState? {
-        println("Finding...")
         val chunkPos = ChunkPos(blockPos).toLong()
         if (!cacheChunk(chunkPos)){
-            println("Did not find chunk at $chunkPos!")
             return null
         }
-        println("Found chunk at $chunkPos!")
         return chunks.get(chunkPos).getBlockState(blockPos)
     }
 
