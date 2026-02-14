@@ -41,6 +41,7 @@ import net.minecraft.world.RaycastContext
 import net.minecraft.world.World
 import org.sophia.slate_work.Slate_work.TOGGLED
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity
+import org.sophia.slate_work.casting.mishap.MishapNoHotbarLoci
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota.Companion.ofType
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import org.sophia.slate_work.compat.SlateWorksTrinkets
@@ -53,7 +54,7 @@ import kotlin.math.sign
 class FakePlayerLoci : AbstractSlate {
     val hasTrinkets: Boolean = FabricLoader.getInstance().isModLoaded(HexInterop.Fabric.TRINKETS_API_ID)
     constructor(settings: Settings) : super(settings) {
-        this.defaultState = this.stateManager.getDefaultState().with(TOGGLED, false).with(ENERGIZED, false)
+        this.defaultState = this.stateManager.getDefaultState().with(TOGGLED, false).with(ENERGIZED, false).with(WATERLOGGED, false)
     }
 
     override fun appendProperties(builder: StateManager.Builder<Block?, BlockState?>) {
@@ -142,7 +143,7 @@ class FakePlayerLoci : AbstractSlate {
         if (hotbar !is HotbarLociEntity) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
-                MishapSpellCircleNotEnoughArgs(1,0,pos)
+                MishapNoHotbarLoci(pos)
             )
             return ControlFlow.Stop()
         }

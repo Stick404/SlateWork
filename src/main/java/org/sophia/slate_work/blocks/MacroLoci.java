@@ -57,7 +57,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     public static final BooleanProperty FOCUS = BooleanProperty.of("focus");
     public MacroLoci(Settings p_49795_) {
         super(p_49795_);
-        this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false).with(ENERGIZED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(FOCUS,false).with(ENERGIZED, false).with(WATERLOGGED, false));
     }
 
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {

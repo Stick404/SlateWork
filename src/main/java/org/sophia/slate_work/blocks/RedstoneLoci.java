@@ -37,7 +37,7 @@ public class RedstoneLoci extends AbstractSlate {
 
     public RedstoneLoci(Settings p_49795_) {
         super(p_49795_);
-        this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 0).with(POWERED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 0).with(POWERED, false).with(WATERLOGGED, false));
     }
 
     @Override
