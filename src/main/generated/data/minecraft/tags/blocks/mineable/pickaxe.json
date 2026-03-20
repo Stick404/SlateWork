@@ -13,6 +13,9 @@
     "slate_work:hotbar_loci",
     "slate_work:redstone_loci",
     "slate_work:accelerator_loci",
-    "slate_work:save_loci"
+    "slate_work:save_loci",
+    "slate_work:fake_player_loci",
+    "slate_work:slate_plated_edified_planks",
+    "slate_work:amethyst_embedded_slate"
   ]
 }

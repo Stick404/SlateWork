@@ -46,18 +46,21 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
         if (!world.isClient()){
             var stack = context.getStack();
             var entity = world.getBlockEntity(context.getBlockPos());
+            // TODO: make this check dim, don't want the stone breaking when used in the nether
             if (entity instanceof ListeningImpetusEntity listening && !listening.isDefault()){
                 if (context.getPlayer() != null){
                     context.getPlayer().playSound(HexSounds.ABACUS, SoundCategory.PLAYERS, 1f, 1f);
                 }
                 stack.setSubNbt("cords", NbtHelper.fromBlockPos(listening.getPos()));
                 stack.setSubNbt("string", NbtString.of(listening.getString()));
+                stack.setSubNbt("dim", NbtString.of(listening.getWorld().getRegistryKey().getValue().toString()));
                 return ActionResult.SUCCESS;
             }
             if (context.getPlayer() != null && context.getPlayer().isSneaking() && stack.getSubNbt("cords") != null) {
                 context.getPlayer().playSound(HexSounds.ABACUS_SHAKE, SoundCategory.PLAYERS, 1f, 1f);
                 stack.removeSubNbt("cords");
                 stack.removeSubNbt("string");
+                stack.removeSubNbt("dim");
                 return ActionResult.SUCCESS;
             }
         }

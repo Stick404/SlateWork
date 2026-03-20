@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "slate_work:block/slate_plated_edified_planks_2"
+  }
+}

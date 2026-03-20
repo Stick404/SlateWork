@@ -40,6 +40,10 @@ public class BlockRegistry {
     private static final HashMap<Identifier, Item> ITEM_REGISTRY = new HashMap<>();
     public static HashMap<Identifier, Item> ENERGIZED_BLOCKS = new HashMap<>();
 
+    // Deco Blocks
+    public static Block SLATE_PLATED_EDIFIED_PLANKS = registerBasicBlockItem("slate_plated_edified_planks", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
+    public static Block AMETHYST_EMBEDDED_SLATE = registerBasicBlockItem("amethyst_embedded_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
+
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(locusSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(locusSetting.nonOpaque()));
     public static AmbitLoci AMBIT_LOCI = registerBlockItem("ambit_loci", new AmbitLoci(locusSetting));
@@ -102,6 +106,11 @@ public class BlockRegistry {
         Registry.register(Registries.ITEM_GROUP, SLATE_WORK_GROUP_KEY, SLATE_WORK_GROUP);
     }
 
+    private static <T extends Block> T registerBasicBlockItem(String name, T block){
+        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
+        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), new Item.Settings()));
+        return block;
+    }
 
     private static <T extends Block> T registerBlockItem(String name, T block){
         BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);

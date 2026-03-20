@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "slate_work:block/slate_plated_edified_planks",
+        "weight": 3
+      },
+      {
+        "model": "slate_work:block/slate_plated_edified_planks_2",
+        "weight": 3
+      },
+      {
+        "model": "slate_work:block/slate_plated_edified_planks_3"
+      }
+    ]
+  }
+}

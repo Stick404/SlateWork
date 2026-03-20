@@ -31,6 +31,7 @@ public class BlockModelDatagen extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
 
+        // Loci
         registerEnergizedOnly("ambit_loci", BlockRegistry.AMBIT_LOCI, generator);
         registerEnergizedOnly("crafting_loci", BlockRegistry.CRAFTING_LOCI, generator);
         registerEnergizedOnly("broadcaster_loci", BlockRegistry.BROADCASTER_LOCI, generator);
@@ -45,7 +46,25 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerEnergizedFacing("accelerator_loci", BlockRegistry.ACCELERATOR_LOCI, generator);
         registerEnergizedFacing("fake_player_loci", BlockRegistry.FAKE_PLAYER_LOCI, generator);
 
+        // Impeti
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
+
+        // Deco Blocks
+
+        generator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
+                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks")).put(VariantSettings.WEIGHT, 3),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_2")).put(VariantSettings.WEIGHT, 3),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_3"))
+                ));
+        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
+                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks")), generator.modelCollector);
+        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_2",
+                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_2")), generator.modelCollector);
+        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_3",
+                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_3")), generator.modelCollector);
+
+        generator.registerSimpleCubeAll(BlockRegistry.AMETHYST_EMBEDDED_SLATE);
     }
 
     private static final String impeti = "block/impeti/";

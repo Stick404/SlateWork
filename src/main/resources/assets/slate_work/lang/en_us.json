@@ -17,6 +17,8 @@
 
   "block.slate_work.listening_impetus": "Librarian Impetus",
 
+  "block.slate_work.slate_plated_edified_planks": "Slate Plated Edified Planks",
+
   "Patterns:": "",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",
   "hexcasting.action.slate_work:check_item": "Check Item",

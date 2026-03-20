@@ -86,13 +86,25 @@ public class Slate_work implements ModInitializer {
                         entity.sync();
                     }
                     if (!z.failed() && z.blocked()) {
-                        if (z.item() && z.entity().isEmpty()) sender.playSound(HexSounds.FLIGHT_FINISH, SoundCategory.PLAYERS, 1f, 1.5f);
-                        else sender.playSound(HexSounds.READ_LORE_FRAGMENT, SoundCategory.PLAYERS, 1f, 2f);
+                        if (z.item() && z.entity().isEmpty()) {
+                            sender.playSound(HexSounds.FLIGHT_FINISH, SoundCategory.PLAYERS, 1f, 1.5f);
+                        }
+                        else {
+                            sender.playSound(HexSounds.READ_LORE_FRAGMENT, SoundCategory.PLAYERS, 1f, 2f);
+                        }
                     } else if (z.failed() && z.whispering().isPresent() && z.entity().isEmpty() && z.blocked()) {
                         var stack = z.whispering().get();
-                        sender.playSound(HexSounds.CAST_FAILURE, SoundCategory.PLAYERS, 1f, 1f);
-                        stack.removeSubNbt("cords");
-                        stack.removeSubNbt("string");
+                        System.out.println(sender.getWorld().getRegistryKey().getValue().toString());
+                        System.out.println(stack.getOrCreateSubNbt("dim"));
+                        if (!stack.getOrCreateSubNbt("dim").equals(sender.getWorld().getRegistryKey().getValue().toString())) {
+                            sender.playSound(HexSounds.CAST_FAILURE, SoundCategory.PLAYERS, 1f, 1f);
+                            stack.removeSubNbt("cords");
+                            stack.removeSubNbt("string");
+                            stack.removeSubNbt("dim");
+                        } else {
+                            sender.playSound(HexSounds.SCROLL_SCRIBBLE, SoundCategory.PLAYERS, 1f, 1f);
+                        }
+
                     }
                     return !z.blocked();
             });
