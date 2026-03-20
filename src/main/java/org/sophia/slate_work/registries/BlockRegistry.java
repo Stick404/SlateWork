@@ -43,6 +43,7 @@ public class BlockRegistry {
     // Deco Blocks
     public static Block SLATE_PLATED_EDIFIED_PLANKS = registerBasicBlockItem("slate_plated_edified_planks", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
     public static Block AMETHYST_EMBEDDED_SLATE = registerBasicBlockItem("amethyst_embedded_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
+    public static Block COPPER_PLATED_SLATE = registerBasicBlockItem("copper_plated_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(locusSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(locusSetting.nonOpaque()));

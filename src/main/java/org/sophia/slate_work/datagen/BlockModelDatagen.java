@@ -48,9 +48,8 @@ public class BlockModelDatagen extends FabricModelProvider {
 
         // Impeti
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
-
+ 
         // Deco Blocks
-
         generator.blockStateCollector.accept(
                 VariantsBlockStateSupplier.create(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
                         BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks")).put(VariantSettings.WEIGHT, 3),
@@ -65,6 +64,7 @@ public class BlockModelDatagen extends FabricModelProvider {
                 new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_3")), generator.modelCollector);
 
         generator.registerSimpleCubeAll(BlockRegistry.AMETHYST_EMBEDDED_SLATE);
+        generator.registerSimpleCubeAll(BlockRegistry.COPPER_PLATED_SLATE);
     }
 
     private static final String impeti = "block/impeti/";
