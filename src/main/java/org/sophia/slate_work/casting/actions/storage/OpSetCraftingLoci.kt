@@ -15,7 +15,7 @@ import org.sophia.slate_work.misc.CircleHelper.getItemVariant
 import org.sophia.slate_work.registries.BlockRegistry
 
 @Suppress("UnstableApiUsage")
-object OpSetCraftingLoci : ConstMediaAction{
+object OpSetCraftingLoci : ConstMediaAction {
     override val argc: Int
         get() = 2
 

@@ -16,6 +16,8 @@
     "slate_work:save_loci",
     "slate_work:fake_player_loci",
     "slate_work:slate_plated_edified_planks",
-    "slate_work:amethyst_embedded_slate"
+    "slate_work:amethyst_embedded_slate",
+    "slate_work:copper_plated_slate",
+    "slate_work:replicated_allay"
   ]
 }

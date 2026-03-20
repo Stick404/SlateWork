@@ -137,8 +137,8 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                 }
 
                 // If we know the item is there, increment it, else, add it
-                if (shoppingList.containsKey(variant)) shoppingList.put(variant, shoppingList.get(variant) + 1);
-                else shoppingList.put(variant, 1);
+                if (shoppingList.containsKey(variant)) shoppingList.put(variant, shoppingList.get(variant) + craftingLoci.getCraftCount());
+                else shoppingList.put(variant, craftingLoci.getCraftCount());
                 container.setStack(i, temp);
             }
 
@@ -161,18 +161,20 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
                 } else {
-                            slot.getStorageLociEntity().removeStack(
-                            slot.getStorageLociEntity().getSlot(slot.getItem()),
-                            pair.getValue());
+                    slot.getStorageLociEntity().removeStack(
+                        slot.getStorageLociEntity().getSlot(slot.getItem()), pair.getValue()
+                    );
                 }
             }
 
-            var outputItem = recipeOpt.get().craft(container, serverWorld.getRegistryManager());
-            var remainderItems = recipeOpt.get().getRemainder(container);
+            for (int i = 0; i < craftingLoci.getCraftCount(); i++) {
+                var outputItem = recipeOpt.get().craft(container, serverWorld.getRegistryManager());
+                var remainderItems = recipeOpt.get().getRemainder(container);
 
-            CircleHelper.INSTANCE.storeItems(circleCastEnv, outputItem);
-            for (var item : remainderItems) {
-                CircleHelper.INSTANCE.storeItems(circleCastEnv, item);
+                CircleHelper.INSTANCE.storeItems(circleCastEnv, outputItem);
+                for (var item : remainderItems) {
+                    CircleHelper.INSTANCE.storeItems(circleCastEnv, item);
+                }
             }
 
             serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1.0F, 1F);

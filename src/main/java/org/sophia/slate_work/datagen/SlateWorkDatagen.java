@@ -33,6 +33,8 @@ public class SlateWorkDatagen implements DataGeneratorEntrypoint {
             BlockRegistry.FAKE_PLAYER_LOCI,
 
             BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
-            BlockRegistry.AMETHYST_EMBEDDED_SLATE
+            BlockRegistry.AMETHYST_EMBEDDED_SLATE,
+            BlockRegistry.COPPER_PLATED_SLATE,
+            BlockRegistry.REPLICATED_ALLAY
     );
 }

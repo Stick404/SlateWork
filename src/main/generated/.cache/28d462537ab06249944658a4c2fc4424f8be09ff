@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-20T16:18:49.626964573	Slate Works/Model Definitions
+// 1.20.1	2026-03-20T17:35:28.245157337	Slate Works/Model Definitions
 14779da5f4503e4e927d8cf9ff9c0427897543af assets/slate_work/models/item/copper_plated_slate.json
 7ad63dd7ef4036429f10b4cca6d928df699531cd assets/slate_work/models/item/listening_impetus.json
 c09b9ac5680eb16f9fc8663336c6557fd5e6dbcd assets/slate_work/models/item/storage_loci.json
@@ -10,8 +10,8 @@ a0e110195f48a483826c32bcb19fcfaaeabdba43 assets/slate_work/models/item/redstone_
 1ec06eb9ca12d043f95e8d1c02cf94d0fc6e53c8 assets/slate_work/models/block/slate_plated_edified_planks_3.json
 5d3e3ec84d1e252e62b75a033b154d53559f64a9 assets/slate_work/models/item/macro_loci.json
 50f292e6caf8feb662cc918a157211882fd23578 assets/slate_work/models/item/fake_player_loci.json
-ab0e62dd8e1350d858753853a741f87987dfb55d assets/slate_work/blockstates/copper_plated_slate.json
 c2c148fe9df9bcb952cb5358e71654d11bed5335 assets/slate_work/blockstates/hotbar_loci.json
+ab0e62dd8e1350d858753853a741f87987dfb55d assets/slate_work/blockstates/copper_plated_slate.json
 56fce66043c059e3e57f5d7442b9088857b6fb64 assets/slate_work/blockstates/sentinel_loci.json
 59cb5516d4ad73bab471d362e54d55fda9dbf697 assets/slate_work/models/item/hotbar_loci.json
 2167bd1e5dcb2f3cf18e9ff8f596c4e50279bc57 assets/slate_work/blockstates/speed_loci.json
@@ -26,11 +26,14 @@ c619b6695cc4bfac178b6a6cceb85ce13ab98c48 assets/slate_work/blockstates/broadcast
 1314549c0e763fdd8dd2948f244bd70a638127b3 assets/slate_work/models/block/listening_impetus_dim.json
 24dab213ca8492b3d5466f0da8126046bbd6d292 assets/slate_work/blockstates/amethyst_embedded_slate.json
 577e6ccf768e168e10c94cf6183aec5953f4a262 assets/slate_work/blockstates/save_loci.json
+938c6914ed0cae113721b7ce73e1fd86dc3ddbf3 assets/slate_work/blockstates/replicated_allay.json
 7eb376c2a5c7b91c9f5a4f977461bb17c689fdf1 assets/slate_work/blockstates/listening_impetus.json
 3b3bf716379d7b13d20847b0a9e5d5257132543b assets/slate_work/models/item/mute_loci.json
 8f0126f67a1624ed29336492d4943b0613077502 assets/slate_work/blockstates/redstone_loci.json
+91fd6b0df743acec634a700b5364e986c28b7ab9 assets/slate_work/models/item/replicated_allay.json
 349781a1a381417f85113ee0c4b258aea578b293 assets/slate_work/models/item/sentinel_loci.json
 0d7cbb052cbc3008fbf7b6dfd9ba33aa8b46bc49 assets/slate_work/models/block/copper_plated_slate.json
+ff0b5733a9c4aeacd8cc1d1f6d4bc43b54ed2e1a assets/slate_work/models/block/replicated_allay.json
 bd02a8abac6ef2ddabb0d77bcde8d84576acd868 assets/slate_work/models/item/crafting_loci.json
 0524bf843f19a6985d1448b6f3689eeeba6acfe3 assets/slate_work/models/item/ambit_loci.json
 1da03a0139c326b405fd81b462310a8679abd05f assets/slate_work/models/item/broadcaster_loci.json

@@ -30,7 +30,8 @@ import java.util.Iterator;
 import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
 
 public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SlottedStorage<ItemVariant> {
-    DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
+    private DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);
+    private int craftCount = 1;
 
     public CraftingLociEntity(BlockPos pos, BlockState state) {
         super(CRAFTING_LOCI_ENTITY, pos, state);
@@ -50,12 +51,31 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     protected void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
         Inventories.writeNbt(nbt,this.inv);
+        nbt.putLong("craft_count", craftCount);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         Inventories.readNbt(nbt,this.inv);
+        int count = nbt.getInt("craft_count");
+        if (count <= 0) {
+            this.craftCount = 1;
+        } else {
+            this.craftCount = count;
+        }
+    }
+
+    public boolean setCraftCount(int craftCount) {
+        if (craftCount >= 0){
+            this.craftCount = craftCount;
+            return true;
+        }
+        return false;
+    }
+
+    public int getCraftCount() {
+        return craftCount;
     }
 
     public ItemStack getStack(int slot) {

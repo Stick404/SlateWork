@@ -20,6 +20,7 @@
   "block.slate_work.slate_plated_edified_planks": "Slate Plated Edified Planks",
   "block.slate_work.amethyst_embedded_slate": "Amethyst Embedded Slate",
   "block.slate_work.copper_plated_slate": "Copper Plated Slate",
+  "block.slate_work.replicated_allay": "Replicated Allay",
 
   "Patterns:": "",
   "hexcasting.action.slate_work:get_storage": "Get Vessels",

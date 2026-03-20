@@ -16,7 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
+import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.*;
@@ -44,6 +46,7 @@ public class BlockRegistry {
     public static Block SLATE_PLATED_EDIFIED_PLANKS = registerBasicBlockItem("slate_plated_edified_planks", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
     public static Block AMETHYST_EMBEDDED_SLATE = registerBasicBlockItem("amethyst_embedded_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
     public static Block COPPER_PLATED_SLATE = registerBasicBlockItem("copper_plated_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
+    public static Block REPLICATED_ALLAY = registerBasicBlockItem("replicated_allay", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AMETHYST_BLOCK).mapColor(DyeColor.CYAN).strength(0, 0)));
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(locusSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(locusSetting.nonOpaque()));

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "slate_work:replicated_allay"
+    },
+    {
+      "item": "slate_work:replicated_allay"
+    }
+  ],
+  "result": {
+    "count": 4,
+    "item": "slate_work:replicated_allay"
+  }
+}
