@@ -10,7 +10,7 @@ import org.sophia.slate_work.blocks.entities.BroadcasterLociEntity
 object KnownBroadcasters {
     private var knownBroadcasters: HashMap<BlockPosDim, Iota> = HashMap()
 
-    fun getOrLoad(world: ServerWorld, pos: BlockPos): Iota? {
+    fun getOrLoad(world: ServerWorld, pos: BlockPos): Iota {
         val dimPos = BlockPosDim(pos, world.dimensionKey.value)
         if (knownBroadcasters.contains(dimPos)) {
             return knownBroadcasters.get(dimPos)!!
