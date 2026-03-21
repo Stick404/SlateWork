@@ -18,6 +18,7 @@ object OpGetCraftingCount : ConstMediaAction {
         env: CastingEnvironment
     ): List<Iota> {
         val block = args.getBlockPos(0, argc)
+        env.assertPosInRange(block)
         val blockEntity = env.world.getBlockEntity(block)
         if (blockEntity is CraftingLociEntity) {
             return listOf(DoubleIota(blockEntity.craftCount.toDouble()))

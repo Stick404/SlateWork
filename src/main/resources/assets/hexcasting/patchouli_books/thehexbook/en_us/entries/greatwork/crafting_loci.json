@@ -18,6 +18,10 @@
       "text": "slate_work.page.crafting_loci.crafting_loci_cont"
     },
     {
+      "type": "patchouli:text",
+      "text": "slate_work.page.crafting_loci.bulk"
+    },
+    {
       "type": "hexcasting:brainsweep",
       "recipe": "slate_work:brainsweep/crafting_loci_flay",
       "text": "slate_work.page.crafting_loci.crafting"

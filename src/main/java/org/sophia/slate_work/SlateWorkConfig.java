@@ -14,4 +14,7 @@ public class SlateWorkConfig implements ConfigData {
     public boolean aggressiveNBTOptimizations = false;
     @Comment("If set to true, Slate Works tries to aggressively optimize Spell Circle path scanning, may crash with other addons that mixin to Spell Circles. Here be dragons!")
     public boolean aggressiveScanningOptimizations = false;
+
+    @Comment("A half joke feature where the Replicated Allay becomes edible and gives 1 point of food and saturation. Changes only on restart")
+    public boolean imAGummyBear = false;
 }

@@ -17,6 +17,7 @@ object OpSetMacro : ConstMediaAction {
 
     override fun execute(args: List<Iota>, env: CastingEnvironment): List<Iota> {
         val target = args.getBlockPos(0, argc)
+        env.assertPosInRangeForEditing(target)
         val iota = args[1]
         val pattern = args.getPattern(2, argc)
 
@@ -31,7 +32,6 @@ object OpSetMacro : ConstMediaAction {
 
         entity.setFocusContents(iota, env)
         entity.setPattern(pattern)
-
 
         return listOf()
     }

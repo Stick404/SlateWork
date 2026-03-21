@@ -1,6 +1,7 @@
 package org.sophia.slate_work.registries;
 
 import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
+import me.shedaniel.autoconfig.AutoConfig;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
@@ -9,10 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -20,6 +18,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import org.sophia.slate_work.SlateWorkConfig;
 import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.*;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
@@ -46,7 +45,7 @@ public class BlockRegistry {
     public static Block SLATE_PLATED_EDIFIED_PLANKS = registerBasicBlockItem("slate_plated_edified_planks", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
     public static Block AMETHYST_EMBEDDED_SLATE = registerBasicBlockItem("amethyst_embedded_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
     public static Block COPPER_PLATED_SLATE = registerBasicBlockItem("copper_plated_slate", new Block(AbstractBlock.Settings.copy(Blocks.DEEPSLATE)));
-    public static Block REPLICATED_ALLAY = registerBasicBlockItem("replicated_allay", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AMETHYST_BLOCK).mapColor(DyeColor.CYAN).strength(0, 0)));
+    public static Block REPLICATED_ALLAY = registerReplicatedAllay("replicated_allay", new Block(AbstractBlock.Settings.create().sounds(BlockSoundGroup.AMETHYST_BLOCK).mapColor(DyeColor.CYAN).strength(0, 0)));
 
     public static StorageLoci STORAGE_LOCI = registerBlockItem("storage_loci", new StorageLoci(locusSetting));
     public static CraftingLoci CRAFTING_LOCI = registerBlockItem("crafting_loci", new CraftingLoci(locusSetting.nonOpaque()));
@@ -108,6 +107,18 @@ public class BlockRegistry {
         }
 
         Registry.register(Registries.ITEM_GROUP, SLATE_WORK_GROUP_KEY, SLATE_WORK_GROUP);
+    }
+
+    private static <T extends Block> T registerReplicatedAllay(String name, T block){
+        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
+        Item.Settings settings;
+        if (AutoConfig.getConfigHolder(SlateWorkConfig.class).getConfig().imAGummyBear) {
+            settings = new Item.Settings().food(new FoodComponent.Builder().alwaysEdible().snack().hunger(1).saturationModifier(1).build());
+        } else {
+            settings = new Item.Settings();
+        }
+        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), settings));
+        return block;
     }
 
     private static <T extends Block> T registerBasicBlockItem(String name, T block){

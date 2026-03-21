@@ -58,8 +58,8 @@
   "slate_work.page.storage_loci.get_item_cont": "继续解释说明。它会对$(thing)容具/$中存储的所有物品运行给定$(hex)咒术/$。该$(hex)咒术/$必须从栈顶至栈底依次返回 False（此时省略向量和数），或 True、一个向量、一个数。向量代表向世界输出物品的位置（需在影响范围内），数代表应取出的数量。$(br2)每有一个激活的$(thing)容具/$消耗 1/4 个$(l:items/amethyst)紫水晶粉/$。",
   "slate_work.page.storage_loci.check_item": "检查物品的功能和唤回物品类似。但它只需要$(hex)咒术/$返回一个布尔值。如果所有布尔值中有一个为 True，则法术结束并返回 True。",
   "slate_work.page.storage_loci.sort_items": "在某些情况下，$(thing)容具/$会变得杂乱无章，同种物品被分散到不同的$(thing)容具/$里去。这条好用的法术就可以整理它们，但它有代价：需消耗 5 个$(l:items/amethyst)充能紫水晶/$。",
-  "slate_work.page.storage_loci.set_craft": "为$(l:greatwork/crafting_loci)样板组装器/$设置合成配方。接受包含 $(l:casting/influences)$(thing)Null/$、物品、物品变种的列表，并将此列表应用于目标$(l:greatwork/crafting_loci)组装器/$。",
-  "slate_work.page.storage_loci.set_craft_cont": "需要注意，$(l:greatwork/crafting_loci)样板组装器/$会将所给列表“格式化”为从左至右再从上至下的配方。自然，$(l:casting/influences)$(thing)Null/$ 代表配方中的空位。最后提一句，法术会在列表长于 9 个元素时招致事故，少于或等于 9 个时则不会。$(br2)在$(l:greatwork/spellcircles)法术环/$外施放不会招致事故。消耗极少量$(media)媒质/$。",
+  "slate_work.page.patterns_crafting_loci.set_craft": "为$(l:greatwork/crafting_loci)样板组装器/$设置合成配方。接受包含 $(l:casting/influences)$(thing)Null/$、物品、物品变种的列表，并将此列表应用于目标$(l:greatwork/crafting_loci)组装器/$。",
+  "slate_work.page.patterns_crafting_loci.set_craft_cont": "需要注意，$(l:greatwork/crafting_loci)样板组装器/$会将所给列表“格式化”为从左至右再从上至下的配方。自然，$(l:casting/influences)$(thing)Null/$ 代表配方中的空位。最后提一句，法术会在列表长于 9 个元素时招致事故，少于或等于 9 个时则不会。$(br2)在$(l:greatwork/spellcircles)法术环/$外施放不会招致事故。消耗极少量$(media)媒质/$。",
   "slate_work.page.storage_loci.set_macro": "此图案会为目标位置处的$(l:greatwork/macro_loci)法术刻印器/$绑定一个图案和一个 iota。$(br2)在$(l:greatwork/spellcircles)法术环/$外施放不会招致事故。消耗极少量$(media)媒质/$。",
   "slate_work.page.storage_loci.read_broadcast": "尝试读取所给向量处的 $(l:greatwork/broadcaster_loci)Iota 之门/$。如果该处无 $(l:greatwork/broadcaster_loci)Iota 之门/$则返回垃圾。$(br)在$(l:greatwork/spellcircles)法术环/$外施放不会招致事故，无需消耗媒质$(media)媒质/$，也不受影响范围限制。",
 
@@ -83,7 +83,7 @@
 
   "slate_work.entry.crafting_loci": "样板组装器",
   "slate_work.page.crafting_loci.crafting_loci": "我的双手在$(item)工作台/$上不断挥动，带来的只是$(o)疼痛/$和$(o)麻木/$……好在这些都过去了。$(thing)样板组装器/$就是止痛剂。$(br2)$(o)物品里埋着物品，合成到停不下来，看到停不下来，合成、自动化、更多物品。$(b)现在就要/$。",
-  "slate_work.page.crafting_loci.crafting_loci_cont": "$(thing)样板组装器/$的真正原理是：从激活的$(l:greatwork/storage_loci_block)存储容具/$中取出物品，按设定合成，再把产物存回$(thing)容具/$。$(thing)组装器/$被$(l:greatwork/spellcircles)法术环/$触发时即会执行上述操作。可以手工设置配方，也可使用$(l:patterns/spells/storage_loci#slate_work:set_craft)法术/$。如果它可以合成给定物品，则它会向栈返回 True，并合成物品；否则（原材料不够，配方没指定等）返回 False，且不会合成。",
+  "slate_work.page.crafting_loci.crafting_loci_cont": "$(thing)样板组装器/$的真正原理是：从激活的$(l:greatwork/storage_loci_block)存储容具/$中取出物品，按设定合成，再把产物存回$(thing)容具/$。$(thing)组装器/$被$(l:greatwork/spellcircles)法术环/$触发时即会执行上述操作。可以手工设置配方，也可使用$(l:patterns/spells/crafting_loci#slate_work:set_craft)法术/$。如果它可以合成给定物品，则它会向栈返回 True，并合成物品；否则（原材料不够，配方没指定等）返回 False，且不会合成。",
   "slate_work.page.crafting_loci.crafting": "$(thing)样板组装器/$需要熟络典籍和文章，能一目十行的村民的意识。完美之选是$(thing)图书管理员/$。",
 
   "slate_work.entry.macro_loci": "法术刻印器",

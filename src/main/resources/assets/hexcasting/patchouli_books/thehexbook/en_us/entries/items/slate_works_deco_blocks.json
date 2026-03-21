@@ -1,0 +1,29 @@
+{
+  "name": "slate_work.entry.deco_blocks",
+  "category": "hexcasting:items",
+  "icon": "slate_work:slate_plated_edified_planks",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.deco_blocks.intro"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:deco_slate_plated_edified_planks",
+      "recipe2": "slate_work:deco_copper_plated_slate"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:deco_amethyst_embedded_slate",
+      "recipe2": "slate_work:replicated_allay_dupe"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/more_allay_per_allay_flay",
+      "text": "slate_work.page.deco_blocks.replicated_allay.flay"
+    }
+  ]
+}

@@ -19,6 +19,7 @@ object OpSetCraftingCount : ConstMediaAction {
         env: CastingEnvironment
     ): List<Iota> {
         val block = args.getBlockPos(0, argc)
+        env.assertPosInRangeForEditing(block)
         val count = args.getIntBetween(1, 1, Int.MAX_VALUE, argc)
         val blockEntity = env.world.getBlockEntity(block)
         if (blockEntity is CraftingLociEntity) {
