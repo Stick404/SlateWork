@@ -27,6 +27,10 @@
     },
     {
       "type": "patchouli:text",
+      "text": "slate_work.page.fake_player_loci.punch"
+    },
+    {
+      "type": "patchouli:text",
       "text": "slate_work.page.fake_player_loci.lens"
     },
     {

@@ -61,7 +61,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         return null;
     }
 
-    @Inject(method = "getUsableStacks", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getUsableStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$getUsableStacks(CastingEnvironment.StackDiscoveryMode mode, CallbackInfoReturnable<List<ItemStack>> cir){
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
@@ -84,7 +84,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         }
     }
 
-    @Inject(method = "replaceItem", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "replaceItem", at = @At("RETURN"), cancellable = true)
     private void slate_work$replaceItem(Predicate<ItemStack> stackOk, ItemStack replaceWith, @Nullable Hand hand, CallbackInfoReturnable<Boolean> cir){
         if (cir.getReturnValue()) return;
         var data = this.execState.currentImage.getUserData();

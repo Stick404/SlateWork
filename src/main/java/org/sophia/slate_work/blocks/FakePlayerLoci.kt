@@ -18,6 +18,8 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.ShapeContext
 import net.minecraft.command.argument.EntityAnchorArgumentType
 import net.minecraft.entity.Entity
+import net.minecraft.entity.ExperienceOrbEntity
+import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -49,6 +51,7 @@ import org.sophia.slate_work.compat.SlateWorksTrinkets
 import org.sophia.slate_work.storage.SlateFakePlayer
 import java.util.stream.Collectors
 import java.util.stream.Stream
+import kotlin.math.roundToInt
 import kotlin.math.sign
 
 
@@ -71,7 +74,7 @@ class FakePlayerLoci : AbstractSlate {
         player: PlayerEntity,
         hand: Hand?,
         hit: BlockHitResult?
-    ): ActionResult? {
+    ): ActionResult {
         if (player.isSneaky) {
             val sta = state.get(IS_OPTIONAL_VECTOR).not()
             world.setBlockState(pos, state.with(IS_OPTIONAL_VECTOR, sta))
@@ -219,19 +222,26 @@ class FakePlayerLoci : AbstractSlate {
         val fakePos = pos.subtract(0.0, 2.0, 0.0).add(offset)
         fake.setPos(fakePos.x, fakePos.y, fakePos.z)
         fake.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, hit.pos)
-        val width: Double = 0.4;
+        val width = 0.4
 
         val entities: MutableList<Entity?>? = world.getEntitiesByClass(Entity::class.java,
-                Box(pos.subtract(width, width, width), hit.pos.add(width, width, width))) { true }
+                Box(pos, hit.pos).expand(width)) { true }
             .stream()
             .collect(Collectors.toList())
         // If we find any entities...
         if (!entities!!.isEmpty()) {
             // Get a random entity
-            val entity: Entity? = entities[world.random.nextInt(entities.size)]
+
+            entities.sortWith(Comparator { entity, entity1 -> (entity!!.squaredDistanceTo(fakePos) - entity1!!.squaredDistanceTo(fakePos)).roundToInt() })
+            val entity: Entity? = entities[0] //world.random.nextInt(entities.size)
             if (!bs.get(IS_LEFT_CLICKING)) {
-                // If we are attacking,thwack em
-                fake.attack(entity)
+                // If we are attacking, thwack em
+                for (attempt in entities) {
+                    if (attempt!!.isAttackable){
+                        fake.attack(attempt)
+                        break
+                    }
+                }
                 end(fake)
                 return ControlFlow.Continue(imageIn, exitDirs!!.toList())
             }
