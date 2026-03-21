@@ -44,7 +44,7 @@ public class CircleNBTOptimizations {
             at = @At(value = "RETURN"),
             locals = LocalCapture.CAPTURE_FAILHARD
     )
-    private static void slate_work$myOwnSickSave(CallbackInfoReturnable<NbtCompound> cir){
+    private void slate_work$myOwnSickSave(CallbackInfoReturnable<NbtCompound> cir){
 
     }
 }
