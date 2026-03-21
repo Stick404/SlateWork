@@ -73,12 +73,12 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
         }
     }
 
-    @Inject(method = "getPrimaryStacks", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "getPrimaryStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$gePrimaryStacks(CallbackInfoReturnable<List<HeldItemInfo>> cir){
         var data = this.execState.currentImage.getUserData();
         if (world.getBlockEntity(NbtHelper.toBlockPos(data.getCompound("hotbar_loci"))) instanceof HotbarLociEntity entity){
             var list = new ArrayList<>(cir.getReturnValue()); //makes it Mutable
-            list.add(new HeldItemInfo(entity.getCurrentSlot(), Hand.OFF_HAND));
+            list.add(0, new HeldItemInfo(entity.getCurrentSlot(), Hand.OFF_HAND));
             cir.setReturnValue(list);
             cir.cancel();
         }
