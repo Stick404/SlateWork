@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "hexcasting:slate_block"
+    },
+    {
+      "item": "hexcasting:edified_planks"
+    }
+  ],
+  "result": {
+    "count": 2,
+    "item": "slate_work:slate_plated_edified_planks"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "S": {
+      "item": "hexcasting:slate_block"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "pattern": [
+    " S ",
+    "SAS",
+    " S "
+  ],
+  "result": {
+    "count": 4,
+    "item": "slate_work:amethyst_embedded_slate"
+  }
+}

@@ -21,7 +21,6 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
@@ -43,7 +42,6 @@ import java.util.logging.Logger;
 
 @SuppressWarnings("UnstableApiUsage")
 public class Slate_work implements ModInitializer {
-
     public static final String MOD_ID = "slate_work";
     public static final Logger LOGGER = Logger.getLogger("Slate Works");
     public static final AttachmentType<List<BlockPos>> chunk_listeners = AttachmentRegistry.<List<BlockPos>>builder()
@@ -58,8 +56,9 @@ public class Slate_work implements ModInitializer {
             new Identifier(MOD_ID, "hotbar_loci_screen"),
             new ExtendedScreenHandlerType<>(HotbarLociScreenHandler::new));
 
-    // This is used over in FakePlayerLoci.class, but due to Kotlin Jank:tm: is assigned here
-    public static final BooleanProperty TOGGLED = BooleanProperty.of("is_optional");
+    // These are used over in FakePlayerLoci.class, but due to Kotlin Jank:tm: is assigned here
+    public static final BooleanProperty IS_OPTIONAL_VECTOR = BooleanProperty.of("is_optional");
+    public static final BooleanProperty IS_LEFT_CLICKING = BooleanProperty.of("is_left_clicking");
 
     @Override
     public void onInitialize() {

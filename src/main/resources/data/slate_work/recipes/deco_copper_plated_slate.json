@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "S": {
+      "item": "hexcasting:slate_block"
+    },
+    "C": {
+      "item": "minecraft:copper_block"
+    }
+  },
+  "pattern": [
+    "CSC",
+    "SSS",
+    "CSC"
+  ],
+  "result": {
+    "count": 9,
+    "item": "slate_work:copper_plated_slate"
+  }
+}

@@ -39,7 +39,8 @@ import net.minecraft.util.shape.VoxelShapes
 import net.minecraft.world.BlockView
 import net.minecraft.world.RaycastContext
 import net.minecraft.world.World
-import org.sophia.slate_work.Slate_work.TOGGLED
+import org.sophia.slate_work.Slate_work.IS_LEFT_CLICKING
+import org.sophia.slate_work.Slate_work.IS_OPTIONAL_VECTOR
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNoHotbarLoci
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota.Companion.ofType
@@ -53,13 +54,14 @@ import kotlin.math.sign
 
 class FakePlayerLoci : AbstractSlate {
     val hasTrinkets: Boolean = FabricLoader.getInstance().isModLoaded(HexInterop.Fabric.TRINKETS_API_ID)
+
     constructor(settings: Settings) : super(settings) {
-        this.defaultState = this.stateManager.getDefaultState().with(TOGGLED, false).with(ENERGIZED, false).with(WATERLOGGED, false)
+        this.defaultState = this.stateManager.getDefaultState().with(IS_OPTIONAL_VECTOR, false).with(ENERGIZED, false).with(WATERLOGGED, false).with(IS_LEFT_CLICKING, true)
     }
 
     override fun appendProperties(builder: StateManager.Builder<Block?, BlockState?>) {
         super.appendProperties(builder)
-        builder.add(TOGGLED)
+        builder.add(IS_OPTIONAL_VECTOR).add(IS_LEFT_CLICKING)
     }
 
     override fun onUse(
@@ -71,12 +73,16 @@ class FakePlayerLoci : AbstractSlate {
         hit: BlockHitResult?
     ): ActionResult? {
         if (player.isSneaky) {
-            val sta = state.get(TOGGLED).not()
-            world.setBlockState(pos, state.with(TOGGLED, sta))
+            val sta = state.get(IS_OPTIONAL_VECTOR).not()
+            world.setBlockState(pos, state.with(IS_OPTIONAL_VECTOR, sta))
             world.playSound(player, pos, HexSounds.ABACUS_SHAKE, SoundCategory.BLOCKS, 1.0f, 1f)
             return ActionResult.CONSUME
+        } else {
+            val sta = state.get(IS_LEFT_CLICKING).not()
+            world.setBlockState(pos, state.with(IS_LEFT_CLICKING, sta))
+            world.playSound(player, pos, HexSounds.FLIGHT_FINISH, SoundCategory.BLOCKS, 1.0f, 1f)
+            return ActionResult.CONSUME
         }
-        return super.onUse(state, world, pos, player, hand, hit)
     }
 
     val UP_AB: VoxelShape? = VoxelShapes.union(
@@ -149,7 +155,8 @@ class FakePlayerLoci : AbstractSlate {
         }
         val hexStack: ArrayList<Iota> = ArrayList(imageIn.stack)
         val direction: Direction
-        if (bs.get(TOGGLED)) {
+        // Either sets direction to where the block is facing, or the provided vector
+        if (bs.get(IS_OPTIONAL_VECTOR)) {
             if (hexStack.isEmpty()) {
                 this.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -181,6 +188,7 @@ class FakePlayerLoci : AbstractSlate {
             direction = bs.get(FACING)
         }
 
+        // Pre-calcs the exit dirs, since we may exit in a few different places
         val exitDirsSet = this.possibleExitDirections(pos, bs, world)
         exitDirsSet.remove(enterDir.opposite)
         val exitDirs: Stream<Pair<BlockPos?, Direction?>?>? = exitDirsSet.stream()
@@ -206,17 +214,28 @@ class FakePlayerLoci : AbstractSlate {
         val offset = hitPos.subtract(startPos).normalize()
         val missed = hit.type == HitResult.Type.MISS
         val pos = pos.toCenterPos()
+        // A ton of different values that can be used to help later on
         // Offsets the Fake so things like snowballs can be tossed
         val fakePos = pos.subtract(0.0, 2.0, 0.0).add(offset)
         fake.setPos(fakePos.x, fakePos.y, fakePos.z)
         fake.lookAt(EntityAnchorArgumentType.EntityAnchor.FEET, hit.pos)
+        val width: Double = 0.4;
 
-        val entities: MutableList<Entity?>? = world.getEntitiesByClass(Entity::class.java, Box(pos, hit.pos)) { true }
+        val entities: MutableList<Entity?>? = world.getEntitiesByClass(Entity::class.java,
+                Box(pos.subtract(width, width, width), hit.pos.add(width, width, width))) { true }
             .stream()
             .collect(Collectors.toList())
-
+        // If we find any entities...
         if (!entities!!.isEmpty()) {
+            // Get a random entity
             val entity: Entity? = entities[world.random.nextInt(entities.size)]
+            if (!bs.get(IS_LEFT_CLICKING)) {
+                // If we are attacking,thwack em
+                fake.attack(entity)
+                end(fake)
+                return ControlFlow.Continue(imageIn, exitDirs!!.toList())
+            }
+            // Else, attempt to click on them
             val cancelResult: ActionResult? =
                 UseEntityCallback.EVENT.invoker().interact(fake, world, Hand.MAIN_HAND, entity, EntityHitResult(entity))
             if (cancelResult == null || cancelResult === ActionResult.PASS) {
@@ -231,10 +250,14 @@ class FakePlayerLoci : AbstractSlate {
                     return ControlFlow.Continue(imageIn, exitDirs!!.toList())
                 }
             }
+        } else if (!bs.get(IS_LEFT_CLICKING)) {
+            // If we wanted to punch, but couldn't find an entity, stop
+            end(fake)
+            return ControlFlow.Continue(imageIn, exitDirs!!.toList())
         }
 
+        // Go down the interaction list to poll and test each of them
         val z = UseBlockCallback.EVENT.invoker().interact(fake, world, fake.activeHand, hit)
-
         if (z == ActionResult.PASS) {
             if (missed || world.getBlockState(hit.blockPos).onUse(world, fake, fake.activeHand, hit) == ActionResult.PASS) {
                 if (missed || fake.activeItem.useOnBlock(ItemUsageContext(fake, fake.activeHand, hit)) == ActionResult.PASS) {
@@ -247,6 +270,7 @@ class FakePlayerLoci : AbstractSlate {
         return ControlFlow.Continue(imageIn, exitDirs!!.toList())
     }
 
+    // Cleans up the Fake Player just in case it is a form of a leak. And drops all the items for safety
     private fun end(fake: SlateFakePlayer){
         if (hasTrinkets) {
             SlateWorksTrinkets.makeFakeDropTrinkets(fake)

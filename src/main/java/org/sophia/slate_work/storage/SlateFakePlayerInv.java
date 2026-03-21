@@ -23,6 +23,11 @@ public class SlateFakePlayerInv extends PlayerInventory {
     }
 
     @Override
+    public ItemStack getMainHandStack() {
+        return hotbarLociEntity.getCurrentSlot();
+    }
+
+    @Override
     public boolean contains(TagKey<Item> tag) {
         for (ItemStack itemStack : this.hotbarLociEntity.getStacks()) {
             if (!itemStack.isEmpty() && itemStack.isIn(tag)) {

@@ -20,7 +20,7 @@ public class FakeInvHotbarLoci implements Inventory {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return true;
     }
 
     @Override

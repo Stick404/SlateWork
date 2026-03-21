@@ -14,21 +14,31 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static org.sophia.slate_work.Slate_work.TOGGLED;
-import static org.sophia.slate_work.registries.BlockRegistry.FAKE_PLAYER_LOCI;
+import static org.sophia.slate_work.Slate_work.IS_LEFT_CLICKING;
+import static org.sophia.slate_work.Slate_work.IS_OPTIONAL_VECTOR;
 
 public class FakePlayerLociScrying implements ScryingLensOverlayRegistry.OverlayBuilder{
     @Override
     public void addLines(List<Pair<ItemStack, Text>> lines, BlockState state, BlockPos pos, PlayerEntity observer, World world, Direction hitFace) {
-        Text bool;
-        if (state.get(TOGGLED)) {
-            bool = Text.translatable("hexcasting.tooltip.boolean_true").formatted(Formatting.DARK_GREEN);
+        Text isOptional;
+        if (state.get(IS_OPTIONAL_VECTOR)) {
+            isOptional = Text.translatable("hexcasting.tooltip.boolean_true").formatted(Formatting.DARK_GREEN);
         } else {
-            bool = Text.translatable("hexcasting.tooltip.boolean_false").formatted(Formatting.DARK_RED);
+            isOptional = Text.translatable("hexcasting.tooltip.boolean_false").formatted(Formatting.DARK_RED);
+        }
+        Text isLeftClick;
+        if (!state.get(IS_LEFT_CLICKING)) {
+            isLeftClick = Text.translatable("hexcasting.tooltip.boolean_true").formatted(Formatting.DARK_GREEN);
+        } else {
+            isLeftClick = Text.translatable("hexcasting.tooltip.boolean_false").formatted(Formatting.DARK_RED);
         }
         lines.add(new Pair<>(
                 Items.ENDER_PEARL.getDefaultStack(),
-                Text.translatable("slate_work.scrying.fake_player").append(bool)
+                Text.translatable("slate_work.scrying.fake_player").append(isOptional)
+        ));
+        lines.add(new Pair<>(
+                Items.DIAMOND_SWORD.getDefaultStack(),
+                Text.translatable("slate_work.scrying.fake_player.2").append(isLeftClick)
         ));
     }
 }

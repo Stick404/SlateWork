@@ -1,8 +1,12 @@
 package org.sophia.slate_work.storage;
 
+import com.google.common.collect.Multimap;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.entity.FakePlayer;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
@@ -15,7 +19,7 @@ import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 public class SlateFakePlayer extends FakePlayer {
     SlateFakePlayerInv inventory;
     public SlateFakePlayer(ServerWorld world, HotbarLociEntity entity) {
-        super(world, new GameProfile(DEFAULT_UUID, "[SlateFakePlayer]"));
+        super(world, new GameProfile(DEFAULT_UUID, "An Ephemeral Allay"));
         inventory = new SlateFakePlayerInv(this, entity);
 
         // Experimental way not to wear armor, kind of doesn't work though
@@ -27,6 +31,27 @@ public class SlateFakePlayer extends FakePlayer {
             inventory.armor.set(i, jankyJankyStack.copy());
         }*/
 
+        Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers = entity.getCurrentSlot()
+                .getAttributeModifiers(EquipmentSlot.MAINHAND);
+        this.getAttributes()
+                .addTemporaryModifiers(attributeModifiers);
+    }
+
+    @Override
+    public ItemStack getMainHandStack() {
+        if (this.inventory == null){
+            return ItemStack.EMPTY;
+        } else {
+            return inventory.getHotbarLociEntity().getCurrentSlot();
+        }
+    }
+
+    @Override
+    public ItemStack getEquippedStack(EquipmentSlot slot) {
+        if (slot == EquipmentSlot.MAINHAND) {
+            return this.inventory.getHotbarLociEntity().getCurrentSlot();
+        }
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -57,6 +82,11 @@ public class SlateFakePlayer extends FakePlayer {
     @Override
     public float getAttackCooldownProgressPerTick() {
         return 1 / 64f;
+    }
+
+    @Override
+    public float getAttackCooldownProgress(float baseTime) {
+        return 1;
     }
 
     @Override

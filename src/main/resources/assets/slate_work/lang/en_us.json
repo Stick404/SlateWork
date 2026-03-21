@@ -213,6 +213,7 @@
   "slate_work.scrying.impetus.listening.bound": "The bound moniker is:",
   "slate_work.scrying.impetus.listening.unbound": "Not currently monikered",
   "slate_work.scrying.fake_player": "Optional Vector: ",
+  "slate_work.scrying.fake_player.2": "Will Attack: ",
   "slate_work.scrying.fake_player.true": "True",
 
   "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
