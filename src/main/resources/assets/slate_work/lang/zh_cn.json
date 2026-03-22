@@ -20,7 +20,7 @@
   "block.slate_work.slate_plated_edified_planks": "镶板岩启迪木板",
   "block.slate_work.amethyst_embedded_slate": "镶紫水晶板岩",
   "block.slate_work.copper_plated_slate": "镶铜板岩",
-  "block.slate_work.replicated_allay": "复灵晶",
+  "block.slate_work.replicated_allay": "复灵晶块",
 
   "Patterns:": "",
   "hexcasting.action.slate_work:get_storage": "获取容具",
@@ -201,7 +201,7 @@
 
   "slate_work.entry.deco_blocks": "石板工程装饰性方块",
   "slate_work.page.deco_blocks.intro": "在$(thing)启迪/$之余，我又生出了新建筑方块的灵感。意识得到扩展之后，建筑仓库也要扩展才好。$(br2)不过我应该说明一下：这些方块里面基本没有多少有实际用途，它们只是建筑材料罢了。",
-  "slate_work.page.deco_blocks.replicated_allay.flay": "在我癫狂的涂写之中，我找到了它——$(thing)复灵晶/$——的记录。它似乎是某种高凝聚态的$(l:greatwork/quenching_allays)悦灵/$，但我无法从中取出媒质。不过，它们和$(l:greatwork/quenching_allays)悦灵/$一样可以复制。",
+  "slate_work.page.deco_blocks.replicated_allay.flay": "在我癫狂的涂写之中，我找到了它——$(thing)复灵晶块/$——的记录。它似乎是某种高凝聚态的$(l:greatwork/quenching_allays)悦灵/$，但我无法从中取出媒质。不过，它们和$(l:greatwork/quenching_allays)悦灵/$一样可以复制。",
 
   "Mishaps:": "",
   "hexcasting.mishap.circle.no_storage_loci_ran": "%s处未找到已激活的容具",
