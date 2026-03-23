@@ -33,8 +33,8 @@ public abstract class MixinBlockSlate {
                     target = "Lat/petrak/hexcasting/api/casting/eval/vm/CastingVM;queueExecuteAndWrapIota(Lat/petrak/hexcasting/api/casting/iota/Iota;Lnet/minecraft/server/world/ServerWorld;)Lat/petrak/hexcasting/api/casting/eval/ExecutionClientView;"
             ), cancellable = true)
     void slate_works$acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
-                      ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local HexPattern pattern,
-                      @Local Stream exitDirs, @Local CastingVM vm){
+                                       ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local(name = "pattern") HexPattern pattern,
+                                       @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
         var macroNBT = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
         String angleSig = pattern.anglesSignature();
 
@@ -59,7 +59,6 @@ public abstract class MixinBlockSlate {
 
                 result = vm.queueExecuteAndWrapIotas(spell, world);
             } else {
-
                 result = vm.queueExecuteAndWrapIota(macro, world);
             }
 
