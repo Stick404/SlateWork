@@ -61,7 +61,7 @@ public class SlateFakePlayer extends FakePlayer {
 
     @Override
     public void setStackInHand(Hand hand, ItemStack stack) {
-        inventory.setStack(0, stack);
+        inventory.setStack(inventory.getHotbarLociEntity().getSlot(), stack);
     }
 
     @Override

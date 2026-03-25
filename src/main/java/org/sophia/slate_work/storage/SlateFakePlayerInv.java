@@ -79,7 +79,7 @@ public class SlateFakePlayerInv extends PlayerInventory {
 
     @Override
     public boolean insertStack(int slot, ItemStack stack) {
-        Transaction trans =Transaction.openOuter();
+        Transaction trans = Transaction.openOuter();
         var count = hotbarLociEntity.insert(ItemVariant.of(stack), stack.getCount(), trans);
         trans.commit();
         return count > 0;
