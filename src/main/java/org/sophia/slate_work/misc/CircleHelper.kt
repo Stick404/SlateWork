@@ -2,7 +2,6 @@ package org.sophia.slate_work.misc
 
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.iota.Iota
-import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
@@ -14,13 +13,10 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
-import net.minecraft.registry.Registries
 import net.minecraft.server.world.ServerWorld
 import org.sophia.slate_work.Slate_work.LOGGER
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
-import org.sophia.slate_work.misc.CircleHelper.ItemSlot
-import ram.talia.moreiotas.api.casting.iota.IotaTypeIota
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 import ram.talia.moreiotas.api.casting.iota.ItemTypeIota
 
@@ -60,7 +56,7 @@ object CircleHelper {
         val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList.put(x.left, ItemSlot(x.left,x.right,z))
+                returnList[x.left] = ItemSlot(x.left,x.right,z)
             }
         }
         return returnList
@@ -97,7 +93,7 @@ object CircleHelper {
         val returnList = HashMap<NbtCompound, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList.put(x.left.toNbt(), ItemSlot(x.left,x.right,z))
+                returnList[x.left.toNbt()] = ItemSlot(x.left,x.right,z)
             }
         }
         return returnList
@@ -107,7 +103,7 @@ object CircleHelper {
         val list = getStorage(env)
         val hashMap = getLists(list)
         if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.nbt).toNbt())) {
-            val slot = hashMap.get(ItemVariant.of(itemStack.item, itemStack.nbt).toNbt())!!
+            val slot = hashMap[ItemVariant.of(itemStack.item, itemStack.nbt).toNbt()]!!
             val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
             val item = slot.storageLociEntity.getStack(targ)
             item.right += itemStack.count
@@ -128,7 +124,7 @@ object CircleHelper {
     fun List<Iota>.getItemVariant(idx: Int, argc: Int = 0): ItemVariant? {
         val z = this.getOrElse(idx) { throw MishapNotEnoughArgs(idx + 1, this.size) }
         if (z is ItemTypeIota) {
-            return z.either.ifLeft { ItemVariant.of { it } }.ifRight { ItemVariant.of{ BlockItem(it, Item.Settings()) } } as ItemVariant?
+            return z.either.map({ ItemVariant.of { it } }) { ItemVariant.of{ BlockItem(it, Item.Settings()) } }
         } else if (z is ItemStackIota) {
             return ItemVariant.of(z.itemStack.item,z.itemStack.nbt)
         } else if (z is NullIota){
