@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
 import org.sophia.slate_work.blocks.StorageLoci;
+import org.sophia.slate_work.blocks.TradeLoci;
 
 import static org.sophia.slate_work.datagen.SlateWorkDatagen.BLOCKS;
 
@@ -16,7 +17,7 @@ public class BlockLootTableDatagen extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         for (Block block : BLOCKS){
-            if (block instanceof StorageLoci) continue;
+            if (block instanceof StorageLoci || block instanceof TradeLoci) continue;
             this.addDrop(block);
         }
     }

@@ -136,6 +136,7 @@ public class TradeLociEntity extends BlockEntity {
             entity.offerList.forEach(a -> {
                 a.updateDemandBonus();
                 a.resetUses();
+                entity.markDirty();
             });
         }
     }

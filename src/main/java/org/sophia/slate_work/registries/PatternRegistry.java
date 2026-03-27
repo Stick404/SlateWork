@@ -56,6 +56,8 @@ public class PatternRegistry {
     public static final HexPattern SET_SLOT = make("eaqwqaeqawawa", HexDir.SOUTH_WEST, "set_slot", OpSetSlot.INSTANCE);
     public static final HexPattern GET_ITEMS = make("eaqwqaeqawawaedd", HexDir.SOUTH_WEST, "get_items", OpGetItems.INSTANCE);
 
+    public static final HexPattern GET_TRADES = make("eaqwqaewedeadwdwd", HexDir.SOUTH_WEST, "get_trades", OpGetTrades.INSTANCE);
+
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",
             new CircleReflection((env) -> new Vec3Iota(env.circleState().currentPos.toCenterPos())));

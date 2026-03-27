@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "hexcasting:block/circle/bottom",
+    "east": "slate_work:block/trade_loci/right_false",
+    "north": "slate_work:block/trade_loci/front_dim",
+    "particle": "hexcasting:block/slate",
+    "south": "slate_work:block/trade_loci/back_lit",
+    "up": "slate_work:block/trade_loci/top_false",
+    "west": "slate_work:block/trade_loci/left_false"
+  }
+}

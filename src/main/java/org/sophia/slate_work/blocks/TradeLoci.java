@@ -113,6 +113,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
                     offer.isDisabled()
             ) {
                 exit.add(this.exitPositionFromDirection(pos, bs.get(FACING).getOpposite()));
+                world.setBlockState(pos, bs.with(STATE, State.FALSE));
                 return new ControlFlow.Continue(imageIn, exit);
             }
             // So everything can now be traded
@@ -128,7 +129,9 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
 
             // Wrap it up folks!
             entity.levelUpCheck();
+            entity.markDirty();
             exit.add(this.exitPositionFromDirection(pos, bs.get(FACING)));
+            world.setBlockState(pos, bs.with(STATE, State.TRUE));
             return new ControlFlow.Continue(imageIn, exit);
         }
 
@@ -149,5 +152,10 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             }
         }
         super.onStateReplaced(state, world, pos, newState, moved);
+    }
+
+    @Override
+    public BlockState endEnergized(BlockPos pos, BlockState bs, World world) {
+        return super.endEnergized(pos, bs, world).with(STATE, State.NEITHER);
     }
 }

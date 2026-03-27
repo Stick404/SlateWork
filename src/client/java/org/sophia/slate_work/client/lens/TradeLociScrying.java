@@ -7,9 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -33,12 +31,11 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
 
                 MutableText text = Text.empty();
                 text.append(Text.literal(i + ": ").formatted(Formatting.GREEN));
-                //firstAdjusted.setCount(500);
+
                 if (first.getCount() != firstAdjusted.getCount()) {
-                    text.append(first.getName().copy().append(" x" + first.getCount())
-                            .formatted(Formatting.RED, Formatting.STRIKETHROUGH));
-                    text.append(" ");
-                    text.append(firstAdjusted.getName().copy().append("[item+" + firstAdjusted.getItem().toString() + "] x" + firstAdjusted.getCount()));
+                    text.append(firstAdjusted.getName().copy().append("[item+" + firstAdjusted.getItem().toString() + "]"));
+                    text.append(Text.literal("x" + first.getCount()).formatted(Formatting.RED, Formatting.STRIKETHROUGH));
+                    text.append(Text.literal(" x" + firstAdjusted.getCount()));
                 } else {
                     text.append(first.getName().copy().append("[item+" + first.getItem().toString() + "] x" + first.getCount()));
                 }
@@ -47,6 +44,10 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 }
                 text.append(" → ");
                 text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "] x" + sell.getCount()));
+
+                text.append(" [");
+                text.append(Text.literal(trade.getUses() + " / " + trade.getMaxUses()).formatted(Formatting.AQUA));
+                text.append("]");
 
                 lines.add(new Pair<>(ItemStack.EMPTY, text));
                 i++;

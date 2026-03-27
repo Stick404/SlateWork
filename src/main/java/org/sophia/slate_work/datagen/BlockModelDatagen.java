@@ -2,6 +2,7 @@ package org.sophia.slate_work.datagen;
 
 import at.petrak.hexcasting.api.HexAPI;
 import at.petrak.hexcasting.api.block.circle.BlockAbstractImpetus;
+import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Block;
@@ -9,6 +10,7 @@ import net.minecraft.data.client.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
+import org.sophia.slate_work.blocks.TradeLoci;
 import org.sophia.slate_work.registries.BlockRegistry;
 
 import java.util.Optional;
@@ -45,6 +47,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerRedstoneLocus("redstone_loci", BlockRegistry.REDSTONE_LOCI, generator);
         registerEnergizedFacing("accelerator_loci", BlockRegistry.ACCELERATOR_LOCI, generator);
         registerEnergizedFacing("fake_player_loci", BlockRegistry.FAKE_PLAYER_LOCI, generator);
+        registerDirx("trade_loci", BlockRegistry.TRADE_LOCI, generator);
 
         // Impeti
         registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
@@ -69,6 +72,72 @@ public class BlockModelDatagen extends FabricModelProvider {
     }
 
     private static final String impeti = "block/impeti/";
+
+    private static void registerDirx(String name, Block block, BlockStateModelGenerator generator){
+        System.out.println("Registering Dirx: " + name);
+        String[] pain = {"top",  "left", "right"};
+        TextureKey[] morePain = {TextureKey.UP, TextureKey.WEST, TextureKey.EAST};
+        TextureMap front = new TextureMap();
+        TextureMap back = new TextureMap();
+        TextureMap neither = new TextureMap();
+
+        front.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
+        back.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
+        neither.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
+
+        int i = 0;
+        for (String ouch : pain) {
+            System.out.println(ouch);
+            System.out.println(morePain[i]);
+            front.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_true"));
+            back.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_false"));
+            neither.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_neither"));
+            i++;
+        }
+
+        front.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_lit"));
+        front.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_dim"));
+        front.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+
+        back.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_dim"));
+        back.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_lit"));
+        back.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+
+        neither.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_dim"));
+        neither.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_dim"));
+        neither.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+
+        var frontModel = Models.CUBE.upload(block, "_front", front, generator.modelCollector);
+        var backModel = Models.CUBE.upload(block, "_back", back, generator.modelCollector);
+        var neitherModel = Models.CUBE.upload(block,"_neither", neither, generator.modelCollector);
+
+        var RotNorth = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
+        var RotSouth = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R180);
+        var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R270);
+        var RotDown = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R90);
+        var RotEast = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R90);
+        var RotWest = BlockStateVariant.create().put(VariantSettings.Y, VariantSettings.Rotation.R270);
+
+        BlockStateVariantMap mapFac = BlockStateVariantMap.create(FACING)
+                .register(Direction.UP, RotUp)
+                .register(Direction.NORTH, RotNorth)
+                .register(Direction.DOWN, RotDown)
+                .register(Direction.SOUTH, RotSouth)
+                .register(Direction.EAST, RotEast)
+                .register(Direction.WEST, RotWest);
+
+        generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(BlockStateVariantMap.create(BlockBooleanDirectrix.STATE)
+                .registerVariants(((state) -> {
+                    BlockStateVariant stateVar;
+                    switch (state) {
+                        case TRUE -> stateVar = BlockStateVariant.create().put(VariantSettings.MODEL, frontModel);
+                        case FALSE -> stateVar = BlockStateVariant.create().put(VariantSettings.MODEL, backModel);
+                        default -> stateVar =  BlockStateVariant.create().put(VariantSettings.MODEL, neitherModel);
+                    }
+                    return java.util.List.of(stateVar);
+                }))).coordinate(mapFac)
+        );
+    }
 
     private static void registerRedstoneLocus(String name, Block block, BlockStateModelGenerator generator){
         var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name));
@@ -191,9 +260,14 @@ public class BlockModelDatagen extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (var item : ENERGIZED_BLOCKS.entrySet()){
             if (item.getKey().getPath().equals("save_loci")) continue;
-            if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus impetus) {
+            if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus) {
                 itemModelGenerator.register(item.getValue(), new Model(
                         Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
+                        Optional.empty()
+                ));
+            } else if(item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof TradeLoci) {
+                itemModelGenerator.register(item.getValue(), new Model(
+                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_front")),
                         Optional.empty()
                 ));
             } else {
