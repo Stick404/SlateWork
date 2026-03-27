@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-20T17:35:28.24554792	Slate Works/Block Loot Tables
+// 1.20.1	2026-03-26T23:40:10.371722862	Slate Works/Block Loot Tables
 746dcff2f1e3ffa9405e5df07d7ee51cc12da902 data/slate_work/loot_tables/blocks/macro_loci.json
 3fce4b2481c94619966ff50ebad35517a170f62d data/slate_work/loot_tables/blocks/copper_plated_slate.json
 131a3091ac3d302a4d2bee654e1523a4d303e7d3 data/slate_work/loot_tables/blocks/save_loci.json
@@ -13,6 +13,7 @@
 b3d3c0122b696566387427e6e7ab32f0bb771e54 data/slate_work/loot_tables/blocks/speed_loci.json
 dccff6b32cdd69f7b15f97e505ac8adfcf90a63f data/slate_work/loot_tables/blocks/hotbar_loci.json
 3ca3c4bdf86faaf7a00fb810b9ad920752437a72 data/slate_work/loot_tables/blocks/replicated_allay.json
+69751dffadd383787340ac8c93138a977db071a8 data/slate_work/loot_tables/blocks/trade_loci.json
 0865edf39e17d6299a2121889e23ce9db891551b data/slate_work/loot_tables/blocks/accelerator_loci.json
 0c5755ad5c2cf2181922933d426e3e3bbd1fc9d1 data/slate_work/loot_tables/blocks/amethyst_embedded_slate.json
 0c94b605a5a862e4baf2a2b0dd72ae01e50f9de5 data/slate_work/loot_tables/blocks/slate_plated_edified_planks.json

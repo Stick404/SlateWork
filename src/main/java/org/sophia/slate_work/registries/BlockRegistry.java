@@ -60,6 +60,7 @@ public class BlockRegistry {
     public static RedstoneLoci REDSTONE_LOCI = registerBlockItem("redstone_loci", new RedstoneLoci(locusSetting));
     public static AcceleratorLoci ACCELERATOR_LOCI = registerBlockItem("accelerator_loci", new AcceleratorLoci(locusSetting));
     public static FakePlayerLoci FAKE_PLAYER_LOCI = registerBlockItem("fake_player_loci", new FakePlayerLoci(locusSetting));
+    public static TradeLoci TRADE_LOCI = registerBlockItem("trade_loci", new TradeLoci(locusSetting));
 
     public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
@@ -80,6 +81,8 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(SaveLociEntity::new, SAVE_LOCI).build());
     public static BlockEntityType<HotbarLociEntity> HOTBAR_LOCI_ENTITY = registerBlockEntity("hotbar_loci",
             FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, HOTBAR_LOCI).build());
+    public static BlockEntityType<TradeLociEntity> TRADE_LOCI_ENTITY = registerBlockEntity("trade_loci",
+            FabricBlockEntityTypeBuilder.create(TradeLociEntity::new, TRADE_LOCI).build());
     
     public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
             FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());

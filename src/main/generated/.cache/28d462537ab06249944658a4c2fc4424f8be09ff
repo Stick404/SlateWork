@@ -1,4 +1,4 @@
-// 1.20.1	2026-03-20T17:35:28.245157337	Slate Works/Model Definitions
+// 1.20.1	2026-03-26T23:40:10.371386892	Slate Works/Model Definitions
 14779da5f4503e4e927d8cf9ff9c0427897543af assets/slate_work/models/item/copper_plated_slate.json
 7ad63dd7ef4036429f10b4cca6d928df699531cd assets/slate_work/models/item/listening_impetus.json
 c09b9ac5680eb16f9fc8663336c6557fd5e6dbcd assets/slate_work/models/item/storage_loci.json
@@ -10,12 +10,12 @@ a0e110195f48a483826c32bcb19fcfaaeabdba43 assets/slate_work/models/item/redstone_
 1ec06eb9ca12d043f95e8d1c02cf94d0fc6e53c8 assets/slate_work/models/block/slate_plated_edified_planks_3.json
 5d3e3ec84d1e252e62b75a033b154d53559f64a9 assets/slate_work/models/item/macro_loci.json
 50f292e6caf8feb662cc918a157211882fd23578 assets/slate_work/models/item/fake_player_loci.json
-c2c148fe9df9bcb952cb5358e71654d11bed5335 assets/slate_work/blockstates/hotbar_loci.json
 ab0e62dd8e1350d858753853a741f87987dfb55d assets/slate_work/blockstates/copper_plated_slate.json
+c2c148fe9df9bcb952cb5358e71654d11bed5335 assets/slate_work/blockstates/hotbar_loci.json
 56fce66043c059e3e57f5d7442b9088857b6fb64 assets/slate_work/blockstates/sentinel_loci.json
 59cb5516d4ad73bab471d362e54d55fda9dbf697 assets/slate_work/models/item/hotbar_loci.json
-2167bd1e5dcb2f3cf18e9ff8f596c4e50279bc57 assets/slate_work/blockstates/speed_loci.json
 e11f3bd68d01b2e287a9e6b06121a87004318f4e assets/slate_work/blockstates/slate_plated_edified_planks.json
+2167bd1e5dcb2f3cf18e9ff8f596c4e50279bc57 assets/slate_work/blockstates/speed_loci.json
 9102022cf3446f366b43bab42da36c74c7787a78 assets/slate_work/blockstates/mute_loci.json
 4711242c5337576c16cb1e4406c6b809d1c496d9 assets/slate_work/models/item/amethyst_embedded_slate.json
 cedb1625739d0e4487315ba241f8eba14e2c77fc assets/slate_work/models/block/slate_plated_edified_planks.json
@@ -38,6 +38,7 @@ bd02a8abac6ef2ddabb0d77bcde8d84576acd868 assets/slate_work/models/item/crafting_
 0524bf843f19a6985d1448b6f3689eeeba6acfe3 assets/slate_work/models/item/ambit_loci.json
 1da03a0139c326b405fd81b462310a8679abd05f assets/slate_work/models/item/broadcaster_loci.json
 6686eb2803f4a07de0bb7bf1f914779da3aaa94c assets/slate_work/models/item/accelerator_loci.json
+2b9f25e47b188337fd12af5a625ee90b81764b93 assets/slate_work/models/item/trade_loci.json
 90bf1e34ff3654dc2aff8ba1fe5e59ae4254b645 assets/slate_work/blockstates/accelerator_loci.json
 4ae41b2158dd7d5269706305644feb254901b9f6 assets/slate_work/models/block/amethyst_embedded_slate.json
 fe4e608b07f8d071e67ed35672b26a184739525b assets/slate_work/blockstates/fake_player_loci.json
