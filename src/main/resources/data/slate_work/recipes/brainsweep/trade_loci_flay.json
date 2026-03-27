@@ -1,0 +1,19 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "block",
+    "block": "hexcasting:directrix/empty"
+  },
+  "cost": 1000000,
+  "entityIn": {
+    "type": "villager",
+    "minLevel": 5
+  },
+  "result": {
+    "name": "slate_work:trade_loci",
+    "properties": {
+      "energized": "false",
+      "facing": "north"
+    }
+  }
+}

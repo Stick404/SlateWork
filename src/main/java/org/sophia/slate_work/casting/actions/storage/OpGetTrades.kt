@@ -37,6 +37,6 @@ object OpGetTrades : ConstMediaAction  {
             return listOf(ListIota(listOfIota))
         }
 
-        throw MishapWrongBlock(pos, env.world.getBlockState(pos).block, BlockRegistry.TRADE_LOCI)
+        throw MishapWrongBlock(pos, BlockRegistry.TRADE_LOCI, env.world.getBlockState(pos).block)
     }
 }

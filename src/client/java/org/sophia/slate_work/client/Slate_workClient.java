@@ -1,11 +1,9 @@
 package org.sophia.slate_work.client;
 
 import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry;
-import at.petrak.hexcasting.xplat.IClientXplatAbstractions;
 import dev.architectury.registry.client.rendering.BlockEntityRendererRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.util.annotation.ClientFieldsAreNonnullByDefault;
 import org.sophia.slate_work.Slate_work;
 import org.sophia.slate_work.client.blockEntityRenders.HotbarLociRenderer;

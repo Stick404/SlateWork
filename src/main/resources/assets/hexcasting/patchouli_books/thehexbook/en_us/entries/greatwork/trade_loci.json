@@ -1,0 +1,38 @@
+{
+  "name": "slate_work.entry.trade_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:trade_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.trade_loci.intro"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:trade_loci",
+      "anchor": "trade_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.trade_loci.trade_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.trade_loci.trade_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.trade_loci.storage"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.trade_loci.scrying"
+    },
+    {
+      "type": "hexcasting:brainsweep",
+      "recipe": "slate_work:brainsweep/trade_loci_flay",
+      "text": "slate_work.page.trade_loci.crafting"
+    }
+  ]
+}
