@@ -18,6 +18,8 @@ import org.sophia.slate_work.casting.actions.hotbar.OpSetSlot;
 import org.sophia.slate_work.casting.actions.sentinel.OpGetSents;
 import org.sophia.slate_work.casting.actions.sentinel.OpSetSents;
 import org.sophia.slate_work.casting.actions.storage.*;
+import org.sophia.slate_work.casting.actions.trades.OpExchangeMind;
+import org.sophia.slate_work.casting.actions.trades.OpGetTrades;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 
 import java.util.LinkedHashMap;
@@ -33,7 +35,6 @@ public class PatternRegistry {
             Registry.register(HexActions.REGISTRY, entry.getKey(), entry.getValue());
         }
     }
-
 
     public static final HexPattern STORE_ITEM = make("eaqwqaeqwaeaeqqeaeaw", HexDir.SOUTH_WEST, "store_item", OpStoreItem.INSTANCE);
     public static final HexPattern GET_STORAGE = make("eaqwqaeqqdeewweedq", HexDir.SOUTH_WEST, "get_storage", OpGetStorageLoci.INSTANCE);
@@ -57,6 +58,7 @@ public class PatternRegistry {
     public static final HexPattern GET_ITEMS = make("eaqwqaeqawawaedd", HexDir.SOUTH_WEST, "get_items", OpGetItems.INSTANCE);
 
     public static final HexPattern GET_TRADES = make("eaqwqaewedeadwdwd", HexDir.SOUTH_WEST, "get_trades", OpGetTrades.INSTANCE);
+    public static final HexPattern EXCHANGE_MIND = make("eaqwqaeqawawaddwwdqeeqdwwd", HexDir.SOUTH_WEST, "exchange_mind", OpExchangeMind.INSTANCE);
 
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",

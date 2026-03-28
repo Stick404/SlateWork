@@ -1,0 +1,30 @@
+{
+  "name": "slate_work.entry.patterns_trade_loci",
+  "category": "hexcasting:patterns/spells",
+  "icon": "slate_work:trade_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:get_trades",
+      "anchor": "slate_work:get_trades",
+      "input": "vec",
+      "output": "complicated",
+      "text": "slate_work.page.patterns_trade_loci.get_trades"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.patterns_trade_loci.get_trades_cont"
+    },
+    {
+      "type": "hexcasting:pattern",
+      "op_id": "slate_work:exchange_mind",
+      "anchor": "slate_work:exchange_mind",
+      "input": "entity, vector",
+      "output": "",
+      "text": "slate_work.page.patterns_trade_loci.exchange_mind"
+    }
+  ]
+}

@@ -30,8 +30,8 @@
       "text": "slate_work.page.trade_loci.scrying"
     },
     {
-      "type": "hexcasting:brainsweep",
-      "recipe": "slate_work:brainsweep/trade_loci_flay",
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:trade_loci",
       "text": "slate_work.page.trade_loci.crafting"
     }
   ]

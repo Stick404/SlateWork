@@ -4,8 +4,10 @@ import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -14,6 +16,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuilder {
@@ -40,12 +43,23 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                     text.append(first.getName().copy().append("[item+" + first.getItem().toString() + "] x" + first.getCount()));
                 }
                 if (!second.isEmpty()) {
+                    text.append(" ");
                     text.append(second.getName().copy().append("[item+" + second.getItem().toString() + "] x" + second.getCount()));
                 }
                 text.append(" → ");
-                text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "] x" + sell.getCount()));
+                text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "]"));
+                NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
+                if (!nbtCheck.isEmpty()) {
+                    List<Text> enchants = new ArrayList<>();
 
-                text.append(" [");
+                    ItemStack.appendEnchantments(enchants, nbtCheck);
+                    for (var enchant : enchants){
+                        text.append(" ");
+                        text.append(enchant);
+                    }
+                }
+
+                text.append(" x" + sell.getCount() + " [");
                 text.append(Text.literal(trade.getUses() + " / " + trade.getMaxUses()).formatted(Formatting.AQUA));
                 text.append("]");
 

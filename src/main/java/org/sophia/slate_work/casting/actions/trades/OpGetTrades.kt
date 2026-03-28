@@ -1,4 +1,4 @@
-package org.sophia.slate_work.casting.actions.storage
+package org.sophia.slate_work.casting.actions.trades
 
 import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
@@ -6,14 +6,13 @@ import at.petrak.hexcasting.api.casting.getBlockPos
 import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
-import net.minecraft.item.ItemStack
 import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.blocks.entities.TradeLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
 import org.sophia.slate_work.registries.BlockRegistry
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 
-object OpGetTrades : ConstMediaAction  {
+object OpGetTrades : ConstMediaAction {
     override val argc: Int
         get() = 1
 
@@ -22,6 +21,7 @@ object OpGetTrades : ConstMediaAction  {
         env: CastingEnvironment
     ): List<Iota> {
         val pos: BlockPos = args.getBlockPos(0, argc)
+        env.assertVecInRange(pos.toCenterPos())
         val entity = env.world.getBlockEntity(pos)
         if (entity is TradeLociEntity) {
             var listOfIota: MutableList<Iota> = mutableListOf();
@@ -30,7 +30,7 @@ object OpGetTrades : ConstMediaAction  {
                 index.add(ItemStackIota.createFiltered(offer.adjustedFirstBuyItem));
                 index.add(ItemStackIota.createFiltered(offer.secondBuyItem))
                 index.add(ItemStackIota.createFiltered(offer.sellItem))
-                index.add(DoubleIota((offer.uses.toDouble()/offer.maxUses.toDouble())))
+                index.add(DoubleIota((offer.uses.toDouble() / offer.maxUses.toDouble())))
 
                 listOfIota.add(ListIota(index))
             }

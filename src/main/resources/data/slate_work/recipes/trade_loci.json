@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "A": {
+      "item": "hexcasting:quenched_allay_shard"
+    },
+    "D": {
+      "item": "hexcasting:directrix/empty"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    }
+  },
+  "pattern": [
+    " A ",
+    " D ",
+    " E "
+  ],
+  "result": {
+    "item": "slate_work:trade_loci"
+  }
+}
