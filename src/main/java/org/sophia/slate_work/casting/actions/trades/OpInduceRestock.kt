@@ -29,7 +29,7 @@ object OpInduceRestock : SpellAction {
 
         return SpellAction.Result(
             Spell(block),
-            MediaConstants.CRYSTAL_UNIT*3,
+            MediaConstants.CRYSTAL_UNIT*5,
             listOf(ParticleSpray.burst(block.pos.toCenterPos(),1.0))
         )
     }
