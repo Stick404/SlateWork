@@ -116,13 +116,14 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
                 world.setBlockState(pos, bs.with(STATE, State.FALSE));
                 return new ControlFlow.Continue(imageIn, exit);
             }
+
             // So everything can now be traded
             int xp = offer.getMerchantExperience();
             // God this is... interesting
             firstItem.getStorageLociEntity().setStack(firstItem.getStorageLociEntity().getSlot(firstItem.getItem()),
                     new net.minecraft.util.Pair<>(firstItem.getItem(), firstItem.getCount() -firstBuyItem.getCount()));
             secondItem.getStorageLociEntity().setStack(secondItem.getStorageLociEntity().getSlot(secondItem.getItem()),
-                    new net.minecraft.util.Pair<>(secondItem.getItem(), secondItem.getCount() -firstBuyItem.getCount()));
+                    new net.minecraft.util.Pair<>(secondItem.getItem(), secondItem.getCount() -secondItem.getCount()));
             offer.use();
             INSTANCE.storeItems(env, offer.copySellItem());
             entity.xp += xp;

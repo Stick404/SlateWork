@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.village.*;
@@ -25,6 +26,7 @@ public class TradeLociEntity extends BlockEntity {
     public TradeOfferList offerList;
     public VillagerData villagerData;
     public int xp;
+    public long lastRestockTime;
     private final Random random;
 
     public TradeLociEntity(BlockPos pos, BlockState state) {
@@ -32,6 +34,7 @@ public class TradeLociEntity extends BlockEntity {
         offerList = new TradeOfferList();
         villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.NITWIT, 1);
         this.xp = 0;
+        this.lastRestockTime = 0;
         this.random = Random.create();
     }
 
@@ -43,6 +46,7 @@ public class TradeLociEntity extends BlockEntity {
         }).getFirst();
         this.offerList = new TradeOfferList(nbt.getCompound("offers"));
         this.xp = nbt.getInt("xp");
+        this.lastRestockTime = nbt.getLong("LastRestockTime");
     }
 
     @Override
@@ -55,6 +59,7 @@ public class TradeLociEntity extends BlockEntity {
         }));
         nbt.put("offers", offerList.toNbt());
         nbt.putInt("xp", this.xp);
+        nbt.putLong("LastRestockTime", this.lastRestockTime);
     }
 
     @Override
@@ -131,13 +136,16 @@ public class TradeLociEntity extends BlockEntity {
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
-        TradeLociEntity entity = (TradeLociEntity) blockEntity;
-        if (world.getTimeOfDay() % 12000L == 0) {
-            entity.offerList.forEach(a -> {
-                a.updateDemandBonus();
-                a.resetUses();
-                entity.markDirty();
-            });
+        if (blockEntity instanceof TradeLociEntity entity && world instanceof ServerWorld) {
+            if (// world.getTimeOfDay() % 13000 == 0 ||
+                    (entity.lastRestockTime + 13000) <= world.getTime()) {
+                entity.offerList.forEach(a -> {
+                    a.updateDemandBonus();
+                    a.resetUses();
+                    entity.lastRestockTime = entity.world.getTime();
+                    entity.markDirty();
+                });
+            }
         }
     }
 }

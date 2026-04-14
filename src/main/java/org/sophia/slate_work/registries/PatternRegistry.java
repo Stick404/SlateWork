@@ -20,6 +20,7 @@ import org.sophia.slate_work.casting.actions.sentinel.OpSetSents;
 import org.sophia.slate_work.casting.actions.storage.*;
 import org.sophia.slate_work.casting.actions.trades.OpExchangeMind;
 import org.sophia.slate_work.casting.actions.trades.OpGetTrades;
+import org.sophia.slate_work.casting.actions.trades.OpInduceRestock;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 
 import java.util.LinkedHashMap;
@@ -59,6 +60,7 @@ public class PatternRegistry {
 
     public static final HexPattern GET_TRADES = make("eaqwqaewedeadwdwd", HexDir.SOUTH_WEST, "get_trades", OpGetTrades.INSTANCE);
     public static final HexPattern EXCHANGE_MIND = make("eaqwqaeqawawaddwwdqeeqdwwd", HexDir.SOUTH_WEST, "exchange_mind", OpExchangeMind.INSTANCE);
+    public static final HexPattern INDUCE_RESTOCK = make("eaqwqaeqwaeaeqqeaeawedaawqwawqa", HexDir.SOUTH_WEST, "induce_restock", OpInduceRestock.INSTANCE);
 
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",
