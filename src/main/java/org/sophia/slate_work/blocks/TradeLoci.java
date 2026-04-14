@@ -25,7 +25,6 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.village.TradeOffer;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;

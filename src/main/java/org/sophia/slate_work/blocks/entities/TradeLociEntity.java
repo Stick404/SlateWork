@@ -137,7 +137,7 @@ public class TradeLociEntity extends BlockEntity {
 
     public static void tick(World world, BlockPos pos, BlockState state, BlockEntity blockEntity) {
         if (blockEntity instanceof TradeLociEntity entity && world instanceof ServerWorld) {
-            if (// world.getTimeOfDay() % 13000 == 0 ||
+            if ( world.getTimeOfDay() % 13000 == 0 ||
                     (entity.lastRestockTime + 13000) <= world.getTime()) {
                 entity.offerList.forEach(a -> {
                     a.updateDemandBonus();

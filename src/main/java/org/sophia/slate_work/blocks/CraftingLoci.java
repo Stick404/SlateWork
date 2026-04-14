@@ -35,10 +35,7 @@ import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.misc.CircleHelper;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static at.petrak.hexcasting.common.lib.HexSounds.IMPETUS_REDSTONE_DING;
 
