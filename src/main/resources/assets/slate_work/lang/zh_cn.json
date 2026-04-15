@@ -46,6 +46,7 @@
 
   "hexcasting.action.slate_work:get_trades": "商人之纯化",
   "hexcasting.action.slate_work:exchange_mind": "交换意识",
+  "hexcasting.action.slate_work:induce_restock": "引发补货",
 
   "hexcasting.action.slate_work:wave_position": "波位之精思",
   "hexcasting.action.slate_work:wave_normal": "波向之精思",
@@ -201,11 +202,12 @@
   "slate_work.page.patterns_trade_loci.get_trades": "这个法术的返回值看着可能很唬人，但其实不算非常复杂……大概吧。接受一个$(l:greatwork/trade_loci)商人导向石/$，并返回：[[$(thing)物品组/$, $(thing)物品组/$, $(thing)物品组/$, $(thing)数/$]...]。无需消耗$(media)媒质/$。",
   "slate_work.page.patterns_trade_loci.get_trades_cont": "其中，第一个$(l:patterns/items)物品组/$是村民要收到的物品，第二个$(l:patterns/items)物品组/$是村民还可能要收到的物品，第三个$(l:patterns/items)物品组/$是村民要卖给我的物品，最后的$(thing)数/$是已交易次数（自上一次补货以来）和最大交易次数的比值。若该$(thing)数/$为 1，则交易项不再可用。",
   "slate_work.page.patterns_trade_loci.exchange_mind": "这个……有点$(l:patterns/great_spells/brainsweep)熟悉/$。此法术接受一个村民和一个$(l:greatwork/trade_loci)商人导向石/$，并交换它们的职业。重新排布职业所需的各类知识要消耗 1 个$(l:items/amethyst)充能紫水晶/$。",
+  "slate_work.page.patterns_trade_loci.induce_restock": "在查阅文献时，我偶然发现了这条$(l:patterns/great_spells)卓越法术/$。它需接受$(l:greatwork/trade_loci)商人导向石/$的位置，并强令其补货，和在日出日落时的补货一致。消耗 5 个$(l:items/amethyst)充能紫水晶/$。",
 
   "slate_work.entry.impeti": "石板工程促动石",
   "slate_work.page.impeti.intro": "在我深入$(thing)觉醒/$的旅途中，我在我意念的深处发现了被锁定的全新$(l:greatwork/impetus)促动石/$。自然为何要隐藏这些设计和蓝图呢？也许，它认为我无法运用它们？就连$(thing)觉醒/$之后也不行？又或者，是它们无法在我$(thing)觉醒/$后存在？$(br2)无论是为什么，我现在都可以使用它们了。",
   "slate_work.page.impeti.filler": "$(o)在搭建法术环时，有必要引入一项经过仔细计算的翘曲度，从环首到环尾的总量大约只需几厘米；这是为抵消地球的曲率。红色和绿色的信标代表各关键环核，也用于标记能量在环中流动的确切路径。",
-  "slate_work.page.impeti.listener": "释放并概念化的首个设计是$(item)图书管理员促动石/$。它能将图书管理员对词汇的运用能力转变成翻译和理解我言语的工具。",
+  "slate_work.page.impeti.listener": "显化而概念化的首个设计是$(item)图书管理员促动石/$。它能将图书管理员对词汇的运用能力转变成翻译和理解我言语的工具。",
   "slate_work.page.impeti.listener_cont": "使用之前，必须先为$(item)促动石/$绑定“呼名”，也即对$(item)促动石/$使用包含$(l:patterns/strings)文本 iota/$ 的$(item)核心/$等物品。这之后，若有人在距$(item)促动石/$ 16 格内（使用$(l:items/whispering_stone)传语之石/$时距离可更远）说出了以该呼名起始的消息，该消息即会被静默，同时启动$(item)图书管理员促动石/$；其栈以消息剩余部分和发出消息的玩家起始。还好，它$(o)不会/$以该玩家的名义施法。最后，它可给予以$(item)促动石/$中心、16 格半径的影响范围。",
 
   "slate_work.entry.whispering": "传语之石",
