@@ -82,7 +82,11 @@ public class SlateFakePlayerInv extends PlayerInventory {
         Transaction trans = Transaction.openOuter();
         var count = hotbarLociEntity.insert(ItemVariant.of(stack), stack.getCount(), trans);
         trans.commit();
-        return count > 0;
+        trans.close();
+        if (count == 0){
+            player.dropItem(stack, true);
+        }
+        return true;
     }
 
     @Override

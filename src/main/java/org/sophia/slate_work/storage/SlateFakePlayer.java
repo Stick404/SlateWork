@@ -55,6 +55,11 @@ public class SlateFakePlayer extends FakePlayer {
     }
 
     @Override
+    public boolean giveItemStack(ItemStack stack) {
+        return this.inventory.insertStack(stack);
+    }
+
+    @Override
     public ItemStack getStackInHand(Hand hand) {
         return inventory.getHotbarLociEntity().getCurrentSlot();
     }
