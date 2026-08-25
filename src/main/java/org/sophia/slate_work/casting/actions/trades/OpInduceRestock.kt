@@ -14,7 +14,7 @@ import org.sophia.slate_work.registries.BlockRegistry
 
 object OpInduceRestock : SpellAction {
     override val argc: Int
-        get() = 0
+        get() = 1
 
     override fun execute(
         args: List<Iota>,
