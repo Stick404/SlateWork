@@ -7,11 +7,10 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.block.BeehiveBlock;
+import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -119,13 +118,21 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             // So everything can now be traded
             int xp = offer.getMerchantExperience();
             // God this is... interesting
-            firstItem.getStorageLociEntity().setStack(firstItem.getStorageLociEntity().getSlot(firstItem.getItem()),
-                    new net.minecraft.util.Pair<>(firstItem.getItem(), firstItem.getCount() -firstBuyItem.getCount()));
-            secondItem.getStorageLociEntity().setStack(secondItem.getStorageLociEntity().getSlot(secondItem.getItem()),
-                    new net.minecraft.util.Pair<>(secondItem.getItem(), secondItem.getCount() -secondItem.getCount()));
-            offer.use();
-            INSTANCE.storeItems(env, offer.copySellItem());
-            entity.xp += xp;
+
+            try (Transaction transaction = Transaction.openOuter()){
+
+                long firstItemExtracted = firstItem.getStorageLociEntity().extract(firstItem.getItem(), firstBuyItem.getCount(), transaction);
+                long secondItemExtracted = secondItem.getStorageLociEntity().extract(secondItem.getItem(), secondBuyItem.getCount(), transaction);
+
+                if (firstItemExtracted == firstBuyItem.getCount() && secondItemExtracted == secondBuyItem.getCount()) {
+                    transaction.commit();
+
+                    offer.use();
+                    INSTANCE.storeItems(env, offer.copySellItem());
+                    entity.xp += xp;
+
+                }
+            }
 
             // Wrap it up folks!
             entity.levelUpCheck();
