@@ -16,6 +16,7 @@
     "MixinCircleExec",
     "MixinCircleExecInvoker",
     "MixinDirtyDirtyHack",
+    "MixinEnchantmentTarget",
     "MixinHahaWearAllCircleBlocks",
     "MixinICircleComponent",
     "MixinPlayer"

@@ -24,6 +24,7 @@ import org.sophia.slate_work.blocks.entities.*;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetus;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.item.AllayPigment;
+import org.sophia.slate_work.item.BlockBreakLociItem;
 import org.sophia.slate_work.item.WhisperingStone;
 
 import java.util.HashMap;
@@ -62,6 +63,8 @@ public class BlockRegistry {
     public static FakePlayerLoci FAKE_PLAYER_LOCI = registerBlockItem("fake_player_loci", new FakePlayerLoci(locusSetting));
     public static TradeLoci TRADE_LOCI = registerBlockItem("trade_loci", new TradeLoci(locusSetting));
 
+    public static BlockBreakLoci BLOCK_BREAKING_LOCI = registerBlock("block_breaking_loci", new BlockBreakLoci(locusSetting));
+
     public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 
     //public static SlateCake SLATE_CAKE = registerBlockItem("slate_cake", new SlateCake(locusSetting));
@@ -83,6 +86,8 @@ public class BlockRegistry {
             FabricBlockEntityTypeBuilder.create(HotbarLociEntity::new, HOTBAR_LOCI).build());
     public static BlockEntityType<TradeLociEntity> TRADE_LOCI_ENTITY = registerBlockEntity("trade_loci",
             FabricBlockEntityTypeBuilder.create(TradeLociEntity::new, TRADE_LOCI).build());
+    public static BlockEntityType<BlockBreakLociEntity> BLOCK_BREAK_LOCI_ENTITY = registerBlockEntity("block_break_loci",
+            FabricBlockEntityTypeBuilder.create(BlockBreakLociEntity::new, BLOCK_BREAKING_LOCI).build());
     
     public static BlockEntityType<ListeningImpetusEntity> LISTENING_IMPETUS_ENTITY = registerBlockEntity("listening_impetus",
             FabricBlockEntityTypeBuilder.create(ListeningImpetusEntity::new, LISTENING_IMPETUS).build());
@@ -90,6 +95,7 @@ public class BlockRegistry {
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
     public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
+    public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci", new BlockBreakLociItem(new Item.Settings()));
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
@@ -127,6 +133,11 @@ public class BlockRegistry {
     private static <T extends Block> T registerBasicBlockItem(String name, T block){
         BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
         ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), new Item.Settings()));
+        return block;
+    }
+
+    private static <T extends Block> T registerBlock(String name, T block){
+        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
         return block;
     }
 
