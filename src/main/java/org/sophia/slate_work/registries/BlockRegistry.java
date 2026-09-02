@@ -63,7 +63,7 @@ public class BlockRegistry {
     public static FakePlayerLoci FAKE_PLAYER_LOCI = registerBlockItem("fake_player_loci", new FakePlayerLoci(locusSetting));
     public static TradeLoci TRADE_LOCI = registerBlockItem("trade_loci", new TradeLoci(locusSetting));
 
-    public static BlockBreakLoci BLOCK_BREAKING_LOCI = registerBlock("block_breaking_loci", new BlockBreakLoci(locusSetting));
+    public static BlockBreakLoci BLOCK_BREAKING_LOCI = registerBlock("block_break_loci", new BlockBreakLoci(locusSetting));
 
     public static ListeningImpetus LISTENING_IMPETUS = registerBlockItem("listening_impetus", new ListeningImpetus(locusSetting.pistonBehavior(PistonBehavior.BLOCK)));
 

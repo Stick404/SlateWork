@@ -4,11 +4,7 @@ import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockEntityProvider;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -20,21 +16,55 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.BlockBreakLociEntity;
-import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.misc.CircleHelper;
 import org.sophia.slate_work.registries.BlockRegistry;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider {
+    private static final double THICKNESS = 4;
+    private static final VoxelShape DOWN_AB = VoxelShapes.union(
+            Block.createCuboidShape(0, 0, 0, 16, THICKNESS, 16),
+            Block.createCuboidShape(3,3,3,13,9,13));
+    private static final VoxelShape UP_AB = VoxelShapes.union(
+            Block.createCuboidShape(0, 16 - THICKNESS, 0, 16, 16, 16),
+            Block.createCuboidShape(3,7,3,13,13,13));
+    private static final VoxelShape EAST_AB = VoxelShapes.union(
+            Block.createCuboidShape(0, 0, 0, THICKNESS, 16, 16),
+            Block.createCuboidShape(7,3,3,9,13,13));
+    private static final VoxelShape WEST_AB = VoxelShapes.union(
+            Block.createCuboidShape(16 - THICKNESS, 0, 0, 16, 16, 16),
+            Block.createCuboidShape(7,3,3,13,13,13));
+    private static final VoxelShape NORTH_AB = VoxelShapes.union(
+            Block.createCuboidShape(0, 0, 16 - THICKNESS, 16, 16, 16),
+            Block.createCuboidShape(3,3,7,13,13,13));
+    private static final VoxelShape SOUTH_AB = VoxelShapes.union(
+            Block.createCuboidShape(0, 0, 0, 16, 16, THICKNESS),
+            Block.createCuboidShape(3,3,3,13,13,9));
+
+
     public BlockBreakLoci(Settings p_49795_) {
         super(p_49795_);
+    }
+
+    @Override
+    public VoxelShape getOutlineShape(BlockState pState, BlockView pLevel, BlockPos pPos, ShapeContext pContext) {
+        return switch (pState.get(FACING)){
+            case NORTH -> NORTH_AB;
+            case SOUTH -> SOUTH_AB;
+            case WEST -> WEST_AB;
+            case EAST -> EAST_AB;
+            case UP -> DOWN_AB;
+            case DOWN -> UP_AB;
+        };
     }
 
     @Override
@@ -59,7 +89,7 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         BlockEntity targetEntity = world.getBlockEntity(targetPos);
         Vec3d center = targetPos.toCenterPos();
 
-        List<ItemStack> droppedItems = Block.getDroppedStacks(targetBlock, world, pos, targetEntity, null, fakePick);
+        List<ItemStack> droppedItems = Block.getDroppedStacks(targetBlock, world, pos, targetEntity, env.getCastingEntity(), fakePick);
         world.breakBlock(targetPos, false);
 
         for (ItemStack item : droppedItems){

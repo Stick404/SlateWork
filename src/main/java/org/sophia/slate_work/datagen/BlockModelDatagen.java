@@ -21,8 +21,7 @@ import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 import static org.sophia.slate_work.blocks.RedstoneLoci.POWERED;
 import static org.sophia.slate_work.blocks.SaveLoci.HORIZONTAL;
 import static org.sophia.slate_work.blocks.SaveLoci.TOP_PART;
-import static org.sophia.slate_work.registries.BlockRegistry.ENERGIZED_BLOCKS;
-import static org.sophia.slate_work.registries.BlockRegistry.SAVE_LOCI;
+import static org.sophia.slate_work.registries.BlockRegistry.*;
 
 public class BlockModelDatagen extends FabricModelProvider {
 
@@ -47,6 +46,7 @@ public class BlockModelDatagen extends FabricModelProvider {
         registerRedstoneLocus("redstone_loci", BlockRegistry.REDSTONE_LOCI, generator);
         registerEnergizedFacing("accelerator_loci", BlockRegistry.ACCELERATOR_LOCI, generator);
         registerEnergizedFacing("fake_player_loci", BlockRegistry.FAKE_PLAYER_LOCI, generator);
+        registerEnergizedFacing("block_break_loci", BlockRegistry.BLOCK_BREAKING_LOCI, generator);
         registerDirx("trade_loci", BlockRegistry.TRADE_LOCI, generator);
 
         // Impeti
@@ -260,6 +260,8 @@ public class BlockModelDatagen extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
         for (var item : ENERGIZED_BLOCKS.entrySet()){
             if (item.getKey().getPath().equals("save_loci")) continue;
+            if (item.getKey().getPath().equals("block_break_loci")) continue;
+
             if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus) {
                 itemModelGenerator.register(item.getValue(), new Model(
                         Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
@@ -279,6 +281,10 @@ public class BlockModelDatagen extends FabricModelProvider {
         }
         itemModelGenerator.register(SAVE_LOCI.asItem(), new Model(
                 Optional.of(new Identifier(MOD_ID, "block/save_loci")),
+                Optional.empty()
+        ));
+        itemModelGenerator.register(BLOCK_BREAKING_LOCI_ITEM, new Model(
+                Optional.of(new Identifier(MOD_ID, "block/block_break_loci")),
                 Optional.empty()
         ));
     }
