@@ -33,7 +33,6 @@ public abstract class MixinEnchantmentTarget {
 
     )
     private boolean slate_work$IsAMixinReallyTheBestWayToMakeAnItemEnchantableAsAPickaxeQuestionMark(boolean original, Item item){
-        System.out.println("Hi! Im: " + this);
         return item instanceof BlockBreakLociItem;
     }
 }
