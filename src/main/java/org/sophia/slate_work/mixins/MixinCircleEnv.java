@@ -120,6 +120,7 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
                 var found = MediaHelper.extractMedia(source, media, false, simulate);
                 media -= found;
                 if (media <= 0) {
+                    media = 0L; // Oops.
                     break;
                 }
             }
