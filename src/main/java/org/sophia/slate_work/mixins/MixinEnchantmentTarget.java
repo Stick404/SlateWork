@@ -33,6 +33,6 @@ public abstract class MixinEnchantmentTarget {
 
     )
     private boolean slate_work$IsAMixinReallyTheBestWayToMakeAnItemEnchantableAsAPickaxeQuestionMark(boolean original, Item item){
-        return item instanceof BlockBreakLociItem;
+        return item instanceof BlockBreakLociItem || original;
     }
 }
