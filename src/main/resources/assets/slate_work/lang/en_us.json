@@ -233,6 +233,7 @@
   "hexcasting.mishap.circle.pocket_simulator_required": "At %s required an activated Pocket Simulator",
   "hexcasting.mishap.invalid_value.simpler_iota": "a simpler Iota",
   "hexcasting.mishap.invalid_value.axis_vector_sw": "a unit vector",
+  "hexcasting.mishap.invalid_value.type_or_null": "an Item Type or Null",
 
   "hexcasting.mishap.no_storage_loci_ran": "Did not find any activated Vessels",
   "hexcasting.mishap.list_length": "Required a list with %s items, but got %s items",
