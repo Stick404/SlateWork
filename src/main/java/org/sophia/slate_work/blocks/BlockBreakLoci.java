@@ -1,53 +1,36 @@
 package org.sophia.slate_work.blocks;
 
-import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
+import at.petrak.hexcasting.api.casting.eval.vm.*;
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.api.casting.iota.NullIota;
-import at.petrak.hexcasting.api.misc.MediaConstants;
-import at.petrak.hexcasting.api.mod.HexTags;
-import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import at.petrak.hexcasting.api.casting.iota.PatternIota;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.ToolMaterials;
 import net.minecraft.network.packet.s2c.play.ParticleS2CPacket;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.BlockBreakLociEntity;
-import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
-import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
-import org.sophia.slate_work.misc.CircleHelper;
 import org.sophia.slate_work.registries.BlockRegistry;
-import ram.talia.moreiotas.api.casting.iota.ItemTypeIota;
+import org.sophia.slate_work.registries.PatternRegistry;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider {
-    private static final int DISTANCE = 6;
+    public static final int DISTANCE = 6;
     private static final double THICKNESS = 4;
     private static final VoxelShape DOWN_AB = VoxelShapes.union(
             Block.createCuboidShape(0, 0, 0, 16, THICKNESS, 16),
@@ -93,6 +76,7 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         exitDirsSet.remove(enterDir.getOpposite());
         var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
 
+        var hex = stack.get(stack.size() -1);
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -101,125 +85,26 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
             return new ControlFlow.Stop();
         }
 
-        Function<BlockState, Boolean> compare;
-        var last = stack.get(stack.size() -1);
-        //Does *not* pop the stack
-        // These set a predicate
-        if (last instanceof ItemTypeIota iota) {
-            compare = (a) -> a.getBlock().equals(iota.getBlock());
-        } else if (last instanceof NullIota) {
-            // If the iota is null, then we always accept the blocks
-            compare = (a) -> true;
+        var vm = new CastingVM(imageIn, env);
+        var result = vm.queueExecuteAndWrapIota(new PatternIota(PatternRegistry.I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME), world);
+
+        if (result.getResolutionType().getSuccess()) {
+            // We play the sound at the locus to not explode player's ears
+            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.25f, 0.6f);
+            world.getPlayers().forEach(a -> a.networkHandler.sendPacket(new ParticleS2CPacket(
+                    ParticleTypes.EXPLOSION, false, pos.toCenterPos().getX(), pos.toCenterPos().getY(),pos.toCenterPos().getZ(),
+                    0, 0, 0, 0, 1
+            )));
+
+            var image = vm.getImage();
+            var newestStack = new ArrayList<>(image.getStack());
+            newestStack.add(hex);
+
+            return new ControlFlow.Continue(image.copy(newestStack, image.getParenCount(),
+                    image.getParenthesized(),image.getEscapeNext(),image.getOpsConsumed(), image.getUserData()), exits);
         } else {
-            this.fakeThrowMishap(
-                    pos, bs, imageIn, env,
-                    MishapSpellCircleInvalidIota.ofType(last, 0, "type_or_null", pos)
-            );
             return new ControlFlow.Stop();
         }
-
-        BlockEntity entity = world.getBlockEntity(pos);
-        if (!(entity instanceof BlockBreakLociEntity loci)){
-            return new ICircleComponent.ControlFlow.Stop();
-        }
-
-        ItemStack fakePick = new ItemStack(Items.NETHERITE_PICKAXE);
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.fromNbt(loci.getEnchantments());
-
-        EnchantmentHelper.set(enchantments, fakePick);
-
-        Direction facing = bs.get(FACING);
-
-        Integer fortuneCostI = enchantments.get(Enchantments.FORTUNE);
-        long fortuneCost;
-        if (fortuneCostI != null) { // Since the item may not have Fortune
-            fortuneCost = fortuneCostI.longValue();
-        } else {
-            fortuneCost = 0;
-        }
-
-
-        long silkTouchCost;
-        if (enchantments.containsKey(Enchantments.SILK_TOUCH)) { // Nor SilkTouch
-            silkTouchCost = 1;
-        } else {
-            silkTouchCost = 0;
-        }
-
-        Integer efficiencyMultI = enchantments.get(Enchantments.EFFICIENCY);
-        long efficiencyMult;
-        if (efficiencyMultI != null) { // Since the item may not have Fortune
-            efficiencyMult = efficiencyMultI.longValue() +2;
-        } else {
-            efficiencyMult = 2;
-        }
-
-        // We play the sound at the locus to not explode player's ears
-        world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.25f, 0.6f);
-        world.getPlayers().forEach(a -> a.networkHandler.sendPacket(new ParticleS2CPacket(
-                ParticleTypes.EXPLOSION, false, pos.toCenterPos().getX(), pos.toCenterPos().getY(),pos.toCenterPos().getZ(),
-                0, 0, 0, 0, 1
-        )));
-
-        List<BlockPos> targetBlocks = new ArrayList<>();
-        BlockPos.stream(pos.offset(facing), pos.offset(facing, DISTANCE)).forEach(block ->{
-            BlockPos targetPos = block.toImmutable();
-            BlockState targetBlock = world.getBlockState(targetPos);
-
-            if (targetBlock.getHardness(world, targetPos) >= 0f // To avoid breaking bedrock
-                    && !targetBlock.isAir()
-                    && IXplatAbstractions.INSTANCE.isCorrectTierForDrops(ToolMaterials.NETHERITE, targetBlock)
-                    && IXplatAbstractions.INSTANCE.isBreakingAllowed(world, targetPos, targetBlock, env.getCaster())
-                    && compare.apply(targetBlock)){
-                targetBlocks.add(targetPos);
-            }
-        });
-
-        List<Pair<ItemStack, Vec3d>> droppedItems = new ArrayList<>();
-
-        for (BlockPos blockPos : targetBlocks){
-            BlockState targetBlock = world.getBlockState(blockPos);
-            BlockEntity targetEntity = world.getBlockEntity(blockPos);
-
-            // Uhh, random bullshit go
-            boolean isCheap = world.getBlockState(blockPos).streamTags().anyMatch(a -> a.equals(HexTags.Blocks.CHEAP_TO_BREAK_BLOCK));
-            long cheapCost = isCheap ? MediaConstants.DUST_UNIT / 100 : MediaConstants.DUST_UNIT / 8;
-            long cost = (long) ((cheapCost + (silkTouchCost*MediaConstants.SHARD_UNIT) + (fortuneCost*MediaConstants.DUST_UNIT))/(efficiencyMult*0.5));
-            // Okay so. Theres the source cost, then its added by either Silk Touch (an extra shard), or added Fortune*a shard.
-            // This means Fortune 3 (highest base game) is an extra 3 shards; feels fare since its a locus/needs the block in front of it.
-            // Then, the whole cost is divided by efficiency*0.5; meaning highest cost reduce (base game) is 2.5 times.
-            // So, the "best" locus would cost... 1.25 dust (Eff 5, Fort 3)
-
-            // If we fail to extract Media at any point, shrimply die
-            var extracted = env.extractMedia(cost, false);
-            if (0L != extracted) {
-                this.fakeThrowMishap(
-                        pos, bs, imageIn, env,
-                        new MishapSpellCircleMedia(extracted, pos)
-                );
-                return new ControlFlow.Stop();
-            }
-
-            droppedItems.addAll(Block.getDroppedStacks(targetBlock, world, blockPos, targetEntity, env.getCastingEntity(), fakePick).stream().map(
-                    (a) -> new Pair<>(a, blockPos.toCenterPos())).collect(Collectors.toCollection(ArrayList::new)));
-            world.breakBlock(blockPos, false);
-        }
-
-        //List<ItemStack> droppedItems = Block.getDroppedStacks(targetBlock, world, pos, targetEntity, env.getCastingEntity(), fakePick);
-
-        for (Pair<ItemStack, Vec3d> item : droppedItems){
-            if (!CircleHelper.INSTANCE.storeItems(env, item.getLeft())){
-                // If it fails to store, spit item out
-                Vec3d center = item.getRight();
-                ItemEntity itemEntity = new ItemEntity(world, center.getX(), center.getY(), center.getZ(), item.getLeft());
-                itemEntity.setToDefaultPickupDelay();
-                world.spawnEntity(itemEntity);
-            }
-        }
-
-
-        return new ICircleComponent.ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(),
-                imageIn.getParenthesized(), imageIn.getEscapeNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
     }
 
     @Override

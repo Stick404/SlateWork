@@ -1,7 +1,7 @@
 package org.sophia.slate_work.casting.contuinations;
 
 /**
- *  For `FrameGetItems`, it has to run over item, but ends to early when using a `list#isEmpty` due to needing to run one more time.
+ *  For {@link FrameCheckItems}, it has to run over item, but ends to early when using a `list#isEmpty` due to needing to run one more time.
  *  So this horrid thing has to be made, combing the `isFirst` boolean, we can check if the current eval is FIRST, RUNNING, or LAST.
  *  <ul>
  *      <li>FIRST, says if this is the first run, and does not check the stack</li>

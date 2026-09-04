@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.block.circle.BlockCircleComponent;
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota;
+import at.petrak.hexcasting.api.casting.math.HexAngle;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
@@ -23,8 +24,7 @@ import org.sophia.slate_work.casting.actions.trades.OpGetTrades;
 import org.sophia.slate_work.casting.actions.trades.OpInduceRestock;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
@@ -61,6 +61,29 @@ public class PatternRegistry {
     public static final HexPattern GET_TRADES = make("eaqwqaewedeadwdwd", HexDir.SOUTH_WEST, "get_trades", OpGetTrades.INSTANCE);
     public static final HexPattern EXCHANGE_MIND = make("eaqwqaeqawawaddwwdqeeqdwwd", HexDir.SOUTH_WEST, "exchange_mind", OpExchangeMind.INSTANCE);
     public static final HexPattern INDUCE_RESTOCK = make("eaqwqaeqwaeaeqqeaeawedaawqwawqa", HexDir.SOUTH_WEST, "induce_restock", OpInduceRestock.INSTANCE);
+
+    private static ArrayList<HexAngle> getFakePattern(){
+        ArrayList<HexAngle> fakeList = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 134; i++) {
+            switch (random.nextInt(0, 6)){
+                case 1: fakeList.add(HexAngle.BACK); break;
+                case 2: fakeList.add(HexAngle.FORWARD); break;
+                case 3: fakeList.add(HexAngle.LEFT); break;
+                case 4: fakeList.add(HexAngle.RIGHT); break;
+                case 5: fakeList.add(HexAngle.LEFT_BACK); break;
+                case 6: fakeList.add(HexAngle.RIGHT_BACK); break;
+            }
+        }
+        return fakeList;
+    }
+
+    // Okay so, this is going to take some explaining. Long story short: *needed* a pattern, but don't want Players ever using it.
+    // So this randomly generates a pattern that is 134 lines long, and uses invalid sigs as well.
+    public static final HexPattern I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME = new HexPattern(HexDir.NORTH_EAST, getFakePattern());
+    static {
+        PATTERNS.put(new Identifier(MOD_ID,"bombastic_extractor"), new ActionRegistryEntry(I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME, OpIAmSoSorryForMyCrimesHexxyForgiveMe.INSTANCE));
+    }
 
     // Got permission from Walks to add these to Slate Works
     public static final HexPattern WAVE_POSITION = make("eaqdaadqaeeaa", HexDir.SOUTH_WEST, "wave_position",
