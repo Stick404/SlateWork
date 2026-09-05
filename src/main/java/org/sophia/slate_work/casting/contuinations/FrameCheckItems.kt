@@ -48,7 +48,7 @@ class FrameCheckItems(
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
         val stack = baseStack.toMutableList()
-        val slot = if (isFirst != JankyMaybe.LAST && !toCheck.isEmpty()){
+        val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()) {
             toCheck.removeFirst()
         } else {
             isFirst = JankyMaybe.LAST
@@ -59,19 +59,25 @@ class FrameCheckItems(
         val realStack = harness.image.stack.reversed().toMutableList()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
-        if (isFirst != JankyMaybe.FIRST){
+        if (isFirst != JankyMaybe.FIRST) {
             try {
                 if (harness.env !is CircleCastEnv) {
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                if (realStack.getBool(0, 0)){
+                if (realStack.getBool(0, 0)) {
                     hasFound = true
                 }
                 realStack.removeLast()
-            } catch (e : Mishap){
-                sideEffect.add(OperatorSideEffect.DoMishap(e, Mishap.Context(null,
-                    Text.translatable("hexcasting.action.slate_work:check_item"))))
+            } catch (e: Mishap) {
+                sideEffect.add(
+                    OperatorSideEffect.DoMishap(
+                        e, Mishap.Context(
+                            null,
+                            Text.translatable("hexcasting.action.slate_work:check_item")
+                        )
+                    )
+                )
                 return CastResult(
                     ListIota(code),
                     continuation,
@@ -83,7 +89,19 @@ class FrameCheckItems(
             }
         }
 
-        val cont = if (isFirst != JankyMaybe.LAST) {
+
+
+        val cont = if (hasFound){
+            stack.add(BooleanIota(true))
+            return CastResult(
+                ListIota(code),
+                continuation,
+                harness.image.withUsedOp().copy(stack = stack),
+                sideEffect,
+                ResolvedPatternType.EVALUATED,
+                HexEvalSounds.NORMAL_EXECUTE
+            )
+        } else if (isFirst != JankyMaybe.LAST) {
             stack.add(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
             when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
@@ -98,7 +116,7 @@ class FrameCheckItems(
                 }
             }
         } else {
-            stack.add(BooleanIota(hasFound))
+            stack.add(BooleanIota(false))
             continuation
         }
 
