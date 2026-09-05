@@ -101,9 +101,7 @@ class FrameBreakBlockLoci(
                 val cheapCost = if (isCheap) MediaConstants.DUST_UNIT / 100 else MediaConstants.DUST_UNIT / 8
                 val cost =
                     ((cheapCost + (silkTouchCost * MediaConstants.SHARD_UNIT) + (fortuneCost * MediaConstants.DUST_UNIT)) / (efficiencyMult * 0.5)).toLong()
-
-
-                // Okay so. Theres the source cost, then its added by either Silk Touch (an extra shard), or added Fortune*a shard.
+                // Okay so. Theres the source cost, then its added by either Silk Touch (an extra shard), or added Fortune*a dust.
                 // This means Fortune 3 (highest base game) is an extra 3 shards; feels fare since its a locus/needs the block in front of it.
                 // Then, the whole cost is divided by efficiency*0.5; meaning highest cost reduce (base game) is 2.5 times.
                 // So, the "best" locus would cost... 1.25 dust (Eff 5, Fort 3)
