@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "hexcasting:slate"
+    },
+    "A": {
+      "item": "hexcasting:amethyst_dust"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "N": {
+      "item": "minecraft:netherite_scrap"
+    }
+  },
+  "pattern": [
+    " N ",
+    "ATA",
+    "SSS"
+  ],
+  "result": {
+    "item": "slate_work:block_break_loci"
+  }
+}

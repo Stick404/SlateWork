@@ -1,0 +1,38 @@
+{
+  "name": "slate_work.entry.block_break_loci",
+  "category": "hexcasting:greatwork",
+  "icon": "slate_work:block_break_loci",
+  "advancement": "hexcasting:enlightenment",
+  "read_by_default": false,
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.block_break_loci.intro"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "slate_work:block_break_loci",
+      "anchor": "block_break_loci",
+      "link_recipe": true,
+      "text": "slate_work.page.block_break_loci.block_break_loci"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.block_break_loci.block_break_loci_cont"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.block_break_loci.filter"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.block_break_loci.pickup"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:block_break_loci",
+      "text": "slate_work.page.block_break_loci.crafting"
+    }
+  ]
+}
