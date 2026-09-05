@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
-    //TODO: Maybe make this wearable/use Attributes?
     public WhisperingStone(Settings settings) {
         super(settings);
     }

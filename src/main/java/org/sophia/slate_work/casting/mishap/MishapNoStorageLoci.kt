@@ -13,10 +13,10 @@ import net.minecraft.util.math.BlockPos
 class MishapNoStorageLoci(
     val pos: BlockPos?
 ) : Mishap() {
-    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context) = dyeColor(DyeColor.GRAY)
+    override fun accentColor(env: CastingEnvironment, errorCtx: Context) = dyeColor(DyeColor.GRAY)
 
-    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text {
-        if (ctx is CircleCastEnv && pos != null)
+    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Text {
+        if (env is CircleCastEnv && pos != null)
             return error("circle.no_storage_loci_ran", Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
         return error("no_storage_loci_ran")
     }

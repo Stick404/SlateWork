@@ -96,9 +96,9 @@ dependencies {
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     compileOnly("com.demonwav.mcdev:annotations:1.0")
+    runtimeOnly("org.ejml:ejml-all:0.44.0")
 
     modImplementation "at.petra-k.paucal:paucal-fabric-$minecraft_version:$paucal_version"
-    //modImplementation files("${rootProject.rootDir}/libs/hexcasting-fabric-1.20.1-0.11.2.4-SpellCircle.jar")
     modImplementation ("at.petra-k.hexcasting:hexcasting-fabric-${minecraft_version}:${hex_casting}")
     modImplementation ("me.shedaniel.cloth:cloth-config-fabric:$cloth_config")
     modImplementation ("net.fabricmc:fabric-language-kotlin:1.13.7+kotlin.2.2.21")
