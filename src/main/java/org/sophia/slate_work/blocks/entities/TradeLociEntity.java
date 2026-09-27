@@ -21,7 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-import static org.sophia.slate_work.registries.BlockRegistry.TRADE_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.TRADE_LOCI_ENTITY;
 
 public class TradeLociEntity extends BlockEntity {
     public TradeOfferList offerList;

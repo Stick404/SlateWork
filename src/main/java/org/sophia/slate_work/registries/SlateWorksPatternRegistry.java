@@ -28,7 +28,7 @@ import java.util.*;
 
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
-public class PatternRegistry {
+public class SlateWorksPatternRegistry {
     private static final Map<Identifier, ActionRegistryEntry> PATTERNS = new LinkedHashMap<>();
 
     public static void init(){

@@ -14,12 +14,14 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
+import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.api.utils.getList
 import at.petrak.hexcasting.api.utils.putCompound
 import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
+import com.mojang.serialization.MapCodec
 import net.fabricmc.fabric.impl.transfer.transaction.TransactionManagerImpl
 import net.minecraft.entity.ItemEntity
 import net.minecraft.item.ItemStack
@@ -27,17 +29,20 @@ import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
 import net.minecraft.nbt.NbtList
+import net.minecraft.network.RegistryByteBuf
+import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.misc.CircleHelper
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 import java.util.*
+import kotlin.collections.listOf
 
 @Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class FrameGetItems(
-    val code: SpellList,
-    val baseStack: List<Iota>,
+    val code: TreeList<Iota>,
+    val baseStack: TreeList<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
     val oldReturn: CircleHelper.ItemSlot?,
     var isFirst: JankyMaybe
@@ -45,21 +50,20 @@ class FrameGetItems(
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
 
-    override fun breakDownwards(stack: List<Iota>): Pair<Boolean, List<Iota>> {
-        return true to listOf()
+    override fun breakDownwards(stack: TreeList<Iota>): Pair<Boolean, TreeList<Iota>> {
+        return true to stack
     }
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack.toMutableList()
-        val slot = if (isFirst != JankyMaybe.LAST && !toCheck.isEmpty()){
+        val stack = baseStack
+        val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()){
             toCheck.removeFirst()
         } else {
             isFirst = JankyMaybe.LAST
             null
         }
 
-        val realStack = harness.image.stack.reversed()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
         if (isFirst != JankyMaybe.FIRST && oldReturn != null){
@@ -68,9 +72,9 @@ class FrameGetItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                if (realStack.getBool(0, 3)){
-                    val amount = realStack.getPositiveInt(2,3)
-                    val pos = realStack.getVec3(1,3)
+                if (stack.getBool(0, 3)){
+                    val amount = stack.getPositiveInt(2,3)
+                    val pos = stack.getVec3(1,3)
                     harness.env.assertVecInRange(pos)
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
                         Triple(oldReturn,pos,amount)
@@ -85,7 +89,7 @@ class FrameGetItems(
                     harness.image.withUsedOp().copy(stack = stack),
                     sideEffect,
                     ResolvedPatternType.ERRORED,
-                    HexEvalSounds.NORMAL_EXECUTE
+                    HexEvalSounds.NORMAL_EXECUTE.get()
                 )
             }
         }
@@ -161,6 +165,14 @@ class FrameGetItems(
                 val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
                 // If it is a normal "running," then restart it as a "first"
                 return FrameGetItems(code, stack,toCheck, oldReturn,if (stepEval == JankyMaybe.RUNNING) JankyMaybe.FIRST else stepEval)
+            }
+
+            override fun codec(): MapCodec<FrameGetItems> {
+                TODO("Not yet implemented")
+            }
+
+            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameGetItems> {
+                TODO("Not yet implemented")
             }
 
         }

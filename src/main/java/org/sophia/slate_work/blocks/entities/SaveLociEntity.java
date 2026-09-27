@@ -7,13 +7,13 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class SaveLociEntity extends HexBlockEntity {
     private NbtCompound save = new CastingImage().serializeToNbt();
 
     public SaveLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.SAVE_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.SAVE_LOCI_ENTITY, pos, state);
     }
 
     public void setSave(CastingImage image) {

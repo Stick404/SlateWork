@@ -14,7 +14,6 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -24,11 +23,10 @@ import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.misc.DumbDumbInv;
-import org.sophia.slate_work.storage.HotbarLociSlot;
 
 import java.util.Iterator;
 
-import static org.sophia.slate_work.registries.BlockRegistry.CRAFTING_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.CRAFTING_LOCI_ENTITY;
 
 public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHandlerFactory, SlottedStorage<ItemVariant> {
     private DefaultedList<ItemStack> inv = DefaultedList.ofSize(10,ItemStack.EMPTY);

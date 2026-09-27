@@ -14,7 +14,6 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.sophia.slate_work.registries.BlockRegistry.HOTBAR_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.HOTBAR_LOCI_ENTITY;
 
 @SuppressWarnings("UnstableApiUsage")
 public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant>, ExtendedScreenHandlerFactory {

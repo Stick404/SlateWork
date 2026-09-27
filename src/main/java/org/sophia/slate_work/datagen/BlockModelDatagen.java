@@ -11,7 +11,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.blocks.TradeLoci;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.Optional;
 
@@ -21,7 +21,7 @@ import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 import static org.sophia.slate_work.blocks.RedstoneLoci.POWERED;
 import static org.sophia.slate_work.blocks.SaveLoci.HORIZONTAL;
 import static org.sophia.slate_work.blocks.SaveLoci.TOP_PART;
-import static org.sophia.slate_work.registries.BlockRegistry.*;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.*;
 
 public class BlockModelDatagen extends FabricModelProvider {
 
@@ -33,42 +33,42 @@ public class BlockModelDatagen extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
 
         // Loci
-        registerEnergizedOnly("ambit_loci", BlockRegistry.AMBIT_LOCI, generator);
-        registerEnergizedOnly("crafting_loci", BlockRegistry.CRAFTING_LOCI, generator);
-        registerEnergizedOnly("broadcaster_loci", BlockRegistry.BROADCASTER_LOCI, generator);
-        registerEnergizedFacing("storage_loci", BlockRegistry.STORAGE_LOCI, generator);
-        registerEnergizedFacing("speed_loci", BlockRegistry.SPEED_LOCI, generator);
-        registerEnergizedFacing("macro_loci", BlockRegistry.MACRO_LOCI, generator);
-        registerEnergizedFacing("mute_loci", BlockRegistry.MUTE_LOCI, generator);
-        registerEnergizedFacing("sentinel_loci", BlockRegistry.SENTINEL_LOCI, generator);
-        registerEnergizedFacing("hotbar_loci", BlockRegistry.HOTBAR_LOCI, generator);
+        registerEnergizedOnly("ambit_loci", SlateWorksBlockRegistry.AMBIT_LOCI, generator);
+        registerEnergizedOnly("crafting_loci", SlateWorksBlockRegistry.CRAFTING_LOCI, generator);
+        registerEnergizedOnly("broadcaster_loci", SlateWorksBlockRegistry.BROADCASTER_LOCI, generator);
+        registerEnergizedFacing("storage_loci", SlateWorksBlockRegistry.STORAGE_LOCI, generator);
+        registerEnergizedFacing("speed_loci", SlateWorksBlockRegistry.SPEED_LOCI, generator);
+        registerEnergizedFacing("macro_loci", SlateWorksBlockRegistry.MACRO_LOCI, generator);
+        registerEnergizedFacing("mute_loci", SlateWorksBlockRegistry.MUTE_LOCI, generator);
+        registerEnergizedFacing("sentinel_loci", SlateWorksBlockRegistry.SENTINEL_LOCI, generator);
+        registerEnergizedFacing("hotbar_loci", SlateWorksBlockRegistry.HOTBAR_LOCI, generator);
         registerSaveLoci("save_loci", SAVE_LOCI, generator);
-        registerRedstoneLocus("redstone_loci", BlockRegistry.REDSTONE_LOCI, generator);
-        registerEnergizedFacing("accelerator_loci", BlockRegistry.ACCELERATOR_LOCI, generator);
-        registerEnergizedFacing("fake_player_loci", BlockRegistry.FAKE_PLAYER_LOCI, generator);
-        registerEnergizedFacing("block_break_loci", BlockRegistry.BLOCK_BREAKING_LOCI, generator);
-        registerDirx("trade_loci", BlockRegistry.TRADE_LOCI, generator);
+        registerRedstoneLocus("redstone_loci", SlateWorksBlockRegistry.REDSTONE_LOCI, generator);
+        registerEnergizedFacing("accelerator_loci", SlateWorksBlockRegistry.ACCELERATOR_LOCI, generator);
+        registerEnergizedFacing("fake_player_loci", SlateWorksBlockRegistry.FAKE_PLAYER_LOCI, generator);
+        registerEnergizedFacing("block_break_loci", SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI, generator);
+        registerDirx("trade_loci", SlateWorksBlockRegistry.TRADE_LOCI, generator);
 
         // Impeti
-        registerImpetus("listening", BlockRegistry.LISTENING_IMPETUS, generator);
+        registerImpetus("listening", SlateWorksBlockRegistry.LISTENING_IMPETUS, generator);
 
         // Deco Blocks
         generator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
-                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks")).put(VariantSettings.WEIGHT, 3),
-                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_2")).put(VariantSettings.WEIGHT, 3),
-                        BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_3"))
+                VariantsBlockStateSupplier.create(SlateWorksBlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
+                        BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks")).put(VariantSettings.WEIGHT, 3),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks_2")).put(VariantSettings.WEIGHT, 3),
+                        BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks_3"))
                 ));
-        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
-                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks")), generator.modelCollector);
-        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_2",
-                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_2")), generator.modelCollector);
-        Models.CUBE_ALL.upload(BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_3",
-                new TextureMap().put(TextureKey.ALL, new Identifier(MOD_ID, "block/slate_plated_edified_planks_3")), generator.modelCollector);
+        Models.CUBE_ALL.upload(SlateWorksBlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
+                new TextureMap().put(TextureKey.ALL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks")), generator.modelCollector);
+        Models.CUBE_ALL.upload(SlateWorksBlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_2",
+                new TextureMap().put(TextureKey.ALL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks_2")), generator.modelCollector);
+        Models.CUBE_ALL.upload(SlateWorksBlockRegistry.SLATE_PLATED_EDIFIED_PLANKS, "_3",
+                new TextureMap().put(TextureKey.ALL, Identifier.of(MOD_ID, "block/slate_plated_edified_planks_3")), generator.modelCollector);
 
-        generator.registerSimpleCubeAll(BlockRegistry.AMETHYST_EMBEDDED_SLATE);
-        generator.registerSimpleCubeAll(BlockRegistry.COPPER_PLATED_SLATE);
-        generator.registerSimpleCubeAll(BlockRegistry.REPLICATED_ALLAY);
+        generator.registerSimpleCubeAll(SlateWorksBlockRegistry.AMETHYST_EMBEDDED_SLATE);
+        generator.registerSimpleCubeAll(SlateWorksBlockRegistry.COPPER_PLATED_SLATE);
+        generator.registerSimpleCubeAll(SlateWorksBlockRegistry.REPLICATED_ALLAY);
     }
 
     private static final String impeti = "block/impeti/";
@@ -81,31 +81,31 @@ public class BlockModelDatagen extends FabricModelProvider {
         TextureMap back = new TextureMap();
         TextureMap neither = new TextureMap();
 
-        front.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
-        back.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
-        neither.put(TextureKey.DOWN, new Identifier(HexAPI.MOD_ID, "block/circle/bottom"));
+        front.put(TextureKey.DOWN, Identifier.of(HexAPI.MOD_ID, "block/circle/bottom"));
+        back.put(TextureKey.DOWN, Identifier.of(HexAPI.MOD_ID, "block/circle/bottom"));
+        neither.put(TextureKey.DOWN, Identifier.of(HexAPI.MOD_ID, "block/circle/bottom"));
 
         int i = 0;
         for (String ouch : pain) {
             System.out.println(ouch);
             System.out.println(morePain[i]);
-            front.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_true"));
-            back.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_false"));
-            neither.put(morePain[i], new Identifier(MOD_ID, "block/" + name + "/" + ouch + "_neither"));
+            front.put(morePain[i], Identifier.of(MOD_ID, "block/" + name + "/" + ouch + "_true"));
+            back.put(morePain[i], Identifier.of(MOD_ID, "block/" + name + "/" + ouch + "_false"));
+            neither.put(morePain[i], Identifier.of(MOD_ID, "block/" + name + "/" + ouch + "_neither"));
             i++;
         }
 
-        front.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_lit"));
-        front.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_dim"));
-        front.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        front.put(TextureKey.NORTH, Identifier.of(MOD_ID, "block/" + name + "/front_lit"));
+        front.put(TextureKey.SOUTH, Identifier.of(MOD_ID, "block/" + name + "/back_dim"));
+        front.put(TextureKey.PARTICLE, Identifier.of(HexAPI.MOD_ID, "block/slate"));
 
-        back.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_dim"));
-        back.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_lit"));
-        back.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        back.put(TextureKey.NORTH, Identifier.of(MOD_ID, "block/" + name + "/front_dim"));
+        back.put(TextureKey.SOUTH, Identifier.of(MOD_ID, "block/" + name + "/back_lit"));
+        back.put(TextureKey.PARTICLE, Identifier.of(HexAPI.MOD_ID, "block/slate"));
 
-        neither.put(TextureKey.NORTH, new Identifier(MOD_ID, "block/" + name + "/front_dim"));
-        neither.put(TextureKey.SOUTH, new Identifier(MOD_ID, "block/" + name + "/back_dim"));
-        neither.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        neither.put(TextureKey.NORTH, Identifier.of(MOD_ID, "block/" + name + "/front_dim"));
+        neither.put(TextureKey.SOUTH, Identifier.of(MOD_ID, "block/" + name + "/back_dim"));
+        neither.put(TextureKey.PARTICLE, Identifier.of(HexAPI.MOD_ID, "block/slate"));
 
         var frontModel = Models.CUBE.upload(block, "_front", front, generator.modelCollector);
         var backModel = Models.CUBE.upload(block, "_back", back, generator.modelCollector);
@@ -140,8 +140,8 @@ public class BlockModelDatagen extends FabricModelProvider {
     }
 
     private static void registerRedstoneLocus(String name, Block block, BlockStateModelGenerator generator){
-        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name));
-        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name + "_energized"));
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/" + name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/" + name + "_energized"));
         var mapEnergy = BlockStateVariantMap.create(POWERED).register(true, bsvEnergized).register(false, bsvNormal);
 
         var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
@@ -168,12 +168,12 @@ public class BlockModelDatagen extends FabricModelProvider {
         TextureKey[] morePain = {TextureKey.UP, TextureKey.DOWN, TextureKey.NORTH, TextureKey.SOUTH, TextureKey.WEST, TextureKey.EAST};
         TextureMap lit = new TextureMap();
         TextureMap unLit = new TextureMap();
-        lit.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
-        unLit.put(TextureKey.PARTICLE, new Identifier(HexAPI.MOD_ID, "block/slate"));
+        lit.put(TextureKey.PARTICLE, Identifier.of(HexAPI.MOD_ID, "block/slate"));
+        unLit.put(TextureKey.PARTICLE, Identifier.of(HexAPI.MOD_ID, "block/slate"));
         int i = 0;
         for (String ouch : pain) {
-            lit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_lit"));
-            unLit.put(morePain[i], new Identifier(MOD_ID, path+ouch+"_dim"));
+            lit.put(morePain[i], Identifier.of(MOD_ID, path+ouch+"_lit"));
+            unLit.put(morePain[i], Identifier.of(MOD_ID, path+ouch+"_dim"));
             i++;
         }
         var litModel = Models.CUBE.upload(block, "_lit", lit, generator.modelCollector);
@@ -207,11 +207,11 @@ public class BlockModelDatagen extends FabricModelProvider {
     }
 
     private static void registerSaveLoci(String name, Block block, BlockStateModelGenerator generator){
-        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/"+name));
-        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/" + name + "_energized"));
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID,"block/"+name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID,"block/" + name + "_energized"));
 
-        var bsvTop = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/empty"));
-        var bsvBottom = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/save_loci"));
+        var bsvTop = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/empty"));
+        var bsvBottom = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/save_loci"));
 
         var mapTop = BlockStateVariantMap.create(TOP_PART).register(true, bsvTop).register(false, bsvBottom);
         var map = BlockStateVariantMap.create(ENERGIZED).register(true,bsvEnergized).register(false, bsvNormal);
@@ -226,16 +226,16 @@ public class BlockModelDatagen extends FabricModelProvider {
     }
 
     private static void registerEnergizedOnly(String name, Block block, BlockStateModelGenerator generator){
-        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/"+name));
-        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID,"block/" + name + "_energized"));
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID,"block/"+name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID,"block/" + name + "_energized"));
         var map = BlockStateVariantMap.create(ENERGIZED).register(true,bsvEnergized).register(false, bsvNormal);
 
         generator.blockStateCollector.accept(VariantsBlockStateSupplier.create(block).coordinate(map));
     }
 
     private static void registerEnergizedFacing(String name, Block block, BlockStateModelGenerator generator) {
-        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name));
-        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, new Identifier(MOD_ID, "block/" + name + "_energized"));
+        var bsvNormal = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/" + name));
+        var bsvEnergized = BlockStateVariant.create().put(VariantSettings.MODEL, Identifier.of(MOD_ID, "block/" + name + "_energized"));
         var mapEnergy = BlockStateVariantMap.create(ENERGIZED).register(true, bsvEnergized).register(false, bsvNormal);
 
         var RotUp = BlockStateVariant.create().put(VariantSettings.X, VariantSettings.Rotation.R0);
@@ -264,27 +264,27 @@ public class BlockModelDatagen extends FabricModelProvider {
 
             if (item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof BlockAbstractImpetus) {
                 itemModelGenerator.register(item.getValue(), new Model(
-                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
+                        Optional.of(Identifier.of(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_lit")),
                         Optional.empty()
                 ));
             } else if(item.getValue() instanceof BlockItem bi && bi.getBlock() instanceof TradeLoci) {
                 itemModelGenerator.register(item.getValue(), new Model(
-                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_front")),
+                        Optional.of(Identifier.of(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_front")),
                         Optional.empty()
                 ));
             } else {
                 itemModelGenerator.register(item.getValue(), new Model(
-                        Optional.of(new Identifier(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
+                        Optional.of(Identifier.of(item.getKey().getNamespace(), "block/" + item.getKey().getPath() + "_energized")),
                         Optional.empty()
                 ));
             }
         }
         itemModelGenerator.register(SAVE_LOCI.asItem(), new Model(
-                Optional.of(new Identifier(MOD_ID, "block/save_loci")),
+                Optional.of(Identifier.of(MOD_ID, "block/save_loci")),
                 Optional.empty()
         ));
         itemModelGenerator.register(BLOCK_BREAKING_LOCI_ITEM, new Model(
-                Optional.of(new Identifier(MOD_ID, "block/block_break_loci")),
+                Optional.of(Identifier.of(MOD_ID, "block/block_break_loci")),
                 Optional.empty()
         ));
     }

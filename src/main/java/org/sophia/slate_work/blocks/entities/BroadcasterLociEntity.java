@@ -1,7 +1,6 @@
 package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.NullIota;
 import at.petrak.hexcasting.api.utils.NBTHelper;
 import com.mojang.serialization.Decoder;
@@ -19,12 +18,12 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.misc.KnownBroadcasters;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class BroadcasterLociEntity extends BlockEntity {
     private Iota iota;
     public BroadcasterLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.BROADCASTER_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.BROADCASTER_LOCI_ENTITY, pos, state);
         iota = new NullIota();
     }
 

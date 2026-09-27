@@ -24,8 +24,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.BlockBreakLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
-import org.sophia.slate_work.registries.BlockRegistry;
-import org.sophia.slate_work.registries.PatternRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksPatternRegistry;
 
 import java.util.ArrayList;
 
@@ -86,7 +86,7 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         }
 
         var vm = new CastingVM(imageIn, env);
-        var result = vm.queueExecuteAndWrapIota(new PatternIota(PatternRegistry.I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME), world);
+        var result = vm.queueExecuteAndWrapIota(new PatternIota(SlateWorksPatternRegistry.I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME), world);
 
         if (result.getResolutionType().getSuccess()) {
             // We play the sound at the locus to not explode player's ears
@@ -124,7 +124,7 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof BlockBreakLociEntity loci && !newState.isOf(state.getBlock())) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
 
                 var enchants = EnchantmentHelper.fromNbt(loci.getEnchantments());
                 for (var enchant : enchants.entrySet()){

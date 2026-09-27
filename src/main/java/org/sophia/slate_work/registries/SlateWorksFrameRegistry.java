@@ -13,7 +13,7 @@ import java.util.Map;
 
 import static at.petrak.hexcasting.api.HexAPI.modLoc;
 
-public class FrameRegistry {
+public class SlateWorksFrameRegistry {
     private static final Map<Identifier, ContinuationFrame.Type<?>> CONTINUATIONS = new LinkedHashMap<>();
     public static final Registry<ContinuationFrame.Type<?>> REGISTRY = IXplatAbstractions.INSTANCE.getContinuationTypeRegistry();
 

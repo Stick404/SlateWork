@@ -7,7 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.registries.AttributeRegistry;
+import org.sophia.slate_work.registries.SlateWorksAttributeRegistry;
 import org.sophia.slate_work.storage.SlateFakePlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +28,7 @@ public abstract class MixinPlayer {
     @Inject(at = @At("RETURN"), method = "createPlayerAttributes")
     private static void slate_work$addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir){
         var out = cir.getReturnValue();
-        out.add(AttributeRegistry.WHISPERING);
+        out.add(SlateWorksAttributeRegistry.WHISPERING);
     }
 
     @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("HEAD"), cancellable = true)

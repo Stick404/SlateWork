@@ -8,6 +8,7 @@ import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.RecipeType;
+import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
@@ -16,6 +17,8 @@ import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.CraftingLoci;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
 import org.sophia.slate_work.misc.DumbDumbInv;
+
+import java.util.ArrayList;
 
 import static org.sophia.slate_work.Slate_work.GHOST_3X3_SCREEN;
 
@@ -102,18 +105,18 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
 
     public static void updateRecipe(World world, Inventory inventory){
         if (inventory instanceof DumbDumbInv ghostCrafting){
-            var container = new CraftingInventory(new CraftingLoci.AutocraftingMenu(), 3, 3);
+            var container = CraftingRecipeInput.create(3, 3, new ArrayList<>());
             for (int i = 0; i < 9; i++){
-                container.setStack(i,ghostCrafting.getStack(i));
+                container.getStacks().set(i,ghostCrafting.getStack(i));
             }
 
-            var recipeOpt = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container ,world);
+            var recipeOpt = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container, world);
             if (recipeOpt.isEmpty()){
                 ghostCrafting.setStack(9,ItemStack.EMPTY);
                 return;
             }
 
-            var outputItem = recipeOpt.get().craft(container,world.getRegistryManager());
+            var outputItem = recipeOpt.get().value().getResult(world.getRegistryManager());
             ghostCrafting.setStack(9, outputItem);
         }
     }

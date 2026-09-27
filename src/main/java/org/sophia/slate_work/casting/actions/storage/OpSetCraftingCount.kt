@@ -4,11 +4,10 @@ import at.petrak.hexcasting.api.casting.castables.ConstMediaAction
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getBlockPos
 import at.petrak.hexcasting.api.casting.getIntBetween
-import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
 object OpSetCraftingCount : ConstMediaAction {
     override val argc: Int
@@ -25,7 +24,7 @@ object OpSetCraftingCount : ConstMediaAction {
         if (blockEntity is CraftingLociEntity) {
             blockEntity.craftCount = count
         } else {
-            throw MishapWrongBlock(block, BlockRegistry.CRAFTING_LOCI, env.world.getBlockState(block).block)
+            throw MishapWrongBlock(block, SlateWorksBlockRegistry.CRAFTING_LOCI, env.world.getBlockState(block).block)
         }
         return listOf()
     }

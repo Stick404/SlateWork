@@ -16,7 +16,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 
@@ -24,7 +24,7 @@ public class SentinelLociEntity extends BlockEntity {
     private Vec3d pos = this.getPos().toCenterPos();
 
     public SentinelLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.SENTINEL_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.SENTINEL_LOCI_ENTITY, pos, state);
     }
 
     @Override
@@ -56,10 +56,10 @@ public class SentinelLociEntity extends BlockEntity {
         if (this.world instanceof ServerWorld world){
             var facing = new Vec3d(this.getCachedState().get(FACING).getOpposite().getUnitVector());
             ParticleSpray sprayDown = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing, 0.1d, (Math.PI /  4), 15);
-            sprayDown.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+            sprayDown.sprayParticles(world, new FrozenPigment(new ItemStack((SlateWorksBlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
 
             ParticleSpray sprayUp = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing.multiply(-1), 0.1d, (Math.PI /  4), 15);
-            sprayUp.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+            sprayUp.sprayParticles(world, new FrozenPigment(new ItemStack((SlateWorksBlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
         }
     }
 

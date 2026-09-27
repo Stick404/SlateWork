@@ -3,7 +3,7 @@ package org.sophia.slate_work.datagen;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.block.Block;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.List;
 
@@ -17,26 +17,26 @@ public class SlateWorkDatagen implements DataGeneratorEntrypoint {
     }
 
     public static final List<Block> BLOCKS = List.of(
-            BlockRegistry.AMBIT_LOCI,
-            BlockRegistry.MACRO_LOCI,
-            BlockRegistry.CRAFTING_LOCI,
-            BlockRegistry.SPEED_LOCI,
-            BlockRegistry.STORAGE_LOCI,
-            BlockRegistry.MUTE_LOCI,
-            BlockRegistry.SENTINEL_LOCI,
-            BlockRegistry.BROADCASTER_LOCI,
-            BlockRegistry.LISTENING_IMPETUS,
-            BlockRegistry.HOTBAR_LOCI,
-            BlockRegistry.REDSTONE_LOCI,
-            BlockRegistry.ACCELERATOR_LOCI,
-            BlockRegistry.SAVE_LOCI,
-            BlockRegistry.FAKE_PLAYER_LOCI,
-            BlockRegistry.TRADE_LOCI,
-            BlockRegistry.BLOCK_BREAKING_LOCI,
+            SlateWorksBlockRegistry.AMBIT_LOCI,
+            SlateWorksBlockRegistry.MACRO_LOCI,
+            SlateWorksBlockRegistry.CRAFTING_LOCI,
+            SlateWorksBlockRegistry.SPEED_LOCI,
+            SlateWorksBlockRegistry.STORAGE_LOCI,
+            SlateWorksBlockRegistry.MUTE_LOCI,
+            SlateWorksBlockRegistry.SENTINEL_LOCI,
+            SlateWorksBlockRegistry.BROADCASTER_LOCI,
+            SlateWorksBlockRegistry.LISTENING_IMPETUS,
+            SlateWorksBlockRegistry.HOTBAR_LOCI,
+            SlateWorksBlockRegistry.REDSTONE_LOCI,
+            SlateWorksBlockRegistry.ACCELERATOR_LOCI,
+            SlateWorksBlockRegistry.SAVE_LOCI,
+            SlateWorksBlockRegistry.FAKE_PLAYER_LOCI,
+            SlateWorksBlockRegistry.TRADE_LOCI,
+            SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI,
 
-            BlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
-            BlockRegistry.AMETHYST_EMBEDDED_SLATE,
-            BlockRegistry.COPPER_PLATED_SLATE,
-            BlockRegistry.REPLICATED_ALLAY
+            SlateWorksBlockRegistry.SLATE_PLATED_EDIFIED_PLANKS,
+            SlateWorksBlockRegistry.AMETHYST_EMBEDDED_SLATE,
+            SlateWorksBlockRegistry.COPPER_PLATED_SLATE,
+            SlateWorksBlockRegistry.REPLICATED_ALLAY
     );
 }

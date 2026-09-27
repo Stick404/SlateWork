@@ -30,10 +30,7 @@ import org.sophia.slate_work.compat.SlateWorksIoticBlocks;
 import org.sophia.slate_work.compat.SlateWorksTrinkets;
 import org.sophia.slate_work.misc.ChatHelper;
 import org.sophia.slate_work.misc.KnownBroadcasters;
-import org.sophia.slate_work.registries.BlockRegistry;
-import org.sophia.slate_work.registries.FrameRegistry;
-import org.sophia.slate_work.registries.PatternRegistry;
-import org.sophia.slate_work.registries.AttributeRegistry;
+import org.sophia.slate_work.registries.*;
 import ram.talia.moreiotas.api.casting.iota.StringIota;
 
 import java.util.ArrayList;
@@ -64,12 +61,14 @@ public class Slate_work implements ModInitializer {
     public void onInitialize() {
         AutoConfig.register(SlateWorkConfig.class, JanksonConfigSerializer::new);
 
-        BlockRegistry.init();
-        PatternRegistry.init();
-        FrameRegistry.init();
-        AttributeRegistry.init();
-        ItemStorage.SIDED.registerSelf(BlockRegistry.STORAGE_LOCI_ENTITY);
-        ItemStorage.SIDED.registerSelf(BlockRegistry.HOTBAR_LOCI_ENTITY);
+        SlateWorksBlockRegistry.init();
+        SlateWorksPatternRegistry.init();
+        SlateWorksFrameRegistry.init();
+        SlateWorksComponents.init();
+        SlateWorksAttributeRegistry.init();
+
+        ItemStorage.SIDED.registerSelf(SlateWorksBlockRegistry.STORAGE_LOCI_ENTITY);
+        ItemStorage.SIDED.registerSelf(SlateWorksBlockRegistry.HOTBAR_LOCI_ENTITY);
 
         CastingEnvironment.addCreateEventListener( (a,b) -> a.addExtension(new CircleAmbitChanges(a)));
 
@@ -86,10 +85,10 @@ public class Slate_work implements ModInitializer {
                     }
                     if (!z.failed() && z.blocked()) {
                         if (z.item() && z.entity().isEmpty()) {
-                            sender.playSound(HexSounds.FLIGHT_FINISH, SoundCategory.PLAYERS, 1f, 1.5f);
+                            sender.playSound(HexSounds.FLIGHT_FINISH.value(), 1f, 1.5f);
                         }
                         else {
-                            sender.playSound(HexSounds.READ_LORE_FRAGMENT, SoundCategory.PLAYERS, 1f, 2f);
+                            sender.playSound(HexSounds.READ_LORE_FRAGMENT.value(), 1f, 2f);
                         }
                     } else if (z.failed() && z.whispering().isPresent() && z.entity().isEmpty() && z.blocked()) {
                         var stack = z.whispering().get();

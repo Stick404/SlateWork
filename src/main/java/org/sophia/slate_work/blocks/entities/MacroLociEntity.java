@@ -19,11 +19,10 @@ import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class MacroLociEntity extends BlockEntity implements Inventory {
     // The Holy Slot, The Slot. The Slot
@@ -31,7 +30,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     public HexPattern pattern;
 
     public MacroLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.MACRO_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.MACRO_LOCI_ENTITY, pos, state);
         // The Slot
         this.theSlot = ItemStack.EMPTY;
         this.pattern = HexPattern.fromAngleString("qaq", HexDir.NORTH_EAST);

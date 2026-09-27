@@ -1,15 +1,15 @@
 package org.sophia.slate_work.misc;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtHelper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Pair;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity;
 import org.sophia.slate_work.compat.SlateWorksTrinkets;
-import org.sophia.slate_work.registries.AttributeRegistry;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksAttributeRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksComponents;
 import org.sophia.slate_work.saving.Listeners;
 
 import java.util.Optional;
@@ -49,16 +49,16 @@ public class ChatHelper {
             return LAST_CHECK;
         }
         ServerWorld world = sender.getServerWorld();
-        if (sender.getAttributeValue(AttributeRegistry.WHISPERING) > 0) {
+        if (sender.getAttributeValue(SlateWorksAttributeRegistry.WHISPERING) > 0) {
             var ref = new ItemHold();
             sender.getHandItems().iterator().forEachRemaining((item) -> {
-                if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
+                if (item.isOf(SlateWorksBlockRegistry.WHISPERING_STONE)) {
                     ref.stack = item;
                 }
             });
             if (ref.stack == null) {
                 sender.getArmorItems().forEach((item) -> {
-                    if (item.isOf(BlockRegistry.WHISPERING_STONE)) {
+                    if (item.isOf(SlateWorksBlockRegistry.WHISPERING_STONE)) {
                         ref.stack = item;
                     }
                 });
@@ -68,9 +68,11 @@ public class ChatHelper {
             }
 
             if (ref.stack != null) {
-                var cordNBT = ref.stack.getSubNbt("cords");
-                if (cordNBT != null) {
-                    if (world.getBlockEntity(NbtHelper.toBlockPos(cordNBT)) instanceof ListeningImpetusEntity entity) {
+                SlateWorksComponents.WhisperingStoneComponent component = ref.stack.getOrDefault(
+                        SlateWorksComponents.WHISPERING_STONE_COMPONENT, null);
+
+                if (component != null) {
+                    if (world.getBlockEntity(component.pos()) instanceof ListeningImpetusEntity entity) {
                         if (compared.startsWith(entity.getString())) {
                             if (entity.isRunning()) {
                                 return of(true, true, compared, Optional.empty(), false, Optional.of(ref.stack));
@@ -79,12 +81,8 @@ public class ChatHelper {
                             }
                         }
                     } else {
-                        var mon = ref.stack.getSubNbt("string");
-                        if (mon != null) {
-                            var string = mon.getString("stringed");
-                            if (compared.startsWith(string)) {
-                                return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
-                            }
+                        if (compared.startsWith(component.string())) {
+                            return of(true, true, compared, Optional.empty(), true, Optional.of(ref.stack));
                         }
                     }
 
@@ -112,7 +110,7 @@ public class ChatHelper {
      *
      * **/
     public record ShouldRun(boolean blocked, boolean item, String string, Optional<ListeningImpetusEntity> entity, boolean failed, Optional<ItemStack> whispering){}
-    public class ItemHold{
+    public static class ItemHold {
         @Nullable ItemStack stack;
 
         public @Nullable ItemStack getStack() {

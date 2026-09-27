@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.NullIota;
+import at.petrak.hexcasting.api.utils.TreeList;
 import at.petrak.hexcasting.common.lib.HexSounds;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
@@ -15,9 +16,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -26,20 +27,20 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 import ram.talia.moreiotas.api.casting.iota.StringIota;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implements ADIotaHolder {
-    public static final String DEFAULT = "You know, people dont need to know that this is the default string for these. Like, I just need to check if this matches this to see if its blank";
+    public static final String DEFAULT =
+            "Hi! You just found out about the default Listening Impetus string. If you send this exact one, it will be triggered. This was a bug, but I kept it because it was funny";
     private String string = DEFAULT;
     private EntityIota playerIota = null;
     private StringIota textIota = null;
 
     public ListeningImpetusEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockRegistry.LISTENING_IMPETUS_ENTITY, pWorldPosition, pBlockState);
+        super(SlateWorksBlockRegistry.LISTENING_IMPETUS_ENTITY, pWorldPosition, pBlockState);
     }
 
     public void setIotas(EntityIota player, StringIota text){
@@ -54,7 +55,6 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
     @Override
     public void startExecution(ServerPlayerEntity player) {
         var realPlayer = player;
-        player = null;
         if (this.world == null)
             return; // TODO: error here?
         if (this.world.isClient)
@@ -66,7 +66,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
         if (this.executionState != null) {
             return;
         }
-        var result = CircleExecutionState.createNew(this, player);
+        var result = CircleExecutionState.createNew(this, null);
         if (result.isErr()) {
             var errPos = result.unwrapErr();
             if (errPos == null) {
@@ -81,13 +81,14 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
 
             return;
         }
-        realPlayer.playSound(HexSounds.IMPETUS_REDSTONE_DING, SoundCategory.BLOCKS, 1f, 0.5f);
+        realPlayer.playSound(HexSounds.IMPETUS_REDSTONE_DING.value(), 1f, 0.5f);
         this.executionState = result.unwrap();
         var image = this.executionState.currentImage;
-        var stack = new ArrayList<Iota>();
-        stack.add(textIota);
-        stack.add(playerIota);
-        var newImage = image.copy(stack, image.getParenCount(), image.getParenthesized(), image.getEscapeNext(), image.getOpsConsumed(), image.getUserData());
+        var stack = TreeList.<Iota>empty();
+        stack = stack.appended(textIota);
+        stack = stack.appended(playerIota);
+
+        var newImage = image.copy(stack, image.getParenCount(), image.getParenthesized(), image.getEscapeNext(), image.getSimulateNext(), image.getOpsConsumed(), image.getUserData());
         ((ICircleSpeedValue) this.executionState).slate_work$setImage(newImage);
 
         this.clearDisplay();
@@ -132,24 +133,19 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
     }
 
     @Override
-    protected void saveModData(NbtCompound tag) {
-        super.saveModData(tag);
+    protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
+        super.saveModData(tag, registries);
         tag.putString("string_listen", string);
     }
 
     @Override
-    protected void loadModData(NbtCompound tag) {
-        super.loadModData(tag);
+    protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
+        super.loadModData(tag, registries);
         this.setString(tag.getString("string_listen"));
     }
 
     @Override
-    public @Nullable NbtCompound readIotaTag() {
-        return (NbtCompound) StringIota.makeUnchecked(this.string).serialize();
-    }
-
-    @Override
-    public @Nullable Iota readIota(ServerWorld world) {
+    public @Nullable Iota readIota() {
         return StringIota.makeUnchecked(this.string);
     }
 

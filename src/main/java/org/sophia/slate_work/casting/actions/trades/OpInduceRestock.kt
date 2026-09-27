@@ -10,7 +10,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import net.minecraft.village.TradeOffer
 import org.sophia.slate_work.blocks.entities.TradeLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
 object OpInduceRestock : SpellAction {
     override val argc: Int
@@ -24,7 +24,7 @@ object OpInduceRestock : SpellAction {
         env.assertPosInRange(blockPos)
         val block = env.world.getBlockEntity(blockPos)
         if (block !is TradeLociEntity) {
-            throw MishapWrongBlock(blockPos, BlockRegistry.TRADE_LOCI, env.world.getBlockState(blockPos).block)
+            throw MishapWrongBlock(blockPos, SlateWorksBlockRegistry.TRADE_LOCI, env.world.getBlockState(blockPos).block)
         }
 
         return SpellAction.Result(

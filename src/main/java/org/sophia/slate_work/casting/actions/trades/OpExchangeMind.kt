@@ -13,7 +13,7 @@ import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.text.Text
 import org.sophia.slate_work.blocks.entities.TradeLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
 object OpExchangeMind : SpellAction {
     override val argc: Int
@@ -31,7 +31,7 @@ object OpExchangeMind : SpellAction {
         }
         val blockEntity = env.world.getBlockEntity(block)
         if (blockEntity !is TradeLociEntity) {
-            throw MishapWrongBlock(block, BlockRegistry.TRADE_LOCI, env.world.getBlockState(block).block)
+            throw MishapWrongBlock(block, SlateWorksBlockRegistry.TRADE_LOCI, env.world.getBlockState(block).block)
         }
 
         return SpellAction.Result(

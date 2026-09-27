@@ -7,7 +7,7 @@ import at.petrak.hexcasting.api.casting.iota.DoubleIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
 object OpGetCraftingCount : ConstMediaAction {
     override val argc: Int
@@ -23,7 +23,7 @@ object OpGetCraftingCount : ConstMediaAction {
         if (blockEntity is CraftingLociEntity) {
             return listOf(DoubleIota(blockEntity.craftCount.toDouble()))
         } else {
-            throw MishapWrongBlock(block, BlockRegistry.CRAFTING_LOCI, env.world.getBlockState(block).block)
+            throw MishapWrongBlock(block, SlateWorksBlockRegistry.CRAFTING_LOCI, env.world.getBlockState(block).block)
         }
     }
 }

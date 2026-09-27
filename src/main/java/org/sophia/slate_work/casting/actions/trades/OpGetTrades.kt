@@ -9,7 +9,7 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.blocks.entities.TradeLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 
 object OpGetTrades : ConstMediaAction {
@@ -37,6 +37,6 @@ object OpGetTrades : ConstMediaAction {
             return listOf(ListIota(listOfIota))
         }
 
-        throw MishapWrongBlock(pos, BlockRegistry.TRADE_LOCI, env.world.getBlockState(pos).block)
+        throw MishapWrongBlock(pos, SlateWorksBlockRegistry.TRADE_LOCI, env.world.getBlockState(pos).block)
     }
 }

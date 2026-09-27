@@ -3,7 +3,6 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import com.mojang.datafixers.util.Pair;
 import kotlin.jvm.optionals.OptionalsKt;
@@ -30,7 +29,7 @@ import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         //return world.isClient ? null : BeehiveBlock.checkType(type, BlockRegistry.TRADE_LOCI_ENTITY, TradeLociEntity::serverTick);
-        return (!world.isClient || BlockRegistry.TRADE_LOCI_ENTITY != type) ? TradeLociEntity::tick : null;
+        return (!world.isClient || SlateWorksBlockRegistry.TRADE_LOCI_ENTITY != type) ? TradeLociEntity::tick : null;
     }
 
     @Override
@@ -154,7 +153,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof TradeLociEntity && !newState.isOf(state.getBlock())) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.TRADE_LOCI);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.TRADE_LOCI);
                 blockEntity.setStackNbt(itemStack, world.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();

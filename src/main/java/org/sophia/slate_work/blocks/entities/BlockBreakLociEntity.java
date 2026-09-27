@@ -2,24 +2,19 @@ package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.block.HexBlockEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
-import org.sophia.slate_work.registries.BlockRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class BlockBreakLociEntity extends HexBlockEntity {
     private NbtList enchantments;
     private static final String TAG = "enchantments";
 
     public BlockBreakLociEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        super(BlockRegistry.BLOCK_BREAK_LOCI_ENTITY, pWorldPosition, pBlockState);
+        super(SlateWorksBlockRegistry.BLOCK_BREAK_LOCI_ENTITY, pWorldPosition, pBlockState);
         this.enchantments = new NbtList();
     }
 

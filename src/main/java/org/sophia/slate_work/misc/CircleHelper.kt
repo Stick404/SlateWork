@@ -13,7 +13,9 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
+import net.minecraft.nbt.NbtIntArray
 import net.minecraft.server.world.ServerWorld
+import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.Slate_work.LOGGER
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
@@ -28,7 +30,7 @@ object CircleHelper {
         for (temp in nbt){
             val z = temp as NbtCompound
             // Z contains both "pos" and "count"
-            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z.getCompound("pos")))
+            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z, "pos").get())
             if (entity is SentinelLociEntity){
                 list.add(entity)
             }
@@ -41,8 +43,8 @@ object CircleHelper {
         val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.COMPOUND_TYPE.toInt())
 
         for (itemTemp in nbt){
-            val z = itemTemp as NbtCompound
-            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z))
+            val z = itemTemp as NbtIntArray
+            val entity = env.world.getBlockEntity(BlockPos(z[0].intValue(), z[1].intValue(), z[2].intValue()))
             if (entity is StorageLociEntity)
                 list.add(entity)
         }
@@ -88,11 +90,11 @@ object CircleHelper {
         return returnList
     }
 
-    fun getLists(list: List<StorageLociEntity>): HashMap<NbtCompound, ItemSlot> {
-        val returnList = HashMap<NbtCompound, ItemSlot>()
+    fun getLists(list: List<StorageLociEntity>): HashMap<ItemVariant, ItemSlot> {
+        val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList[x.left.toNbt()] = ItemSlot(x.left,x.right,z)
+                returnList[x.left] = ItemSlot(x.left,x.right,z)
             }
         }
         return returnList
@@ -101,8 +103,8 @@ object CircleHelper {
     fun storeItems(env: CircleCastEnv, itemStack: ItemStack): Boolean {
         val list = getStorage(env)
         val hashMap = getLists(list)
-        if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.nbt).toNbt())) {
-            val slot = hashMap[ItemVariant.of(itemStack.item, itemStack.nbt).toNbt()]!!
+        if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.componentChanges))) {
+            val slot = hashMap[ItemVariant.of(itemStack.item, itemStack.componentChanges)]!!
             val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
             val item = slot.storageLociEntity.getStack(targ)
             item.right += itemStack.count
@@ -113,7 +115,7 @@ object CircleHelper {
         for (z in list) {
             val x = z.isFull
             if (x != -1) {
-                z.setStack(x, ItemVariant.of(itemStack.item, itemStack.nbt), itemStack.count.toLong())
+                z.setStack(x, ItemVariant.of(itemStack.item, itemStack.componentChanges), itemStack.count.toLong())
                 return true
             }
         }
@@ -125,7 +127,7 @@ object CircleHelper {
         if (z is ItemTypeIota) {
             return z.either.map({ ItemVariant.of { it } }) { ItemVariant.of{ BlockItem(it, Item.Settings()) } }
         } else if (z is ItemStackIota) {
-            return ItemVariant.of(z.itemStack.item,z.itemStack.nbt)
+            return ItemVariant.of(z.itemStack,z.itemStack)
         } else if (z is NullIota){
             return null
         }
@@ -135,7 +137,7 @@ object CircleHelper {
     data class ItemSlot(val item: ItemVariant, var count: Long, val storageLociEntity: StorageLociEntity){
         fun save(): NbtCompound {
             val tempNBT = NbtCompound()
-            tempNBT.putCompound("item",item.toNbt())
+            tempNBT.putCompound("item", item.)
             tempNBT.putLong("count",count)
             tempNBT.put("entity", NbtHelper.fromBlockPos(storageLociEntity.pos))
             return tempNBT

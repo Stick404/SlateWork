@@ -33,7 +33,7 @@ import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZ
 import static net.minecraft.util.Rarity.UNCOMMON;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
-public class BlockRegistry {
+public class SlateWorksBlockRegistry {
     private static final AbstractBlock.Settings slateSetting = AbstractBlock.Settings.copy(Blocks.DEEPSLATE).requiresTool().strength(1.5F, 6.0F);
     private static final AbstractBlock.Settings locusSetting = slateSetting.pistonBehavior(PistonBehavior.DESTROY);
 

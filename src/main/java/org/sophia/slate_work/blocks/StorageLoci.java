@@ -20,7 +20,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
@@ -111,7 +111,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock()) && world instanceof ServerWorld serverWorld) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.STORAGE_LOCI);
                 blockEntity.setStackNbt(itemStack, serverWorld.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();

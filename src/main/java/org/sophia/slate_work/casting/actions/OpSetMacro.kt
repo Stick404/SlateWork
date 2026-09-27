@@ -9,7 +9,7 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import org.sophia.slate_work.blocks.entities.MacroLociEntity
 import org.sophia.slate_work.casting.mishap.MishapNeededFocus
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
 object OpSetMacro : ConstMediaAction {
     override val argc: Int
@@ -24,7 +24,7 @@ object OpSetMacro : ConstMediaAction {
         val entity = env.world.getBlockEntity(target)
         if (entity !is MacroLociEntity) {
             throw MishapWrongBlock(target,
-                BlockRegistry.MACRO_LOCI,
+                SlateWorksBlockRegistry.MACRO_LOCI,
                 env.world.getBlockState(target).block)
         }
         if (entity.isEmpty)

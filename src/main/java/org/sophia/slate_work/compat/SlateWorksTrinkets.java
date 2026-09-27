@@ -8,19 +8,19 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import org.sophia.slate_work.misc.ChatHelper;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 import org.sophia.slate_work.storage.SlateFakePlayer;
 
 import java.util.UUID;
 
 public class SlateWorksTrinkets {
     public static void init(){
-        TrinketsApi.registerTrinket(BlockRegistry.WHISPERING_STONE, new Trinket() {
+        TrinketsApi.registerTrinket(SlateWorksBlockRegistry.WHISPERING_STONE, new Trinket() {
             @Override
             public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot,
                                                                        LivingEntity entity, UUID uuid) {
                 var map = Trinket.super.getModifiers(stack, slot, entity, uuid);
-                map.putAll(BlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack));
+                map.putAll(SlateWorksBlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack));
                 return map;
             }
         });
@@ -30,7 +30,7 @@ public class SlateWorksTrinkets {
         var opt = TrinketsApi.getTrinketComponent(sender);
         if (opt.isEmpty()) return;
 
-        for (var z : opt.get().getEquipped(BlockRegistry.WHISPERING_STONE)){
+        for (var z : opt.get().getEquipped(SlateWorksBlockRegistry.WHISPERING_STONE)){
             hold.setStack(z.getRight());
             break;
         }
