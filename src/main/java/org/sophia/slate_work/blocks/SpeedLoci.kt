@@ -35,12 +35,10 @@ class SpeedLoci : AbstractSlate {
         super.appendProperties(builder)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun getRenderType(state: BlockState?): BlockRenderType? {
+    override fun getRenderType(state: BlockState?): BlockRenderType {
         return BlockRenderType.MODEL
     }
 
-    @Deprecated("Deprecated in Java")
     override fun getOutlineShape(state: BlockState?, world: BlockView?, pos: BlockPos?, context: ShapeContext?): VoxelShape? {
         return when(state?.get(FACING)){
             Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
@@ -53,7 +51,6 @@ class SpeedLoci : AbstractSlate {
         }
     }
 
-    @Deprecated("Deprecated in Java")
     override fun getCullingShape(state: BlockState?, world: BlockView?, pos: BlockPos?): VoxelShape? {
         return when(state?.get(FACING)){
             Direction.DOWN -> createCuboidShape(0.0, 16 -4.0, 0.0, 16.0, 16.0, 16.0)
@@ -79,7 +76,7 @@ class SpeedLoci : AbstractSlate {
         val exitDirs: Stream<Pair<BlockPos?, Direction?>?>? = exitDirsSet.stream()
             .map<Pair<BlockPos?, Direction?>?> { dir: Direction? -> this.exitPositionFromDirection(pos, dir) }
 
-        val stack = ArrayList(image!!.stack)
+        var stack = image!!.stack
         val data = image.userData.copy()
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
@@ -89,7 +86,8 @@ class SpeedLoci : AbstractSlate {
             return ControlFlow.Stop()
         }
 
-        val last: Iota = stack.removeAt(stack.size -1)
+        val last: Iota = stack.last()
+        stack = stack.init()
         if (last !is DoubleIota) {
             this.fakeThrowMishap(
                 pos, bs, image, env,

@@ -7,7 +7,6 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import at.petrak.hexcasting.api.misc.MediaConstants
-import at.petrak.hexcasting.api.utils.putCompound
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.BlockState
 import net.minecraft.entity.EquipmentSlot
@@ -43,7 +42,7 @@ class AmbitLoci : BlockCircleComponent, Equipment {
         val exitDirs: Stream<Pair<BlockPos?, Direction?>?>? = exitDirsSet.stream()
             .map<Pair<BlockPos?, Direction?>?> { dir: Direction? -> this.exitPositionFromDirection(pos, dir) }
 
-        val stack: ArrayList<Iota> = ArrayList(imageIn.stack)
+        val stack = imageIn.stack
         if (stack.isEmpty()) { // Feels silly, but this is what Hex does
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
@@ -52,7 +51,7 @@ class AmbitLoci : BlockCircleComponent, Equipment {
             return ControlFlow.Stop()
         }
 
-        val last: Iota = stack.removeAt(stack.size - 1)
+        val last: Iota = stack.last()
         if (last !is Vec3Iota) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
@@ -63,8 +62,8 @@ class AmbitLoci : BlockCircleComponent, Equipment {
 
         val toPush = BlockPos(last.vec3.x.toInt(),last.vec3.y.toInt(),last.vec3.z.toInt())
 
-        val hasPushedPos = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_pos"))
-        val hasPushedNeg = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_neg"))
+        val hasPushedPos = NbtHelper.toBlockPos(data, "ambit_pushed_pos").get()
+        val hasPushedNeg = NbtHelper.toBlockPos(data, "ambit_pushed_neg").get()
 
         var willPushPos = hasPushedPos
         var willPushNeg = hasPushedNeg
@@ -88,11 +87,6 @@ class AmbitLoci : BlockCircleComponent, Equipment {
         val posPush: Int = willPushPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
         val negPush: Int = willPushNeg.getManhattanDistance(BlockPos(0, 0, 0)).absoluteValue
 
-        val posPushed: Int = hasPushedPos.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
-        val negPushed: Int = hasPushedNeg.getManhattanDistance(BlockPos(0,0,0)).absoluteValue
-
-          //= ((((posPush + negPush).toDouble().pow(2)) -(posPushed + negPushed).toDouble().pow(2)).toLong() * MediaConstants.DUST_UNIT)
-
         val cost = try { //So. There was an overflow glitch.
             Math.multiplyExact(Math.subtractExact(
                 Math.multiplyExact(posPush + negPush, posPush + negPush).toLong(),
@@ -112,11 +106,11 @@ class AmbitLoci : BlockCircleComponent, Equipment {
             return ControlFlow.Stop()
         }
 
-        data.putCompound("ambit_pushed_pos", NbtHelper.fromBlockPos(willPushPos))
-        data.putCompound("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
+        data.put("ambit_pushed_pos", NbtHelper.fromBlockPos(willPushPos))
+        data.put("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
 
         return ControlFlow.Continue(
-            imageIn.copy(stack, userData = data), exitDirs?.toList()
+            imageIn.copy(stack = stack.init(), userData = data), exitDirs?.toList()
         )
     }
 

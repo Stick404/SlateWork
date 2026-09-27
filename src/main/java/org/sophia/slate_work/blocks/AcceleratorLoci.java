@@ -3,7 +3,6 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.misc.MediaConstants;
-import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
@@ -73,7 +72,7 @@ public class AcceleratorLoci extends AbstractSlate {
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
-        return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(),imageIn.getParenCount(),
-                imageIn.getParenthesized(),imageIn.getEscapeNext(),imageIn.getOpsConsumed(), data), exitDirs);
+        return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(), imageIn.getParenCount(),
+                imageIn.getParenthesized(), imageIn.getEscapeNext(),imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs);
     }
 }

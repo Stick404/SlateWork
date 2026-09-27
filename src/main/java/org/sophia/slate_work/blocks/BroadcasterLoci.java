@@ -21,7 +21,6 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 import org.sophia.slate_work.misc.KnownBroadcasters;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class BroadcasterLoci extends BlockCircleComponent implements BlockEntityProvider {
@@ -43,7 +42,7 @@ public class BroadcasterLoci extends BlockCircleComponent implements BlockEntity
     @Override
     public ControlFlow acceptControlFlow(CastingImage castingImage, CircleCastEnv circleCastEnv, Direction direction, BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
         if (serverWorld.getBlockEntity(blockPos) instanceof BroadcasterLociEntity entity){
-            var stack = new ArrayList<>(castingImage.getStack());
+            var stack = castingImage.getStack();
 
             if (stack.isEmpty()) { // Feels silly, but this is what Hex does
                 this.fakeThrowMishap(
@@ -51,19 +50,17 @@ public class BroadcasterLoci extends BlockCircleComponent implements BlockEntity
                         new MishapSpellCircleNotEnoughArgs(1,0, blockPos));
                 return new ControlFlow.Stop();
             }
-            int index = stack.size() -1;
-            var iota = stack.get(index);
-            stack.remove(index);
+            var iota = stack.last();
 
             if (iota.size() > 1){ // Don't want to store "complex" iotas, like lists and Jumps
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
                         MishapSpellCircleInvalidIota.of(iota, 0,"simpler_iota", blockPos));
                 return new ControlFlow.Stop();
             }
-            var truename = MishapOthersName.getTrueNameFromDatum(iota, null);
+            var truename = MishapOthersName.getTrueNameMishapFromDatum(circleCastEnv.getWorld(), iota, null);
             if (truename != null){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapOthersName(truename));
+                        truename);
                 return new ControlFlow.Stop();
             }
 
@@ -74,7 +71,7 @@ public class BroadcasterLoci extends BlockCircleComponent implements BlockEntity
             var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir)).toList();
 
             return new ControlFlow.Continue(castingImage.copy(
-                    stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()
+                    stack.init(), castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()
             ), exits);
         }
         return new ControlFlow.Stop();

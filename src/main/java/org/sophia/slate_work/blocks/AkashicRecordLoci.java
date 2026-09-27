@@ -15,8 +15,6 @@ import net.minecraft.util.math.Direction;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 
-import java.util.ArrayList;
-
 /**
  * Future note for what this does: <br>
  *  Checks if the top of the stack is a pattern iota, and returns the bound iota (or null if there is none). <br> <br>
@@ -24,7 +22,7 @@ import java.util.ArrayList;
  **/
 public class AkashicRecordLoci {
     public static ICircleComponent.ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world, BlockAkashicRecord recordBlock) {
-        var stack = new ArrayList<>(imageIn.getStack());
+        var stack = imageIn.getStack();
         var recordI = ((ICircleComponent)recordBlock);
         if (stack.isEmpty()) { // If the stack is empty, fail
             recordI.fakeThrowMishap(
@@ -34,8 +32,9 @@ public class AkashicRecordLoci {
             return new ICircleComponent.ControlFlow.Stop();
         }
 
-        var top = stack.get(stack.size() -1);
-        stack.remove(stack.size() -1);
+        var top = stack.last();
+        stack = stack.slice(0, stack.length() -1);
+        //stack.remove(stack.size() -1);
         if ((top instanceof PatternIota pattern)) { // If the top pattern is just a pattern, look for it
             var iota = recordBlock.lookupPattern(pos, pattern.getPattern(), world);
             if (iota == null) iota = new NullIota(); // Rude
@@ -48,8 +47,8 @@ public class AkashicRecordLoci {
                 );
                 return new ICircleComponent.ControlFlow.Stop();
             }
-            var second = stack.get(stack.size() -1);
-            stack.remove(stack.size() -1);
+            var second = stack.last();
+            stack = stack.slice(0, stack.length() -1);
             if (!(second instanceof PatternIota)){ // If the 2nd iota isn't a Pattern Iota, fail
                 recordI.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -60,9 +59,9 @@ public class AkashicRecordLoci {
             var pattern = ((PatternIota) second).getPattern();
             if (top instanceof NullIota){ // If the top iota is a NullIota, clear the shelf
                 var foundPos = AkashicFloodfiller.floodFillFor(pos, world,
-                        (pos1, bs1, world1) ->
+                        (pos1, _, world1) ->
                                 world1.getBlockEntity(pos1) instanceof BlockEntityAkashicBookshelf tile
-                                        && tile.getPattern() != null && tile.getPattern().sigsEqual(pattern));
+                                        && tile.getPattern() != null && tile.getPattern().getSignature().equals(pattern));
                 if (foundPos != null && world.getBlockEntity(foundPos) instanceof BlockEntityAkashicBookshelf tile){
                     tile.clearIota();
                 }
@@ -75,6 +74,6 @@ public class AkashicRecordLoci {
         exitDirsSet.remove(enterDir.getOpposite());
         var exits = exitDirsSet.stream().map((dir) -> recordI.exitPositionFromDirection(pos, dir)).toList();
         return new ICircleComponent.ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(),
-                imageIn.getParenthesized(), imageIn.getEscapeNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+                imageIn.getParenthesized(), imageIn.getEscapeNext(), imageIn.getSimulateNext(),imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
     }
 }

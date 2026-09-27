@@ -7,6 +7,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.registries.BlockRegistry;
 
@@ -23,12 +24,12 @@ public class BlockBreakLociEntity extends HexBlockEntity {
     }
 
     @Override
-    protected void saveModData(NbtCompound tag) {
+    protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         tag.put(TAG, this.enchantments);
     }
 
     @Override
-    protected void loadModData(NbtCompound tag) {
+    protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         this.enchantments = tag.getList(TAG, NbtElement.COMPOUND_TYPE);
     }
 

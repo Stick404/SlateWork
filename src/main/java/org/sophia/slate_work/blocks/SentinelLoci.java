@@ -68,7 +68,7 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
             data.put("sentinel_loci",list);
             return new ControlFlow.Continue(
                     castingImage.copy(castingImage.getStack(),castingImage.getParenCount(),castingImage.getParenthesized(),
-                            castingImage.getEscapeNext(),castingImage.getOpsConsumed(),data), exitDirs.toList()
+                            castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data), exitDirs.toList()
             );
         }
 

@@ -37,7 +37,7 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
 
     public static final EntityAttributeModifier WHISPERING = new EntityAttributeModifier(
             UUID.fromString("8fe68dab-717e-4970-b0b3-be869fe608dd"),
-            "Whispering Stone Speech", 1, EntityAttributeModifier.Operation.ADDITION);
+            "Whispering Stone Speech", 1, EntityAttributeModifier.Operation.ADD_VALUE);
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {

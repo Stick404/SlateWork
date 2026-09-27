@@ -26,9 +26,9 @@ object OpSetSents : Action {
             throw MishapNoSpellCircle()
         }
 
-        val args = image.stack.toMutableList()
+        var args = image.stack
         val inputList = args.getList(args.lastIndex,1)
-        args.removeLast() // I think?
+        args = args.init()
         val realList = mutableListOf<Vec3d>()
         var i = 0
 
@@ -97,7 +97,7 @@ object OpSetSents : Action {
             image.copy(stack = args, userData = data),
             listOf(),
             continuation,
-            HexEvalSounds.NORMAL_EXECUTE
+            HexEvalSounds.NORMAL_EXECUTE.get()
             )
     }
 }

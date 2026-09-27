@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import com.mojang.datafixers.util.Pair;
+import kotlin.jvm.optionals.OptionalsKt;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockEntityProvider;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradedItem;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
@@ -56,10 +58,10 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         List<Pair<BlockPos, Direction>> exit = new ArrayList<>();
         if (world.getBlockEntity(pos) instanceof TradeLociEntity entity) {
-            ArrayList<Iota> stack = new ArrayList<>(imageIn.getStack());
+            var stack = imageIn.getStack();
 
             if (stack.isEmpty()) {
-                var list = world.getEntitiesByClass(VillagerEntity.class, (new Box(pos, pos)).expand(10), (a) -> true);
+                var list = world.getEntitiesByClass(VillagerEntity.class, (new Box(pos)).expand(10), (a) -> true);
                 if (!list.isEmpty()) {
                     entity.slurpVillager(list.get(0));
                 }
@@ -71,8 +73,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
                 return new ControlFlow.Stop();
             }
 
-            var last = stack.get(stack.size() -1);
-            stack.remove(stack.size() -1);
+            var last = stack.last();
             if (!(last instanceof DoubleIota)) {
                 this.fakeThrowMishap(
                         pos, bs, imageIn, env,
@@ -100,14 +101,17 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             // All the checks are done, now for the more checks
             TradeOffer offer = entity.offerList.get(index);
 
-            ItemStack firstBuyItem = offer.getAdjustedFirstBuyItem();
-            ItemStack secondBuyItem = offer.getSecondBuyItem();
+            ItemStack firstBuyItem = offer.getFirstBuyItem().itemStack();
+            ItemStack secondBuyItem = OptionalsKt.getOrNull(offer.getSecondBuyItem().map(TradedItem::itemStack));
 
             ItemSlot firstItem = storages.get(ItemVariant.of(firstBuyItem));
-            ItemSlot secondItem = storages.get(ItemVariant.of(secondBuyItem));
+            ItemSlot secondItem = null;
+            if (secondBuyItem != null) {
+                secondItem = storages.get(ItemVariant.of(secondBuyItem));
+            }
             if (firstItem == null || secondItem == null ||
-                    firstItem.component2() < firstBuyItem.getCount() ||
-                    secondItem.component2() < secondBuyItem.getCount() ||
+                    firstItem.getCount() < firstBuyItem.getCount() ||
+                    secondItem.getCount() < secondBuyItem.getCount() ||
                     offer.isDisabled()
             ) {
                 exit.add(this.exitPositionFromDirection(pos, bs.get(FACING).getOpposite()));
@@ -151,7 +155,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
         if (blockEntity instanceof TradeLociEntity && !newState.isOf(state.getBlock())) {
             if (!world.isClient) {
                 ItemStack itemStack = new ItemStack(BlockRegistry.TRADE_LOCI);
-                blockEntity.setStackNbt(itemStack);
+                blockEntity.setStackNbt(itemStack, world.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);

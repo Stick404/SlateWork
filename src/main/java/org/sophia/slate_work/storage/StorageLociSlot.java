@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import net.minecraft.util.Pair;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
-@SuppressWarnings("UnstableApiUsage")
 public class StorageLociSlot implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
     private final StorageLociEntity parent;
     private final int slot;

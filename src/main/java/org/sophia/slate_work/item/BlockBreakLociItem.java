@@ -6,8 +6,6 @@ import net.minecraft.item.ItemStack;
 import org.sophia.slate_work.registries.BlockRegistry;
 
 public class BlockBreakLociItem extends BlockItem {
-    public static final ThreadLocal<Object> CALLING_DAMAGEABLE_FROM_ANVIL = ThreadLocal.withInitial(() -> null);
-
     public BlockBreakLociItem(Settings settings) {
         super(BlockRegistry.BLOCK_BREAKING_LOCI, settings);
     }
@@ -22,9 +20,4 @@ public class BlockBreakLociItem extends BlockItem {
         return 15;
     }
 
-
-    @Override
-    public int getMaxDamage() {
-        return CALLING_DAMAGEABLE_FROM_ANVIL.get() != null ? 1 : super.getMaxDamage();
-    }
 }

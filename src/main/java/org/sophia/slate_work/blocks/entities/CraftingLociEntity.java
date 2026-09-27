@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
@@ -48,16 +49,16 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt,this.inv);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        Inventories.writeNbt(nbt, this.inv, registries);
         nbt.putLong("craft_count", craftCount);
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt,this.inv);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        Inventories.readNbt(nbt, this.inv, registries);
         int count = nbt.getInt("craft_count");
         if (count <= 0) {
             this.craftCount = 1;
@@ -99,10 +100,10 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
         this.markDirty();
     }
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.pos);
-    }
+    //@Override
+    //public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+//        buf.writeBlockPos(this.pos);
+//    }
 
     @Override
     public int getSlotCount() {
@@ -167,5 +168,10 @@ public class CraftingLociEntity extends BlockEntity implements ExtendedScreenHan
                 return null;
             }
         };
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayerEntity player) {
+        return this.pos;
     }
 }

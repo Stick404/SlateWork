@@ -22,16 +22,15 @@ import java.util.UUID;
 public interface MixinCircleComponent {
     @Inject(method = "sfx",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
-            locals = LocalCapture.CAPTURE_FAILSOFT,
             cancellable = true
     ) // A *few* extra vars
-    private static void slate_work$shushYou(BlockPos pos, BlockState bs, World world, BlockEntityAbstractImpetus impetus, boolean success, CallbackInfo ci, Vec3d vpos, Vec3d vecOutDir, FrozenPigment colorizer, UUID activator, float pitch, SoundEvent sound){
+    private static void slate_work$shushYou(BlockPos pos, BlockState bs, World world, BlockEntityAbstractImpetus impetus, boolean success, CallbackInfo ci){
         if (impetus != null){
             var image = impetus.getExecutionState().currentImage;
             var volume = image.getUserData().getFloat("volume");
             var mute = image.getUserData().getBoolean("mute");
             if (mute){
-                world.playSound(null, vpos.x, vpos.y, vpos.z, sound, SoundCategory.BLOCKS, volume, pitch);
+                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), volume, SoundCategory.BLOCKS, volume, pitch);
                 ci.cancel();
             }
         }

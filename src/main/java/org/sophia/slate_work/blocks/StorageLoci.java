@@ -81,7 +81,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
         data.put("storage_loci",list);
 
         return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(),imageIn.getParenCount(),
-                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
+                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
     }
 
     @Override
@@ -109,10 +109,10 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock())) {
+        if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock()) && world instanceof ServerWorld serverWorld) {
             if (!world.isClient) {
                 ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
-                blockEntity.setStackNbt(itemStack);
+                blockEntity.setStackNbt(itemStack, serverWorld.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);

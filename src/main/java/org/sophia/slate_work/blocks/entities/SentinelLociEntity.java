@@ -10,6 +10,7 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
@@ -27,9 +28,9 @@ public class SentinelLociEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         var z = new NbtCompound();
-        this.writeNbt(z);
+        this.writeNbt(z, registries);
         return z;
     }
 
@@ -63,20 +64,20 @@ public class SentinelLociEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         this.pos = new Vec3d(
                 nbt.getDouble("xSent"),
                 nbt.getDouble("ySent"),
                 nbt.getDouble("zSent")
         );
-        super.readNbt(nbt);
+        super.readNbt(nbt, registries);
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.putDouble("xSent", this.pos.x);
         nbt.putDouble("ySent", this.pos.y);
         nbt.putDouble("zSent", this.pos.z);
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 }

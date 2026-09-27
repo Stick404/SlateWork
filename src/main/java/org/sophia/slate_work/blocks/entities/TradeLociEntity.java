@@ -11,6 +11,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -39,33 +40,30 @@ public class TradeLociEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        this.villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data")).getOrThrow(false, (a) -> {
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        this.villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data")).getOrThrow((a) -> {
             throw new RuntimeException(a);
         }).getFirst();
-        this.offerList = new TradeOfferList(nbt.getCompound("offers"));
+        this.offerList = TradeOfferList.CODEC.decode(NbtOps.INSTANCE, nbt.getCompound("offers")).getOrThrow().getFirst();
         this.xp = nbt.getInt("xp");
         this.lastRestockTime = nbt.getLong("LastRestockTime");
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        var data = VillagerData.CODEC.encode(villagerData, NbtOps.INSTANCE, new NbtCompound());
-        nbt.put("data", data.get().map(a -> a, a ->
-        {
-            throw new RuntimeException(a.message());
-        }));
-        nbt.put("offers", offerList.toNbt());
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        var data = VillagerData.CODEC.encode(villagerData, NbtOps.INSTANCE, new NbtCompound()).getOrThrow();
+        nbt.put("data", data);
+        nbt.put("offers", TradeOfferList.CODEC.encodeStart(NbtOps.INSTANCE, this.offerList).getOrThrow());
         nbt.putInt("xp", this.xp);
         nbt.putLong("LastRestockTime", this.lastRestockTime);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         var z = new NbtCompound();
-        this.writeNbt(z);
+        this.writeNbt(z, registries);
         return z;
     }
 

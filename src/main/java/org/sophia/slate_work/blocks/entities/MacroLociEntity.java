@@ -34,7 +34,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         super(BlockRegistry.MACRO_LOCI_ENTITY, pos, state);
         // The Slot
         this.theSlot = ItemStack.EMPTY;
-        this.pattern = HexPattern.fromAngles("qaq", HexDir.NORTH_EAST);
+        this.pattern = HexPattern.fromAngleString("qaq", HexDir.NORTH_EAST);
     }
 
     public HexPattern getPattern() {
@@ -46,9 +46,9 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         if (this.isEmpty() || holder == null) return;
         var written = holder.writeIota(iota, false);
         if (written && env != null) {
-            var trueName = MishapOthersName.getTrueNameFromDatum(holder.readIota((ServerWorld) world), (ServerPlayerEntity) env.getCastingEntity());
+            var trueName = MishapOthersName.getTrueNameMishapFromDatum(env.getWorld(), holder.readIota(), (ServerPlayerEntity) env.getCastingEntity());
             if (trueName != null)
-                throw new MishapOthersName(trueName);
+                throw trueName;
         }
 
         this.markDirty();

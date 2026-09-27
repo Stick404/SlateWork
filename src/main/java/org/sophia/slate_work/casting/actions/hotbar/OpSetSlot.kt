@@ -20,7 +20,7 @@ object OpSetSlot: ConstMediaAction {
         if (env !is CircleCastEnv) {
             throw MishapNoSpellCircle()
         }
-        val vec = NbtHelper.toBlockPos(env.circleState().currentImage.userData.getCompound("hotbar_loci"))
+        val vec = NbtHelper.toBlockPos(env.circleState().currentImage.userData, "hotbar_loci").get()
         val entity = env.world.getBlockEntity(vec)
         if (entity is HotbarLociEntity){
             entity.slot = slot;

@@ -10,6 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +29,6 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
-@SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant> {
     private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
     private final Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
@@ -38,7 +39,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     @Override
-    protected void saveModData(NbtCompound nbt) {
+    protected void saveModData(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         NbtList nbtList = new NbtList();
 
         for(int i = 0; i < this.slots.length; ++i) {
@@ -46,7 +47,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
             if (!stack.isBlank()) {
                 NbtCompound nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte) i);
-                nbtCompound.put("Item", stack.toNbt());
+                nbtCompound.put("Item", ItemVariant.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow());
                 nbtCompound.putLong("Count",slots[i].getRight());
                 nbtList.add(nbtCompound);
             }
@@ -60,7 +61,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     @Override
-    protected void loadModData(NbtCompound nbt) {
+    protected void loadModData(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         var items = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
 
         if (nbt.getBoolean("Empty")){
@@ -69,7 +70,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.fromNbt(compound.getCompound("Item")),(compound.getLong("Count")));
+            Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.CODEC.decode(NbtOps.INSTANCE, compound.getCompound("Item")).getOrThrow().getFirst(), (compound.getLong("Count")));
             this.slots[i] = stack;
         }
     }
@@ -129,7 +130,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     public @Nullable Integer getSlot(ItemVariant item){
         for (int i = 0; i < slots.length; i++) {
             var stored = this.slots[i].getLeft();
-            if (item.getItem() == stored.getItem() && item.nbtMatches(stored.getNbt())) {
+            if (item.getItem() == stored.getItem() && item.matches(stored.toStack())) {
                 return i;
             }
         }
@@ -173,7 +174,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         if (slotT  == -1) return 0;
         int slot = slotT;
 
-        transaction.addCloseCallback((a,z) -> {
+        transaction.addCloseCallback((_, z) -> {
             var stack = getStack(slot);
             if (z.wasCommitted()) {
                 if (stack.getLeft().isBlank())
@@ -205,7 +206,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
             returned = maxAmount;
         }
         this.markDirty();
-        transaction.addCloseCallback((a,z) -> {
+        transaction.addCloseCallback((_, z) -> {
             if (z.wasCommitted()) {
                 this.removeStack(slot, (int) maxAmount);
             }

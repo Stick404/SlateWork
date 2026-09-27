@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.block.HexBlockEntity;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.registries.BlockRegistry;
@@ -31,12 +32,12 @@ public class SaveLociEntity extends HexBlockEntity {
     }
 
     @Override
-    protected void saveModData(NbtCompound tag) {
+    protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         tag.put("save", save);
     }
 
     @Override
-    protected void loadModData(NbtCompound tag) {
+    protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         save = tag.getCompound("save");
     }
 }

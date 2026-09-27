@@ -5,20 +5,21 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.BlockPos
+import net.minecraft.world.dimension.DimensionType
 import org.sophia.slate_work.blocks.entities.BroadcasterLociEntity
 
 object KnownBroadcasters {
     private var knownBroadcasters: HashMap<BlockPosDim, Iota> = HashMap()
 
     fun getOrLoad(world: ServerWorld, pos: BlockPos): Iota {
-        val dimPos = BlockPosDim(pos, world.dimensionKey.value)
+        val dimPos = BlockPosDim(pos, world.dimension)
         if (knownBroadcasters.contains(dimPos)) {
-            return knownBroadcasters.get(dimPos)!!
+            return knownBroadcasters[dimPos]!!
         }
 
         val broadcaster = world.getBlockEntity(pos)
         if (broadcaster is BroadcasterLociEntity) {
-            knownBroadcasters.put(BlockPosDim(pos, world.dimensionKey.value), broadcaster.iota)
+            knownBroadcasters[BlockPosDim(pos, world.dimension)] = broadcaster.iota
             return broadcaster.iota
         }
 
@@ -26,11 +27,11 @@ object KnownBroadcasters {
     }
 
     fun setBroadcaster(broadcaster: BroadcasterLociEntity, iota: Iota){
-        this.knownBroadcasters.put(BlockPosDim(broadcaster.pos, broadcaster.world!!.dimensionKey.value), iota)
+        this.knownBroadcasters[BlockPosDim(broadcaster.pos, broadcaster.world!!.dimension)] = iota
     }
 
     fun removeBroadcaster(broadcaster: BroadcasterLociEntity){
-        this.knownBroadcasters.remove(BlockPosDim(broadcaster.pos, broadcaster.world!!.dimensionKey.value))
+        this.knownBroadcasters.remove(BlockPosDim(broadcaster.pos, broadcaster.world!!.dimension))
     }
 
     fun clear(){
@@ -42,5 +43,5 @@ object KnownBroadcasters {
 
      dim: Identifer is the identifier of the target dim
      **/
-    data class BlockPosDim(val pos: BlockPos, val dim: Identifier)
+    data class BlockPosDim(val pos: BlockPos, val dim: DimensionType)
 }

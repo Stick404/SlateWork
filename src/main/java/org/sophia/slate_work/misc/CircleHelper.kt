@@ -20,7 +20,6 @@ import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 import ram.talia.moreiotas.api.casting.iota.ItemTypeIota
 
-@Suppress("UnstableApiUsage")
 object CircleHelper {
     fun getSentLoci(env: CircleCastEnv): List<SentinelLociEntity> {
         val list: ArrayList<SentinelLociEntity> = ArrayList()

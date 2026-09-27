@@ -26,13 +26,13 @@ object OpGetItem : Action {
         if (env !is CircleCastEnv)
             throw MishapNoSpellCircle()
 
-        val stack = image.stack.toMutableList()
+        var stack = image.stack
         val hex = stack.getList(stack.lastIndex, stack.size)
-        stack.removeLastOrNull()
+        stack = stack.init()
         val storages = CircleHelper.getStorage(env)
         val toCheck = CircleHelper.getOnlySlots(storages)
 
-        val frame = FrameGetItems(hex,stack,toCheck.toMutableList(), null, JankyMaybe.FIRST)
+        val frame = FrameGetItems(SpellList.LList(hex),stack,toCheck.toMutableList(), null, JankyMaybe.FIRST)
         val image2 = image.withUsedOp().copy(stack = stack)
 
         val media = env.extractMedia(((storages.size.toDouble()*0.25)* MediaConstants.DUST_UNIT.toDouble()).toLong(), false)
@@ -42,6 +42,6 @@ object OpGetItem : Action {
 
         return OperationResult(image2,
             listOf(),
-            continuation.pushFrame(frame), HexEvalSounds.SPELL)
+            continuation.pushFrame(frame), HexEvalSounds.SPELL.get())
     }
 }

@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.api.utils.styledWith
 import net.minecraft.text.Text
 import net.minecraft.util.DyeColor
@@ -17,5 +18,5 @@ class MishapNoSentinelLoci() : Mishap() {
         return error("no_storage_sentinel_ran")
     }
 
-    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}
+    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: TreeList<Iota>): TreeList<Iota> = stack
 }

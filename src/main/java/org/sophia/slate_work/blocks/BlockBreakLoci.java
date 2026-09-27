@@ -90,7 +90,7 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
 
         if (result.getResolutionType().getSuccess()) {
             // We play the sound at the locus to not explode player's ears
-            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.25f, 0.6f);
+            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 0.25f, 0.6f);
             world.getPlayers().forEach(a -> a.networkHandler.sendPacket(new ParticleS2CPacket(
                     ParticleTypes.EXPLOSION, false, pos.toCenterPos().getX(), pos.toCenterPos().getY(),pos.toCenterPos().getZ(),
                     0, 0, 0, 0, 1

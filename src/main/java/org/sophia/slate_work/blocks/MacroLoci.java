@@ -3,10 +3,14 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
+import at.petrak.hexcasting.api.casting.iota.DoubleIota;
+import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.api.casting.iota.PatternIota;
+import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -17,6 +21,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -93,38 +98,40 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                     new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
-            if (holder.readIota(serverWorld) == null){
+            if (holder.readIota() == null){
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
                     new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
 
-           if (!(holder.readIota(serverWorld) instanceof ListIota || holder.readIota(serverWorld).executable())){
-                this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapSpellCircleReadableFocus(blockPos));
-                return new ControlFlow.Stop();
-            }
+           if (!(holder.readIota() instanceof ListIota || holder.readIota().executable())){
+               this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
+                       new MishapSpellCircleReadableFocus(blockPos));
+               return new ControlFlow.Stop();
+           }
+           MapCodec<Iota> codec = (MapCodec<Iota>) holder.readIota().getType().codec();
 
-            macro.put("macro", holder.readIotaTag());
-            var pattern = loci.getPattern().serializeToNBT();
-            macro.put("pattern", pattern);
+           macro.put("macro", codec.encoder().encodeStart(NbtOps.INSTANCE, holder.readIota()).getOrThrow());
+           var pattern = loci.getPattern();
+           macro.put("pattern", HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, pattern).getOrThrow());
 
-            var macros = data.getList("macros", NbtElement.COMPOUND_TYPE);
-            int i = 0;
-            for (var z : macros){
-                NbtCompound compound = (NbtCompound) z;
-                if (PatternIota.deserialize(compound.get("pattern")).getPattern().anglesSignature().equals(loci.getPattern().anglesSignature())){
-                    macros.remove(i);
-                    break;
-                }
-                i++;
-            }
-            macros.add(macro);
-            data.put("macros", macros);
+           var macros = data.getList("macros", NbtElement.COMPOUND_TYPE);
+           int i = 0;
+           for (var z : macros){
+               NbtCompound compound = (NbtCompound) z;
+               PatternIota patternIter = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern")).getOrThrow().getFirst();
+               if (patternIter.getPattern().getSignature().equals(loci.getPattern().getSignature())){
+                   macros.remove(i);
+                   break;
+               }
+               i++;
+           }
+           macros.add(macro);
+           data.put("macros", macros);
         }
         return new ControlFlow.Continue(
                 castingImage.copy(castingImage.getStack(), castingImage.getParenCount(), castingImage.getParenthesized(),
-                        castingImage.getEscapeNext(), castingImage.getOpsConsumed(), data),
+                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data),
                 exitDirs.toList());
     }
 
@@ -143,8 +150,10 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     // Code mostly gotten from the amazing Sam
     // https://github.com/SamsTheNerd/ducky-periphs/blob/56252d6ab19f612a15ad9010a6e64661889ea4b0/common/src/main/java/com/samsthenerd/duckyperiphs/hexcasting/FocalPortBlockEntity.java#L312
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.getBlockEntity(pos) instanceof MacroLociEntity loci){
+            Hand hand = player.getActiveHand();
+
             if (loci.isEmpty()){ // If the Loci is empty...
                 ItemStack stack = player.getStackInHand(hand);
                 if (loci.isValid(0,stack)){ // And the item is valid...
