@@ -29,12 +29,15 @@ import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
 @SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant> {
-    private static final Pair<ItemVariant,Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
-    private final Pair<ItemVariant,Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
+    private final StorageLociSlot[] slots;
     // Java, please, I just want an array of ItemStack.EMPTY at first
 
     public StorageLociEntity(BlockPos pos, BlockState state) {
         super(STORAGE_LOCI_ENTITY, pos, state);
+        this.slots = new StorageLociSlot[16];
+        for (int i = 0; i < 16; i++) {
+            this.slots[i] = new StorageLociSlot(this, i);
+        }
     }
 
     @Override
@@ -42,12 +45,12 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         NbtList nbtList = new NbtList();
 
         for(int i = 0; i < this.slots.length; ++i) {
-            ItemVariant stack = slots[i].getLeft();
+            ItemVariant stack = slots[i].getResource();
             if (!stack.isBlank()) {
                 NbtCompound nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte) i);
                 nbtCompound.put("Item", stack.toNbt());
-                nbtCompound.putLong("Count",slots[i].getRight());
+                nbtCompound.putLong("Count",slots[i].getAmount());
                 nbtList.add(nbtCompound);
             }
         }
@@ -69,14 +72,15 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.fromNbt(compound.getCompound("Item")),(compound.getLong("Count")));
-            this.slots[i] = stack;
+            ItemVariant var = ItemVariant.fromNbt(compound.getCompound("Item"));
+            long count = compound.getLong("Count");
+            this.slots[i] = new StorageLociSlot(this, i, var, count);
         }
     }
 
     public boolean isEmpty() {
         for (var z : this.slots){
-            if (!z.getLeft().isBlank() || z.getRight() != 0) return false;
+            if (!z.isResourceBlank()) return false;
         }
         return true;
     }
@@ -85,7 +89,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     public int isFull(){
         int i = 0;
         for (var z : this.slots){
-            if (z.getLeft().isBlank() || z.getRight() == 0) return i;
+            if (z.isResourceBlank()) return i;
             i++;
         }
         return -1;
@@ -96,39 +100,39 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
      *  Returns a *copy*
      *  **/
     public Pair<ItemVariant,Long> getStack(int slot) {
-        return new Pair<>(this.slots[slot].getLeft(),this.slots[slot].getRight());
+        return new Pair<>(this.slots[slot].getResource(), this.slots[slot].getAmount());
     }
 
-    // You better know what you are doing...
-    public Pair<ItemVariant,Long>[] getInventory(){
+    /// You better know what you are doing...
+    public StorageLociSlot[] getInventory(){
         return this.slots;
     }
 
+    /// Mutates the storage locus!
     public Pair<ItemVariant,Long> removeStack(int slot, int amount) {
-        if (amount <= 0) return emptySlot; //Pain.
-        var pair = this.slots[slot];
-        var copy = pair.getLeft();
+        if (amount <= 0) return new Pair<>(ItemVariant.blank(), 0L); //Pain.
+        StorageLociSlot storageSlot = this.slots[slot];
         long returned;
 
-        if (copy == ItemVariant.blank() || pair.getRight() == 0){
-            this.slots[slot] = emptySlot;
-            return emptySlot;
+        if (storageSlot.isResourceBlank()){
+            this.slots[slot] = new StorageLociSlot(this, slot);
+            return new Pair<>(ItemVariant.blank(), 0L);
         }
-        if (pair.getRight() <= amount) {
-            returned = pair.getRight();
-            this.slots[slot] = emptySlot;
-        }
-        else {
-            this.slots[slot].setRight(this.slots[slot].getRight() - amount);
+        if (storageSlot.getAmount() <= amount) {
+            returned = storageSlot.getAmount();;
+            this.slots[slot] = new StorageLociSlot(this, slot);
+        } else {
+            long slotHeld = storageSlot.getAmount();
+            this.slots[slot] = new StorageLociSlot(this, slot, storageSlot.getResource(), slotHeld -amount);
             returned = amount;
         }
         this.sync();
-        return new Pair<>(copy,returned);
+        return new Pair<>(storageSlot.getResource(), returned);
     }
 
     public @Nullable Integer getSlot(ItemVariant item){
         for (int i = 0; i < slots.length; i++) {
-            var stored = this.slots[i].getLeft();
+            var stored = this.slots[i].getResource();
             if (item.getItem() == stored.getItem() && item.nbtMatches(stored.getNbt())) {
                 return i;
             }
@@ -138,22 +142,21 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     public Pair<ItemVariant,Long> removeStack(int slot) {
-        var pair = this.slots[slot];
-        var copy = pair.getLeft();
-        if (!copy.isBlank()) {
-            this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
+        StorageLociSlot storageSlot = this.slots[slot];
+        if (!storageSlot.isResourceBlank()) {
+            this.slots[slot] = new StorageLociSlot(this, slot);
         }
         this.sync();
-        return new Pair<>(copy,pair.getRight());
+        return new Pair<>(storageSlot.getResource(), storageSlot.getAmount());
     }
 
     public void setStack(int slot, ItemVariant stack, long amount) {
         if (amount <= 0){ // If this somehow comes from overflow, you kind of deserve it
-            this.slots[slot] = new Pair<>(emptySlot.getLeft(), emptySlot.getRight());
+            this.slots[slot] = new StorageLociSlot(this, slot, ItemVariant.blank(), 0L);
             this.sync();
             return;
         }
-        this.slots[slot] = new Pair<>(stack, amount);
+        this.slots[slot] = new StorageLociSlot(this, slot, stack, amount);
         this.sync();
     }
 
@@ -162,7 +165,9 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     public void clear() {
-        Arrays.fill(this.slots, new Pair<>(emptySlot.getLeft(),emptySlot.getLeft()));
+        for (int i = 0; i < 16; i++) {
+            this.slots[i] = new StorageLociSlot(this, i);
+        }
         if (this.world != null) this.sync();
     }
 
@@ -173,17 +178,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         if (slotT  == -1) return 0;
         int slot = slotT;
 
-        transaction.addCloseCallback((a,z) -> {
-            var stack = getStack(slot);
-            if (z.wasCommitted()) {
-                if (stack.getLeft().isBlank())
-                    this.setStack(slot, new Pair<>(resource, maxAmount));
-                else
-                    this.setStack(slot, new Pair<>(stack.getLeft(), stack.getRight() + maxAmount));
-                this.sync();
-            }
-        });
-        return maxAmount;
+        return this.slots[slot].insert(resource, maxAmount, transaction);
     }
 
     @Override
@@ -192,25 +187,10 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         if (slot == null) return 0;
         if (maxAmount <= 0) return 0;
 
-        var pair = this.slots[slot];
-        var copy = pair.getLeft();
-        long returned;
+        StorageLociSlot storageSlot = this.slots[slot];
+        long returned = Math.min(storageSlot.getAmount(), maxAmount);
 
-        if (copy == ItemVariant.blank() || pair.getRight() == 0){
-            this.slots[slot] = emptySlot;
-        }
-        if (pair.getRight() <= maxAmount) {
-            returned = pair.getRight();
-        } else {
-            returned = maxAmount;
-        }
-        this.markDirty();
-        transaction.addCloseCallback((a,z) -> {
-            if (z.wasCommitted()) {
-                this.removeStack(slot, (int) maxAmount);
-            }
-        });
-        return returned;
+        return storageSlot.extract(resource, returned, transaction);
     }
 
     @Override
@@ -225,7 +205,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
     @Override
     public StorageLociSlot getSlot(int slot) {
-        return new StorageLociSlot(this, slot);
+        return this.slots[slot];
     }
 
     @Override

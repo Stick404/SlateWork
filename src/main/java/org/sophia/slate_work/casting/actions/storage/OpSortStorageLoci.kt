@@ -46,10 +46,10 @@ object OpSortStorageLoci : ConstMediaAction {
 
         var storageI = 0
         var slotI = 0
-        for (items in returnList){
+        for ((key, value) in returnList){
             val storage = storages[storageI]
             if (slotI >= 16) {storageI++; slotI = 0}
-            storage.setStack(slotI, items.key,items.value)
+            storage.setStack(slotI, key, value)
             slotI++
         }
 

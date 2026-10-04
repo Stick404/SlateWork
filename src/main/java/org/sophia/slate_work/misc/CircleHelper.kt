@@ -56,7 +56,7 @@ object CircleHelper {
         val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList[x.left] = ItemSlot(x.left,x.right,z)
+                returnList[x.resource] = ItemSlot(x.resource,x.amount,z)
             }
         }
         return returnList
@@ -68,8 +68,8 @@ object CircleHelper {
 
         for (z in list){
             for (x in z.inventory) {
-                if (!x.left.isBlank) {
-                    returnList.add(ItemSlot(x.left,x.right,z))
+                if (!x.isResourceBlank) {
+                    returnList.add(ItemSlot(x.resource,x.amount,z))
                 }
             }
         }
@@ -81,8 +81,8 @@ object CircleHelper {
 
         for (z in list){
             for (x in z.inventory) {
-                if (!x.left.isBlank) {
-                    returnList.add(ItemSlot(x.left,x.right,z))
+                if (!x.isResourceBlank) {
+                    returnList.add(ItemSlot(x.resource,x.amount,z))
                 }
             }
         }
@@ -93,7 +93,7 @@ object CircleHelper {
         val returnList = HashMap<NbtCompound, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList[x.left.toNbt()] = ItemSlot(x.left,x.right,z)
+                returnList[x.resource.toNbt()] = ItemSlot(x.resource,x.amount,z)
             }
         }
         return returnList
