@@ -15,15 +15,18 @@ import java.util.UUID;
 
 public class SlateWorksTrinkets {
     public static void init(){
-        TrinketsApi.registerTrinket(SlateWorksBlockRegistry.WHISPERING_STONE, new Trinket() {
-            @Override
-            public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot,
-                                                                       LivingEntity entity, UUID uuid) {
-                var map = Trinket.super.getModifiers(stack, slot, entity, uuid);
-                map.putAll(SlateWorksBlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack));
-                return map;
-            }
-        });
+        TrinketsApi.registerTrinket(SlateWorksBlockRegistry.WHISPERING_STONE,
+                new Trinket() {
+                    @Override
+                    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot,
+                                                                                           LivingEntity entity, UUID uuid) {
+                        var map = Trinket.super.getModifiers(stack, slot, entity, uuid);
+                        for (var entry : SlateWorksBlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack).entries()) {
+                            map.put(entry.getKey().value(), entry.getValue());
+                        }
+                        return map;
+                    }
+                });
     }
 
     public static void finder(ChatHelper.ItemHold hold, ServerPlayerEntity sender){

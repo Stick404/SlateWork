@@ -44,10 +44,11 @@ object OpStoreItem : SpellAction {
             val itemE = entity.stack
             val list = CircleHelper.getStorage(env as CircleCastEnv)
             val hashMap = CircleHelper.getLists(list)
-            if (hashMap.contains(ItemVariant.of(itemE.item,itemE.nbt).toNbt())) {
-                val slot = hashMap.get(ItemVariant.of(itemE.item,itemE.nbt).toNbt())!!
+            if (hashMap.contains(ItemVariant.of(itemE.item, itemE.componentChanges))) {
+                val slot = hashMap[ItemVariant.of(itemE.item,itemE.componentChanges)]!!
                 val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
                 val item = slot.storageLociEntity.getStack(targ)
+
                 item.right += itemE.count
                 slot.storageLociEntity.setStack(targ,item);
                 entity.stack = ItemStack.EMPTY
@@ -57,7 +58,7 @@ object OpStoreItem : SpellAction {
             for (z in list){
                 val x = z.isFull
                 if (x != -1) {
-                    z.setStack(x, ItemVariant.of(itemE.item,itemE.nbt),itemE.count.toLong())
+                    z.setStack(x, ItemVariant.of(itemE.item,itemE.componentChanges),itemE.count.toLong())
                     entity.stack = ItemStack.EMPTY
                     return
                 }

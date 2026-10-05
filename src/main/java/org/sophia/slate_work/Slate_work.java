@@ -44,13 +44,13 @@ public class Slate_work implements ModInitializer {
     public static final AttachmentType<List<BlockPos>> chunk_listeners = AttachmentRegistry.<List<BlockPos>>builder()
             .initializer(ArrayList::new)
             .copyOnDeath().persistent(Codec.list(BlockPos.CODEC))
-            .buildAndRegister(new Identifier(MOD_ID, "listening_attachment"));
+            .buildAndRegister(Identifier.of(MOD_ID, "listening_attachment"));
 
     public static ScreenHandlerType<Ghost3x3ScreenHandler> GHOST_3X3_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
-            new Identifier(MOD_ID,"ghost3x3screen"),
+            Identifier.of(MOD_ID,"ghost3x3screen"),
             new ExtendedScreenHandlerType<>(Ghost3x3ScreenHandler::new));
     public static ScreenHandlerType<HotbarLociScreenHandler> HOTBAR_LOCI_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
-            new Identifier(MOD_ID, "hotbar_loci_screen"),
+            Identifier.of(MOD_ID, "hotbar_loci_screen"),
             new ExtendedScreenHandlerType<>(HotbarLociScreenHandler::new));
 
     // These are used over in FakePlayerLoci.class, but due to Kotlin Jank:tm: is assigned here
@@ -100,7 +100,7 @@ public class Slate_work implements ModInitializer {
                             stack.removeSubNbt("string");
                             stack.removeSubNbt("dim");
                         } else {
-                            sender.playSound(HexSounds.SCROLL_SCRIBBLE, SoundCategory.PLAYERS, 1f, 1f);
+                            sender.playSound(HexSounds.SCROLL_SCRIBBLE.value(), 1f, 1f);
                         }
 
                     }

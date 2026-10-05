@@ -127,7 +127,7 @@ object CircleHelper {
         if (z is ItemTypeIota) {
             return z.either.map({ ItemVariant.of { it } }) { ItemVariant.of{ BlockItem(it, Item.Settings()) } }
         } else if (z is ItemStackIota) {
-            return ItemVariant.of(z.itemStack,z.itemStack)
+            return ItemVariant.of(z.itemStack.item,z.itemStack.componentChanges)
         } else if (z is NullIota){
             return null
         }
@@ -137,11 +137,12 @@ object CircleHelper {
     data class ItemSlot(val item: ItemVariant, var count: Long, val storageLociEntity: StorageLociEntity){
         fun save(): NbtCompound {
             val tempNBT = NbtCompound()
-            tempNBT.putCompound("item", item.)
+            tempNBT.putCompound("item", item.co)
             tempNBT.putLong("count",count)
             tempNBT.put("entity", NbtHelper.fromBlockPos(storageLociEntity.pos))
             return tempNBT
         }
+
         companion object {
 
             @JvmStatic

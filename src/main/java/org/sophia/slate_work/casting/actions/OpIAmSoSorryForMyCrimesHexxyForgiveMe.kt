@@ -45,12 +45,12 @@ object OpIAmSoSorryForMyCrimesHexxyForgiveMe : Action {
 
         val bounds = env.circleState().bounds
         val offset = when(facing) {
-            Direction.NORTH -> pos.z - bounds.minZ
-            Direction.SOUTH -> bounds.maxZ - pos.z
-            Direction.EAST -> pos.x - bounds.minX
-            Direction.WEST -> bounds.maxX - pos.x
-            Direction.UP -> bounds.maxY - pos.y
-            Direction.DOWN -> pos.y - bounds.maxY
+            Direction.NORTH -> pos.z - bounds.enclosingBox().minZ
+            Direction.SOUTH -> bounds.enclosingBox().maxZ - pos.z
+            Direction.EAST -> pos.x - bounds.enclosingBox().minX
+            Direction.WEST -> bounds.enclosingBox().maxX - pos.x
+            Direction.UP -> bounds.enclosingBox().maxY - pos.y
+            Direction.DOWN -> pos.y - bounds.enclosingBox().maxY
         }
 
         val blocks: MutableList<BlockPos> =
@@ -59,16 +59,17 @@ object OpIAmSoSorryForMyCrimesHexxyForgiveMe : Action {
                 .filter { block -> env.isVecInAmbit(block.toCenterPos()) }.toList().toMutableList()
 
         val fakePick = ItemStack(Items.NETHERITE_PICKAXE)
-        val enchantments = EnchantmentHelper.fromNbt(entity.enchantments)
-        EnchantmentHelper.set(enchantments, fakePick)
+        TODO("Re-research how enchantments work")
+        //val enchantments = EnchantmentHelper.fromNbt(entity.enchantments)
+        //EnchantmentHelper.set(enchantments, fakePick)
 
-        val frame = FrameBreakBlockLoci(hex, pos,stack,
-            blocks.toMutableList(), null, JankyMaybe.FIRST, fakePick)
-        val image2 = image.withUsedOp().copy(stack = stack)
+        //val frame = FrameBreakBlockLoci(hex, pos,stack,
+            //blocks.toMutableList(), null, JankyMaybe.FIRST, fakePick)
+        //val image2 = image.withUsedOp().copy(stack = stack)
 
 
-        return OperationResult(image2,
+        return OperationResult(image, //image2
             listOf(),
-            continuation.pushFrame(frame), HexEvalSounds.SPELL)
+            continuation /*.pushFrame(frame)*/, HexEvalSounds.SPELL.get())
     }
 }

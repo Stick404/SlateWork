@@ -24,11 +24,14 @@ object OpGetTrades : ConstMediaAction {
         env.assertVecInRange(pos.toCenterPos())
         val entity = env.world.getBlockEntity(pos)
         if (entity is TradeLociEntity) {
-            var listOfIota: MutableList<Iota> = mutableListOf();
+            val listOfIota: MutableList<Iota> = mutableListOf();
             for (offer in entity.offerList) {
-                var index: MutableList<Iota> = mutableListOf();
-                index.add(ItemStackIota.createFiltered(offer.adjustedFirstBuyItem));
-                index.add(ItemStackIota.createFiltered(offer.secondBuyItem))
+                val index: MutableList<Iota> = mutableListOf();
+
+                index.add(ItemStackIota.createFiltered(offer.firstBuyItem.itemStack));
+                offer.secondBuyItem.ifPresent {
+                    index.add(ItemStackIota.createFiltered(it.itemStack))
+                }
                 index.add(ItemStackIota.createFiltered(offer.sellItem))
                 index.add(DoubleIota((offer.uses.toDouble() / offer.maxUses.toDouble())))
 

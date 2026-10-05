@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleSlotStorage;
 import net.fabricmc.fabric.api.transfer.v1.transaction.TransactionContext;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
-@SuppressWarnings("UnstableApiUsage")
 public class HotbarLociSlot implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
     private final HotbarLociEntity parent;
     private final int slot;

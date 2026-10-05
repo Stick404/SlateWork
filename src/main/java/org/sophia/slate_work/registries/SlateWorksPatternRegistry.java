@@ -8,11 +8,13 @@ import at.petrak.hexcasting.api.casting.math.HexAngle;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
+import at.petrak.hexcasting.api.casting.math.HexSignature;
 import at.petrak.hexcasting.common.lib.hex.HexActions;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import org.apache.commons.codec.binary.Hex;
 import org.sophia.slate_work.casting.actions.*;
 import org.sophia.slate_work.casting.actions.hotbar.OpGetItems;
 import org.sophia.slate_work.casting.actions.hotbar.OpSetSlot;
@@ -62,27 +64,27 @@ public class SlateWorksPatternRegistry {
     public static final HexPattern EXCHANGE_MIND = make("eaqwqaeqawawaddwwdqeeqdwwd", HexDir.SOUTH_WEST, "exchange_mind", OpExchangeMind.INSTANCE);
     public static final HexPattern INDUCE_RESTOCK = make("eaqwqaeqwaeaeqqeaeawedaawqwawqa", HexDir.SOUTH_WEST, "induce_restock", OpInduceRestock.INSTANCE);
 
-    private static ArrayList<HexAngle> getFakePattern(){
-        ArrayList<HexAngle> fakeList = new ArrayList<>();
+    private static HexSignature getFakePattern(){
+        HexSignature.Builder builder = new HexSignature.Builder();
         Random random = new Random();
         for (int i = 0; i < 134; i++) {
             switch (random.nextInt(0, 6)){
-                case 1: fakeList.add(HexAngle.BACK); break;
-                case 2: fakeList.add(HexAngle.FORWARD); break;
-                case 3: fakeList.add(HexAngle.LEFT); break;
-                case 4: fakeList.add(HexAngle.RIGHT); break;
-                case 5: fakeList.add(HexAngle.LEFT_BACK); break;
-                case 6: fakeList.add(HexAngle.RIGHT_BACK); break;
+                case 1: builder.addAngle(HexAngle.BACK); break;
+                case 2: builder.addAngle(HexAngle.FORWARD); break;
+                case 3: builder.addAngle(HexAngle.LEFT); break;
+                case 4: builder.addAngle(HexAngle.RIGHT); break;
+                case 5: builder.addAngle(HexAngle.LEFT_BACK); break;
+                case 6: builder.addAngle(HexAngle.RIGHT_BACK); break;
             }
         }
-        return fakeList;
+        return builder.build();
     }
 
     // Okay so, this is going to take some explaining. Long story short: *needed* a pattern, but don't want Players ever using it.
     // So this randomly generates a pattern that is 134 lines long, and uses invalid sigs as well.
     public static final HexPattern I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME = new HexPattern(HexDir.NORTH_EAST, getFakePattern());
     static {
-        PATTERNS.put(new Identifier(MOD_ID,"bombastic_extractor"), new ActionRegistryEntry(I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME, OpIAmSoSorryForMyCrimesHexxyForgiveMe.INSTANCE));
+        PATTERNS.put(Identifier.of(MOD_ID,"bombastic_extractor"), new ActionRegistryEntry(I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME, OpIAmSoSorryForMyCrimesHexxyForgiveMe.INSTANCE));
     }
 
     // Got permission from Walks to add these to Slate Works
@@ -103,7 +105,8 @@ public class SlateWorksPatternRegistry {
             new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia()/10000f)));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){
-        PATTERNS.put(new Identifier(MOD_ID,name), new ActionRegistryEntry(HexPattern.fromAngles(sig,dir),spell));
-        return HexPattern.fromAngles(sig,dir);
+        HexPattern signature = HexPattern.fromAngleString(sig, dir, false);
+        PATTERNS.put(Identifier.of(MOD_ID,name), new ActionRegistryEntry(signature, spell));
+        return signature;
     }
 }

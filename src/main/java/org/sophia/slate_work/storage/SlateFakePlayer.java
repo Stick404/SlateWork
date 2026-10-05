@@ -1,14 +1,18 @@
 package org.sophia.slate_work.storage;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.mojang.authlib.GameProfile;
 import net.fabricmc.fabric.api.entity.FakePlayer;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -31,8 +35,11 @@ public class SlateFakePlayer extends FakePlayer {
             inventory.armor.set(i, jankyJankyStack.copy());
         }*/
 
-        Multimap<EntityAttribute, EntityAttributeModifier> attributeModifiers = entity.getCurrentSlot()
-                .getAttributeModifiers(EquipmentSlot.MAINHAND);
+
+        Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> attributeModifiers = HashMultimap.create();
+        entity.getCurrentSlot()
+                .applyAttributeModifier(AttributeModifierSlot.MAINHAND,
+                        attributeModifiers::put);
         this.getAttributes()
                 .addTemporaryModifiers(attributeModifiers);
     }
@@ -95,7 +102,7 @@ public class SlateFakePlayer extends FakePlayer {
     }
 
     @Override
-    public ItemStack eatFood(World world, ItemStack stack) {
+    public ItemStack eatFood(World world, ItemStack stack, FoodComponent foodComponent) {
         stack.decrement(1);
         return stack;
     }

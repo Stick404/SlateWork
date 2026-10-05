@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -97,7 +98,7 @@ public class SlateWorksBlockRegistry {
     public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
     public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci", new BlockBreakLociItem(new Item.Settings()));
 
-    public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), new Identifier(MOD_ID,"item_group"));
+    public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(AMBIT_LOCI))
             .displayName(Text.translatable("itemGroup.slate_work")).build();
@@ -119,40 +120,40 @@ public class SlateWorksBlockRegistry {
     }
 
     private static <T extends Block> T registerReplicatedAllay(String name, T block){
-        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
+        BLOCK_REGISTRY.put(Identifier.of(MOD_ID,name), block);
         Item.Settings settings;
         if (AutoConfig.getConfigHolder(SlateWorkConfig.class).getConfig().imAGummyBear) {
-            settings = new Item.Settings().food(new FoodComponent.Builder().alwaysEdible().snack().hunger(1).saturationModifier(1).build());
+            settings = new Item.Settings().food(new FoodComponent.Builder().alwaysEdible().snack().nutrition(1).saturationModifier(1).build());
         } else {
             settings = new Item.Settings();
         }
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), settings));
+        ITEM_REGISTRY.put(Identifier.of(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), settings));
         return block;
     }
 
     private static <T extends Block> T registerBasicBlockItem(String name, T block){
-        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), new Item.Settings()));
+        BLOCK_REGISTRY.put(Identifier.of(MOD_ID,name), block);
+        ITEM_REGISTRY.put(Identifier.of(MOD_ID,name), new BlockItem(block.getDefaultState().getBlock(), new Item.Settings()));
         return block;
     }
 
     private static <T extends Block> T registerBlock(String name, T block){
-        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
+        BLOCK_REGISTRY.put(Identifier.of(MOD_ID,name), block);
         return block;
     }
 
     private static <T extends Block> T registerBlockItem(String name, T block){
-        BLOCK_REGISTRY.put(new Identifier(MOD_ID,name), block);
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), new BlockItem(block.getDefaultState().with(ENERGIZED, true).getBlock(), new Item.Settings().rarity(UNCOMMON)));
+        BLOCK_REGISTRY.put(Identifier.of(MOD_ID,name), block);
+        ITEM_REGISTRY.put(Identifier.of(MOD_ID,name), new BlockItem(block.getDefaultState().with(ENERGIZED, true).getBlock(), new Item.Settings().rarity(UNCOMMON)));
         return block;
     }
 
     private static <T extends BlockEntityType<?>> T registerBlockEntity(String name, T blockEntityType){
-        return Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(MOD_ID,name), blockEntityType);
+        return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(MOD_ID,name), blockEntityType);
     }
 
     private static <T extends Item> T registerItem(String name, T item){
-        ITEM_REGISTRY.put(new Identifier(MOD_ID,name), item);
+        ITEM_REGISTRY.put(Identifier.of(MOD_ID,name), item);
         return item;
     }
 }
