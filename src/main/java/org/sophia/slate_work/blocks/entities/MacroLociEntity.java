@@ -36,7 +36,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         super(SlateWorksBlockRegistry.MACRO_LOCI_ENTITY, pos, state);
         // The Slot
         this.theSlot = ItemStack.EMPTY;
-        this.pattern = HexPattern.fromAngleString("qaq", HexDir.NORTH_EAST);
+        this.pattern = HexPattern.fromAngles("qaq", HexDir.NORTH_EAST);
     }
 
     public HexPattern getPattern() {

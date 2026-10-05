@@ -61,7 +61,7 @@ public class AkashicRecordLoci {
                 var foundPos = AkashicFloodfiller.floodFillFor(pos, world,
                         (pos1, state, world1) ->
                                 world1.getBlockEntity(pos1) instanceof BlockEntityAkashicBookshelf tile
-                                        && tile.getPattern() != null && tile.getPattern().getSignature().equals(pattern));
+                                        && tile.getPattern() != null && tile.getPattern().equals(pattern));
                 if (foundPos != null && world.getBlockEntity(foundPos) instanceof BlockEntityAkashicBookshelf tile){
                     tile.clearIota();
                 }

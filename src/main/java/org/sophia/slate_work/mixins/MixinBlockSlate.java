@@ -9,7 +9,6 @@ import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
-import at.petrak.hexcasting.api.casting.math.HexSignature;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
@@ -38,14 +37,14 @@ public abstract class MixinBlockSlate {
                                        ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local(name = "pattern") HexPattern pattern,
                                        @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
         var macroPos = imageIn.getUserData().getList("macros", NbtElement.INT_ARRAY_TYPE);
-        HexSignature angleSig = pattern.getSignature();
+        HexPattern angleSig = pattern;
 
-        Map<HexSignature, Iota> macros = new HashMap<>();
+        Map<HexPattern, Iota> macros = new HashMap<>();
         for (NbtElement temp : macroPos) {
             NbtCompound nbtElement = (NbtCompound) temp;
 
             macros.put(
-                    HexSignature.CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("pattern")).getOrThrow().getFirst(),
+                    HexPattern.CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("pattern")).getOrThrow().getFirst(),
                     IotaType.TYPED_CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("macro")).getOrThrow().getFirst()
             );
         }

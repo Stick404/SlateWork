@@ -20,6 +20,7 @@ import java.util.UUID;
 
 @Mixin(ICircleComponent.class)
 public interface MixinCircleComponent {
+    /*
     @Inject(method = "sfx",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
             cancellable = true
@@ -35,4 +36,6 @@ public interface MixinCircleComponent {
             }
         }
     }
+
+     */
 }

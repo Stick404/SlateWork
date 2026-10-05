@@ -8,7 +8,6 @@ import at.petrak.hexcasting.api.casting.math.HexAngle;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.castables.Action;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
-import at.petrak.hexcasting.api.casting.math.HexSignature;
 import at.petrak.hexcasting.common.lib.hex.HexActions;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registry;
@@ -64,20 +63,21 @@ public class SlateWorksPatternRegistry {
     public static final HexPattern EXCHANGE_MIND = make("eaqwqaeqawawaddwwdqeeqdwwd", HexDir.SOUTH_WEST, "exchange_mind", OpExchangeMind.INSTANCE);
     public static final HexPattern INDUCE_RESTOCK = make("eaqwqaeqwaeaeqqeaeawedaawqwawqa", HexDir.SOUTH_WEST, "induce_restock", OpInduceRestock.INSTANCE);
 
-    private static HexSignature getFakePattern(){
-        HexSignature.Builder builder = new HexSignature.Builder();
+    private static List<HexAngle> getFakePattern(){
+        //HexSignature.Builder builder = new HexPattern.Builder();
+        List<HexAngle> builder = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 134; i++) {
             switch (random.nextInt(0, 6)){
-                case 1: builder.addAngle(HexAngle.BACK); break;
-                case 2: builder.addAngle(HexAngle.FORWARD); break;
-                case 3: builder.addAngle(HexAngle.LEFT); break;
-                case 4: builder.addAngle(HexAngle.RIGHT); break;
-                case 5: builder.addAngle(HexAngle.LEFT_BACK); break;
-                case 6: builder.addAngle(HexAngle.RIGHT_BACK); break;
+                case 1: builder.add(HexAngle.BACK); break;
+                case 2: builder.add(HexAngle.FORWARD); break;
+                case 3: builder.add(HexAngle.LEFT); break;
+                case 4: builder.add(HexAngle.RIGHT); break;
+                case 5: builder.add(HexAngle.LEFT_BACK); break;
+                case 6: builder.add(HexAngle.RIGHT_BACK); break;
             }
         }
-        return builder.build();
+        return builder;
     }
 
     // Okay so, this is going to take some explaining. Long story short: *needed* a pattern, but don't want Players ever using it.
@@ -105,7 +105,7 @@ public class SlateWorksPatternRegistry {
             new CircleReflection(env -> new DoubleIota(env.getImpetus().getMedia()/10000f)));
 
     private static HexPattern make(String sig, HexDir dir, String name, Action spell){
-        HexPattern signature = HexPattern.fromAngleString(sig, dir, false);
+        HexPattern signature = HexPattern.fromAngles(sig, dir);
         PATTERNS.put(Identifier.of(MOD_ID,name), new ActionRegistryEntry(signature, spell));
         return signature;
     }
