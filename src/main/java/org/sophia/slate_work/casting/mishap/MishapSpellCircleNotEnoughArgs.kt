@@ -13,11 +13,11 @@ import net.minecraft.util.Formatting
 import net.minecraft.util.math.BlockPos
 
 class MishapSpellCircleNotEnoughArgs(val expected: Int, val got: Int, val pos: BlockPos) : Mishap() {
-    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment =
+    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment =
         dyeColor(DyeColor.LIGHT_GRAY)
 
 
-    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text? =
+    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Text =
         error("circle.empty_stack",1,
             Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
 

@@ -12,8 +12,8 @@ import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class HotbarLociScreen extends HandledScreen<HotbarLociScreenHandler> {
-    private static final Identifier BACKGROUND = new Identifier(MOD_ID,"textures/gui/hotbar_loci.png");
-    private static final Identifier SELECTED = new Identifier(MOD_ID, "textures/gui/selected.png");
+    private static final Identifier BACKGROUND = Identifier.of(MOD_ID,"textures/gui/hotbar_loci.png");
+    private static final Identifier SELECTED = Identifier.of(MOD_ID, "textures/gui/selected.png");
     private final HotbarLociEntity entity;
 
     public HotbarLociScreen(HotbarLociScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -31,7 +31,7 @@ public class HotbarLociScreen extends HandledScreen<HotbarLociScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }

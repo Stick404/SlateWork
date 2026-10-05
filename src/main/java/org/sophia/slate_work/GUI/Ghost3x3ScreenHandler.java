@@ -1,5 +1,6 @@
 package org.sophia.slate_work.GUI;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftingInventory;
@@ -7,12 +8,15 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.RegistryByteBuf;
+import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.CraftingLoci;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
@@ -30,9 +34,9 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
         this(syncId, playerInventory, blockEntity);
     }
 
-    public Ghost3x3ScreenHandler(int id, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+    public Ghost3x3ScreenHandler(int id, PlayerInventory playerInventory, BlockPos pos) {
         this(id,playerInventory, playerInventory,
-                new DumbDumbInv((CraftingLociEntity) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos()))
+                new DumbDumbInv((CraftingLociEntity) playerInventory.player.getWorld().getBlockEntity(pos))
         );
     }
 

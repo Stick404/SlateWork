@@ -30,6 +30,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
+import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.misc.CircleHelper;
 
@@ -155,8 +156,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
                 } else {
-                    slot.getStorageLociEntity().removeStack(
-                        slot.getStorageLociEntity().getSlot(slot.getItem()), pair.getValue()
+                    StorageLociEntity loci = (StorageLociEntity) serverWorld.getBlockEntity(slot.getPos());
+                    loci.removeStack(
+                        loci.getSlot(slot.getItem()), pair.getValue()
                     );
                 }
             }

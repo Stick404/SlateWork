@@ -1,6 +1,6 @@
 package org.sophia.slate_work.casting.contuinations
 
-import at.petrak.hexcasting.api.casting.*
+import at.petrak.hexcasting.api.casting.RenderedSpell
 import at.petrak.hexcasting.api.casting.eval.CastResult
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
@@ -10,34 +10,26 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingVM
 import at.petrak.hexcasting.api.casting.eval.vm.ContinuationFrame
 import at.petrak.hexcasting.api.casting.eval.vm.FrameEvaluate
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
+import at.petrak.hexcasting.api.casting.getBool
+import at.petrak.hexcasting.api.casting.getPositiveInt
+import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.TreeList
-import at.petrak.hexcasting.api.utils.getList
-import at.petrak.hexcasting.api.utils.putCompound
-import at.petrak.hexcasting.api.utils.putList
-import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import com.mojang.serialization.MapCodec
 import net.fabricmc.fabric.impl.transfer.transaction.TransactionManagerImpl
 import net.minecraft.entity.ItemEntity
-import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
-import net.minecraft.nbt.NbtHelper
-import net.minecraft.nbt.NbtList
 import net.minecraft.network.RegistryByteBuf
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.math.Vec3d
+import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import org.sophia.slate_work.misc.CircleHelper
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
-import java.util.*
-import kotlin.collections.listOf
 
 @Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class FrameGetItems(
@@ -56,7 +48,7 @@ class FrameGetItems(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack
+        var stack = baseStack
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()){
             toCheck.removeFirst()
         } else {
@@ -99,7 +91,7 @@ class FrameGetItems(
         }
 
         val cont = if (isFirst != JankyMaybe.LAST){
-            stack.add(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+            stack = stack.appended(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
              when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
                     continuation
@@ -120,29 +112,8 @@ class FrameGetItems(
             harness.image.withUsedOp().copy(stack = stack),
             sideEffect,
             ResolvedPatternType.EVALUATED,
-            HexEvalSounds.NORMAL_EXECUTE
+            HexEvalSounds.NORMAL_EXECUTE.get()
         )
-    }
-
-    override fun serializeToNBT(): NbtCompound {
-        val compound = NbtCompound()
-        compound.putList("stack", baseStack.serializeToNBT() as NbtList)
-        compound.putList("code", code.serializeToNBT() as NbtList)
-
-        val listCheck = NbtList()
-        for (z in toCheck){
-            val tempCompound = NbtCompound()
-            tempCompound.put("item",z.item.toNbt())
-            // Location is to help with keeping track of valid items; so there cant be dupe bugs
-            tempCompound.put("location", NbtHelper.fromBlockPos(z.storageLociEntity.pos))
-            listCheck.add(tempCompound)
-        }
-        compound.putList("to_check",listCheck)
-        if (this.oldReturn != null) {
-            compound.putCompound("old_item", this.oldReturn.save())
-        }
-        compound.putString("jank_maybe", this.isFirst.name)
-        return compound
     }
 
     override fun size(): Int = baseStack.size
@@ -150,22 +121,6 @@ class FrameGetItems(
     companion object {
         @JvmField
         val TYPE: ContinuationFrame.Type<FrameGetItems> = object : ContinuationFrame.Type<FrameGetItems> {
-            override fun deserializeFromNBT(tag: NbtCompound, world: ServerWorld): FrameGetItems? {
-                val code = HexIotaTypes.LIST.deserialize(tag.getList("code", NbtElement.COMPOUND_TYPE), world)!!.list
-                val stack = HexIotaTypes.LIST.deserialize(tag.getList("stack", NbtElement.COMPOUND_TYPE), world)!!.list.toList()
-                val toCheck = listOf<CircleHelper.ItemSlot>().toMutableList()
-                for (z in tag.getList("to_check", NbtElement.COMPOUND_TYPE)){
-                    val slot = CircleHelper.ItemSlot.load(z as NbtCompound,world)
-                    if (slot != null){
-                        toCheck.add(slot)
-                    }
-                }
-                //val oldReturn = ItemVariant.fromNbt(tag.getCompound("old_item"))
-                val oldReturn = CircleHelper.ItemSlot.load(tag.getCompound("old_item"), world)
-                val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
-                // If it is a normal "running," then restart it as a "first"
-                return FrameGetItems(code, stack,toCheck, oldReturn,if (stepEval == JankyMaybe.RUNNING) JankyMaybe.FIRST else stepEval)
-            }
 
             override fun codec(): MapCodec<FrameGetItems> {
                 TODO("Not yet implemented")
@@ -186,12 +141,15 @@ class FrameGetItems(
             val amount = itemSlotTup.third.toLong()
 
             val trans = TransactionManagerImpl().openOuter()
-            val extracted = itemSlot.storageLociEntity.extract(itemSlot.item, amount, trans)
-            trans.addCloseCallback { transaction, result ->
+            val entity = env.world.getBlockEntity(itemSlot.pos)
+            if (entity !is StorageLociEntity) {
+                return
+            }
+
+            val extracted = entity.extract(itemSlot.item, amount, trans)
+            trans.addCloseCallback { _, result ->
                 if (result.wasCommitted()) {
-                    val stack = ItemStack(itemSlot.item.item, extracted.toInt(), if (itemSlot.item.nbt != null) Optional.of(
-                        itemSlot.item.nbt as NbtCompound
-                    ) else Optional.empty())
+                    val stack = itemSlot.item.toStack(extracted.toInt()) //(, extracted.toInt(), itemSlot.item.components)
 
                     while (stack.count > stack.maxCount){
                         val copy = stack.copy()

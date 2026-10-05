@@ -6,6 +6,9 @@ import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapInvalidIota
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.utils.putCompound
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.PrimitiveCodec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant
 import net.minecraft.item.BlockItem
 import net.minecraft.item.Item
@@ -57,7 +60,7 @@ object CircleHelper {
         val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList[x.left] = ItemSlot(x.left,x.right,z)
+                returnList[x.left] = ItemSlot(x.left,x.right, z.pos)
             }
         }
         return returnList
@@ -70,7 +73,7 @@ object CircleHelper {
         for (z in list){
             for (x in z.inventory) {
                 if (!x.left.isBlank) {
-                    returnList.add(ItemSlot(x.left,x.right,z))
+                    returnList.add(ItemSlot(x.left,x.right,z.pos))
                 }
             }
         }
@@ -83,7 +86,7 @@ object CircleHelper {
         for (z in list){
             for (x in z.inventory) {
                 if (!x.left.isBlank) {
-                    returnList.add(ItemSlot(x.left,x.right,z))
+                    returnList.add(ItemSlot(x.left,x.right,z.pos))
                 }
             }
         }
@@ -94,7 +97,7 @@ object CircleHelper {
         val returnList = HashMap<ItemVariant, ItemSlot>()
         for (z in list){
             for (x in z.inventory){
-                returnList[x.left] = ItemSlot(x.left,x.right,z)
+                returnList[x.left] = ItemSlot(x.left,x.right,z.pos)
             }
         }
         return returnList
@@ -105,10 +108,16 @@ object CircleHelper {
         val hashMap = getLists(list)
         if (hashMap.contains(ItemVariant.of(itemStack.item, itemStack.componentChanges))) {
             val slot = hashMap[ItemVariant.of(itemStack.item, itemStack.componentChanges)]!!
-            val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
-            val item = slot.storageLociEntity.getStack(targ)
+
+            val entity = env.world.getBlockEntity(slot.pos)
+            if (entity !is StorageLociEntity){
+                return false
+            }
+
+            val targ = entity.getSlot(slot.item)!! // *shouldn't* be null
+            val item = entity.getStack(targ)
             item.right += itemStack.count
-            slot.storageLociEntity.setStack(targ,item)
+            entity.setStack(targ,item)
             return true
         }
         // If its not a known item yet...
@@ -134,31 +143,5 @@ object CircleHelper {
         throw MishapInvalidIota.ofType(z, if (argc == 0) idx else argc - (idx + 1), "entity")
     }
 
-    data class ItemSlot(val item: ItemVariant, var count: Long, val storageLociEntity: StorageLociEntity){
-        fun save(): NbtCompound {
-            val tempNBT = NbtCompound()
-            tempNBT.putCompound("item", item.co)
-            tempNBT.putLong("count",count)
-            tempNBT.put("entity", NbtHelper.fromBlockPos(storageLociEntity.pos))
-            return tempNBT
-        }
-
-        companion object {
-
-            @JvmStatic
-            fun load(tempNBT: NbtCompound, world: ServerWorld): ItemSlot? {
-                val item = ItemVariant.fromNbt(tempNBT.getCompound("item"))
-                val count = tempNBT.getLong("count")
-                val pos = NbtHelper.toBlockPos(tempNBT.getCompound("entity"))
-                val entity = world.getBlockEntity(pos)
-
-                if (entity !is StorageLociEntity) {
-                    LOGGER.warning("Couldn't find Storage Locus at: " + pos.toShortString())
-                    return null
-                }
-
-                return ItemSlot(item,count,entity)
-            }
-        }
-    }
+    data class ItemSlot(val item: ItemVariant, var count: Long, val pos: BlockPos)
 }

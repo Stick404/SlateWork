@@ -2,16 +2,11 @@ package org.sophia.slate_work.client.lens
 
 import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage.Companion.TAG_OPS_CONSUMED
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage.ParenthesizedIota.Companion.TAG_ESCAPED
-import at.petrak.hexcasting.api.casting.eval.vm.CastingImage.ParenthesizedIota.Companion.TAG_IOTAS
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry.OverlayBuilder
 import at.petrak.hexcasting.api.utils.downcast
-import at.petrak.hexcasting.api.utils.getCompound
 import at.petrak.hexcasting.api.utils.getList
-import at.petrak.hexcasting.api.utils.zipWithDefault
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
@@ -36,7 +31,9 @@ class SaveLociScryingKT : OverlayBuilder {
         if (entity !is SaveLociEntity)
             return
         val data: NbtCompound = entity.save
-        val userData: NbtCompound = data.getCompound(CastingImage.TAG_USERDATA)
+
+        lines.add(Pair(ItemStack.EMPTY, Text.of("Unfinished!")))
+        /*val userData: NbtCompound = data.getCompound(CastingImage.TAG_USERDATA)
         lines.add(Pair(ItemStack.EMPTY, Text.translatable("slate_work.scrying.save.stack")
             .append(stackIotas(data))))
         //TODO: Display the ravenmind too
@@ -54,7 +51,11 @@ class SaveLociScryingKT : OverlayBuilder {
             .append(escapedIotas(data))))
         lines.add(Pair(ItemStack.EMPTY, Text.translatable("slate_work.scrying.save.paren")
                 .append(Text.literal((data.getInt(CastingImage.TAG_PAREN_COUNT)).toString()).formatted(Formatting.GREEN))))
+         */
     }
+
+    /*
+
 
     fun escapedIotas(data: NbtCompound): Text {
         val parenIotasTag = data.getCompound(CastingImage.TAG_PARENTHESIZED).getList(TAG_IOTAS,NbtElement.COMPOUND_TYPE)
@@ -65,6 +66,7 @@ class SaveLociScryingKT : OverlayBuilder {
         }
         return text
     }
+
     fun stackIotas(data: NbtCompound): Text {
         val text: MutableText = Text.empty()
         val stack = data.getList(CastingImage.TAG_STACK,NbtElement.COMPOUND_TYPE)
@@ -73,4 +75,5 @@ class SaveLociScryingKT : OverlayBuilder {
         }
         return text
     }
+     */
 }

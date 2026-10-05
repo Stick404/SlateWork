@@ -25,7 +25,7 @@ object OpStoreItem : SpellAction {
         val storages = CircleHelper.getStorage(env)
         if (storages.isEmpty())
             throw MishapNoStorageLoci(null)
-        val entity = args.getItemEntity(0, argc)
+        val entity = args.getItemEntity(env.world, 0, argc)
         env.assertEntityInRange(entity)
 
         return SpellAction.Result(
@@ -35,23 +35,28 @@ object OpStoreItem : SpellAction {
         )
     }
 
-    private data class Spell(val entity: ItemEntity, val storages: List<StorageLociEntity>) : RenderedSpell {
+    private data class Spell(val itemEntity: ItemEntity, val storages: List<StorageLociEntity>) : RenderedSpell {
         override fun cast(env: CastingEnvironment) {
-            if (!entity.isAlive)
+            if (!itemEntity.isAlive)
                 return
 
             // In case we don't find it, we don't want to recalc *again*
-            val itemE = entity.stack
+            val itemE = itemEntity.stack
             val list = CircleHelper.getStorage(env as CircleCastEnv)
             val hashMap = CircleHelper.getLists(list)
             if (hashMap.contains(ItemVariant.of(itemE.item, itemE.componentChanges))) {
                 val slot = hashMap[ItemVariant.of(itemE.item,itemE.componentChanges)]!!
-                val targ = slot.storageLociEntity.getSlot(slot.item)!! // *shouldn't* be null
-                val item = slot.storageLociEntity.getStack(targ)
+                val entity = env.world.getBlockEntity(slot.pos)
+                if (entity !is StorageLociEntity) {
+                    return
+                }
+
+                val targ = entity.getSlot(slot.item)!! // *shouldn't* be null
+                val item = entity.getStack(targ)
 
                 item.right += itemE.count
-                slot.storageLociEntity.setStack(targ,item);
-                entity.stack = ItemStack.EMPTY
+                entity.setStack(targ,item);
+                itemEntity.stack = ItemStack.EMPTY
                 return
             }
             // If its not a known item yet...
@@ -59,7 +64,7 @@ object OpStoreItem : SpellAction {
                 val x = z.isFull
                 if (x != -1) {
                     z.setStack(x, ItemVariant.of(itemE.item,itemE.componentChanges),itemE.count.toLong())
-                    entity.stack = ItemStack.EMPTY
+                    itemEntity.stack = ItemStack.EMPTY
                     return
                 }
             }

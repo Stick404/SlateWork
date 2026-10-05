@@ -63,7 +63,7 @@ public class SaveLoci extends BlockCircleComponent implements BlockEntityProvide
         if (blockState.get(TOP_PART)) entityPos = blockPos.down();
         if (!serverWorld.getBlockState(entityPos.up()).isOf(SlateWorksBlockRegistry.SAVE_LOCI)) return new ControlFlow.Stop(); // Carry on is now *BANNED*
         if (serverWorld.getBlockEntity(entityPos) instanceof SaveLociEntity entity) {
-            var newCastingImage = entity.swapSave(castingImage, serverWorld);
+            var newCastingImage = entity.swapSave(castingImage);
 
             var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
             exitDirsSet.remove(direction.getOpposite());

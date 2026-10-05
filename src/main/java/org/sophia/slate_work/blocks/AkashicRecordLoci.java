@@ -59,7 +59,7 @@ public class AkashicRecordLoci {
             var pattern = ((PatternIota) second).getPattern();
             if (top instanceof NullIota){ // If the top iota is a NullIota, clear the shelf
                 var foundPos = AkashicFloodfiller.floodFillFor(pos, world,
-                        (pos1, _, world1) ->
+                        (pos1, state, world1) ->
                                 world1.getBlockEntity(pos1) instanceof BlockEntityAkashicBookshelf tile
                                         && tile.getPattern() != null && tile.getPattern().getSignature().equals(pattern));
                 if (foundPos != null && world.getBlockEntity(foundPos) instanceof BlockEntityAkashicBookshelf tile){

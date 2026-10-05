@@ -23,7 +23,7 @@ object OpExchangeMind : SpellAction {
         args: List<Iota>,
         env: CastingEnvironment
     ): SpellAction.Result {
-        val entity = args.getEntity(1, argc)
+        val entity = args.getEntity(env.world, 1, argc)
         val block = args.getBlockPos(0, argc)
 
         if (entity !is VillagerEntity){

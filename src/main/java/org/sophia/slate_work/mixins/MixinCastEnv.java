@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.item.ItemStack;
+import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.misc.CircleHelper;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -20,8 +21,9 @@ abstract public class MixinCastEnv extends Object {
     private boolean slate_work$withdrawItem(Predicate<ItemStack> stackOk, int count, boolean actuallyRemove, Operation<Boolean> original) {
         if (!((Object) this instanceof CircleCastEnv)) return original.call(stackOk, count, actuallyRemove);
 
+        CircleCastEnv env = (CircleCastEnv) (Object) this;
         // reimplement withdrawItem with storage loci itemslots instead
-        var hashMap = CircleHelper.INSTANCE.getLists((CircleCastEnv) (Object) this);
+        var hashMap = CircleHelper.INSTANCE.getLists(env);
         if (hashMap.isEmpty()) return original.call(stackOk, count, actuallyRemove);
 
         long presentCount = 0;
@@ -50,7 +52,8 @@ abstract public class MixinCastEnv extends Object {
         // i don't actually know if a transaction is necessary here; copying from DumbDumbHexIsStupid
         var trans = Transaction.openOuter();
         for (CircleHelper.ItemSlot item : matches) {
-            var extracted = item.getStorageLociEntity().extract(item.getItem(), remaining, trans);
+            StorageLociEntity entity = (StorageLociEntity) env.getWorld().getBlockEntity(item.getPos());
+            var extracted = entity.extract(item.getItem(), remaining, trans);
             remaining -= extracted;
 
             if (remaining <= 0) break;

@@ -19,7 +19,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -48,10 +47,10 @@ public class Slate_work implements ModInitializer {
 
     public static ScreenHandlerType<Ghost3x3ScreenHandler> GHOST_3X3_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
             Identifier.of(MOD_ID,"ghost3x3screen"),
-            new ExtendedScreenHandlerType<>(Ghost3x3ScreenHandler::new));
+            new ExtendedScreenHandlerType<>(Ghost3x3ScreenHandler::new, BlockPos.PACKET_CODEC));
     public static ScreenHandlerType<HotbarLociScreenHandler> HOTBAR_LOCI_SCREEN = Registry.register(Registries.SCREEN_HANDLER,
             Identifier.of(MOD_ID, "hotbar_loci_screen"),
-            new ExtendedScreenHandlerType<>(HotbarLociScreenHandler::new));
+            new ExtendedScreenHandlerType<>(HotbarLociScreenHandler::new, BlockPos.PACKET_CODEC));
 
     // These are used over in FakePlayerLoci.class, but due to Kotlin Jank:tm: is assigned here
     public static final BooleanProperty IS_OPTIONAL_VECTOR = BooleanProperty.of("is_optional");
@@ -92,13 +91,11 @@ public class Slate_work implements ModInitializer {
                         }
                     } else if (z.failed() && z.whispering().isPresent() && z.entity().isEmpty() && z.blocked()) {
                         var stack = z.whispering().get();
-                        System.out.println(sender.getWorld().getRegistryKey().getValue().toString());
-                        System.out.println(stack.getOrCreateSubNbt("dim"));
-                        if (!stack.getOrCreateSubNbt("dim").equals(sender.getWorld().getRegistryKey().getValue().toString())) {
-                            sender.playSound(HexSounds.CAST_FAILURE, SoundCategory.PLAYERS, 1f, 1f);
-                            stack.removeSubNbt("cords");
-                            stack.removeSubNbt("string");
-                            stack.removeSubNbt("dim");
+                        SlateWorksComponents.WhisperingStoneComponent component = stack.get(SlateWorksComponents.WHISPERING_STONE_COMPONENT);
+
+                        if (component != null && component.dim().equals(sender.getWorld().getRegistryKey().getValue())) {
+                            sender.playSound(HexSounds.CAST_FAILURE.value(), 1f, 1f);
+                            stack.remove(SlateWorksComponents.WHISPERING_STONE_COMPONENT);
                         } else {
                             sender.playSound(HexSounds.SCROLL_SCRIBBLE.value(), 1f, 1f);
                         }

@@ -10,6 +10,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.piston.PistonBehavior;
+import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
@@ -95,8 +97,11 @@ public class SlateWorksBlockRegistry {
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
-    public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1)));
-    public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci", new BlockBreakLociItem(new Item.Settings()));
+    public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1).attributeModifiers(
+            AttributeModifiersComponent.builder().add(SlateWorksAttributeRegistry.WHISPERING, WhisperingStone.WHISPERING_HELD,
+                    AttributeModifierSlot.ANY).build())));
+    public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci",
+            new BlockBreakLociItem(new Item.Settings()));
 
     public static final RegistryKey<ItemGroup> SLATE_WORK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID,"item_group"));
     public static final ItemGroup SLATE_WORK_GROUP = FabricItemGroup.builder()

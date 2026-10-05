@@ -3,11 +3,9 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
-import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-import at.petrak.hexcasting.api.casting.iota.Iota;
-import at.petrak.hexcasting.api.casting.iota.ListIota;
-import at.petrak.hexcasting.api.casting.iota.PatternIota;
+import at.petrak.hexcasting.api.casting.iota.*;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
+import at.petrak.hexcasting.api.casting.math.HexSignature;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import com.mojang.serialization.MapCodec;
@@ -109,18 +107,17 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                        new MishapSpellCircleReadableFocus(blockPos));
                return new ControlFlow.Stop();
            }
-           MapCodec<Iota> codec = (MapCodec<Iota>) holder.readIota().getType().codec();
 
-           macro.put("macro", codec.encoder().encodeStart(NbtOps.INSTANCE, holder.readIota()).getOrThrow());
+           macro.put("macro", IotaType.TYPED_CODEC.encodeStart(NbtOps.INSTANCE, holder.readIota()).getOrThrow());
            var pattern = loci.getPattern();
-           macro.put("pattern", HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, pattern).getOrThrow());
+           macro.put("pattern", HexSignature.CODEC.encodeStart(NbtOps.INSTANCE, pattern.getSignature()).getOrThrow());
 
            var macros = data.getList("macros", NbtElement.COMPOUND_TYPE);
            int i = 0;
            for (var z : macros){
                NbtCompound compound = (NbtCompound) z;
-               PatternIota patternIter = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern")).getOrThrow().getFirst();
-               if (patternIter.getPattern().getSignature().equals(loci.getPattern().getSignature())){
+               HexSignature patternIter = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern")).getOrThrow().getFirst().getPattern().getSignature();
+               if (patternIter.equals(loci.getPattern().getSignature())){
                    macros.remove(i);
                    break;
                }

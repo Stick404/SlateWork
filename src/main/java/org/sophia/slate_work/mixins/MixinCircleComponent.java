@@ -30,7 +30,7 @@ public interface MixinCircleComponent {
             var volume = image.getUserData().getFloat("volume");
             var mute = image.getUserData().getBoolean("mute");
             if (mute){
-                world.playSound(null, pos.getX(), pos.getY(), pos.getZ(), volume, SoundCategory.BLOCKS, volume, pitch);
+                world.playSound(null, pos, null, SoundCategory.BLOCKS, volume, 1);
                 ci.cancel();
             }
         }

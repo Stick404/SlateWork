@@ -9,10 +9,10 @@ import net.minecraft.text.Text
 import net.minecraft.util.DyeColor
 
 class MishapListLength(val needed: Int, val got: Int) : Mishap() {
-    override fun accentColor(ctx: CastingEnvironment, errorCtx: Context): FrozenPigment
+    override fun accentColor(env: CastingEnvironment, errorCtx: Context): FrozenPigment
         = dyeColor(DyeColor.GRAY)
 
-    override fun errorMessage(ctx: CastingEnvironment, errorCtx: Context): Text? =
+    override fun errorMessage(env: CastingEnvironment, errorCtx: Context): Text =
         error("list_length",
             Text.literal(needed.toString()),
             Text.literal(got.toString()))

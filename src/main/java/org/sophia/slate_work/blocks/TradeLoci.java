@@ -25,6 +25,7 @@ import net.minecraft.village.TradeOffer;
 import net.minecraft.village.TradedItem;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
@@ -123,9 +124,11 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             // God this is... interesting
 
             try (Transaction transaction = Transaction.openOuter()){
+                StorageLociEntity loci1 = (StorageLociEntity) env.getWorld().getBlockEntity(firstItem.getPos());
+                StorageLociEntity loci2 = (StorageLociEntity) env.getWorld().getBlockEntity(secondItem.getPos());
 
-                long firstItemExtracted = firstItem.getStorageLociEntity().extract(firstItem.getItem(), firstBuyItem.getCount(), transaction);
-                long secondItemExtracted = secondItem.getStorageLociEntity().extract(secondItem.getItem(), secondBuyItem.getCount(), transaction);
+                long firstItemExtracted = loci1.extract(firstItem.getItem(), firstBuyItem.getCount(), transaction);
+                long secondItemExtracted = loci2.extract(secondItem.getItem(), secondBuyItem.getCount(), transaction);
 
                 if (firstItemExtracted == firstBuyItem.getCount() && secondItemExtracted == secondBuyItem.getCount()) {
                     transaction.commit();

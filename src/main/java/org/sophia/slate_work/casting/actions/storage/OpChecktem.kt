@@ -40,7 +40,7 @@ object OpCheckItem : Action {
         }
 
         val image2 = image.withUsedOp().copy(stack = stack)
-        val frame = FrameCheckItems(SpellList.LList(stack),stack, toCheck.toMutableList(), JankyMaybe.FIRST)
+        val frame = FrameCheckItems(hex,stack, toCheck.toMutableList(), JankyMaybe.FIRST)
 
         return OperationResult(image2,
             listOf(),

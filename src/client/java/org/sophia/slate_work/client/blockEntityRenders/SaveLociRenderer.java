@@ -26,7 +26,7 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
             double time = entity.getWorld().getTime() + tickDelta;
             double rad = (Math.PI/180)*((time%360)+time)*4;
 
-            var buf = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(new Identifier(MOD_ID,"textures/white_texture.png")));
+            var buf = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucentEmissive(Identifier.of(MOD_ID,"textures/white_texture.png")));
             switch (bs.get(HORIZONTAL)){
                 case EAST -> rotation = 270;
                 case SOUTH -> rotation = 180;
@@ -79,10 +79,10 @@ public class SaveLociRenderer implements BlockEntityRenderer<SaveLociEntity> {
     public static void makeSquare(VertexConsumer buff, int color, MatrixStack stack){
         var pose = stack.peek();
         var view = pose.getPositionMatrix();
-        var normalMatrix = pose.getNormalMatrix();
-        buff.vertex(view, 0f, 1f, 0f).color(color).texture(0f, 1f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(normalMatrix, 0.0F, 1.0F, 0.0F).next();
-        buff.vertex(view, 1f, 1f, 0f).color(color).texture(1f, 1f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(normalMatrix, 0.0F, 1.0F, 0.0F).next();
-        buff.vertex(view, 1f, 0f, 0f).color(color).texture(1f, 0f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(normalMatrix, 0.0F, 1.0F, 0.0F).next();
-        buff.vertex(view, 0f, 0f, 0f).color(color).texture(0f, 0f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(normalMatrix, 0.0F, 1.0F, 0.0F).next();
+
+        buff.vertex(view, 0f, 1f, 0f).color(color).texture(0f, 1f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(pose, 0.0F, 1.0F, 0.0F);
+        buff.vertex(view, 1f, 1f, 0f).color(color).texture(1f, 1f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(pose, 0.0F, 1.0F, 0.0F);
+        buff.vertex(view, 1f, 0f, 0f).color(color).texture(1f, 0f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(pose, 0.0F, 1.0F, 0.0F);
+        buff.vertex(view, 0f, 0f, 0f).color(color).texture(0f, 0f).overlay(OverlayTexture.DEFAULT_UV).light(LightmapTextureManager.MAX_SKY_LIGHT_COORDINATE).normal(pose, 0.0F, 1.0F, 0.0F);
     }
 }

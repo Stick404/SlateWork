@@ -174,7 +174,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         if (slotT  == -1) return 0;
         int slot = slotT;
 
-        transaction.addCloseCallback((_, z) -> {
+        transaction.addCloseCallback((context, z) -> {
             var stack = getStack(slot);
             if (z.wasCommitted()) {
                 if (stack.getLeft().isBlank())
@@ -206,7 +206,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
             returned = maxAmount;
         }
         this.markDirty();
-        transaction.addCloseCallback((_, z) -> {
+        transaction.addCloseCallback((context, z) -> {
             if (z.wasCommitted()) {
                 this.removeStack(slot, (int) maxAmount);
             }

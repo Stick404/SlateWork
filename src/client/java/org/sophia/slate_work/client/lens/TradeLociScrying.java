@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.village.TradedItem;
 import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 
@@ -28,8 +29,8 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
             int i = 0;
             for (var trade : entity.offerList){
                 ItemStack first = trade.getOriginalFirstBuyItem().copy();
-                ItemStack firstAdjusted = trade.getAdjustedFirstBuyItem().copy();
-                ItemStack second = trade.getSecondBuyItem().copy();
+                ItemStack firstAdjusted = trade.getFirstBuyItem().itemStack().copy();
+                ItemStack second = trade.getSecondBuyItem().orElseGet(() -> new TradedItem(ItemStack.EMPTY.getItem())).itemStack().copy();
                 ItemStack sell = trade.getSellItem().copy();
 
                 MutableText text = Text.empty();
@@ -48,6 +49,7 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 }
                 text.append(" → ");
                 text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "]"));
+                /*
                 NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
                 if (!nbtCheck.isEmpty()) {
                     List<Text> enchants = new ArrayList<>();
@@ -58,6 +60,8 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                         text.append(enchant);
                     }
                 }
+                 */
+                text.append("Hey! Stickia has some TODOs here. Something about enchants or smth");
 
                 text.append(" x" + sell.getCount() + " [");
                 text.append(Text.literal(trade.getUses() + " / " + trade.getMaxUses()).formatted(Formatting.AQUA));

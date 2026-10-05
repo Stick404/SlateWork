@@ -29,12 +29,8 @@ import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
     public WhisperingStone(Settings settings) {
-        var builder = AttributeModifiersComponent.builder().add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_HELD,
-                AttributeModifierSlot.ANY);
-
-        settings = settings.attributeModifiers(builder.build());
         super(settings);
-
+        //settings = settings.attributeModifiers(builder.build());
     }
     public static final EntityAttributeModifier WHISPERING_HELD = new EntityAttributeModifier(
             Identifier.of(MOD_ID, "whispering_held"),
