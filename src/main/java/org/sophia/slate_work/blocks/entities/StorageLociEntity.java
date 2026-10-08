@@ -70,7 +70,14 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            Pair<ItemVariant,Long> stack = new Pair<>(ItemVariant.CODEC.decode(NbtOps.INSTANCE, compound.getCompound("Item")).getOrThrow().getFirst(), (compound.getLong("Count")));
+            var item = ItemVariant.CODEC.decode(NbtOps.INSTANCE, compound.getCompound("Item"));
+            Pair<ItemVariant,Long> stack;
+            if (item.isError()) {
+                stack = new Pair<>(ItemVariant.blank(), 0L);
+            } else {
+                stack = new Pair<>(item.getOrThrow().getFirst(), compound.getLong("Count"));;
+            }
+
             this.slots[i] = stack;
         }
     }

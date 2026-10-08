@@ -9,6 +9,7 @@ import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName;
 import at.petrak.hexcasting.api.utils.HexUtils;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import kotlin.jvm.optionals.OptionalsKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -70,15 +71,21 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.readNbt(nbt, registryLookup);
         // The Slot
-        this.theSlot = ItemStack.fromNbt(registryLookup, nbt.getCompound("the_slot")).get();
-        this.pattern = HexPattern.CODEC.decode(NbtOps.INSTANCE, nbt.getCompound("pattern")).getOrThrow().getFirst();
+        this.theSlot = OptionalsKt.getOrElse(ItemStack.fromNbt(registryLookup, nbt.getCompound("the_slot")), () -> ItemStack.EMPTY);
+        var pattern = HexPattern.CODEC.decode(NbtOps.INSTANCE, nbt.getCompound("pattern"));
+        if (pattern.isError()) {
+            this.pattern = HexPattern.fromAngles("qaq", HexDir.NORTH_EAST);
+        } else {
+            this.pattern = pattern.getOrThrow().getFirst();
+        }
     }
 
     public @Nullable Text getDisplay(){
         var holder = IXplatAbstractions.INSTANCE.findDataHolder(theSlot);
         if (holder != null){
-            if (holder.readIota() != null) {
-                return holder.readIota().display();
+            Iota iota = holder.readIota();
+            if (iota != null) {
+                return iota.display();
             }
         }
         return Text.of("");
@@ -87,11 +94,16 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         super.writeNbt(nbt, registryLookup);
-        NbtCompound compound = new NbtCompound();
-        // The Slot
-        HexUtils.serializeToNBT(theSlot, registryLookup);
-        nbt.put("pattern", HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, this.pattern).getOrThrow());
-        nbt.put("the_slot", compound);
+
+        var encoded = HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, this.pattern);
+        if (encoded.isError()) {
+            nbt.put("pattern", new NbtCompound());
+        } else {
+            nbt.put("pattern", encoded.getOrThrow());
+        }
+        if (!theSlot.isEmpty()) {
+            nbt.put("the_slot", theSlot.encode(registryLookup));
+        }
     }
 
     public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {

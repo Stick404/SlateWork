@@ -119,7 +119,11 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             }
 
             // Idk mate, this is what Hexal Does
-            var container = CraftingRecipeInput.create(3, 3, new ArrayList<>());
+            List<ItemStack> innerStacks = new ArrayList<>(9);
+            for (int i = 0 ; i < 9 ; i++){
+                innerStacks.add(ItemStack.EMPTY);
+            }
+
             Map<ItemVariant, Integer> shoppingList = new HashMap<>();
             for (int i = 0; i < 9; i++) {
                 var temp = craftingLoci.getStack(i);
@@ -134,13 +138,14 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                 // If we know the item is there, increment it, else, add it
                 if (shoppingList.containsKey(variant)) shoppingList.put(variant, shoppingList.get(variant) + craftingLoci.getCraftCount());
                 else shoppingList.put(variant, craftingLoci.getCraftCount());
-                container.getStacks().set(i, temp);
+                innerStacks.set(i, temp);
             }
 
+            var container = CraftingRecipeInput.create(3, 3, innerStacks);
             var recipeOpt = serverWorld.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container, serverWorld);
 
             if (recipeOpt.isEmpty()) { // If a recipe was not found, then yadadada
-                stack.add(new BooleanIota(false));
+                stack = stack.prepended(new BooleanIota(false));
                 return new ControlFlow.Continue(
                         castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                         exits);
@@ -151,7 +156,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                     continue;
                 var slot = storages.get(pair.getKey());
                 if (slot.getCount() < pair.getValue()) { // If so, kill and push false
-                    stack.add(new BooleanIota(false));
+                    stack = stack.prepended(new BooleanIota(false));
                     return new ControlFlow.Continue(
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
@@ -174,7 +179,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             }
 
             serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING.value(), SoundCategory.BLOCKS, 1.0F, 1F);
-            stack.add(new BooleanIota(true));
+            stack = stack.prepended(new BooleanIota(true));
             return new ControlFlow.Continue(
                     castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                     exits);

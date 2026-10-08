@@ -1,6 +1,7 @@
 package org.sophia.slate_work.blocks.entities;
 
 import at.petrak.hexcasting.api.casting.iota.Iota;
+import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.NullIota;
 import at.petrak.hexcasting.api.utils.NBTHelper;
 import com.mojang.serialization.Decoder;
@@ -28,7 +29,7 @@ public class BroadcasterLociEntity extends BlockEntity {
     }
 
     public Iota getIota() {
-        if (iota != null && world instanceof ServerWorld worldServer) {
+        if (iota != null) {
             return iota;
         }
         return new NullIota();
@@ -43,14 +44,14 @@ public class BroadcasterLociEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
-        Encoder<Iota> encoder = (Encoder<Iota>) iota.getType().codec().encoder();
+        Encoder<Iota> encoder = IotaType.TYPED_CODEC;
         nbt.put("iota", encoder.encodeStart(NbtOps.INSTANCE, this.iota).getOrThrow());
     }
 
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
-        Decoder<Iota> encoder = (Decoder<Iota>) iota.getType().codec().decoder();
+        Decoder<Iota> encoder = IotaType.TYPED_CODEC;
         iota = encoder.decode(NbtOps.INSTANCE, NBTHelper.getCompound(nbt, "iota")).getOrThrow().getFirst();
     }
 

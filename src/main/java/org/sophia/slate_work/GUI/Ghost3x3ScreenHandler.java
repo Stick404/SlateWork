@@ -1,28 +1,22 @@
 package org.sophia.slate_work.GUI;
 
-import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.network.RegistryByteBuf;
-import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.sophia.slate_work.blocks.CraftingLoci;
 import org.sophia.slate_work.blocks.entities.CraftingLociEntity;
 import org.sophia.slate_work.misc.DumbDumbInv;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.sophia.slate_work.Slate_work.GHOST_3X3_SCREEN;
 
@@ -109,10 +103,12 @@ public class Ghost3x3ScreenHandler extends ScreenHandler {
 
     public static void updateRecipe(World world, Inventory inventory){
         if (inventory instanceof DumbDumbInv ghostCrafting){
-            var container = CraftingRecipeInput.create(3, 3, new ArrayList<>());
+            List<ItemStack> stacks = new ArrayList<>();
             for (int i = 0; i < 9; i++){
-                container.getStacks().set(i,ghostCrafting.getStack(i));
+                stacks.add(ghostCrafting.getStack(i));
             }
+            var container = CraftingRecipeInput.create(3, 3, stacks);
+
 
             var recipeOpt = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container, world);
             if (recipeOpt.isEmpty()){

@@ -11,23 +11,23 @@ import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class SaveLociEntity extends HexBlockEntity {
-    private NbtCompound save = (NbtCompound) CastingImage.getCODEC().encodeStart(NbtOps.INSTANCE, new CastingImage()).getOrThrow();
+    private CastingImage save = new CastingImage();
 
     public SaveLociEntity(BlockPos pos, BlockState state) {
         super(SlateWorksBlockRegistry.SAVE_LOCI_ENTITY, pos, state);
     }
 
     public void setSave(CastingImage image) {
-        this.save = (NbtCompound) CastingImage.getCODEC().encodeStart(NbtOps.INSTANCE, image).getOrThrow();
+        this.save = image; //(NbtCompound) CastingImage.getCODEC().encodeStart(NbtOps.INSTANCE, image).getOrThrow();
         this.sync();
     }
 
-    public NbtCompound getSave(){
+    public CastingImage getSave(){
         return this.save;
     }
 
     public CastingImage swapSave(CastingImage image){
-        CastingImage output = CastingImage.getCODEC().decode(NbtOps.INSTANCE, this.save).getOrThrow().getFirst();
+        CastingImage output = this.getSave();
 
         this.setSave(image);
         return output;
@@ -35,11 +35,17 @@ public class SaveLociEntity extends HexBlockEntity {
 
     @Override
     protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        tag.put("save", save);
+        var image = CastingImage.getCODEC().encodeStart(NbtOps.INSTANCE, this.save);
+        if (image.isSuccess()) {
+            tag.put("save", image.getOrThrow());
+        }
     }
 
     @Override
     protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        save = tag.getCompound("save");
+        var image = CastingImage.getCODEC().decode(NbtOps.INSTANCE, tag.getCompound("save"));
+        if (image.isSuccess()) {
+            this.save = image.getOrThrow().getFirst();
+        }
     }
 }

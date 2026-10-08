@@ -28,11 +28,10 @@ import ram.talia.moreiotas.api.casting.iota.ItemTypeIota
 object CircleHelper {
     fun getSentLoci(env: CircleCastEnv): List<SentinelLociEntity> {
         val list: ArrayList<SentinelLociEntity> = ArrayList()
-        val nbt = env.circleState().currentImage.userData.getList("sentinel_loci", NbtElement.COMPOUND_TYPE.toInt())
+        val nbt = env.circleState().currentImage.userData.getList("sentinel_loci", NbtElement.INT_ARRAY_TYPE.toInt())
 
         for (temp in nbt){
             val z = temp as NbtCompound
-            // Z contains both "pos" and "count"
             val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z, "pos").get())
             if (entity is SentinelLociEntity){
                 list.add(entity)
@@ -43,7 +42,7 @@ object CircleHelper {
 
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
         val list: ArrayList<StorageLociEntity> = ArrayList()
-        val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.COMPOUND_TYPE.toInt())
+        val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.INT_ARRAY_TYPE.toInt())
 
         for (itemTemp in nbt){
             val z = itemTemp as NbtIntArray

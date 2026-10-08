@@ -6,6 +6,7 @@ import at.petrak.hexcasting.api.casting.iota.DoubleIota;
 import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import com.mojang.datafixers.util.Pair;
 import kotlin.jvm.optionals.OptionalsKt;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockEntityProvider;
@@ -102,7 +103,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             TradeOffer offer = entity.offerList.get(index);
 
             ItemStack firstBuyItem = offer.getFirstBuyItem().itemStack();
-            ItemStack secondBuyItem = OptionalsKt.getOrNull(offer.getSecondBuyItem().map(TradedItem::itemStack));
+            ItemStack secondBuyItem = OptionalsKt.getOrDefault(offer.getSecondBuyItem().map(TradedItem::itemStack), ItemStack.EMPTY);
 
             ItemSlot firstItem = storages.get(ItemVariant.of(firstBuyItem));
             ItemSlot secondItem = null;

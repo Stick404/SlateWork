@@ -21,6 +21,7 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import java.util.*
 import java.util.stream.Stream
+import kotlin.jvm.optionals.getOrElse
 import kotlin.math.absoluteValue
 
 
@@ -62,8 +63,8 @@ class AmbitLoci : BlockCircleComponent, Equipment {
 
         val toPush = BlockPos(last.vec3.x.toInt(),last.vec3.y.toInt(),last.vec3.z.toInt())
 
-        val hasPushedPos = NbtHelper.toBlockPos(data, "ambit_pushed_pos").get()
-        val hasPushedNeg = NbtHelper.toBlockPos(data, "ambit_pushed_neg").get()
+        val hasPushedPos = NbtHelper.toBlockPos(data, "ambit_pushed_pos").getOrElse { BlockPos.ORIGIN }
+        val hasPushedNeg = NbtHelper.toBlockPos(data, "ambit_pushed_neg").getOrElse { BlockPos.ORIGIN }
 
         var willPushPos = hasPushedPos
         var willPushNeg = hasPushedNeg

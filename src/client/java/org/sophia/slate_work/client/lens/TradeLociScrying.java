@@ -3,6 +3,9 @@ package org.sophia.slate_work.client.lens;
 import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
@@ -49,19 +52,16 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 }
                 text.append(" → ");
                 text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "]"));
-                /*
-                NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
-                if (!nbtCheck.isEmpty()) {
-                    List<Text> enchants = new ArrayList<>();
 
-                    ItemStack.appendEnchantments(enchants, nbtCheck);
-                    for (var enchant : enchants){
+                ItemEnchantmentsComponent component = EnchantmentHelper.getEnchantments(sell);
+                //NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
+                if (!component.isEmpty()) {
+
+                    for (var enchant : component.getEnchantments()){
                         text.append(" ");
-                        text.append(enchant);
+                        text.append(Enchantment.getName(enchant, component.getLevel(enchant)));
                     }
                 }
-                 */
-                text.append("Hey! Stickia has some TODOs here. Something about enchants or smth");
 
                 text.append(" x" + sell.getCount() + " [");
                 text.append(Text.literal(trade.getUses() + " / " + trade.getMaxUses()).formatted(Formatting.AQUA));

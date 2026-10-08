@@ -4,7 +4,9 @@ import at.petrak.hexcasting.api.casting.circles.BlockEntityAbstractImpetus;
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.circles.ICircleComponent;
 import at.petrak.hexcasting.api.pigment.FrozenPigment;
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -20,22 +22,20 @@ import java.util.UUID;
 
 @Mixin(ICircleComponent.class)
 public interface MixinCircleComponent {
-    /*
+
     @Inject(method = "sfx",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/sound/SoundEvent;Lnet/minecraft/sound/SoundCategory;FF)V"),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;playSound(Lnet/minecraft/entity/player/PlayerEntity;DDDLnet/minecraft/registry/entry/RegistryEntry;Lnet/minecraft/sound/SoundCategory;FF)V"),
             cancellable = true
     ) // A *few* extra vars
-    private static void slate_work$shushYou(BlockPos pos, BlockState bs, World world, BlockEntityAbstractImpetus impetus, boolean success, CallbackInfo ci){
+    private static void slate_work$shushYou(BlockPos pos, BlockState bs, World world, BlockEntityAbstractImpetus impetus, boolean success, CallbackInfo ci, @Local(name = "pitch") float pitch, @Local(name = "sound" )RegistryEntry<SoundEvent> sound){
         if (impetus != null){
             var image = impetus.getExecutionState().currentImage;
             var volume = image.getUserData().getFloat("volume");
             var mute = image.getUserData().getBoolean("mute");
             if (mute){
-                world.playSound(null, pos, null, SoundCategory.BLOCKS, volume, 1);
+                world.playSound(null, pos, sound.value(), SoundCategory.BLOCKS, volume, pitch);
                 ci.cancel();
             }
         }
     }
-
-     */
 }

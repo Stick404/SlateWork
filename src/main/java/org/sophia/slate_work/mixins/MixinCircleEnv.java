@@ -26,9 +26,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 @Mixin(CircleCastEnv.class)
@@ -106,7 +106,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
     @Inject(method = "extractMediaEnvironment", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$extractMedia(long cost, boolean simulate, CallbackInfoReturnable<Long> cir){
         var data = this.execState.currentImage.getUserData();
-        if (world.getBlockEntity(NbtHelper.toBlockPos(data, "hotbar_loci").get()) instanceof HotbarLociEntity entity){
+        Optional<BlockPos> pos = NbtHelper.toBlockPos(data, "hotbar_loci");
+        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
             var media = cir.getReturnValue();
 
             ArrayList<ADMediaHolder> sources = new ArrayList<>();

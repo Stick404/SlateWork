@@ -1,12 +1,16 @@
 package org.sophia.slate_work.blocks.entities;
 
+import at.petrak.hexcasting.api.utils.NBTHelper;
 import com.google.common.collect.Sets;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.ListCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
@@ -42,10 +46,21 @@ public class TradeLociEntity extends BlockEntity {
     @Override
     public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
-        this.villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data")).getOrThrow((a) -> {
-            throw new RuntimeException(a);
-        }).getFirst();
-        this.offerList = TradeOfferList.CODEC.decode(NbtOps.INSTANCE, nbt.getCompound("offers")).getOrThrow().getFirst();
+        var villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data"));
+        if (villagerData.isSuccess()) {
+            this.villagerData = villagerData.getOrThrow().getFirst();
+        } else {
+            this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.NITWIT, 1);
+        }
+
+        var offerList = TradeOffer.CODEC.listOf().decode(registries.getOps(NbtOps.INSTANCE), nbt.getList("offers", NbtElement.COMPOUND_TYPE));
+        if (offerList.isSuccess()) {
+            this.offerList = new TradeOfferList();
+            this.offerList.addAll(offerList.getOrThrow().getFirst());
+        } else {
+            this.offerList = new TradeOfferList();
+        }
+
         this.xp = nbt.getInt("xp");
         this.lastRestockTime = nbt.getLong("LastRestockTime");
     }
@@ -53,9 +68,15 @@ public class TradeLociEntity extends BlockEntity {
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
-        var data = VillagerData.CODEC.encode(villagerData, NbtOps.INSTANCE, new NbtCompound()).getOrThrow();
-        nbt.put("data", data);
-        nbt.put("offers", TradeOfferList.CODEC.encodeStart(NbtOps.INSTANCE, this.offerList).getOrThrow());
+        var data = VillagerData.CODEC.encodeStart(NbtOps.INSTANCE, villagerData);
+        if (data.isSuccess()) {
+            nbt.put("data", data.getOrThrow());
+        }
+
+        var offers = TradeOffer.CODEC.listOf().encodeStart(registries.getOps(NbtOps.INSTANCE), this.offerList);
+        if (offers.isSuccess()) {
+            nbt.put("offers", offers.getOrThrow());
+        }
         nbt.putInt("xp", this.xp);
         nbt.putLong("LastRestockTime", this.lastRestockTime);
     }

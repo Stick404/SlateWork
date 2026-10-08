@@ -71,7 +71,6 @@ object OpSetSents : Action {
             if (!found){
                 env.assertVecInRange(realList[i])
             }
-            //TODO: Make this skip most of this other checks and stuff if its not moving the sent
 
             if (sentTime != env.world.time){
                 nbt.putLong("count", 0) // Clears the current "count" if its not the world time
@@ -90,7 +89,7 @@ object OpSetSents : Action {
             i++
         }
 
-        data.putList("sentinel_loci",sentList)
+        data.putList("sentinel_loci", sentList)
         data.putLong("sentinel_time", env.world.time)
 
         return OperationResult(

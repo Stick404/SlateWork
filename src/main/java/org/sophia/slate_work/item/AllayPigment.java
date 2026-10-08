@@ -21,7 +21,7 @@ public class AllayPigment extends Item implements PigmentItem {
 
     protected MyColorProvided colorProvider = new MyColorProvided();
 
-    protected static class MyColorProvided extends ColorProvider{
+    protected static class MyColorProvided extends ColorProvider {
         @Override
         protected int getRawColor(float v, Vec3d vec3d) {
             return ADPigment.morphBetweenColors(new int[]{

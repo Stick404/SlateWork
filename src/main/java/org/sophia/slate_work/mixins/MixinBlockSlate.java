@@ -36,7 +36,7 @@ public abstract class MixinBlockSlate {
     void slate_works$acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
                                        ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local(name = "pattern") HexPattern pattern,
                                        @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
-        var macroPos = imageIn.getUserData().getList("macros", NbtElement.INT_ARRAY_TYPE);
+        var macroPos = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
         HexPattern angleSig = pattern;
 
         Map<HexPattern, Iota> macros = new HashMap<>();
@@ -53,7 +53,6 @@ public abstract class MixinBlockSlate {
             ExecutionClientView result;
 
             if (macro instanceof ListIota pain){
-
                 var spell = new ArrayList<>(pain.getList());
                 result = vm.queueExecuteAndWrapIotas(spell, world);
             } else {
