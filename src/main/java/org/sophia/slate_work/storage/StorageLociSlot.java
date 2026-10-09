@@ -10,9 +10,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
-public class StorageLociSlot implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
-    private final StorageLociEntity parent;
-    private final int slot;
+public class StorageLociSlot extends SnapshotParticipant<StorageLociSlot> implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
+    protected final StorageLociEntity parent;
+    protected final int slot;
+    protected ItemVariant variant;
+    protected long count;
+
 
     public StorageLociSlot(StorageLociEntity parent, int slot){
         this.parent = parent;
