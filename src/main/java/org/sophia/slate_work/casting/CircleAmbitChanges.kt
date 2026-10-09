@@ -32,20 +32,24 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         val data = state.currentImage.userData
 
         /** This is for the Ambit Extender **/
-        val hasPushedPos = NbtHelper.toBlockPos(data, "ambit_pushed_pos").get()
-        val hasPushedNeg = NbtHelper.toBlockPos(data, "ambit_pushed_neg").get()
+        val hasPushedPosOpt = NbtHelper.toBlockPos(data, "ambit_pushed_pos")
+        val hasPushedNegOpt = NbtHelper.toBlockPos(data, "ambit_pushed_neg")
+        if (hasPushedPosOpt.isPresent || hasPushedNegOpt.isPresent) {
+            val hasPushedNeg = hasPushedNegOpt.get()
+            val hasPushedPos = hasPushedPosOpt.get()
 
-        val envBounds = state.bounds;
-        val bound = Box(
-            envBounds.enclosingBox().minX + hasPushedNeg.x,
-            envBounds.enclosingBox().minY + hasPushedNeg.y,
-            envBounds.enclosingBox().minZ + hasPushedNeg.z,
-            envBounds.enclosingBox().maxX + hasPushedPos.x,
-            envBounds.enclosingBox().maxY + hasPushedPos.y,
-            envBounds.enclosingBox().maxZ + hasPushedPos.z,
+            val envBounds = state.bounds;
+            val bound = Box(
+                envBounds.enclosingBox().minX + hasPushedNeg.x,
+                envBounds.enclosingBox().minY + hasPushedNeg.y,
+                envBounds.enclosingBox().minZ + hasPushedNeg.z,
+                envBounds.enclosingBox().maxX + hasPushedPos.x,
+                envBounds.enclosingBox().maxY + hasPushedPos.y,
+                envBounds.enclosingBox().maxZ + hasPushedPos.z,
             )
-        if (bound.contains(vec)) {
-            return true
+            if (bound.contains(vec)) {
+                return true
+            }
         }
 
         /** This is for the Sentinel Cache **/

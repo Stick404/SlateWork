@@ -22,6 +22,7 @@ import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import com.mojang.serialization.MapCodec
 import net.fabricmc.fabric.impl.transfer.transaction.TransactionManagerImpl
 import net.minecraft.entity.ItemEntity
+import net.minecraft.nbt.NbtOps
 import net.minecraft.network.RegistryByteBuf
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
@@ -29,7 +30,9 @@ import net.minecraft.text.Text
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import org.sophia.slate_work.misc.CircleHelper
+import org.sophia.slate_work.misc.SlateWorksCodecs
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
+import java.util.Objects
 
 @Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class FrameGetItems(
@@ -48,7 +51,9 @@ class FrameGetItems(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        var stack = baseStack
+        println("Starting eval on GetItems")
+        var stack = harness.image.stack
+        println("Checking stack: $stack")
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()){
             toCheck.removeFirst()
         } else {
@@ -64,10 +69,13 @@ class FrameGetItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                if (stack.getBool(0, 3)){
-                    val amount = stack.getPositiveInt(2,3)
-                    val pos = stack.getVec3(1,3)
+                println("Getting bool")
+                val rev = stack.reversedVec();
+                if (rev.getBool(0, 2)){
+                    val pos = rev.getVec3(1,2)
+                    val amount = rev.getPositiveInt(2,2)
                     harness.env.assertVecInRange(pos)
+                    println("Added side effect!")
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
                         Triple(oldReturn,pos,amount)
                     )))
@@ -75,6 +83,7 @@ class FrameGetItems(
             } catch (e : Mishap){
                 sideEffect.add(OperatorSideEffect.DoMishap(e, Mishap.Context(null,
                     Text.translatable("hexcasting.action.slate_work:get_item"))))
+                println("Mishap")
                 return CastResult(
                     ListIota(code),
                     continuation,
@@ -91,21 +100,28 @@ class FrameGetItems(
         }
 
         val cont = if (isFirst != JankyMaybe.LAST){
-            stack = stack.appended(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
-             when (isFirst){
-                JankyMaybe.PENULTIMATE -> {
-                    continuation
-                        .pushFrame(FrameGetItems(code,baseStack,toCheck, slot, JankyMaybe.LAST))
-                        .pushFrame(FrameEvaluate(code,true))
-                }
-                else -> { // When FIRST or RUNNING push the frame
-                    continuation
-                        .pushFrame(FrameGetItems(code,baseStack,toCheck,slot, JankyMaybe.RUNNING))
-                        .pushFrame(FrameEvaluate(code,true))
-                }
-            }
-        } else continuation
+            val itemStack = slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())
+            stack = baseStack.appended(SlateWorksCodecs.makeIota(itemStack, level.registryManager));
 
+            println("Doing wonky check")
+            when (isFirst){
+               JankyMaybe.PENULTIMATE -> {
+                   continuation
+                       .pushFrame(FrameGetItems(code, baseStack, toCheck, slot, JankyMaybe.LAST))
+                       .pushFrame(FrameEvaluate(code,true))
+               }
+               else -> { // When FIRST or RUNNING push the frame
+                   continuation
+                       .pushFrame(FrameGetItems(code, baseStack, toCheck,slot, JankyMaybe.RUNNING))
+                       .pushFrame(FrameEvaluate(code,true))
+               }
+            }
+        } else {
+            stack = baseStack
+            continuation
+        }
+
+        println("Cast that thang with stack $stack")
         return CastResult(
             ListIota(code),
             cont,
@@ -123,11 +139,13 @@ class FrameGetItems(
         val TYPE: ContinuationFrame.Type<FrameGetItems> = object : ContinuationFrame.Type<FrameGetItems> {
 
             override fun codec(): MapCodec<FrameGetItems> {
-                TODO("Not yet implemented")
+                println("Wow look at me! I am getting the MapCodec")
+                return SlateWorksCodecs.FRAME_GET_ITEMS_MAP_CODEC
             }
 
             override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameGetItems> {
-                TODO("Not yet implemented")
+                println("Wow look at me! I am getting the StreamCodec")
+                return SlateWorksCodecs.FRAME_GET_ITEMS_PACKET_CODEC
             }
 
         }

@@ -42,8 +42,7 @@ object OpStoreItem : SpellAction {
 
             // In case we don't find it, we don't want to recalc *again*
             val itemE = itemEntity.stack
-            val list = CircleHelper.getStorage(env as CircleCastEnv)
-            val hashMap = CircleHelper.getLists(list)
+            val hashMap = CircleHelper.getLists(storages)
             if (hashMap.contains(ItemVariant.of(itemE.item, itemE.componentChanges))) {
                 val slot = hashMap[ItemVariant.of(itemE.item,itemE.componentChanges)]!!
                 val entity = env.world.getBlockEntity(slot.pos)
@@ -60,7 +59,7 @@ object OpStoreItem : SpellAction {
                 return
             }
             // If its not a known item yet...
-            for (z in list){
+            for (z in storages){
                 val x = z.isFull
                 if (x != -1) {
                     z.setStack(x, ItemVariant.of(itemE.item,itemE.componentChanges),itemE.count.toLong())

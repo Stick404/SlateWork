@@ -114,10 +114,13 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
            int i = 0;
            for (var z : macros){
                NbtCompound compound = (NbtCompound) z;
-               HexPattern patternIter = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern")).getOrThrow().getFirst().getPattern();
-               if (patternIter.equals(loci.getPattern())){
-                   macros.remove(i);
-                   break;
+               var patternIterOpt = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern"));
+               if (patternIterOpt.isSuccess()) {
+                   HexPattern patternIter = patternIterOpt.getOrThrow().getFirst().getPattern();
+                   if (patternIter.equals(loci.getPattern())){
+                       macros.remove(i);
+                       break;
+                   }
                }
                i++;
            }

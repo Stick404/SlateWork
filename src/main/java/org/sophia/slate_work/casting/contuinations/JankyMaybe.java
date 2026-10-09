@@ -1,5 +1,9 @@
 package org.sophia.slate_work.casting.contuinations;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.Decoder;
+import net.minecraft.util.StringIdentifiable;
+
 /**
  *  For {@link FrameCheckItems}, it has to run over item, but ends to early when using a `list#isEmpty` due to needing to run one more time.
  *  So this horrid thing has to be made, combing the `isFirst` boolean, we can check if the current eval is FIRST, RUNNING, or LAST.
@@ -13,5 +17,5 @@ public enum JankyMaybe {
     FIRST,
     RUNNING,
     PENULTIMATE,
-    LAST
+    LAST;
 }

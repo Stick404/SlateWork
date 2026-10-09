@@ -73,7 +73,7 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir));
         var data = imageIn.getUserData().copy();
-        var list = data.getList("storage_loci", NbtElement.COMPOUND_TYPE);
+        var list = data.getList("storage_loci", NbtElement.INT_ARRAY_TYPE);
         var check = NbtHelper.fromBlockPos(pos);
         if (!list.contains(check)) list.add(check);
 

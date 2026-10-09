@@ -8,6 +8,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
@@ -142,11 +144,16 @@ public class TradeLociEntity extends BlockEntity {
                 set.add(i);
             }
         }
+        if (this.getWorld() == null){
+            return;
+        }
 
         for(Integer integer : set) {
             TradeOffers.Factory factory = pool[integer];
             // How... bad could this be
-            TradeOffer tradeOffer = factory.create(null, this.random);
+            VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, this.getWorld());
+            TradeOffer tradeOffer = factory.create(entity, this.random);
+            entity.remove(Entity.RemovalReason.DISCARDED);
             if (tradeOffer != null) {
                 recipeList.add(tradeOffer);
             }

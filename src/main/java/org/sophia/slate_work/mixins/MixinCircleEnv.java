@@ -64,7 +64,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
     @Inject(method = "getUsableStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$getUsableStacks(CastingEnvironment.StackDiscoveryMode mode, CallbackInfoReturnable<List<ItemStack>> cir){
         var data = this.execState.currentImage.getUserData();
-        if (world.getBlockEntity(NbtHelper.toBlockPos(data, "hotbar_loci").get()) instanceof HotbarLociEntity entity){
+        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
+        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
             //var list = cir.getReturnValue();
             var list = new ArrayList<>(entity.getStacksSorted());
             list.addAll(cir.getReturnValue());
@@ -76,7 +77,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
     @Inject(method = "getPrimaryStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$gePrimaryStacks(CallbackInfoReturnable<List<HeldItemInfo>> cir){
         var data = this.execState.currentImage.getUserData();
-        if (world.getBlockEntity(NbtHelper.toBlockPos(data, "hotbar_loci").get()) instanceof HotbarLociEntity entity){
+        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
+        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
             var list = new ArrayList<>(cir.getReturnValue()); //makes it Mutable
             list.add(0, new HeldItemInfo(entity.getCurrentSlot(), Hand.OFF_HAND));
             cir.setReturnValue(list);
@@ -88,7 +90,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment{
     private void slate_work$replaceItem(Predicate<ItemStack> stackOk, ItemStack replaceWith, @Nullable Hand hand, CallbackInfoReturnable<Boolean> cir){
         if (cir.getReturnValue()) return;
         var data = this.execState.currentImage.getUserData();
-        if (world.getBlockEntity(NbtHelper.toBlockPos(data, "hotbar_loci").get()) instanceof HotbarLociEntity entity){
+        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
+        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
             int slot = 0;
             for (ItemStack stack: entity.getStacksSorted()){
                 if (stackOk.test(stack)){

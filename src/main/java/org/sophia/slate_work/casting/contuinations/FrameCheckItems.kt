@@ -42,7 +42,7 @@ class FrameCheckItems(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack
+        var stack = harness.image.stack
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()) {
             toCheck.removeFirst()
         } else {
@@ -51,7 +51,6 @@ class FrameCheckItems(
         }
 
         var hasFound = false
-        val realStack = harness.image.stack
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
         if (isFirst != JankyMaybe.FIRST) {
@@ -60,10 +59,10 @@ class FrameCheckItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                if (realStack.getBool(0, 0)) {
+                val rev = stack.reversedVec()
+                if (rev.getBool(0, 0)) {
                     hasFound = true
                 }
-                //realStack.removeLast()
             } catch (e: Mishap) {
                 sideEffect.add(
                     OperatorSideEffect.DoMishap(
@@ -85,7 +84,7 @@ class FrameCheckItems(
         }
 
         val cont = if (hasFound){
-            stack.add(BooleanIota(true))
+            stack = baseStack.appended(BooleanIota(true))
             return CastResult(
                 ListIota(code),
                 continuation,
@@ -95,7 +94,7 @@ class FrameCheckItems(
                 HexEvalSounds.NORMAL_EXECUTE.get()
             )
         } else if (isFirst != JankyMaybe.LAST) {
-            stack.add(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+            stack = stack.appended(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
             when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
                     continuation
@@ -109,7 +108,7 @@ class FrameCheckItems(
                 }
             }
         } else {
-            stack.add(BooleanIota(false))
+            stack = baseStack.appended(BooleanIota(false))
             continuation
         }
 

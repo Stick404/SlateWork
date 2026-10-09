@@ -64,7 +64,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             if (stack.isEmpty()) {
                 var list = world.getEntitiesByClass(VillagerEntity.class, (new Box(pos)).expand(10), (a) -> true);
                 if (!list.isEmpty()) {
-                    entity.slurpVillager(list.get(0));
+                    entity.slurpVillager(list.getFirst());
                 }
 
                 this.fakeThrowMishap(
