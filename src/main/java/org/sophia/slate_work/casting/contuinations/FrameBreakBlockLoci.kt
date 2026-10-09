@@ -20,32 +20,22 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.mod.HexTags
 import at.petrak.hexcasting.api.utils.TreeList
-import at.petrak.hexcasting.api.utils.getList
-import at.petrak.hexcasting.api.utils.putCompound
-import at.petrak.hexcasting.api.utils.putList
-import at.petrak.hexcasting.api.utils.serializeToNBT
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
 import com.mojang.serialization.MapCodec
 import net.minecraft.block.Block
-import net.minecraft.enchantment.EnchantmentHelper
 import net.minecraft.enchantment.Enchantments
 import net.minecraft.entity.ItemEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
-import net.minecraft.nbt.NbtHelper
-import net.minecraft.nbt.NbtList
 import net.minecraft.network.RegistryByteBuf
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.registry.tag.TagKey
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import net.minecraft.util.math.BlockPos
-import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.BlockBreakLociEntity
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia
 import org.sophia.slate_work.misc.CircleHelper
+import org.sophia.slate_work.misc.SlateWorksCodecs
 import ram.talia.moreiotas.api.casting.iota.ItemTypeIota
 
 @Suppress("DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
@@ -67,7 +57,7 @@ class FrameBreakBlockLoci(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack
+        var stack = baseStack
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()){
             toCheck.removeFirst()
         } else {
@@ -75,7 +65,6 @@ class FrameBreakBlockLoci(
             BlockPos.ORIGIN // Safe because when `LAST` is ran, it doesn't use `slot`
         }
 
-        val realStack = harness.image.stack.reversed()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
         if (isFirst != JankyMaybe.FIRST && oldReturn != null){
@@ -89,17 +78,17 @@ class FrameBreakBlockLoci(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                //val enchantments = EnchantmentHelper.fromNbt(entity.enchantments)
-                //val fortuneCost = enchantments[Enchantments.FORTUNE]?.toLong() ?: 0 // Since the item may not have Fortune
-                val fortuneCost = 0;
-                //val efficiencyMult = (enchantments[Enchantments.EFFICIENCY]?.toLong() ?: 0) +2
-                val efficiencyMult = 0;
-                //val silkTouchCost: Long = if (enchantments.containsKey(Enchantments.SILK_TOUCH)) { // Nor SilkTouch
+                // Since the item may not have Fortune
+                val fortuneCost = entity.enchantments.enchantments.find{
+                    a -> a.matchesKey(Enchantments.FORTUNE) }.let { entity.enchantments.getLevel(it) }
+                val efficiencyMult = entity.enchantments.enchantments.find{
+                        a -> a.matchesKey(Enchantments.EFFICIENCY) }.let { entity.enchantments.getLevel(it) }
+                // Nor SilkTouch
+                val silkTouchCost: Long = if (entity.enchantments.enchantments.any { a -> a.matchesKey(Enchantments.SILK_TOUCH) }) {
                     1
-                //} else {
-//                    0
-//                }
-                val silkTouchCost = 0;
+                } else {
+                    0
+                }
 
                 // Uhh, random bullshit go
                 // TODO: This `oldReturn` *may* break. Watch out!
@@ -112,7 +101,7 @@ class FrameBreakBlockLoci(
                 // This means Fortune 3 (highest base game) is an extra 3 shards; feels fare since its a locus/needs the block in front of it.
                 // Then, the whole cost is divided by efficiency*0.5; meaning highest cost reduce (base game) is 2.5 times.
                 // So, the "best" locus would cost... 1.25 dust (Eff 5, Fort 3)
-
+                val realStack = harness.image.stack.reversed()
                 if (realStack.getBool(0, 0)){
                     val extracted: Long = harness.env.extractMedia(cost, false)
                     // If we fail to extract Media at any point, shrimply die
@@ -129,7 +118,7 @@ class FrameBreakBlockLoci(
             } catch (e : Mishap){
                 // TODO: Change this translation!
                 sideEffect.add(OperatorSideEffect.DoMishap(e, Mishap.Context(null,
-                    Text.translatable("hexcasting.action.slate_work:get_item"))))
+                    Text.translatable("block.slate_work.block_break_loci"))))
                 return CastResult(
                     ListIota(code),
                     continuation,
@@ -146,8 +135,7 @@ class FrameBreakBlockLoci(
         }
 
         val cont = if (isFirst != JankyMaybe.LAST){
-
-            stack.add(ItemTypeIota(level.getBlockState(slot).block))
+            stack = stack.appended(ItemTypeIota(level.getBlockState(slot).block))
 
              when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
@@ -157,11 +145,14 @@ class FrameBreakBlockLoci(
                 }
                 else -> { // When FIRST or RUNNING push the frame
                     continuation
-                        .pushFrame(FrameBreakBlockLoci(code, blockBreakingLocus, baseStack,toCheck,slot, JankyMaybe.RUNNING, itemStack))
+                        .pushFrame(FrameBreakBlockLoci(code, blockBreakingLocus, baseStack, toCheck,slot, JankyMaybe.RUNNING, itemStack))
                         .pushFrame(FrameEvaluate(code,true))
                 }
             }
-        } else continuation
+        } else {
+            stack = baseStack
+            continuation
+        }
 
         return CastResult(
             ListIota(code),
@@ -178,13 +169,11 @@ class FrameBreakBlockLoci(
     companion object {
         @JvmField
         val TYPE: ContinuationFrame.Type<FrameBreakBlockLoci> = object : ContinuationFrame.Type<FrameBreakBlockLoci> {
-            override fun codec(): MapCodec<FrameBreakBlockLoci> {
-                TODO("Not yet implemented")
-            }
+            override fun codec(): MapCodec<FrameBreakBlockLoci> =
+                SlateWorksCodecs.FRAME_BREAK_BLOCK_LOCI_MAP_CODEC
 
-            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameBreakBlockLoci> {
-                TODO("Not yet implemented")
-            }
+            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameBreakBlockLoci> =
+                SlateWorksCodecs.FRAME_BREAK_BLOCK_LOCI_PACKET_CODEC
         }
     }
 

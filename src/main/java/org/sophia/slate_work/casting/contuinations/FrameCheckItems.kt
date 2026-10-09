@@ -22,6 +22,7 @@ import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import org.sophia.slate_work.misc.CircleHelper
+import org.sophia.slate_work.misc.SlateWorksCodecs
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 
 // Almost exactly like FrameGetItems, but it returns early/with only bool!
@@ -127,13 +128,11 @@ class FrameCheckItems(
     companion object {
         @JvmField
         val TYPE: ContinuationFrame.Type<FrameCheckItems> = object : ContinuationFrame.Type<FrameCheckItems> {
-            override fun codec(): MapCodec<FrameCheckItems> {
-                TODO("Not yet implemented")
-            }
+            override fun codec(): MapCodec<FrameCheckItems> =
+                SlateWorksCodecs.FRAME_CHECK_ITEMS_MAP_CODEC
 
-            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameCheckItems> {
-                TODO("Not yet implemented")
-            }
+            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameCheckItems> =
+                SlateWorksCodecs.FRAME_CHECK_ITEMS_PACKET_CODEC
         }
     }
 }

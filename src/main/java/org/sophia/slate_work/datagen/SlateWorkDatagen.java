@@ -14,6 +14,7 @@ public class SlateWorkDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(BlockModelDatagen::new);
         pack.addProvider(BlockLootTableDatagen::new);
         pack.addProvider(BlockTagDatagen::new);
+        pack.addProvider(ItemTagDatagen::new);
     }
 
     public static final List<Block> BLOCKS = List.of(

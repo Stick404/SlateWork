@@ -16,6 +16,7 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.dynamic.Codecs;
 import net.minecraft.util.math.BlockPos;
+import org.sophia.slate_work.casting.contuinations.FrameBreakBlockLoci;
 import org.sophia.slate_work.casting.contuinations.FrameCheckItems;
 import org.sophia.slate_work.casting.contuinations.FrameGetItems;
 import org.sophia.slate_work.casting.contuinations.JankyMaybe;
@@ -92,6 +93,55 @@ public class SlateWorksCodecs {
             (code, baseStack, toCheck, jankyMaybe) ->
                     new FrameCheckItems(code, baseStack, toCheck, JankyMaybe.valueOf(JankyMaybe.class, jankyMaybe))
     );
+
+    public static final MapCodec<FrameBreakBlockLoci> FRAME_BREAK_BLOCK_LOCI_MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+            TreeList.codecOf(IotaType.TYPED_CODEC).fieldOf("code").forGetter(FrameBreakBlockLoci::getCode),
+            BlockPos.CODEC.fieldOf("pos").forGetter(FrameBreakBlockLoci::getBlockBreakingLocus),
+            TreeList.codecOf(IotaType.TYPED_CODEC).fieldOf("baseStack").forGetter(FrameBreakBlockLoci::getBaseStack),
+            BlockPos.CODEC.listOf().fieldOf("toCheck").forGetter(FrameBreakBlockLoci::getToCheck),
+            BlockPos.CODEC.optionalFieldOf("oldReturn").forGetter(a -> {
+                var ret = a.getOldReturn();
+                if (ret == null) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(ret);
+                }
+            }),
+            Codecs.ESCAPED_STRING.fieldOf("jankyMaybe").forGetter(a -> a.isFirst().name()),
+            ItemStack.CODEC.fieldOf("itemStack").forGetter(FrameBreakBlockLoci::getItemStack)
+    ).apply(instance, (code, locus, baseStack, toCheck, oldReturn, jankyMaybe, stack) ->
+            new FrameBreakBlockLoci(code, locus, baseStack, toCheck, OptionalsKt.getOrNull(oldReturn), JankyMaybe.valueOf(JankyMaybe.class, jankyMaybe), stack)));
+
+    public static final PacketCodec<RegistryByteBuf, FrameBreakBlockLoci> FRAME_BREAK_BLOCK_LOCI_PACKET_CODEC = PacketCodec.tuple(
+            TreeList.<RegistryByteBuf, Iota>streamCodecOp().apply(IotaType.TYPED_STREAM_CODEC), FrameBreakBlockLoci::getCode,
+            BlockPos.PACKET_CODEC, FrameBreakBlockLoci::getBlockBreakingLocus,
+            TreeList.<RegistryByteBuf, Iota>streamCodecOp().apply(IotaType.TYPED_STREAM_CODEC), FrameBreakBlockLoci::getBaseStack,
+            PacketCodecs.collection(ArrayList::new, BlockPos.PACKET_CODEC), FrameBreakBlockLoci::getToCheck,
+            PacketCodecs.optional(BlockPos.PACKET_CODEC), a -> {
+                var ret = a.getOldReturn();
+                if (ret == null) {
+                    return Optional.empty();
+                } else {
+                    return Optional.of(ret);
+                }
+            },
+            WoopsTooMany.WOOPS_TOO_MANY_PACKET_CODEC, a -> new WoopsTooMany(a.isFirst(), a.getItemStack()),
+            (code, pos, baseStack, toCheck, oldReturn, many) ->
+                    new FrameBreakBlockLoci(code, pos, baseStack, toCheck, OptionalsKt.getOrNull(oldReturn), many.maybe, many.stack)
+    );
+
+    private record WoopsTooMany(JankyMaybe maybe, ItemStack stack){
+        private static final PacketCodec<RegistryByteBuf, WoopsTooMany> WOOPS_TOO_MANY_PACKET_CODEC = PacketCodec.tuple(
+                PacketCodecs.STRING, WoopsTooMany::maybeStr,
+                ItemStack.PACKET_CODEC, WoopsTooMany::stack,
+                (a, b) ->
+                        new WoopsTooMany(JankyMaybe.valueOf(JankyMaybe.class, a), b)
+        );
+
+        private String maybeStr(){
+            return this.maybe.toString();
+        }
+    }
 
     public static ItemStackIota makeIota(ItemStack stack, RegistryWrapper.WrapperLookup lookup){
         // I hope you can see why this is in the Codecs class. Sadly.
