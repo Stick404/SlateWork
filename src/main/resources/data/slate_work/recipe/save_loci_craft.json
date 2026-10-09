@@ -6,7 +6,7 @@
       "item": "hexcasting:slate"
     },
     "C": {
-      "item": "hexcasting:akashic_connector"
+      "item": "hexcasting:akashic_ligature"
     },
     "I": {
       "tag": "hexcasting:impeti"
@@ -21,6 +21,6 @@
     "SSS"
   ],
   "result": {
-    "item": "slate_work:save_loci"
+    "id": "slate_work:save_loci"
   }
 }

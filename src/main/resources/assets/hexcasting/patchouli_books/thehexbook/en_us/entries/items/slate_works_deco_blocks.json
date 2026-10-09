@@ -22,7 +22,7 @@
     },
     {
       "type": "hexcasting:brainsweep",
-      "recipe": "slate_work:brainsweep/more_allay_per_allay_flay",
+      "recipe": "hexcasting:brainsweep/impetus_look",
       "text": "slate_work.page.deco_blocks.replicated_allay.flay"
     }
   ]

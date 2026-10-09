@@ -1,15 +1,15 @@
 {
   "type": "hexcasting:brainsweep",
   "blockIn": {
-    "type": "block",
+    "type": "hexcasting:block",
     "block": "hexcasting:quenched_allay"
   },
   "cost": 500000,
   "entityIn": {
-    "type": "entity_type",
+    "type": "hexcasting:entity_type",
     "entityType": "minecraft:allay"
   },
   "result": {
-    "name": "slate_work:replicated_allay"
+    "Name": "slate_work:replicated_allay"
   }
 }

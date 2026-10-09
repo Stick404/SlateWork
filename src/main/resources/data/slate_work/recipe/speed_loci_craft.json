@@ -3,16 +3,13 @@
   "category": "redstone",
   "ingredients": [
     {
-      "item": "minecraft:redstone"
-    },
-    {
-      "item": "hexcasting:amethyst_dust"
+      "item": "hexcasting:quenched_allay_shard"
     },
     {
       "item": "hexcasting:slate"
     }
   ],
   "result": {
-    "item": "slate_work:redstone_loci"
+    "id": "slate_work:speed_loci"
   }
 }

@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "building",
   "key": {
     "A": {
       "item": "hexcasting:quenched_allay_shard"
@@ -17,6 +18,7 @@
     " E "
   ],
   "result": {
-    "item": "slate_work:trade_loci"
+    "count": 1,
+    "id": "slate_work:trade_loci"
   }
 }

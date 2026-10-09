@@ -4,16 +4,18 @@
     "A": {
       "item": "hexcasting:quenched_allay_shard"
     },
-    "D": {
-      "item": "hexcasting:amethyst_dust"
+    "S": {
+      "item": "hexcasting:slate"
+    },
+    "B": {
+      "item": "hexcasting:slate_block"
     }
   },
   "pattern": [
-    " D ",
-    "DAD",
-    " D "
+    " A ",
+    "SBS"
   ],
   "result": {
-    "item": "slate_work:allay_pigment"
+    "id": "slate_work:fake_player_loci"
   }
 }

@@ -1,8 +1,8 @@
 {
   "name": "slate_work.entry.akashic_loci",
   "category": "hexcasting:greatwork",
-  "icon": "hexcasting:akashic_connector",
   "advancement": "hexcasting:enlightenment",
+  "icon": "hexcasting:akashic_ligature",
   "read_by_default": false,
   "sortnum": 11,
   "pages": [

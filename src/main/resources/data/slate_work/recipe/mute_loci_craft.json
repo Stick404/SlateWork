@@ -3,16 +3,13 @@
   "category": "redstone",
   "ingredients": [
     {
-      "item": "hexcasting:amethyst_dust"
+      "tag": "minecraft:wool"
     },
     {
       "item": "hexcasting:slate"
-    },
-    {
-      "item": "minecraft:echo_shard"
     }
   ],
   "result": {
-    "item": "slate_work:whispering_stone"
+    "id": "slate_work:mute_loci"
   }
 }

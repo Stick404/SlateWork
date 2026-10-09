@@ -3,13 +3,17 @@
   "category": "redstone",
   "ingredients": [
     {
-      "item": "hexcasting:quenched_allay_shard"
+      "item": "hexcasting:amethyst_dust"
     },
     {
       "item": "hexcasting:slate"
+    },
+    {
+      "item": "minecraft:echo_shard"
     }
   ],
   "result": {
-    "item": "slate_work:speed_loci"
+    "count": 1,
+    "id": "slate_work:whispering_stone"
   }
 }

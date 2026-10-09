@@ -6,18 +6,18 @@
       "item": "hexcasting:quenched_allay_shard"
     },
     "D": {
-      "item": "hexcasting:akashic_connector"
+      "tag": "hexcasting:directrices"
     },
     "B": {
       "item": "hexcasting:slate_block"
     }
   },
   "pattern": [
-    "ABA",
-    "BDB",
-    "ABA"
+    "BAB",
+    "ADA",
+    "BAB"
   ],
   "result": {
-    "item": "slate_work:broadcaster_loci"
+    "id": "slate_work:ambit_loci"
   }
 }

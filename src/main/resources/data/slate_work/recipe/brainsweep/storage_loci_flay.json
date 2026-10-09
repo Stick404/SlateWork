@@ -1,18 +1,18 @@
 {
   "type": "hexcasting:brainsweep",
   "blockIn": {
-    "type": "block",
+    "type": "hexcasting:block",
     "block": "hexcasting:slate"
   },
   "cost": 1000000,
   "entityIn": {
-    "type": "villager",
+    "type": "hexcasting:villager",
     "minLevel": 1,
-    "profession": "fisherman"
+    "profession": "minecraft:fisherman"
   },
   "result": {
-    "name": "slate_work:storage_loci",
-    "properties": {
+    "Name": "slate_work:storage_loci",
+    "Properties": {
       "energized": "false",
       "facing": "up"
     }

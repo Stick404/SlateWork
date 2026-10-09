@@ -1,17 +1,17 @@
 {
   "type": "hexcasting:brainsweep",
   "blockIn": {
-    "type": "block",
+    "type": "hexcasting:block",
     "block": "slate_work:ambit_loci"
   },
   "cost": 2000000,
   "entityIn": {
-    "type": "villager",
+    "type": "hexcasting:villager",
     "minLevel": 5
   },
   "result": {
-    "name": "slate_work:sentinel_loci",
-    "properties": {
+    "Name": "slate_work:sentinel_loci",
+    "Properties": {
       "energized": "false"
     }
   }
