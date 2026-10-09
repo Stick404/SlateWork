@@ -28,7 +28,7 @@ public class BlockBreakLociScrying implements ScryingLensOverlayRegistry.Overlay
         if (world.getBlockEntity(blockPos) instanceof BlockBreakLociEntity entity){
             Set<RegistryEntry<Enchantment>> map = entity.getEnchantments().getEnchantments();
             for (var thing : map){
-                list.add(new Pair<>(Items.ENCHANTED_BOOK.getDefaultStack(), Text.literal(thing.getKey().get().getValue().toTranslationKey())));
+                list.add(new Pair<>(Items.ENCHANTED_BOOK.getDefaultStack(), Enchantment.getName(thing, entity.getEnchantments().getLevel(thing))));
             }
         }
     }

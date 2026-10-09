@@ -22,12 +22,12 @@ public class BlockBreakLociEntity extends HexBlockEntity {
 
     @Override
     protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        tag.put(TAG, ItemEnchantmentsComponent.CODEC.encodeStart(NbtOps.INSTANCE, this.enchantments).getOrThrow());
+        tag.put(TAG, ItemEnchantmentsComponent.CODEC.encodeStart(registries.getOps(NbtOps.INSTANCE), this.enchantments).getOrThrow());
     }
 
     @Override
     protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
-        this.enchantments = ItemEnchantmentsComponent.CODEC.decode(NbtOps.INSTANCE, tag.getCompound(TAG)).getOrThrow().getFirst();
+        this.enchantments = ItemEnchantmentsComponent.CODEC.decode(registries.getOps(NbtOps.INSTANCE), tag.getCompound(TAG)).getOrThrow().getFirst();
     }
 
     public ItemEnchantmentsComponent getEnchantments() {

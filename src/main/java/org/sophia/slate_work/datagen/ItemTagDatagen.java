@@ -7,7 +7,7 @@ import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Equipment;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
-import org.jetbrains.annotations.Nullable;
+import org.sophia.slate_work.blocks.BlockBreakLoci;
 import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.concurrent.CompletableFuture;
@@ -21,14 +21,23 @@ public class ItemTagDatagen extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ItemTags.MINING_ENCHANTABLE).add(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
-        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE).add(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
+        getOrCreateTagBuilder(ItemTags.MINING_ENCHANTABLE)
+                .add(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
+        getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
+        getOrCreateTagBuilder(ItemTags.MINING_LOOT_ENCHANTABLE)
+                .add(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
 
-        var enchants = getOrCreateTagBuilder(ItemTags.HEAD_ARMOR);
+        var headArmor = getOrCreateTagBuilder(ItemTags.HEAD_ARMOR);
+        var headEnchant = getOrCreateTagBuilder(ItemTags.HEAD_ARMOR_ENCHANTABLE);
+        var wearableEnchant = getOrCreateTagBuilder(ItemTags.EQUIPPABLE_ENCHANTABLE);
+
         for (Block block : BLOCKS){
-            if (block instanceof Equipment e) {
+            if (block instanceof Equipment e && !(block instanceof BlockBreakLoci)) {
                 if (e.getSlotType() == EquipmentSlot.HEAD){
-                    enchants.add(block.asItem());
+                    headArmor.add(block.asItem());
+                    headEnchant.add(block.asItem());
+                    wearableEnchant.add(block.asItem());
                 }
             }
         }
