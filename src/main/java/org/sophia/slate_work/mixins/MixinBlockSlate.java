@@ -14,6 +14,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -35,15 +36,16 @@ public abstract class MixinBlockSlate {
     void slate_works$acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
                                        ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local(name = "pattern") HexPattern pattern,
                                        @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
-        var macroNBT = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
-        String angleSig = pattern.anglesSignature();
+        var macroPos = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
+        HexPattern angleSig = pattern;
 
-        Map<String, Iota> macros = new HashMap<>();
-        for (NbtElement temp : macroNBT) {
+        Map<HexPattern, Iota> macros = new HashMap<>();
+        for (NbtElement temp : macroPos) {
             NbtCompound nbtElement = (NbtCompound) temp;
+
             macros.put(
-                    HexPattern.fromNBT(nbtElement.getCompound("pattern")).anglesSignature(),
-                    IotaType.deserialize(nbtElement.getCompound("macro") ,world)
+                    HexPattern.CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("pattern")).getOrThrow().getFirst(),
+                    IotaType.TYPED_CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("macro")).getOrThrow().getFirst()
             );
         }
         if (macros.containsKey(angleSig)){
@@ -51,12 +53,7 @@ public abstract class MixinBlockSlate {
             ExecutionClientView result;
 
             if (macro instanceof ListIota pain){
-
-                var spell = new ArrayList<Iota>();
-                for (var iota : pain.getList()){
-                    spell.add(iota);
-                }
-
+                var spell = new ArrayList<>(pain.getList());
                 result = vm.queueExecuteAndWrapIotas(spell, world);
             } else {
                 result = vm.queueExecuteAndWrapIota(macro, world);

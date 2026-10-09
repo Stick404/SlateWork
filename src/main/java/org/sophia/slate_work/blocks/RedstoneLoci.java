@@ -85,7 +85,7 @@ public class RedstoneLoci extends AbstractSlate {
 
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
-        ArrayList<Iota> stack = new ArrayList<>(imageIn.getStack());
+        var stack = imageIn.getStack();
 
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
@@ -95,8 +95,9 @@ public class RedstoneLoci extends AbstractSlate {
             return new ControlFlow.Stop();
         }
 
-        var last = stack.get(stack.size() -1);
-        stack.remove(stack.size() -1);
+        var last = stack.last();
+        stack = stack.init();
+
         if (!(last instanceof DoubleIota)) {
             this.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -128,7 +129,7 @@ public class RedstoneLoci extends AbstractSlate {
         var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
 
         return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
-                imageIn.getEscapeNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+                imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
     }
 
 

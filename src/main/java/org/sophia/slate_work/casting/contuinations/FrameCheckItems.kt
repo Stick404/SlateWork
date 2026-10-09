@@ -1,6 +1,5 @@
 package org.sophia.slate_work.casting.contuinations
 
-import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.eval.CastResult
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv
@@ -15,25 +14,22 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
-import at.petrak.hexcasting.api.utils.getList
-import at.petrak.hexcasting.api.utils.putList
-import at.petrak.hexcasting.api.utils.serializeToNBT
+import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
-import at.petrak.hexcasting.common.lib.hex.HexIotaTypes
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtElement
-import net.minecraft.nbt.NbtHelper
-import net.minecraft.nbt.NbtList
+import com.mojang.serialization.MapCodec
+import net.minecraft.network.RegistryByteBuf
+import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
 import org.sophia.slate_work.misc.CircleHelper
+import org.sophia.slate_work.misc.SlateWorksCodecs
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 
 // Almost exactly like FrameGetItems, but it returns early/with only bool!
-@Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
+@Suppress("DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class FrameCheckItems(
-    val code: SpellList,
-    val baseStack: MutableList<Iota>,
+    val code: TreeList<Iota>,
+    val baseStack: TreeList<Iota>,
     val toCheck: MutableList<CircleHelper.ItemSlot>,
     var isFirst: JankyMaybe = JankyMaybe.FIRST
 ) : ContinuationFrame {
@@ -41,13 +37,13 @@ class FrameCheckItems(
     override val type: ContinuationFrame.Type<*>
         get() = TYPE
 
-    override fun breakDownwards(stack: List<Iota>): Pair<Boolean, List<Iota>> {
-        return true to listOf()
+    override fun breakDownwards(stack: TreeList<Iota>): Pair<Boolean, TreeList<Iota>> {
+        return true to stack
     }
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        val stack = baseStack.toMutableList()
+        var stack = harness.image.stack
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()) {
             toCheck.removeFirst()
         } else {
@@ -56,7 +52,6 @@ class FrameCheckItems(
         }
 
         var hasFound = false
-        val realStack = harness.image.stack.reversed().toMutableList()
         val sideEffect: MutableList<OperatorSideEffect> = mutableListOf()
 
         if (isFirst != JankyMaybe.FIRST) {
@@ -65,10 +60,10 @@ class FrameCheckItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                if (realStack.getBool(0, 0)) {
+                val rev = stack.reversedVec()
+                if (rev.getBool(0, 0)) {
                     hasFound = true
                 }
-                realStack.removeLast()
             } catch (e: Mishap) {
                 sideEffect.add(
                     OperatorSideEffect.DoMishap(
@@ -84,25 +79,23 @@ class FrameCheckItems(
                     harness.image.withUsedOp().copy(stack = stack),
                     sideEffect,
                     ResolvedPatternType.ERRORED,
-                    HexEvalSounds.NORMAL_EXECUTE
+                    HexEvalSounds.NORMAL_EXECUTE.get()
                 )
             }
         }
 
-
-
         val cont = if (hasFound){
-            stack.add(BooleanIota(true))
+            stack = baseStack.appended(BooleanIota(true))
             return CastResult(
                 ListIota(code),
                 continuation,
                 harness.image.withUsedOp().copy(stack = stack),
                 sideEffect,
                 ResolvedPatternType.EVALUATED,
-                HexEvalSounds.NORMAL_EXECUTE
+                HexEvalSounds.NORMAL_EXECUTE.get()
             )
         } else if (isFirst != JankyMaybe.LAST) {
-            stack.add(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
+            stack = stack.appended(ItemStackIota.createFiltered(slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())))
             when (isFirst){
                 JankyMaybe.PENULTIMATE -> {
                     continuation
@@ -116,7 +109,7 @@ class FrameCheckItems(
                 }
             }
         } else {
-            stack.add(BooleanIota(false))
+            stack = baseStack.appended(BooleanIota(false))
             continuation
         }
 
@@ -126,26 +119,8 @@ class FrameCheckItems(
             harness.image.withUsedOp().copy(stack = stack),
             sideEffect,
             ResolvedPatternType.EVALUATED,
-            HexEvalSounds.NORMAL_EXECUTE
+            HexEvalSounds.NORMAL_EXECUTE.get()
         )
-    }
-
-    override fun serializeToNBT(): NbtCompound {
-        val compound = NbtCompound()
-        compound.putList("stack", baseStack.serializeToNBT() as NbtList)
-        compound.putList("code", code.serializeToNBT() as NbtList)
-
-        val listCheck = NbtList()
-        for (z in toCheck){
-            val tempCompound = NbtCompound()
-            tempCompound.put("item",z.item.toNbt())
-            // Location is to help with keeping track of valid items; so there cant be dupe bugs
-            tempCompound.put("location", NbtHelper.fromBlockPos(z.storageLociEntity.pos))
-            listCheck.add(tempCompound)
-        }
-        compound.putList("to_check",listCheck)
-        compound.putString("jank_maybe", this.isFirst.name)
-        return compound
     }
 
     override fun size(): Int = baseStack.size
@@ -153,20 +128,11 @@ class FrameCheckItems(
     companion object {
         @JvmField
         val TYPE: ContinuationFrame.Type<FrameCheckItems> = object : ContinuationFrame.Type<FrameCheckItems> {
-            override fun deserializeFromNBT(tag: NbtCompound, world: ServerWorld): FrameCheckItems? {
-                val code = HexIotaTypes.LIST.deserialize(tag.getList("code", NbtElement.COMPOUND_TYPE), world)!!.list
-                val stack = HexIotaTypes.LIST.deserialize(tag.getList("stack", NbtElement.COMPOUND_TYPE), world)!!.list.toList()
-                val toCheck = listOf<CircleHelper.ItemSlot>().toMutableList()
-                for (z in tag.getList("to_check", NbtElement.COMPOUND_TYPE)){
-                    val slot = CircleHelper.ItemSlot.load(z as NbtCompound,world)
-                    if (slot != null){
-                        toCheck.add(slot)
-                    }
-                }
-                val stepEval = JankyMaybe.valueOf(tag.getString("jank_maybe"))
-                return FrameCheckItems(code, stack as MutableList<Iota>,toCheck, stepEval)
-            }
+            override fun codec(): MapCodec<FrameCheckItems> =
+                SlateWorksCodecs.FRAME_CHECK_ITEMS_MAP_CODEC
 
+            override fun streamCodec(): PacketCodec<RegistryByteBuf, FrameCheckItems> =
+                SlateWorksCodecs.FRAME_CHECK_ITEMS_PACKET_CODEC
         }
     }
 }

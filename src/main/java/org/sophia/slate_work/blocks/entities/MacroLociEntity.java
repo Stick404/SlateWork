@@ -7,7 +7,9 @@ import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.math.HexDir;
 import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.api.casting.mishaps.MishapOthersName;
+import at.petrak.hexcasting.api.utils.HexUtils;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
+import kotlin.jvm.optionals.OptionalsKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -15,15 +17,16 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 public class MacroLociEntity extends BlockEntity implements Inventory {
     // The Holy Slot, The Slot. The Slot
@@ -31,7 +34,7 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     public HexPattern pattern;
 
     public MacroLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.MACRO_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.MACRO_LOCI_ENTITY, pos, state);
         // The Slot
         this.theSlot = ItemStack.EMPTY;
         this.pattern = HexPattern.fromAngles("qaq", HexDir.NORTH_EAST);
@@ -46,9 +49,9 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
         if (this.isEmpty() || holder == null) return;
         var written = holder.writeIota(iota, false);
         if (written && env != null) {
-            var trueName = MishapOthersName.getTrueNameFromDatum(holder.readIota((ServerWorld) world), (ServerPlayerEntity) env.getCastingEntity());
+            var trueName = MishapOthersName.getTrueNameMishapFromDatum(env.getWorld(), holder.readIota(), (ServerPlayerEntity) env.getCastingEntity());
             if (trueName != null)
-                throw new MishapOthersName(trueName);
+                throw trueName;
         }
 
         this.markDirty();
@@ -65,31 +68,42 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.readNbt(nbt, registryLookup);
         // The Slot
-        this.theSlot = ItemStack.fromNbt(nbt.getCompound("the_slot"));
-        this.pattern = HexPattern.fromNBT(nbt.getCompound("pattern"));
+        this.theSlot = OptionalsKt.getOrElse(ItemStack.fromNbt(registryLookup, nbt.getCompound("the_slot")), () -> ItemStack.EMPTY);
+        var pattern = HexPattern.CODEC.decode(NbtOps.INSTANCE, nbt.getCompound("pattern"));
+        if (pattern.isError()) {
+            this.pattern = HexPattern.fromAngles("qaq", HexDir.NORTH_EAST);
+        } else {
+            this.pattern = pattern.getOrThrow().getFirst();
+        }
     }
 
     public @Nullable Text getDisplay(){
         var holder = IXplatAbstractions.INSTANCE.findDataHolder(theSlot);
         if (holder != null){
-            if (holder.readIotaTag() != null) {
-                return IotaType.getDisplay(holder.readIotaTag());
+            Iota iota = holder.readIota();
+            if (iota != null) {
+                return iota.display();
             }
         }
         return Text.of("");
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        NbtCompound compound = new NbtCompound();
-        // The Slot
-        theSlot.writeNbt(compound);
-        nbt.put("pattern",this.pattern.serializeToNBT());
-        nbt.put("the_slot",compound);
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
+        super.writeNbt(nbt, registryLookup);
+
+        var encoded = HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, this.pattern);
+        if (encoded.isError()) {
+            nbt.put("pattern", new NbtCompound());
+        } else {
+            nbt.put("pattern", encoded.getOrThrow());
+        }
+        if (!theSlot.isEmpty()) {
+            nbt.put("the_slot", theSlot.encode(registryLookup));
+        }
     }
 
     public boolean canTransferTo(Inventory hopperInventory, int slot, ItemStack stack) {
@@ -151,9 +165,9 @@ public class MacroLociEntity extends BlockEntity implements Inventory {
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registryLookup) {
         var compound = new NbtCompound();
-        this.writeNbt(compound);
+        this.writeNbt(compound, registryLookup);
         return compound;
     }
 

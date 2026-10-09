@@ -14,24 +14,27 @@ import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
+import net.minecraft.nbt.NbtIntArray
+import net.minecraft.util.math.BlockPos
+import net.minecraft.util.math.Vec3d
 
 object OpGetStorageLoci : Action {
     override fun operate(env: CastingEnvironment, image: CastingImage, continuation: SpellContinuation): OperationResult {
         if (env !is CircleCastEnv)
             throw MishapNoSpellCircle()
-        val stack = image.stack.toMutableList()
+        var stack = image.stack
         val list: ArrayList<Vec3Iota> = ArrayList()
         val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.COMPOUND_TYPE.toInt())
 
         for (itemTemp in nbt){
-            val z = itemTemp as NbtCompound
-            val x = NbtHelper.toBlockPos(z).toCenterPos()
-            list.add(Vec3Iota(x))
+            val z = itemTemp as NbtIntArray
+            val x = BlockPos(z[0].intValue(), z[1].intValue(), z[2].intValue())
+            list.add(Vec3Iota(x.toCenterPos()))
         }
 
-        stack.add(ListIota(list as List<Iota>))
+        stack = stack.appended(ListIota(list as List<Iota>))
         val image2 = image.withUsedOp().copy(stack = stack)
 
-        return OperationResult(image2, listOf(),continuation, HexEvalSounds.NORMAL_EXECUTE)
+        return OperationResult(image2, listOf(),continuation, HexEvalSounds.NORMAL_EXECUTE.get())
     }
 }

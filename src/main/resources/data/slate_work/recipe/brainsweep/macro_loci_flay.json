@@ -1,0 +1,20 @@
+{
+  "type": "hexcasting:brainsweep",
+  "blockIn": {
+    "type": "hexcasting:block",
+    "block": "hexcasting:slate"
+  },
+  "cost": 1000000,
+  "entityIn": {
+    "type": "hexcasting:villager",
+    "minLevel": 2,
+    "profession": "minecraft:weaponsmith"
+  },
+  "result": {
+    "Name": "slate_work:macro_loci",
+    "Properties": {
+      "energized": "false",
+      "facing": "up"
+    }
+  }
+}

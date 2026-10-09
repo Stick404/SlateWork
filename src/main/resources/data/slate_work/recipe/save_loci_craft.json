@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "key": {
+    "S": {
+      "item": "hexcasting:slate"
+    },
+    "C": {
+      "item": "hexcasting:akashic_ligature"
+    },
+    "I": {
+      "tag": "hexcasting:impeti"
+    },
+    "P": {
+      "item": "hexcasting:edified_planks"
+    }
+  },
+  "pattern": [
+    "SIS",
+    "PCP",
+    "SSS"
+  ],
+  "result": {
+    "id": "slate_work:save_loci"
+  }
+}

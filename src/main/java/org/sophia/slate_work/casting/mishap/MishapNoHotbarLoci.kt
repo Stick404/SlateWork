@@ -4,6 +4,7 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.pigment.FrozenPigment
+import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.api.utils.styledWith
 import net.minecraft.block.Block
 import net.minecraft.text.Text
@@ -19,5 +20,5 @@ class MishapNoHotbarLoci(val pos: BlockPos) : Mishap() {
         error("circle.pocket_simulator_required",
             Text.literal("(").append(pos.toShortString()).append(")").styledWith(Formatting.RED))
 
-    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: MutableList<Iota>) {}
+    override fun execute(env: CastingEnvironment, errorCtx: Context, stack: TreeList<Iota>): TreeList<Iota> = stack
 }

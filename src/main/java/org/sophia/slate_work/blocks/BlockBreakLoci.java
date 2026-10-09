@@ -4,8 +4,13 @@ import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.*;
 import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.api.casting.iota.PatternIota;
+import at.petrak.hexcasting.api.utils.TreeList;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.component.ComponentChanges;
+import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -24,8 +29,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.BlockBreakLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
-import org.sophia.slate_work.registries.BlockRegistry;
-import org.sophia.slate_work.registries.PatternRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksPatternRegistry;
 
 import java.util.ArrayList;
 
@@ -71,12 +76,12 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         // Get the stack/exit dirs
-        ArrayList<Iota> stack = new ArrayList<>(imageIn.getStack());
+        TreeList<Iota> stack = imageIn.getStack();
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
 
-        var hex = stack.get(stack.size() -1);
+        var hex = stack.last();
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -86,22 +91,22 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         }
 
         var vm = new CastingVM(imageIn, env);
-        var result = vm.queueExecuteAndWrapIota(new PatternIota(PatternRegistry.I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME), world);
+        var result = vm.queueExecuteAndWrapIota(new PatternIota(SlateWorksPatternRegistry.I_AM_SO_SORRY_FOR_MY_CRIMES_COMMA_HEXXY_FORGIVE_ME), world);
 
         if (result.getResolutionType().getSuccess()) {
             // We play the sound at the locus to not explode player's ears
-            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.25f, 0.6f);
+            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE.value(), SoundCategory.BLOCKS, 0.25f, 0.6f);
             world.getPlayers().forEach(a -> a.networkHandler.sendPacket(new ParticleS2CPacket(
                     ParticleTypes.EXPLOSION, false, pos.toCenterPos().getX(), pos.toCenterPos().getY(),pos.toCenterPos().getZ(),
                     0, 0, 0, 0, 1
             )));
 
             var image = vm.getImage();
-            var newestStack = new ArrayList<>(image.getStack());
-            newestStack.add(hex);
+            var newestStack = image.getStack();
+            newestStack = newestStack.appended(hex);
 
             return new ControlFlow.Continue(image.copy(newestStack, image.getParenCount(),
-                    image.getParenthesized(),image.getEscapeNext(),image.getOpsConsumed(), image.getUserData()), exits);
+                    image.getParenthesized(),image.getEscapeNext(), image.getSimulateNext(), image.getOpsConsumed(), image.getUserData()), exits);
         } else {
             return new ControlFlow.Stop();
         }
@@ -124,12 +129,9 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof BlockBreakLociEntity loci && !newState.isOf(state.getBlock())) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI_ITEM);
 
-                var enchants = EnchantmentHelper.fromNbt(loci.getEnchantments());
-                for (var enchant : enchants.entrySet()){
-                    itemStack.addEnchantment(enchant.getKey(), enchant.getValue());
-                }
+                itemStack.applyChanges(ComponentChanges.builder().add(DataComponentTypes.ENCHANTMENTS, loci.getEnchantments()).build());
 
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();

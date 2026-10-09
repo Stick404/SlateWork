@@ -14,7 +14,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.sophia.slate_work.registries.BlockRegistry.HOTBAR_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.HOTBAR_LOCI_ENTITY;
 
 @SuppressWarnings("UnstableApiUsage")
 public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant>, ExtendedScreenHandlerFactory {
@@ -45,15 +45,15 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
     }
 
     @Override
-    protected void saveModData(NbtCompound tag) {
-        Inventories.writeNbt(tag, stacks);
+    protected void saveModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
+        Inventories.writeNbt(tag, stacks, registries);
         tag.putInt("select", slot);
     }
 
     @Override
-    protected void loadModData(NbtCompound tag) {
+    protected void loadModData(NbtCompound tag, RegistryWrapper.WrapperLookup registries) {
         if (world != null && world.isClient) stacks.clear(); // Done only on the client as a basic protection
-        Inventories.readNbt(tag, stacks);
+        Inventories.readNbt(tag, stacks, registries);
         slot = tag.getInt("select");
     }
 
@@ -95,10 +95,10 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
         this.sync();
     }
 
-    @Override
-    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
-        buf.writeBlockPos(this.pos);
-    }
+//    @Override
+//    public void writeScreenOpeningData(ServerPlayerEntity player, PacketByteBuf buf) {
+//        buf.writeBlockPos(this.pos);
+    //}
 
     @Override
     public Text getDisplayName() {
@@ -226,5 +226,10 @@ public class HotbarLociEntity extends HexBlockEntity implements SlottedStorage<I
     @Override
     public @NotNull Iterator<StorageView<ItemVariant>> iterator() {
         return new LociIterator<>(this);
+    }
+
+    @Override
+    public Object getScreenOpeningData(ServerPlayerEntity player) {
+        return this.pos;
     }
 }

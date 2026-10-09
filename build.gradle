@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.9+'
+    id 'fabric-loom' version '1.13+'
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm'
 }
@@ -29,7 +29,7 @@ sourceSets {
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
@@ -69,7 +69,10 @@ repositories {
     }
     maven {
         name = 'GeckoLib'
-        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+    }
+    maven {
+        url = "https://ci.blamejared.com/job/petrakat/"
     }
     exclusiveContent {
         forRepository {
@@ -85,36 +88,44 @@ repositories {
     maven {
         url = uri("https://maven.hexxy.media")
     }
+
+    flatDir { dir(rootProject.file("libs")) }
     mavenCentral()
 }
 
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    mappings "net.fabricmc:yarn:${yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     compileOnly("com.demonwav.mcdev:annotations:1.0")
     runtimeOnly("org.ejml:ejml-all:0.44.0")
 
-    modImplementation "at.petra-k.paucal:paucal-fabric-$minecraft_version:$paucal_version"
-    modImplementation ("at.petra-k.hexcasting:hexcasting-fabric-${minecraft_version}:${hex_casting}")
+    //modImplementation files('libs/paucal-0.7.1-pre-27+1.21.1-fabric.jar')
+    //modImplementation "at.petra-k.paucal:paucal-$paucal_version+$minecraft_version-fabric"
+    //modImplementation ("hexcasting-common-1.21.1-0.12.0-devel-pre-53.jar")
+    //modImplementation files('libs/hexcasting-common-1.21.1-0.12.0-devel-pre-53.jar')
+    modImplementation 'at.petra-k.hexcasting:hexcasting-fabric-1.21.1-0.12.0-devel-pre-48'
+    //modImplementation ("at.petra-k.hexcasting:hexcasting-fabric-${minecraft_version}-${hex_casting}")
     modImplementation ("me.shedaniel.cloth:cloth-config-fabric:$cloth_config")
-    modImplementation ("net.fabricmc:fabric-language-kotlin:1.13.7+kotlin.2.2.21")
-    modImplementation files("${rootProject.rootDir}/libs/serialization-hooks-0.4.99999.jar")
+    modImplementation ("net.fabricmc:fabric-language-kotlin:1.13.4+kotlin.2.2.0")
+    compileOnly files("${rootProject.rootDir}/libs/serialization-hooks-0.4.99999.jar")
+
     //modImplementation "miyucomics.hexpose:hexpose:$hex_pose_version"
-    modImplementation("ram.talia.moreiotas:moreiotas-fabric-$minecraft_version:$more_iotas_version") {
+    modCompileOnly("ram.talia.moreiotas:moreiotas-fabric-1.20.1:$more_iotas_version") {
         transitive = false
     }
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
+    modRuntimeOnly files('libs/moreiotas-0.1.1-1.21.1-devel-pre-3.jar')
+    modCompileOnly "dev.onyxstudios.cardinal-components-api:cardinal-components-api:${cardinal_components_version}"
     modImplementation "vazkii.patchouli:Patchouli:${minecraft_version}-${patchouli_version}-FABRIC"
     modImplementation "com.samsthenerd.inline:inline-fabric:$minecraft_version-$inline_version"
 
-    modImplementation "dev.emi:trinkets:${trinkets_version}"
+    modCompileOnly "dev.emi:trinkets:${trinkets_version}"
 
-    modApi ("gay.object.ioticblocks:ioticblocks-fabric:1.0.1+1.20.1")
+    modCompileOnly ("gay.object.ioticblocks:ioticblocks-fabric:1.0.1+1.20.1")
     implementation group: "org.jblas", name: "jblas", version: "1.2.5"
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-geometry-core
@@ -135,7 +146,7 @@ processResources {
     }
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 tasks.withType(JavaCompile).configureEach {
     // ensure that the encoding is set to UTF-8, no matter what the system default is
     // this fixes some edge cases with special characters not displaying correctly
@@ -160,7 +171,7 @@ java {
 
 jar {
     from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}" }
+        rename { "${it}_${project.archives_base_name}" }
     }
 }
 
@@ -183,5 +194,5 @@ publishing {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(21)
 }

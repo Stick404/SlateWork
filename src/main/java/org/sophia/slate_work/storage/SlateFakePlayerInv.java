@@ -13,7 +13,6 @@ import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 import java.util.Set;
 import java.util.function.Predicate;
 
-@SuppressWarnings("UnstableApiUsage")
 public class SlateFakePlayerInv extends PlayerInventory {
     private final HotbarLociEntity hotbarLociEntity;
 

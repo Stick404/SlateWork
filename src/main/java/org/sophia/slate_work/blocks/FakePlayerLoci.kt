@@ -18,8 +18,6 @@ import net.minecraft.block.BlockState
 import net.minecraft.block.ShapeContext
 import net.minecraft.command.argument.EntityAnchorArgumentType
 import net.minecraft.entity.Entity
-import net.minecraft.entity.ExperienceOrbEntity
-import net.minecraft.entity.ItemEntity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
@@ -72,18 +70,17 @@ class FakePlayerLoci : AbstractSlate {
         world: World,
         pos: BlockPos?,
         player: PlayerEntity,
-        hand: Hand?,
         hit: BlockHitResult?
     ): ActionResult {
         if (player.isSneaky) {
             val sta = state.get(IS_OPTIONAL_VECTOR).not()
             world.setBlockState(pos, state.with(IS_OPTIONAL_VECTOR, sta))
-            world.playSound(player, pos, HexSounds.ABACUS_SHAKE, SoundCategory.BLOCKS, 1.0f, 1f)
+            world.playSound(player, pos, HexSounds.ABACUS_SHAKE.value(), SoundCategory.BLOCKS, 1.0f, 1f)
             return ActionResult.CONSUME
         } else {
             val sta = state.get(IS_LEFT_CLICKING).not()
             world.setBlockState(pos, state.with(IS_LEFT_CLICKING, sta))
-            world.playSound(player, pos, HexSounds.FLIGHT_FINISH, SoundCategory.BLOCKS, 1.0f, 1f)
+            world.playSound(player, pos, HexSounds.FLIGHT_FINISH.value(), SoundCategory.BLOCKS, 1.0f, 1f)
             return ActionResult.CONSUME
         }
     }
@@ -148,7 +145,7 @@ class FakePlayerLoci : AbstractSlate {
         bs: BlockState,
         world: ServerWorld
     ): ControlFlow {
-        val hotbar = world.getBlockEntity(NbtHelper.toBlockPos(imageIn.userData.getCompound("hotbar_loci")))
+        val hotbar = world.getBlockEntity(NbtHelper.toBlockPos(imageIn.userData, "hotbar_loci").get())
         if (hotbar !is HotbarLociEntity) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
@@ -156,7 +153,7 @@ class FakePlayerLoci : AbstractSlate {
             )
             return ControlFlow.Stop()
         }
-        val hexStack: ArrayList<Iota> = ArrayList(imageIn.stack)
+        var hexStack = imageIn.stack
         val direction: Direction
         // Either sets direction to where the block is facing, or the provided vector
         if (bs.get(IS_OPTIONAL_VECTOR)) {
@@ -167,8 +164,8 @@ class FakePlayerLoci : AbstractSlate {
                 )
                 return ControlFlow.Stop()
             }
-            val last: Iota = hexStack.get(hexStack.size - 1)
-            hexStack.removeAt(hexStack.size - 1)
+            val last: Iota = hexStack.last()
+
             if (last !is Vec3Iota) {
                 this.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -229,7 +226,7 @@ class FakePlayerLoci : AbstractSlate {
             .stream()
             .collect(Collectors.toList())
         // If we find any entities...
-        if (!entities!!.isEmpty()) {
+        if (entities!!.isNotEmpty()) {
             // Get a random entity
 
             entities.sortWith(Comparator { entity, entity1 -> (entity!!.squaredDistanceTo(fakePos) - entity1!!.squaredDistanceTo(fakePos)).roundToInt() })
@@ -269,7 +266,7 @@ class FakePlayerLoci : AbstractSlate {
         // Go down the interaction list to poll and test each of them
         val z = UseBlockCallback.EVENT.invoker().interact(fake, world, fake.activeHand, hit)
         if (z == ActionResult.PASS) {
-            if (missed || world.getBlockState(hit.blockPos).onUse(world, fake, fake.activeHand, hit) == ActionResult.PASS) {
+            if (missed || world.getBlockState(hit.blockPos).onUse(world, fake, hit) == ActionResult.PASS) {
                 if (missed || fake.activeItem.useOnBlock(ItemUsageContext(fake, fake.activeHand, hit)) == ActionResult.PASS) {
                     fake.setStackInHand(Hand.MAIN_HAND, fake.activeItem.use(world, fake, fake.activeHand).value)
                 }

@@ -3,7 +3,6 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.server.world.ServerWorld;
@@ -16,8 +15,6 @@ import net.minecraft.world.BlockView;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 
-import java.util.ArrayList;
-
 public class MuteLoci extends AbstractSlate {
     public static final DirectionProperty FACING = Properties.FACING;
 
@@ -29,7 +26,7 @@ public class MuteLoci extends AbstractSlate {
     @Override
     public ControlFlow acceptControlFlow(CastingImage castingImage, CircleCastEnv circleCastEnv, Direction direction,
                                          BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
-        ArrayList<Iota> stack = new ArrayList<>(castingImage.getStack());
+        var stack = castingImage.getStack();
         var data = castingImage.getUserData().copy();
 
         var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
@@ -44,8 +41,8 @@ public class MuteLoci extends AbstractSlate {
             return new ControlFlow.Stop();
         }
 
-        var last = stack.get(stack.size() -1);
-        stack.remove(stack.size() -1);
+        var last = stack.last();
+        stack = stack.init();
         if (!(last instanceof DoubleIota)) {
             this.fakeThrowMishap(
                     blockPos, blockState, castingImage, circleCastEnv,
@@ -73,7 +70,7 @@ public class MuteLoci extends AbstractSlate {
         }
         return new ControlFlow.Continue(
                 castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
-                        castingImage.getEscapeNext(), castingImage.getOpsConsumed(), data), exits);
+                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data), exits);
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

@@ -57,7 +57,7 @@ public class HotbarLoci extends AbstractSlate implements BlockEntityProvider {
 
             return new ControlFlow.Continue(
                     imageIn.copy(imageIn.getStack(), imageIn.getParenCount(), imageIn.getParenthesized(),
-                            imageIn.getEscapeNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
+                            imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
         }
         return new ControlFlow.Stop();
     }
@@ -90,7 +90,7 @@ public class HotbarLoci extends AbstractSlate implements BlockEntityProvider {
     }
 
     @Override
-    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
             return ActionResult.SUCCESS;
         } else {

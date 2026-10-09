@@ -1,5 +1,6 @@
 package org.sophia.slate_work.casting.actions.storage
 
+import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.castables.Action
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.OperationResult
@@ -25,25 +26,24 @@ object OpCheckItem : Action {
         if (env !is CircleCastEnv)
             throw MishapNoSpellCircle()
 
-        val stack = image.stack.toMutableList()
+        var stack = image.stack
         val hex = stack.getList(stack.lastIndex, stack.size)
-        stack.removeLastOrNull()
+        stack = stack.init()
         val storages = CircleHelper.getStorage(env)
         val toCheck = CircleHelper.getOnlySlots(storages)
 
 
         if (toCheck.isEmpty()){
-            val stack = image.stack.toMutableList()
-            stack.add(BooleanIota(false))
+            stack = stack.appended(BooleanIota(false))
             return OperationResult(image.withUsedOp().copy(stack = stack), listOf(),
-                continuation, HexEvalSounds.SPELL)
+                continuation, HexEvalSounds.SPELL.get())
         }
 
         val image2 = image.withUsedOp().copy(stack = stack)
-        val frame = FrameCheckItems(hex,stack,toCheck.toMutableList(), JankyMaybe.FIRST)
+        val frame = FrameCheckItems(hex,stack, toCheck.toMutableList(), JankyMaybe.FIRST)
 
         return OperationResult(image2,
             listOf(),
-            continuation.pushFrame(frame), HexEvalSounds.SPELL)
+            continuation.pushFrame(frame), HexEvalSounds.SPELL.get())
     }
 }

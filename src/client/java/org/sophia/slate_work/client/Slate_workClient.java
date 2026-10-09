@@ -14,29 +14,29 @@ import org.sophia.slate_work.client.blockEntityRenders.SaveLociRenderer;
 import org.sophia.slate_work.client.lens.*;
 import org.sophia.slate_work.client.screen.Ghost3x3Screen;
 import org.sophia.slate_work.client.screen.HotbarLociScreen;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 @ClientFieldsAreNonnullByDefault
 public class Slate_workClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        BlockRenderLayerMap.INSTANCE.putBlock(BlockRegistry.BLOCK_BREAKING_LOCI, RenderLayer.getTranslucent());
+        BlockRenderLayerMap.INSTANCE.putBlock(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI, RenderLayer.getTranslucent());
 
         HandledScreens.register(Slate_work.GHOST_3X3_SCREEN, Ghost3x3Screen::new);
         HandledScreens.register(Slate_work.HOTBAR_LOCI_SCREEN, HotbarLociScreen::new);
 
-        BlockEntityRendererRegistry.register(BlockRegistry.MACRO_LOCI_ENTITY, MacroLociRenderer::new);
-        BlockEntityRendererRegistry.register(BlockRegistry.SAVE_LOCI_ENTITY, SaveLociRenderer::new);
-        BlockEntityRendererRegistry.register(BlockRegistry.HOTBAR_LOCI_ENTITY, HotbarLociRenderer::new);
+        BlockEntityRendererRegistry.register(SlateWorksBlockRegistry.MACRO_LOCI_ENTITY, MacroLociRenderer::new);
+        BlockEntityRendererRegistry.register(SlateWorksBlockRegistry.SAVE_LOCI_ENTITY, SaveLociRenderer::new);
+        BlockEntityRendererRegistry.register(SlateWorksBlockRegistry.HOTBAR_LOCI_ENTITY, HotbarLociRenderer::new);
 
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.MACRO_LOCI, new MacroLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.STORAGE_LOCI, new StorageLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.SENTINEL_LOCI, new SentinelLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.BROADCASTER_LOCI, new BroadcasterLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.SAVE_LOCI, new SaveLociScryingKT());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.FAKE_PLAYER_LOCI, new FakePlayerLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.TRADE_LOCI, new TradeLociScrying());
-        ScryingLensOverlayRegistry.addDisplayer(BlockRegistry.BLOCK_BREAKING_LOCI, new BlockBreakLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.MACRO_LOCI, new MacroLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.STORAGE_LOCI, new StorageLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.SENTINEL_LOCI, new SentinelLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.BROADCASTER_LOCI, new BroadcasterLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.SAVE_LOCI, new SaveLociScryingKT());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.FAKE_PLAYER_LOCI, new FakePlayerLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.TRADE_LOCI, new TradeLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI, new BlockBreakLociScrying());
     }
 }

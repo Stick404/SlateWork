@@ -20,7 +20,7 @@ public class BroadcasterLociScrying implements ScryingLensOverlayRegistry.Overla
     public void addLines(List<Pair<ItemStack, Text>> list, BlockState blockState, BlockPos blockPos, PlayerEntity playerEntity, World world, Direction direction) {
         if (world.getBlockEntity(blockPos) instanceof BroadcasterLociEntity entity){
             list.add(new Pair<>(
-                    Items.SCULK_SHRIEKER.getDefaultStack(), IotaType.getDisplay(entity.getIotaCompound())
+                    Items.SCULK_SHRIEKER.getDefaultStack(), entity.getIota().display()
             ));
         }
     }

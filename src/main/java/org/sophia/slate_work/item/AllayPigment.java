@@ -21,11 +21,11 @@ public class AllayPigment extends Item implements PigmentItem {
 
     protected MyColorProvided colorProvider = new MyColorProvided();
 
-    protected static class MyColorProvided extends ColorProvider{
+    protected static class MyColorProvided extends ColorProvider {
         @Override
         protected int getRawColor(float v, Vec3d vec3d) {
             return ADPigment.morphBetweenColors(new int[]{
-                    0xFF6fe4d3, 0xFF2db6d0, //Blue
+                    0xFF6fe4d3, 0xFF2db6d0, // Blue
                     0xFFcfa0f3, 0xFFfecbe6 // Amethyst
             },new Vec3d(0.1,0.1,0.1), v / 70, vec3d);
         }

@@ -32,27 +32,31 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         val data = state.currentImage.userData
 
         /** This is for the Ambit Extender **/
-        val hasPushedPos = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_pos"))
-        val hasPushedNeg = NbtHelper.toBlockPos(data.getCompound("ambit_pushed_neg"))
+        val hasPushedPosOpt = NbtHelper.toBlockPos(data, "ambit_pushed_pos")
+        val hasPushedNegOpt = NbtHelper.toBlockPos(data, "ambit_pushed_neg")
+        if (hasPushedPosOpt.isPresent || hasPushedNegOpt.isPresent) {
+            val hasPushedNeg = hasPushedNegOpt.get()
+            val hasPushedPos = hasPushedPosOpt.get()
 
-        val envBounds = state.bounds
-        val bound = Box(
-            envBounds.minX + hasPushedNeg.x,
-            envBounds.minY + hasPushedNeg.y,
-            envBounds.minZ + hasPushedNeg.z,
-            envBounds.maxX + hasPushedPos.x,
-            envBounds.maxY + hasPushedPos.y,
-            envBounds.maxZ + hasPushedPos.z,
+            val envBounds = state.bounds;
+            val bound = Box(
+                envBounds.enclosingBox().minX + hasPushedNeg.x,
+                envBounds.enclosingBox().minY + hasPushedNeg.y,
+                envBounds.enclosingBox().minZ + hasPushedNeg.z,
+                envBounds.enclosingBox().maxX + hasPushedPos.x,
+                envBounds.enclosingBox().maxY + hasPushedPos.y,
+                envBounds.enclosingBox().maxZ + hasPushedPos.z,
             )
-        if (bound.contains(vec)) {
-            return true
+            if (bound.contains(vec)) {
+                return true
+            }
         }
 
         /** This is for the Sentinel Cache **/
         val sents = data.getList("sentinel_loci", NbtElement.COMPOUND_TYPE.toInt())
         for (temp in sents){
             val posTemp = temp as NbtCompound
-            val pos = NbtHelper.toBlockPos(posTemp.getCompound("pos"))
+            val pos = NbtHelper.toBlockPos(posTemp, "pos").get()
             val entity = env.world.getBlockEntity(pos)
             if (entity !is SentinelLociEntity){
                 continue
@@ -67,7 +71,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
     }
 
     private object Keygen { //code from HexSky
-        val rand = Random(6485284256)
+        val rand = Random(648528425645)
         fun randid() = rand.nextInt()
     }
 

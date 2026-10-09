@@ -44,8 +44,8 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
                 data.putInt("accel_left", accel_left-1);
 
                 var img = this.currentImage;
-                this.slate_work$setImage(img.copy(img.getStack(),img.getParenCount(),img.getParenthesized(),
-                        img.getEscapeNext(),img.getOpsConsumed(),data));
+                this.slate_work$setImage(img.copy(img.getStack(), img.getParenCount(), img.getParenthesized(),
+                        img.getEscapeNext(), img.getSimulateNext(), img.getOpsConsumed(), data));
 
                 this.slate_work$getRealValue();
                 int currentSpeed = this.getTickSpeed();

@@ -13,13 +13,12 @@ import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Quaternionf;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.ArrayList;
 
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
-import static org.sophia.slate_work.client.blockEntityRenders.SaveLociRenderer.rotateY;
 
 public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity> {
     private final ItemRenderer itemRenderer;
@@ -45,7 +44,7 @@ public class HotbarLociRenderer implements BlockEntityRenderer<HotbarLociEntity>
         matrices.translate(0.5,0.5,0.5);
         if (entity.getWorld() != null) {
             var bs = entity.getWorld().getBlockState(entity.getPos());
-            if (bs.getBlock() == BlockRegistry.HOTBAR_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
+            if (bs.getBlock() == SlateWorksBlockRegistry.HOTBAR_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
                 double speed = 2;
                 if (bs.get(ENERGIZED)) speed = 5;
                 double time = (((double) entity.getWorld().getTime() + tickDelta) * (1 * speed));

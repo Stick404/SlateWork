@@ -10,7 +10,7 @@ import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class Ghost3x3Screen extends HandledScreen<Ghost3x3ScreenHandler> {
-    private static final Identifier TEXTURE = new Identifier(MOD_ID,"textures/gui/crafting_loci.png");
+    private static final Identifier TEXTURE = Identifier.of(MOD_ID,"textures/gui/crafting_loci.png");
 
     public Ghost3x3Screen(Ghost3x3ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -26,7 +26,7 @@ public class Ghost3x3Screen extends HandledScreen<Ghost3x3ScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context);
+        this.renderBackground(context, mouseX, mouseY, delta);
         super.render(context, mouseX, mouseY, delta);
         this.drawMouseoverTooltip(context, mouseX, mouseY);
     }

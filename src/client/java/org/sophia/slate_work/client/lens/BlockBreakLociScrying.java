@@ -9,6 +9,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -19,14 +20,15 @@ import org.sophia.slate_work.blocks.entities.BroadcasterLociEntity;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BlockBreakLociScrying implements ScryingLensOverlayRegistry.OverlayBuilder{
     @Override
     public void addLines(List<Pair<ItemStack, Text>> list, BlockState blockState, BlockPos blockPos, PlayerEntity playerEntity, World world, Direction direction) {
         if (world.getBlockEntity(blockPos) instanceof BlockBreakLociEntity entity){
-            Map<Enchantment, Integer> map = EnchantmentHelper.fromNbt(entity.getEnchantments());
-            for (var thing : map.entrySet()){
-                list.add(new Pair<>(Items.ENCHANTED_BOOK.getDefaultStack(), thing.getKey().getName(thing.getValue())));
+            Set<RegistryEntry<Enchantment>> map = entity.getEnchantments().getEnchantments();
+            for (var thing : map){
+                list.add(new Pair<>(Items.ENCHANTED_BOOK.getDefaultStack(), Text.literal(thing.getKey().get().getValue().toTranslationKey())));
             }
         }
     }

@@ -1,16 +1,23 @@
 package org.sophia.slate_work.blocks.entities;
 
+import at.petrak.hexcasting.api.utils.NBTHelper;
 import com.google.common.collect.Sets;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.ListCodec;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -20,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Set;
 
-import static org.sophia.slate_work.registries.BlockRegistry.TRADE_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.TRADE_LOCI_ENTITY;
 
 public class TradeLociEntity extends BlockEntity {
     public TradeOfferList offerList;
@@ -39,33 +46,47 @@ public class TradeLociEntity extends BlockEntity {
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        this.villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data")).getOrThrow(false, (a) -> {
-            throw new RuntimeException(a);
-        }).getFirst();
-        this.offerList = new TradeOfferList(nbt.getCompound("offers"));
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        var villagerData = VillagerData.CODEC.decode(NbtOps.INSTANCE, nbt.get("data"));
+        if (villagerData.isSuccess()) {
+            this.villagerData = villagerData.getOrThrow().getFirst();
+        } else {
+            this.villagerData = new VillagerData(VillagerType.PLAINS, VillagerProfession.NITWIT, 1);
+        }
+
+        var offerList = TradeOffer.CODEC.listOf().decode(registries.getOps(NbtOps.INSTANCE), nbt.getList("offers", NbtElement.COMPOUND_TYPE));
+        if (offerList.isSuccess()) {
+            this.offerList = new TradeOfferList();
+            this.offerList.addAll(offerList.getOrThrow().getFirst());
+        } else {
+            this.offerList = new TradeOfferList();
+        }
+
         this.xp = nbt.getInt("xp");
         this.lastRestockTime = nbt.getLong("LastRestockTime");
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        var data = VillagerData.CODEC.encode(villagerData, NbtOps.INSTANCE, new NbtCompound());
-        nbt.put("data", data.get().map(a -> a, a ->
-        {
-            throw new RuntimeException(a.message());
-        }));
-        nbt.put("offers", offerList.toNbt());
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        var data = VillagerData.CODEC.encodeStart(NbtOps.INSTANCE, villagerData);
+        if (data.isSuccess()) {
+            nbt.put("data", data.getOrThrow());
+        }
+
+        var offers = TradeOffer.CODEC.listOf().encodeStart(registries.getOps(NbtOps.INSTANCE), this.offerList);
+        if (offers.isSuccess()) {
+            nbt.put("offers", offers.getOrThrow());
+        }
         nbt.putInt("xp", this.xp);
         nbt.putLong("LastRestockTime", this.lastRestockTime);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         var z = new NbtCompound();
-        this.writeNbt(z);
+        this.writeNbt(z, registries);
         return z;
     }
 
@@ -123,11 +144,16 @@ public class TradeLociEntity extends BlockEntity {
                 set.add(i);
             }
         }
+        if (this.getWorld() == null){
+            return;
+        }
 
         for(Integer integer : set) {
             TradeOffers.Factory factory = pool[integer];
             // How... bad could this be
-            TradeOffer tradeOffer = factory.create(null, this.random);
+            VillagerEntity entity = new VillagerEntity(EntityType.VILLAGER, this.getWorld());
+            TradeOffer tradeOffer = factory.create(entity, this.random);
+            entity.remove(Entity.RemovalReason.DISCARDED);
             if (tradeOffer != null) {
                 recipeList.add(tradeOffer);
             }

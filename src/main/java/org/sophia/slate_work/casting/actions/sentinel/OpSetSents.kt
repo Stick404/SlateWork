@@ -26,9 +26,9 @@ object OpSetSents : Action {
             throw MishapNoSpellCircle()
         }
 
-        val args = image.stack.toMutableList()
+        var args = image.stack
         val inputList = args.getList(args.lastIndex,1)
-        args.removeLast() // I think?
+        args = args.init()
         val realList = mutableListOf<Vec3d>()
         var i = 0
 
@@ -71,7 +71,6 @@ object OpSetSents : Action {
             if (!found){
                 env.assertVecInRange(realList[i])
             }
-            //TODO: Make this skip most of this other checks and stuff if its not moving the sent
 
             if (sentTime != env.world.time){
                 nbt.putLong("count", 0) // Clears the current "count" if its not the world time
@@ -90,14 +89,14 @@ object OpSetSents : Action {
             i++
         }
 
-        data.putList("sentinel_loci",sentList)
+        data.putList("sentinel_loci", sentList)
         data.putLong("sentinel_time", env.world.time)
 
         return OperationResult(
             image.copy(stack = args, userData = data),
             listOf(),
             continuation,
-            HexEvalSounds.NORMAL_EXECUTE
+            HexEvalSounds.NORMAL_EXECUTE.get()
             )
     }
 }

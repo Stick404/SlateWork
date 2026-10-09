@@ -10,6 +10,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Pair;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
@@ -23,13 +25,13 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.sophia.slate_work.registries.BlockRegistry.STORAGE_LOCI_ENTITY;
+import static org.sophia.slate_work.registries.SlateWorksBlockRegistry.STORAGE_LOCI_ENTITY;
 
 // So this almost works like a fucked up Inventory. Instead of ItemStacks, it uses a pair of ItemStack (for the type)
 // and a Long for the real amount held. Janky? Yes, should work? Hope so!
-@SuppressWarnings(value = "UnstableApiUsage")
 public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<ItemVariant> {
-    private final StorageLociSlot[] slots;
+    private static final Pair<ItemVariant, Long> emptySlot = new Pair<>(ItemVariant.blank(), 0L);
+    private final Pair<ItemVariant, Long>[] slots = DefaultedList.ofSize(16, emptySlot).toArray(new Pair[16]);
     // Java, please, I just want an array of ItemStack.EMPTY at first
 
     public StorageLociEntity(BlockPos pos, BlockState state) {
@@ -41,7 +43,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     @Override
-    protected void saveModData(NbtCompound nbt) {
+    protected void saveModData(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         NbtList nbtList = new NbtList();
 
         for(int i = 0; i < this.slots.length; ++i) {
@@ -49,8 +51,8 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
             if (!stack.isBlank()) {
                 NbtCompound nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte) i);
-                nbtCompound.put("Item", stack.toNbt());
-                nbtCompound.putLong("Count",slots[i].getAmount());
+                nbtCompound.put("Item", ItemVariant.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow());
+                nbtCompound.putLong("Count",slots[i].getRight());
                 nbtList.add(nbtCompound);
             }
         }
@@ -63,7 +65,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
     }
 
     @Override
-    protected void loadModData(NbtCompound nbt) {
+    protected void loadModData(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         var items = nbt.getList("Items", NbtElement.COMPOUND_TYPE);
 
         if (nbt.getBoolean("Empty")){
@@ -72,9 +74,15 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            ItemVariant var = ItemVariant.fromNbt(compound.getCompound("Item"));
-            long count = compound.getLong("Count");
-            this.slots[i] = new StorageLociSlot(this, i, var, count);
+            var item = ItemVariant.CODEC.decode(NbtOps.INSTANCE, compound.getCompound("Item"));
+            Pair<ItemVariant,Long> stack;
+            if (item.isError()) {
+                stack = new Pair<>(ItemVariant.blank(), 0L);
+            } else {
+                stack = new Pair<>(item.getOrThrow().getFirst(), compound.getLong("Count"));;
+            }
+
+            this.slots[i] = stack;
         }
     }
 
@@ -132,8 +140,8 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
     public @Nullable Integer getSlot(ItemVariant item){
         for (int i = 0; i < slots.length; i++) {
-            var stored = this.slots[i].getResource();
-            if (item.getItem() == stored.getItem() && item.nbtMatches(stored.getNbt())) {
+            var stored = this.slots[i].getLeft();
+            if (item.getItem() == stored.getItem() && item.matches(stored.toStack())) {
                 return i;
             }
         }
@@ -178,7 +186,17 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         if (slotT  == -1) return 0;
         int slot = slotT;
 
-        return this.slots[slot].insert(resource, maxAmount, transaction);
+        transaction.addCloseCallback((context, z) -> {
+            var stack = getStack(slot);
+            if (z.wasCommitted()) {
+                if (stack.getLeft().isBlank())
+                    this.setStack(slot, new Pair<>(resource, maxAmount));
+                else
+                    this.setStack(slot, new Pair<>(stack.getLeft(), stack.getRight() + maxAmount));
+                this.sync();
+            }
+        });
+        return maxAmount;
     }
 
     @Override
@@ -190,7 +208,21 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
         StorageLociSlot storageSlot = this.slots[slot];
         long returned = Math.min(storageSlot.getAmount(), maxAmount);
 
-        return storageSlot.extract(resource, returned, transaction);
+        if (copy == ItemVariant.blank() || pair.getRight() == 0){
+            this.slots[slot] = emptySlot;
+        }
+        if (pair.getRight() <= maxAmount) {
+            returned = pair.getRight();
+        } else {
+            returned = maxAmount;
+        }
+        this.markDirty();
+        transaction.addCloseCallback((context, z) -> {
+            if (z.wasCommitted()) {
+                this.removeStack(slot, (int) maxAmount);
+            }
+        });
+        return returned;
     }
 
     @Override

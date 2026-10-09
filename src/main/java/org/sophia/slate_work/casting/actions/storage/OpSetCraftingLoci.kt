@@ -12,9 +12,8 @@ import org.sophia.slate_work.blocks.entities.CraftingLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
 import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.misc.CircleHelper.getItemVariant
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 
-@Suppress("UnstableApiUsage")
 object OpSetCraftingLoci : ConstMediaAction {
     override val argc: Int
         get() = 2
@@ -37,7 +36,7 @@ object OpSetCraftingLoci : ConstMediaAction {
         val entity = env.world.getBlockEntity(BlockPos(target.x, target.y, target.z))
         if (entity !is CraftingLociEntity){
             throw MishapWrongBlock(target,
-                BlockRegistry.CRAFTING_LOCI,
+                SlateWorksBlockRegistry.CRAFTING_LOCI,
                 env.world.getBlockState(BlockPos(target.x, target.y, target.z)).block)
         }
         entity.clear()

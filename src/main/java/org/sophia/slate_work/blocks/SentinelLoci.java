@@ -41,16 +41,15 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir));
         var data = castingImage.getUserData().copy();
 
-        if (!blockState.get(ENERGIZED)) {
-            var extracted = circleCastEnv.extractMedia(MediaConstants.DUST_UNIT / 100, false);
-            if (0L != extracted) {
-                this.fakeThrowMishap(
-                        blockPos, blockState, castingImage, circleCastEnv,
-                        new MishapSpellCircleMedia(MediaConstants.DUST_UNIT / 100, blockPos)
-                );
-                return new ControlFlow.Stop();
-            }
+        var extracted = circleCastEnv.extractMedia(MediaConstants.DUST_UNIT / 100, false);
+        if (0L != extracted) {
+            this.fakeThrowMishap(
+                    blockPos, blockState, castingImage, circleCastEnv,
+                    new MishapSpellCircleMedia(MediaConstants.DUST_UNIT / 100, blockPos)
+            );
+            return new ControlFlow.Stop();
         }
+
 
         var sentTime = data.getLong("sentinel_time");
         if (sentTime == 0L){
@@ -60,15 +59,15 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
 
         var entity = serverWorld.getBlockEntity(blockPos);
         if (entity instanceof SentinelLociEntity sent){
-            var list = data.getList("sentinel_loci", NbtElement.COMPOUND_TYPE);
+            var list = data.getList("sentinel_loci", NbtElement.INT_ARRAY_TYPE);
             var compound = new NbtCompound();
-            compound.put("pos",NbtHelper.fromBlockPos(sent.getPos()));
+            compound.put("pos", NbtHelper.fromBlockPos(sent.getPos()));
             compound.putLong("count", 0);
             list.add(compound);
-            data.put("sentinel_loci",list);
+            data.put("sentinel_loci", list);
             return new ControlFlow.Continue(
                     castingImage.copy(castingImage.getStack(),castingImage.getParenCount(),castingImage.getParenthesized(),
-                            castingImage.getEscapeNext(),castingImage.getOpsConsumed(),data), exitDirs.toList()
+                            castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data), exitDirs.toList()
             );
         }
 

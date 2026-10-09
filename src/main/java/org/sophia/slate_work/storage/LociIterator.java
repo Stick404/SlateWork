@@ -6,7 +6,6 @@ import net.fabricmc.fabric.api.transfer.v1.storage.StorageView;
 
 import java.util.Iterator;
 
-@SuppressWarnings("UnstableApiUsage")
 public class LociIterator<T extends SlottedStorage<ItemVariant>> implements Iterator<StorageView<ItemVariant>> {
     private int index = 0;
     private final T entity;

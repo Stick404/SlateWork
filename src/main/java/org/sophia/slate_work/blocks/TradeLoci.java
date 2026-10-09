@@ -3,9 +3,10 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-import at.petrak.hexcasting.api.casting.iota.Iota;
 import at.petrak.hexcasting.common.blocks.circles.directrix.BlockBooleanDirectrix;
 import com.mojang.datafixers.util.Pair;
+import kotlin.jvm.optionals.OptionalsKt;
+import net.fabricmc.fabric.api.transfer.v1.item.ItemStorage;
 import net.fabricmc.fabric.api.transfer.v1.item.ItemVariant;
 import net.fabricmc.fabric.api.transfer.v1.transaction.Transaction;
 import net.minecraft.block.BlockEntityProvider;
@@ -22,13 +23,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
 import net.minecraft.village.TradeOffer;
+import net.minecraft.village.TradedItem;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapNoStorageLoci;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,19 +52,19 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
         //return world.isClient ? null : BeehiveBlock.checkType(type, BlockRegistry.TRADE_LOCI_ENTITY, TradeLociEntity::serverTick);
-        return (!world.isClient || BlockRegistry.TRADE_LOCI_ENTITY != type) ? TradeLociEntity::tick : null;
+        return (!world.isClient || SlateWorksBlockRegistry.TRADE_LOCI_ENTITY != type) ? TradeLociEntity::tick : null;
     }
 
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         List<Pair<BlockPos, Direction>> exit = new ArrayList<>();
         if (world.getBlockEntity(pos) instanceof TradeLociEntity entity) {
-            ArrayList<Iota> stack = new ArrayList<>(imageIn.getStack());
+            var stack = imageIn.getStack();
 
             if (stack.isEmpty()) {
-                var list = world.getEntitiesByClass(VillagerEntity.class, (new Box(pos, pos)).expand(10), (a) -> true);
+                var list = world.getEntitiesByClass(VillagerEntity.class, (new Box(pos)).expand(10), (a) -> true);
                 if (!list.isEmpty()) {
-                    entity.slurpVillager(list.get(0));
+                    entity.slurpVillager(list.getFirst());
                 }
 
                 this.fakeThrowMishap(
@@ -71,8 +74,7 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
                 return new ControlFlow.Stop();
             }
 
-            var last = stack.get(stack.size() -1);
-            stack.remove(stack.size() -1);
+            var last = stack.last();
             if (!(last instanceof DoubleIota)) {
                 this.fakeThrowMishap(
                         pos, bs, imageIn, env,
@@ -100,14 +102,17 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             // All the checks are done, now for the more checks
             TradeOffer offer = entity.offerList.get(index);
 
-            ItemStack firstBuyItem = offer.getAdjustedFirstBuyItem();
-            ItemStack secondBuyItem = offer.getSecondBuyItem();
+            ItemStack firstBuyItem = offer.getFirstBuyItem().itemStack();
+            ItemStack secondBuyItem = OptionalsKt.getOrDefault(offer.getSecondBuyItem().map(TradedItem::itemStack), ItemStack.EMPTY);
 
             ItemSlot firstItem = storages.get(ItemVariant.of(firstBuyItem));
-            ItemSlot secondItem = storages.get(ItemVariant.of(secondBuyItem));
+            ItemSlot secondItem = null;
+            if (secondBuyItem != null) {
+                secondItem = storages.get(ItemVariant.of(secondBuyItem));
+            }
             if (firstItem == null || secondItem == null ||
-                    firstItem.component2() < firstBuyItem.getCount() ||
-                    secondItem.component2() < secondBuyItem.getCount() ||
+                    firstItem.getCount() < firstBuyItem.getCount() ||
+                    secondItem.getCount() < secondBuyItem.getCount() ||
                     offer.isDisabled()
             ) {
                 exit.add(this.exitPositionFromDirection(pos, bs.get(FACING).getOpposite()));
@@ -120,9 +125,11 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
             // God this is... interesting
 
             try (Transaction transaction = Transaction.openOuter()){
+                StorageLociEntity loci1 = (StorageLociEntity) env.getWorld().getBlockEntity(firstItem.getPos());
+                StorageLociEntity loci2 = (StorageLociEntity) env.getWorld().getBlockEntity(secondItem.getPos());
 
-                long firstItemExtracted = firstItem.getStorageLociEntity().extract(firstItem.getItem(), firstBuyItem.getCount(), transaction);
-                long secondItemExtracted = secondItem.getStorageLociEntity().extract(secondItem.getItem(), secondBuyItem.getCount(), transaction);
+                long firstItemExtracted = loci1.extract(firstItem.getItem(), firstBuyItem.getCount(), transaction);
+                long secondItemExtracted = loci2.extract(secondItem.getItem(), secondBuyItem.getCount(), transaction);
 
                 if (firstItemExtracted == firstBuyItem.getCount() && secondItemExtracted == secondBuyItem.getCount()) {
                     transaction.commit();
@@ -150,8 +157,8 @@ public class TradeLoci extends BlockBooleanDirectrix implements BlockEntityProvi
         BlockEntity blockEntity = world.getBlockEntity(pos);
         if (blockEntity instanceof TradeLociEntity && !newState.isOf(state.getBlock())) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.TRADE_LOCI);
-                blockEntity.setStackNbt(itemStack);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.TRADE_LOCI);
+                blockEntity.setStackNbt(itemStack, world.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);

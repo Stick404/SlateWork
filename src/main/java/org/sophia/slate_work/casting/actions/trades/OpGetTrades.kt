@@ -9,7 +9,7 @@ import at.petrak.hexcasting.api.casting.iota.ListIota
 import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.blocks.entities.TradeLociEntity
 import org.sophia.slate_work.casting.mishap.MishapWrongBlock
-import org.sophia.slate_work.registries.BlockRegistry
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 
 object OpGetTrades : ConstMediaAction {
@@ -24,11 +24,14 @@ object OpGetTrades : ConstMediaAction {
         env.assertVecInRange(pos.toCenterPos())
         val entity = env.world.getBlockEntity(pos)
         if (entity is TradeLociEntity) {
-            var listOfIota: MutableList<Iota> = mutableListOf();
+            val listOfIota: MutableList<Iota> = mutableListOf();
             for (offer in entity.offerList) {
-                var index: MutableList<Iota> = mutableListOf();
-                index.add(ItemStackIota.createFiltered(offer.adjustedFirstBuyItem));
-                index.add(ItemStackIota.createFiltered(offer.secondBuyItem))
+                val index: MutableList<Iota> = mutableListOf();
+
+                index.add(ItemStackIota.createFiltered(offer.firstBuyItem.itemStack));
+                offer.secondBuyItem.ifPresent {
+                    index.add(ItemStackIota.createFiltered(it.itemStack))
+                }
                 index.add(ItemStackIota.createFiltered(offer.sellItem))
                 index.add(DoubleIota((offer.uses.toDouble() / offer.maxUses.toDouble())))
 
@@ -37,6 +40,6 @@ object OpGetTrades : ConstMediaAction {
             return listOf(ListIota(listOfIota))
         }
 
-        throw MishapWrongBlock(pos, BlockRegistry.TRADE_LOCI, env.world.getBlockState(pos).block)
+        throw MishapWrongBlock(pos, SlateWorksBlockRegistry.TRADE_LOCI, env.world.getBlockState(pos).block)
     }
 }

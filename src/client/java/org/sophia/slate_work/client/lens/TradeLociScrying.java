@@ -3,6 +3,9 @@ package org.sophia.slate_work.client.lens;
 import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.BlockState;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
@@ -13,6 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.village.TradedItem;
 import net.minecraft.world.World;
 import org.sophia.slate_work.blocks.entities.TradeLociEntity;
 
@@ -28,8 +32,8 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
             int i = 0;
             for (var trade : entity.offerList){
                 ItemStack first = trade.getOriginalFirstBuyItem().copy();
-                ItemStack firstAdjusted = trade.getAdjustedFirstBuyItem().copy();
-                ItemStack second = trade.getSecondBuyItem().copy();
+                ItemStack firstAdjusted = trade.getFirstBuyItem().itemStack().copy();
+                ItemStack second = trade.getSecondBuyItem().orElseGet(() -> new TradedItem(ItemStack.EMPTY.getItem())).itemStack().copy();
                 ItemStack sell = trade.getSellItem().copy();
 
                 MutableText text = Text.empty();
@@ -48,14 +52,14 @@ public class TradeLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 }
                 text.append(" → ");
                 text.append(sell.getName().copy().append("[item+" + sell.getItem().toString() + "]"));
-                NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
-                if (!nbtCheck.isEmpty()) {
-                    List<Text> enchants = new ArrayList<>();
 
-                    ItemStack.appendEnchantments(enchants, nbtCheck);
-                    for (var enchant : enchants){
+                ItemEnchantmentsComponent component = EnchantmentHelper.getEnchantments(sell);
+                //NbtList nbtCheck = EnchantedBookItem.getEnchantmentNbt(sell);
+                if (!component.isEmpty()) {
+
+                    for (var enchant : component.getEnchantments()){
                         text.append(" ");
-                        text.append(enchant);
+                        text.append(Enchantment.getName(enchant, component.getLevel(enchant)));
                     }
                 }
 

@@ -8,6 +8,7 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
 import static org.sophia.slate_work.Slate_work.HOTBAR_LOCI_SCREEN;
@@ -28,9 +29,9 @@ public class HotbarLociScreenHandler extends ScreenHandler {
         this(syncId, playerInventory, blockEntity);
     }
 
-    public HotbarLociScreenHandler(int id, PlayerInventory playerInventory, PacketByteBuf packetByteBuf) {
+    public HotbarLociScreenHandler(int id, PlayerInventory playerInventory, BlockPos pos) {
         this(id,playerInventory, playerInventory,
-                (HotbarLociEntity) playerInventory.player.getWorld().getBlockEntity(packetByteBuf.readBlockPos())
+                (HotbarLociEntity) playerInventory.player.getWorld().getBlockEntity(pos)
         );
     }
 

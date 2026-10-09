@@ -5,7 +5,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
-@SuppressWarnings("UnstableApiUsage")
 public class FakeInvHotbarLoci implements Inventory {
     final HotbarLociEntity parent;
 

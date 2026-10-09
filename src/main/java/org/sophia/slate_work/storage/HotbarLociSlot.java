@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.transfer.v1.transaction.base.SnapshotParticipant;
 import net.minecraft.util.Pair;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
 
-@SuppressWarnings("UnstableApiUsage")
 public class HotbarLociSlot implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
     private final HotbarLociEntity parent;
     private final int slot;

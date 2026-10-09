@@ -10,7 +10,7 @@ import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.math.MatrixStack;
 import org.joml.Quaternionf;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import static at.petrak.hexcasting.api.block.circle.BlockCircleComponent.ENERGIZED;
 
@@ -27,7 +27,7 @@ public class MacroLociRenderer implements BlockEntityRenderer<MacroLociEntity> {
         if (entity.getWorld() != null) {
 
             var bs = entity.getWorld().getBlockState(entity.getPos());
-            if (bs.getBlock() == BlockRegistry.MACRO_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
+            if (bs.getBlock() == SlateWorksBlockRegistry.MACRO_LOCI && MinecraftClient.getInstance().getCameraEntity() != null) {
                 var camEntity = MinecraftClient.getInstance().getCameraEntity();
 
                 matrices.translate(0.5, 0.5, 0.5);

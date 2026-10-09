@@ -20,11 +20,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
-@SuppressWarnings("deprecation")
 public class StorageLoci extends AbstractSlate implements Equipment, BlockEntityProvider {
 
     // Hell!
@@ -74,14 +73,14 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir));
         var data = imageIn.getUserData().copy();
-        var list = data.getList("storage_loci", NbtElement.COMPOUND_TYPE);
+        var list = data.getList("storage_loci", NbtElement.INT_ARRAY_TYPE);
         var check = NbtHelper.fromBlockPos(pos);
         if (!list.contains(check)) list.add(check);
 
         data.put("storage_loci",list);
 
         return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(),imageIn.getParenCount(),
-                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
+                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
     }
 
     @Override
@@ -109,10 +108,10 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
     @Override
     public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
         BlockEntity blockEntity = world.getBlockEntity(pos);
-        if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock())) {
+        if (blockEntity instanceof StorageLociEntity storageLoci && !newState.isOf(state.getBlock()) && world instanceof ServerWorld serverWorld) {
             if (!world.isClient) {
-                ItemStack itemStack = new ItemStack(BlockRegistry.STORAGE_LOCI);
-                blockEntity.setStackNbt(itemStack);
+                ItemStack itemStack = new ItemStack(SlateWorksBlockRegistry.STORAGE_LOCI);
+                blockEntity.setStackNbt(itemStack, serverWorld.getRegistryManager());
                 ItemEntity itemEntity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, itemStack);
                 itemEntity.setToDefaultPickupDelay();
                 world.spawnEntity(itemEntity);

@@ -10,12 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Pair;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 
-@SuppressWarnings("UnstableApiUsage")
-public class StorageLociSlot extends SnapshotParticipant<StorageLociSlot> implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
-    protected final StorageLociEntity parent;
-    protected final int slot;
-    protected ItemVariant variant;
-    protected long count;
+public class StorageLociSlot implements SingleSlotStorage<ItemVariant>, StorageView<ItemVariant> {
+    private final StorageLociEntity parent;
+    private final int slot;
 
     public StorageLociSlot(StorageLociEntity parent, int slot){
         this.parent = parent;

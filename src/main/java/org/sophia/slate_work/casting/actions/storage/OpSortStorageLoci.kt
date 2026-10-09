@@ -13,7 +13,6 @@ import org.sophia.slate_work.misc.CircleHelper
 import java.util.HashMap
 import kotlin.collections.iterator
 
-@Suppress("UnstableApiUsage")
 object OpSortStorageLoci : ConstMediaAction {
     // In case the player fucks shit up, they can call this to quickly sort their vessels
     override val argc: Int

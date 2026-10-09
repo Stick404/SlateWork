@@ -36,7 +36,7 @@ public class MacroLociScrying implements ScryingLensOverlayRegistry.OverlayBuild
                 ));
             }
         } catch (Exception e) {
-            list.add(new Pair<>(HexItems.LORE_FRAGMENT.getDefaultStack(), HexUtils.styledWith(Text.translatable("slate_work.scrying.macro.error"), Formatting.DARK_RED)));
+            list.add(new Pair<>(HexItems.LORE_FRAGMENT.get().getDefaultStack(), HexUtils.styledWith(Text.translatable("slate_work.scrying.macro.error"), Formatting.DARK_RED)));
         }
     }
 }

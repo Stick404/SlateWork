@@ -10,12 +10,13 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.listener.ClientPlayPacketListener;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
-import org.sophia.slate_work.registries.BlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 
 import static org.sophia.slate_work.blocks.AbstractSlate.FACING;
 
@@ -23,13 +24,13 @@ public class SentinelLociEntity extends BlockEntity {
     private Vec3d pos = this.getPos().toCenterPos();
 
     public SentinelLociEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.SENTINEL_LOCI_ENTITY, pos, state);
+        super(SlateWorksBlockRegistry.SENTINEL_LOCI_ENTITY, pos, state);
     }
 
     @Override
-    public NbtCompound toInitialChunkDataNbt() {
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
         var z = new NbtCompound();
-        this.writeNbt(z);
+        this.writeNbt(z, registries);
         return z;
     }
 
@@ -55,28 +56,28 @@ public class SentinelLociEntity extends BlockEntity {
         if (this.world instanceof ServerWorld world){
             var facing = new Vec3d(this.getCachedState().get(FACING).getOpposite().getUnitVector());
             ParticleSpray sprayDown = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing, 0.1d, (Math.PI /  4), 15);
-            sprayDown.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+            sprayDown.sprayParticles(world, new FrozenPigment(new ItemStack((SlateWorksBlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
 
             ParticleSpray sprayUp = new ParticleSpray(this.getPos().toCenterPos().add(facing.multiply(.1f)), facing.multiply(-1), 0.1d, (Math.PI /  4), 15);
-            sprayUp.sprayParticles(world, new FrozenPigment(new ItemStack((BlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
+            sprayUp.sprayParticles(world, new FrozenPigment(new ItemStack((SlateWorksBlockRegistry.ALLAY_PIGMENT)), Util.NIL_UUID));
         }
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         this.pos = new Vec3d(
                 nbt.getDouble("xSent"),
                 nbt.getDouble("ySent"),
                 nbt.getDouble("zSent")
         );
-        super.readNbt(nbt);
+        super.readNbt(nbt, registries);
     }
 
     @Override
-    protected void writeNbt(NbtCompound nbt) {
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         nbt.putDouble("xSent", this.pos.x);
         nbt.putDouble("ySent", this.pos.y);
         nbt.putDouble("zSent", this.pos.z);
-        super.writeNbt(nbt);
+        super.writeNbt(nbt, registries);
     }
 }
