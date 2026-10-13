@@ -28,7 +28,7 @@ import java.util.Optional;
 /// This is a smaller helper class that holds Codecs for Kotlin classes.
 /// Mostly because I do not want to learn how to do the functional
 public class SlateWorksCodecs {
-    private SlateWorksCodecs() {};
+    private SlateWorksCodecs() {}
 
     public static final Codec<CircleHelper.ItemSlot> ITEM_SLOT_CODEC  = RecordCodecBuilder.create(
             instance -> instance.group(
