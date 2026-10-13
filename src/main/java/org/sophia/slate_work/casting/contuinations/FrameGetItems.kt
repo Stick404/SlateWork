@@ -16,6 +16,7 @@ import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.TreeList
@@ -65,7 +66,7 @@ class FrameGetItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                val rev = stack.reversedVec();
+                val rev = stack.reversedVec()
                 if (rev.length() < 2)
                     throw MishapNotEnoughArgs(3, rev.length())
 
@@ -89,6 +90,23 @@ class FrameGetItems(
                     ResolvedPatternType.ERRORED,
                     HexEvalSounds.NORMAL_EXECUTE.get()
                 )
+            } catch (e: Exception){
+                sideEffect.add(
+                    OperatorSideEffect.DoMishap(
+                        MishapInternalException(e), Mishap.Context(
+                            null,
+                            Text.translatable("hexcasting.action.slate_work:check_item")
+                        )
+                    )
+                )
+                return CastResult(
+                    ListIota(code),
+                    continuation,
+                    harness.image.withUsedOp().copy(stack = stack),
+                    sideEffect,
+                    ResolvedPatternType.ERRORED,
+                    HexEvalSounds.NORMAL_EXECUTE.get()
+                )
             }
         }
 
@@ -98,7 +116,7 @@ class FrameGetItems(
 
         val cont = if (isFirst != JankyMaybe.LAST){
             val itemStack = slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())
-            stack = baseStack.appended(SlateWorksCodecs.makeIota(itemStack, level.registryManager));
+            stack = baseStack.appended(SlateWorksCodecs.makeIota(itemStack, level.registryManager))
 
             when (isFirst){
                JankyMaybe.PENULTIMATE -> {

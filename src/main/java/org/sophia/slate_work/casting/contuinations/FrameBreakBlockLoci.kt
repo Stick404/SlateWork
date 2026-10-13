@@ -1,7 +1,6 @@
 package org.sophia.slate_work.casting.contuinations
 
 import at.petrak.hexcasting.api.casting.RenderedSpell
-import at.petrak.hexcasting.api.casting.SpellList
 import at.petrak.hexcasting.api.casting.eval.CastResult
 import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.eval.ResolvedPatternType
@@ -16,6 +15,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation
+import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
@@ -130,6 +130,23 @@ class FrameBreakBlockLoci(
                     ResolvedPatternType.ERRORED,
                     HexEvalSounds.NORMAL_EXECUTE.get()
                 )
+            } catch (e: Exception){
+                sideEffect.add(
+                    OperatorSideEffect.DoMishap(
+                        MishapInternalException(e), Mishap.Context(
+                            null,
+                            Text.translatable("hexcasting.action.slate_work:check_item")
+                        )
+                    )
+                )
+                return CastResult(
+                    ListIota(code),
+                    continuation,
+                    harness.image.withUsedOp().copy(stack = stack),
+                    sideEffect,
+                    ResolvedPatternType.ERRORED,
+                    HexEvalSounds.NORMAL_EXECUTE.get()
+                )
             }
         }
 
@@ -195,11 +212,11 @@ class FrameBreakBlockLoci(
                 }.forEach { item ->
                     if (!CircleHelper.storeItems(env as CircleCastEnv, item.left)){
                         // If it fails to store, spit item out
-                        val center = item.getRight();
+                        val center = item.getRight()
                         val itemEntity =
-                            ItemEntity(env.world, center.getX(), center.getY(), center.getZ(), item.getLeft());
-                        itemEntity.setToDefaultPickupDelay();
-                        env.world.spawnEntity(itemEntity);
+                            ItemEntity(env.world, center.getX(), center.getY(), center.getZ(), item.getLeft())
+                        itemEntity.setToDefaultPickupDelay()
+                        env.world.spawnEntity(itemEntity)
                     }
                 }
                 env.world.breakBlock(pos, false)

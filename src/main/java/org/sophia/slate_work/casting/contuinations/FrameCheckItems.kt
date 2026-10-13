@@ -13,6 +13,7 @@ import at.petrak.hexcasting.api.casting.iota.BooleanIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
 import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.TreeList
@@ -63,7 +64,7 @@ class FrameCheckItems(
 
                 val rev = stack.reversedVec()
 
-                if (rev.length() < 1)
+                if (rev.isEmpty())
                     throw MishapNotEnoughArgs(1, 0)
 
                 if (rev.getBool(0, 0)) {
@@ -73,6 +74,23 @@ class FrameCheckItems(
                 sideEffect.add(
                     OperatorSideEffect.DoMishap(
                         e, Mishap.Context(
+                            null,
+                            Text.translatable("hexcasting.action.slate_work:check_item")
+                        )
+                    )
+                )
+                return CastResult(
+                    ListIota(code),
+                    continuation,
+                    harness.image.withUsedOp().copy(stack = stack),
+                    sideEffect,
+                    ResolvedPatternType.ERRORED,
+                    HexEvalSounds.NORMAL_EXECUTE.get()
+                )
+            } catch (e: Exception){
+                sideEffect.add(
+                    OperatorSideEffect.DoMishap(
+                        MishapInternalException(e), Mishap.Context(
                             null,
                             Text.translatable("hexcasting.action.slate_work:check_item")
                         )
