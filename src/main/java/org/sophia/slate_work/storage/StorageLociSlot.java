@@ -63,10 +63,11 @@ public class StorageLociSlot extends SnapshotParticipant<StorageLociSlot> implem
 
     @Override
     public long extract(ItemVariant resource, long maxAmount, TransactionContext transaction) {
-        if (resource.equals(this.variant)) {
+        if (resource.equals(this.variant) && this.count > 0) {
             updateSnapshots(transaction);
-            this.count -= maxAmount;
-            return maxAmount;
+            long ret = Math.min(maxAmount, this.count);
+            this.count -= ret;
+            return ret;
         }
 
         return 0;
