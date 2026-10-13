@@ -16,13 +16,13 @@ import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import com.mojang.serialization.MapCodec
 import net.fabricmc.fabric.impl.transfer.transaction.TransactionManagerImpl
 import net.minecraft.entity.ItemEntity
-import net.minecraft.nbt.NbtOps
 import net.minecraft.network.RegistryByteBuf
 import net.minecraft.network.codec.PacketCodec
 import net.minecraft.server.world.ServerWorld
@@ -31,8 +31,6 @@ import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
 import org.sophia.slate_work.misc.CircleHelper
 import org.sophia.slate_work.misc.SlateWorksCodecs
-import ram.talia.moreiotas.api.casting.iota.ItemStackIota
-import java.util.Objects
 
 @Suppress("UnstableApiUsage", "DATA_CLASS_INVISIBLE_COPY_USAGE_WARNING")
 class FrameGetItems(
@@ -51,9 +49,7 @@ class FrameGetItems(
 
     // Kind of copies what Thoth's (FrameForEach) does
     override fun evaluate(continuation: SpellContinuation, level: ServerWorld, harness: CastingVM): CastResult {
-        println("Starting eval on GetItems")
         var stack = harness.image.stack
-        println("Checking stack: $stack")
         val slot = if (isFirst != JankyMaybe.LAST && toCheck.isNotEmpty()){
             toCheck.removeFirst()
         } else {
@@ -69,13 +65,15 @@ class FrameGetItems(
                     throw MishapNoSpellCircle() // Chloe I know you are reading this. No.
                 }
 
-                println("Getting bool")
                 val rev = stack.reversedVec();
+                if (rev.length() < 2)
+                    throw MishapNotEnoughArgs(3, rev.length())
+
                 if (rev.getBool(0, 2)){
                     val pos = rev.getVec3(1,2)
                     val amount = rev.getPositiveInt(2,2)
                     harness.env.assertVecInRange(pos)
-                    println("Added side effect!")
+
                     sideEffect.add(OperatorSideEffect.AttemptSpell(DumpDumbHexIsStupid(
                         Triple(oldReturn,pos,amount)
                     )))
@@ -83,7 +81,6 @@ class FrameGetItems(
             } catch (e : Mishap){
                 sideEffect.add(OperatorSideEffect.DoMishap(e, Mishap.Context(null,
                     Text.translatable("hexcasting.action.slate_work:get_item"))))
-                println("Mishap")
                 return CastResult(
                     ListIota(code),
                     continuation,
@@ -103,7 +100,6 @@ class FrameGetItems(
             val itemStack = slot!!.item.toStack(if (slot.count > Int.MAX_VALUE) Int.MAX_VALUE else slot.count.toInt())
             stack = baseStack.appended(SlateWorksCodecs.makeIota(itemStack, level.registryManager));
 
-            println("Doing wonky check")
             when (isFirst){
                JankyMaybe.PENULTIMATE -> {
                    continuation
@@ -121,7 +117,6 @@ class FrameGetItems(
             continuation
         }
 
-        println("Cast that thang with stack $stack")
         return CastResult(
             ListIota(code),
             cont,

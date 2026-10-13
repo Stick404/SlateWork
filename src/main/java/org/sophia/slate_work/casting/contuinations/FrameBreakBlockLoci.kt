@@ -16,6 +16,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.mod.HexTags
@@ -102,6 +103,8 @@ class FrameBreakBlockLoci(
                 // Then, the whole cost is divided by efficiency*0.5; meaning highest cost reduce (base game) is 2.5 times.
                 // So, the "best" locus would cost... 1.25 dust (Eff 5, Fort 3)
                 val realStack = harness.image.stack.reversed()
+                if (realStack.isEmpty())
+                    throw MishapNotEnoughArgs(1, 0)
                 if (realStack.getBool(0, 0)){
                     val extracted: Long = harness.env.extractMedia(cost, false)
                     // If we fail to extract Media at any point, shrimply die

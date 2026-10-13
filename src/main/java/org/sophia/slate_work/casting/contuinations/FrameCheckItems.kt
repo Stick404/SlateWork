@@ -13,6 +13,7 @@ import at.petrak.hexcasting.api.casting.iota.BooleanIota
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.utils.TreeList
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
@@ -61,6 +62,10 @@ class FrameCheckItems(
                 }
 
                 val rev = stack.reversedVec()
+
+                if (rev.length() < 1)
+                    throw MishapNotEnoughArgs(1, 0)
+
                 if (rev.getBool(0, 0)) {
                     hasFound = true
                 }
