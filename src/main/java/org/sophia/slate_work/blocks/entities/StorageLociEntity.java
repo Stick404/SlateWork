@@ -51,7 +51,7 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
             if (!stack.isBlank()) {
                 NbtCompound nbtCompound = new NbtCompound();
                 nbtCompound.putByte("Slot", (byte) i);
-                nbtCompound.put("Item", ItemVariant.CODEC.encodeStart(NbtOps.INSTANCE, stack).getOrThrow());
+                nbtCompound.put("Item", ItemVariant.CODEC.encodeStart(registries.getOps(NbtOps.INSTANCE), stack).getOrThrow());
                 nbtCompound.putLong("Count", slots[i].getAmount());
                 nbtList.add(nbtCompound);
             }
@@ -74,12 +74,12 @@ public class StorageLociEntity extends HexBlockEntity implements SlottedStorage<
 
         for (int i = 0; i < this.slots.length; ++i) {
             NbtCompound compound = items.getCompound(i);
-            var item = ItemVariant.CODEC.decode(NbtOps.INSTANCE, compound.getCompound("Item"));
+            var item = ItemVariant.CODEC.decode(registries.getOps(NbtOps.INSTANCE), compound.getCompound("Item"));
             StorageLociSlot stack;
             if (item.isError()) {
                 stack = new StorageLociSlot(this, i, ItemVariant.blank(), 0L);
             } else {
-                stack = new StorageLociSlot(this, i,item.getOrThrow().getFirst(), compound.getLong("Count"));;
+                stack = new StorageLociSlot(this, i,item.getOrThrow().getFirst(), compound.getLong("Count"));
             }
 
             this.slots[i] = stack;
