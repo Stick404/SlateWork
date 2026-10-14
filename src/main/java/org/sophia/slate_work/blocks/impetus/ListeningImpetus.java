@@ -16,6 +16,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,7 +37,12 @@ public class ListeningImpetus extends BlockAbstractImpetus {
     }
 
     @Override
-    public ActionResult use(BlockState pState, World world, BlockPos pos, PlayerEntity player, Hand pHand, BlockHitResult pHit) {
+    public ActionResult use(BlockState pState, World pLevel, BlockPos pPos, PlayerEntity pPlayer, Hand pHand, BlockHitResult pHit) {
+        return null;
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world instanceof ServerWorld sLevel && sLevel.getBlockEntity(pos) instanceof ListeningImpetusEntity entity){
             var usedStack = player.getStackInHand(player.getActiveHand());
             if (usedStack.isEmpty() && player.isSneaking()){
@@ -44,20 +50,26 @@ public class ListeningImpetus extends BlockAbstractImpetus {
                 entity.sync();
                 sLevel.playSound(null, pos, HexSounds.IMPETUS_REDSTONE_CLEAR.value(), SoundCategory.BLOCKS, 1f, 1f);
                 return ActionResult.SUCCESS;
-            } else {
-                var datumItem = IXplatAbstractions.INSTANCE.findDataHolder(usedStack);
-                if (datumItem != null){
-                    var data = datumItem.readIota();
-                    if (data instanceof StringIota text){
-                        entity.setString(text.getString());
-                        entity.sync();
-                        sLevel.playSound(null, pos, HexSounds.IMPETUS_REDSTONE_DING.value(), SoundCategory.BLOCKS, 1f, 1f);
-                        return ActionResult.SUCCESS;
-                    }
-                }
             }
         }
         return ActionResult.PASS;
+    }
+
+    @Override
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (world instanceof ServerWorld sLevel && sLevel.getBlockEntity(pos) instanceof ListeningImpetusEntity entity){
+            var datumItem = IXplatAbstractions.INSTANCE.findDataHolder(stack);
+            if (datumItem != null){
+                var data = datumItem.readIota();
+                if (data instanceof StringIota text){
+                    entity.setString(text.getString());
+                    entity.sync();
+                    sLevel.playSound(null, pos, HexSounds.IMPETUS_REDSTONE_DING.value(), SoundCategory.BLOCKS, 1f, 1f);
+                    return ItemActionResult.SUCCESS;
+                }
+            }
+        }
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     @Override
