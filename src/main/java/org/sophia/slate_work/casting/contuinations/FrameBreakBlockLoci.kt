@@ -13,6 +13,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getBool
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.ListIota
+import at.petrak.hexcasting.api.casting.iota.Vec3Iota
 import at.petrak.hexcasting.api.casting.mishaps.Mishap
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation
 import at.petrak.hexcasting.api.casting.mishaps.MishapInternalException
@@ -155,6 +156,7 @@ class FrameBreakBlockLoci(
         }
 
         val cont = if (isFirst != JankyMaybe.LAST){
+            stack = stack.appended(Vec3Iota(slot.toCenterPos()))
             stack = stack.appended(ItemTypeIota(level.getBlockState(slot).block))
 
              when (isFirst){
