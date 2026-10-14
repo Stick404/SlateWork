@@ -15,6 +15,10 @@
       "text": "slate_work.page.redstone_loci.redstone_loci"
     },
     {
+      "type": "patchouli:text",
+      "text": "slate_work.page.redstone_loci.receive"
+    },
+    {
       "type": "patchouli:crafting",
       "recipe": "slate_work:redstone_loci_craft",
       "text": "slate_work.page.redstone_loci.crafting"

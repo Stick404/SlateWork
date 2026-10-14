@@ -145,6 +145,7 @@
   "slate_work.entry.redstone_loci": "Redstone Agitator",
   "slate_work.page.redstone_loci.intro": "As I build more complex $(l:greatwork/spellcircles)Spell Circles/$, I require finer control over redstone output of the slates.$(br)While a comparator works for more basic circles; it only gives off a flat redstone output of 15, and stays triggered until the $(l:greatwork/spellcircles)Circle/$ ends.",
   "slate_work.page.redstone_loci.redstone_loci": "Thus, is why I have created the $(thing)Redstone Agitator/$. This pops a number between 0 and 15 (inclusive) from the stack, and sets the redstone output of the $(thing)Agitator/$ to that number. Additionally, it stops giving off redstone power when the $(thing)Media Wave/$ leaves the slate. $(br2)While not quite intended, this seems to have coevolved with another ancient blueprint, the \"Undulator\" from the same libraries as the $(l:greatwork/accelerator_loci)Accelerator/$.",
+  "slate_work.page.redstone_loci.receive": "A useful feature I have built into the $(thing)Redstone Agitator/$ is the ability to also $(o)read/$ redstone input. If I lightly tap the $(thing)Redstone Agitator/$ with my hand, it begins to induct redstone. Once the $(thing)Media Wave/$ pass by, it will push the current supplied redstone power to the $(l:greatwork/spellcircles)Spell Circle/$",
   "slate_work.page.redstone_loci.crafting": "Combing a mixture of $(item)redstone dust/$ and $(l:items/amethyst)amethyst dust/$, and intertwining it with a slate creates the exact mixture of redstone conductivity I require.",
 
   "slate_work.entry.akashic_loci": "Akashic Locus",
@@ -260,6 +261,9 @@
   "slate_work.scrying.fake_player": "Optional Vector: ",
   "slate_work.scrying.fake_player.2": "Will Attack: ",
   "slate_work.scrying.fake_player.true": "True",
+
+  "slate_work.scrying.redstone.receive_on":"Reading Redstone",
+  "slate_work.scrying.redstone.receive_off": "Emitting Redstone",
 
   "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
   "slate_work.scrying.save.escaping": "Is Running Consideration: ",

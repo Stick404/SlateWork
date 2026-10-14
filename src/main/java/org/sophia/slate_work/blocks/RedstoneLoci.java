@@ -3,15 +3,19 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.DoubleIota;
-import at.petrak.hexcasting.api.casting.iota.Iota;
+import at.petrak.hexcasting.common.lib.HexSounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
@@ -23,11 +27,9 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
 
-import java.util.ArrayList;
-
-@SuppressWarnings("deprecation")
 public class RedstoneLoci extends AbstractSlate {
     public static final BooleanProperty POWERED = Properties.POWERED;
+    public static final BooleanProperty RECEIVE = BooleanProperty.of("receive");
     public static final IntProperty POWER = Properties.POWER;
 
     @Override
@@ -37,13 +39,13 @@ public class RedstoneLoci extends AbstractSlate {
 
     public RedstoneLoci(Settings p_49795_) {
         super(p_49795_);
-        this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 0).with(POWERED, false).with(WATERLOGGED, false));
+        this.setDefaultState(this.stateManager.getDefaultState().with(POWER, 0).with(POWERED, false).with(WATERLOGGED, false).with(RECEIVE, false));
     }
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
-        builder.add(POWER, POWERED);
+        builder.add(POWER, POWERED, RECEIVE);
     }
 
     @Override
@@ -84,8 +86,46 @@ public class RedstoneLoci extends AbstractSlate {
     }
 
     @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        world.setBlockState(pos, state.with(RECEIVE, !state.get(RECEIVE)));
+        world.playSound(player, pos, HexSounds.FLIGHT_FINISH.value(), SoundCategory.BLOCKS, 1.0f, 1f);
+        return super.onUse(state, world, pos, player, hit);
+    }
+
+    @Override
+    protected void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        super.neighborUpdate(state, world, pos, sourceBlock, sourcePos, notify);
+        if (state.get(RECEIVE)){
+            int power = world.getReceivedRedstonePower(pos);
+            if (power > 0) {
+                world.setBlockState(pos, state.with(POWER, power));
+            }
+        }
+    }
+
+    @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         var stack = imageIn.getStack();
+        var exitDirsSet = this.possibleExitDirections(pos, bs, world);
+        exitDirsSet.remove(enterDir.getOpposite());
+        var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
+
+        var imp = env.getImpetus();
+        if (imp != null && imp.getExecutionState() != null){
+            this.scheduleTick(world, pos,
+                    ((ICircleSpeedValue) env.getImpetus().getExecutionState()).slate_work$getTickSpeed()
+            );
+        }
+
+        if (bs.get(RECEIVE)) {
+            int power = world.getReceivedRedstonePower(pos);
+            stack = stack.appended(new DoubleIota(power));
+            var newbs = bs.with(POWER, power).with(POWERED, true);
+            world.setBlockState(pos, newbs);
+
+            return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
+                    imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+        }
 
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
@@ -116,17 +156,6 @@ public class RedstoneLoci extends AbstractSlate {
         var newbs = bs.with(POWER, power).with(POWERED, true);
         world.setBlockState(pos, newbs);
         this.updateNeighbors(world, pos, newbs);
-
-        var imp = env.getImpetus();
-        if (imp != null && imp.getExecutionState() != null){
-            this.scheduleTick(world, pos,
-                    ((ICircleSpeedValue) env.getImpetus().getExecutionState()).slate_work$getTickSpeed()
-            );
-        }
-
-        var exitDirsSet = this.possibleExitDirections(pos, bs, world);
-        exitDirsSet.remove(enterDir.getOpposite());
-        var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
 
         return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
                 imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);

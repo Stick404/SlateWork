@@ -38,5 +38,6 @@ public class Slate_workClient implements ClientModInitializer {
         ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.FAKE_PLAYER_LOCI, new FakePlayerLociScrying());
         ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.TRADE_LOCI, new TradeLociScrying());
         ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.BLOCK_BREAKING_LOCI, new BlockBreakLociScrying());
+        ScryingLensOverlayRegistry.addDisplayer(SlateWorksBlockRegistry.REDSTONE_LOCI, new RedstoneLociScrying());
     }
 }
