@@ -22,12 +22,10 @@ public class SlateWorksTrinkets {
                     @Override
                     public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack,
                                                   SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
-
                         var map = Trinket.super.getModifiers(stack, slot, entity, slotIdentifier);
                         for (var entry : SlateWorksBlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack).entries()) {
                             map.put(entry.getKey(), entry.getValue());
                         }
-
                         return map;
                     }
                 });

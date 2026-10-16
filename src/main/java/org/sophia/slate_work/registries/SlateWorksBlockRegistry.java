@@ -97,9 +97,9 @@ public class SlateWorksBlockRegistry {
 
 
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
-    public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(new Item.Settings().maxCount(1).attributeModifiers(
-            AttributeModifiersComponent.builder().add(SlateWorksAttributeRegistry.WHISPERING, WhisperingStone.WHISPERING_HELD,
-                    AttributeModifierSlot.ANY).build())));
+    public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(
+            new Item.Settings().maxCount(1).attributeModifiers(WhisperingStone.MODIFIERS)));
+
     public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci",
             new BlockBreakLociItem(new Item.Settings()));
 

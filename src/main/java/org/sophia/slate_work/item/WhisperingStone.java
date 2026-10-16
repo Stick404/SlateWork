@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
@@ -32,6 +33,7 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
         super(settings);
         //settings = settings.attributeModifiers(builder.build());
     }
+
     public static final EntityAttributeModifier WHISPERING_HELD = new EntityAttributeModifier(
             Identifier.of(MOD_ID, "whispering_held"),
             1, EntityAttributeModifier.Operation.ADD_VALUE);
@@ -39,6 +41,11 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
     public static final EntityAttributeModifier WHISPERING_WORN = new EntityAttributeModifier(
             Identifier.of(MOD_ID, "whispering_worn"),
             1, EntityAttributeModifier.Operation.ADD_VALUE);
+
+    public static final AttributeModifiersComponent MODIFIERS = AttributeModifiersComponent.builder()
+            .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_HELD, AttributeModifierSlot.MAINHAND)
+            .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_WORN, AttributeModifierSlot.ANY)
+            .build();
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
@@ -48,7 +55,7 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
             var entity = world.getBlockEntity(context.getBlockPos());
             if (entity instanceof ListeningImpetusEntity listening && !listening.isDefault()){
                 if (context.getPlayer() != null){
-                    context.getPlayer().playSound(HexSounds.ABACUS.value(), 1f, 1f);
+                    context.getPlayer().playSoundToPlayer(HexSounds.ABACUS.value(), SoundCategory.PLAYERS,1f, 1f);
                 }
                 stack.set(SlateWorksComponents.WHISPERING_STONE_COMPONENT, new SlateWorksComponents.WhisperingStoneComponent(
                         listening.getString(),
@@ -58,7 +65,7 @@ public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
                 return ActionResult.SUCCESS;
             }
             if (context.getPlayer() != null && context.getPlayer().isSneaking() && stack.getComponents().contains(SlateWorksComponents.WHISPERING_STONE_COMPONENT)) {
-                context.getPlayer().playSound(HexSounds.ABACUS_SHAKE.value(), 1f, 1f);
+                context.getPlayer().playSoundToPlayer(HexSounds.ABACUS_SHAKE.value(), SoundCategory.PLAYERS,1f, 1f);
                 stack.remove(SlateWorksComponents.WHISPERING_STONE_COMPONENT);
                 return ActionResult.SUCCESS;
             }

@@ -19,6 +19,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -84,20 +85,20 @@ public class Slate_work implements ModInitializer {
                     }
                     if (!z.failed() && z.blocked()) {
                         if (z.item() && z.entity().isEmpty()) {
-                            sender.playSound(HexSounds.FLIGHT_FINISH.value(), 1f, 1.5f);
+                            sender.playSoundToPlayer(HexSounds.FLIGHT_FINISH.value(), SoundCategory.PLAYERS, 1f, 1.5f);
                         }
                         else {
-                            sender.playSound(HexSounds.READ_LORE_FRAGMENT.value(), 1f, 2f);
+                            sender.playSoundToPlayer(HexSounds.READ_LORE_FRAGMENT.value(), SoundCategory.PLAYERS, 1f, 2f);
                         }
                     } else if (z.failed() && z.whispering().isPresent() && z.entity().isEmpty() && z.blocked()) {
                         var stack = z.whispering().get();
                         SlateWorksComponents.WhisperingStoneComponent component = stack.get(SlateWorksComponents.WHISPERING_STONE_COMPONENT);
 
                         if (component != null && component.dim().equals(sender.getWorld().getRegistryKey().getValue())) {
-                            sender.playSound(HexSounds.CAST_FAILURE.value(), 1f, 1f);
+                            sender.playSoundToPlayer(HexSounds.CAST_FAILURE.value(), SoundCategory.PLAYERS, 1f, 1f);
                             stack.remove(SlateWorksComponents.WHISPERING_STONE_COMPONENT);
                         } else {
-                            sender.playSound(HexSounds.SCROLL_SCRIBBLE.value(), 1f, 1f);
+                            sender.playSoundToPlayer(HexSounds.SCROLL_SCRIBBLE.value(), SoundCategory.PLAYERS, 1f, 1f);
                         }
 
                     }
