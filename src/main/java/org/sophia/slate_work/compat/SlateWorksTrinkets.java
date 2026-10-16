@@ -6,7 +6,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.Identifier;
 import org.sophia.slate_work.misc.ChatHelper;
 import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
 import org.sophia.slate_work.storage.SlateFakePlayer;
@@ -18,12 +20,14 @@ public class SlateWorksTrinkets {
         TrinketsApi.registerTrinket(SlateWorksBlockRegistry.WHISPERING_STONE,
                 new Trinket() {
                     @Override
-                    public Multimap<EntityAttribute, EntityAttributeModifier> getModifiers(ItemStack stack, SlotReference slot,
-                                                                                           LivingEntity entity, UUID uuid) {
-                        var map = Trinket.super.getModifiers(stack, slot, entity, uuid);
+                    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack,
+                                                  SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
+
+                        var map = Trinket.super.getModifiers(stack, slot, entity, slotIdentifier);
                         for (var entry : SlateWorksBlockRegistry.WHISPERING_STONE.getHexBaubleAttrs(stack).entries()) {
-                            map.put(entry.getKey().value(), entry.getValue());
+                            map.put(entry.getKey(), entry.getValue());
                         }
+
                         return map;
                     }
                 });
