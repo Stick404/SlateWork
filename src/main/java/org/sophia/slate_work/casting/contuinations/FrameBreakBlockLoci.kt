@@ -81,7 +81,7 @@ class FrameBreakBlockLoci(
                 }
 
                 // Since the item may not have Fortune
-                val fortuneCost = entity.enchantments.enchantments.find{
+                val fortuneCost: Int = entity.enchantments.enchantments.find{
                     a -> a.matchesKey(Enchantments.FORTUNE) }.let { entity.enchantments.getLevel(it) }
                 val efficiencyMult = entity.enchantments.enchantments.find{
                         a -> a.matchesKey(Enchantments.EFFICIENCY) }.let { entity.enchantments.getLevel(it) }
@@ -97,8 +97,9 @@ class FrameBreakBlockLoci(
                 val isCheap: Boolean = level.getBlockState(oldReturn).streamTags()
                     .anyMatch { a: TagKey<Block?>? -> a == HexTags.Blocks.CHEAP_TO_BREAK_BLOCK }
                 val cheapCost = if (isCheap) MediaConstants.DUST_UNIT / 100 else MediaConstants.DUST_UNIT / 8
+
                 val cost =
-                    ((cheapCost + (silkTouchCost * MediaConstants.SHARD_UNIT) + (fortuneCost * MediaConstants.DUST_UNIT)) / (efficiencyMult * 0.5)).toLong()
+                    ((cheapCost + (silkTouchCost * MediaConstants.SHARD_UNIT) + (fortuneCost * MediaConstants.DUST_UNIT)) / (efficiencyMult * 1.5)).toLong()
                 // Okay so. Theres the source cost, then its added by either Silk Touch (an extra shard), or added Fortune*a dust.
                 // This means Fortune 3 (highest base game) is an extra 3 shards; feels fare since its a locus/needs the block in front of it.
                 // Then, the whole cost is divided by efficiency*0.5; meaning highest cost reduce (base game) is 2.5 times.
