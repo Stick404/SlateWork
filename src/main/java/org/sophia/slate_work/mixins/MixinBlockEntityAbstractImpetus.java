@@ -14,8 +14,6 @@ import org.sophia.slate_work.Slate_work;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
-import java.util.logging.Level;
-
 @Mixin(BlockEntityAbstractImpetus.class)
 public abstract class MixinBlockEntityAbstractImpetus extends HexBlockEntity implements SidedInventory {
     private MixinBlockEntityAbstractImpetus(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {

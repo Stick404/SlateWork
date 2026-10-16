@@ -55,12 +55,12 @@ object OpIAmSoSorryForMyCrimesHexxyForgiveMe : Action {
 
         val bounds = env.circleState().bounds
         val offset = when(facing) {
-            Direction.NORTH -> pos.z - bounds.enclosingBox().minZ
+            Direction.NORTH -> bounds.enclosingBox().minZ - pos.z
             Direction.SOUTH -> bounds.enclosingBox().maxZ - pos.z
-            Direction.EAST -> pos.x - bounds.enclosingBox().minX
+            Direction.EAST -> bounds.enclosingBox().minX - pos.x
             Direction.WEST -> bounds.enclosingBox().maxX - pos.x
+            Direction.DOWN -> bounds.enclosingBox().minY - pos.y
             Direction.UP -> bounds.enclosingBox().maxY - pos.y
-            Direction.DOWN -> pos.y - bounds.enclosingBox().maxY
         }
 
         val blocks: MutableList<BlockPos> =
