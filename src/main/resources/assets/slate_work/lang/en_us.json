@@ -273,5 +273,7 @@
   "slate_work.scrying.save.stack": "The Stack: ",
   "slate_work.scrying.save.ravenmind": "The Ravenmind: ",
 
-  "slate_work.attributes.whispering": "Whispering Stone Speech"
+  "slate_work.attributes.whispering": "Whispering Stone Speech",
+
+  "slate_work.mixin.crash_prevent.text_serd": "Slate Works just prevented a crash. Please check the logs!"
 }
