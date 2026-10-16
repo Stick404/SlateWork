@@ -129,7 +129,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                 var temp = craftingLoci.getStack(i);
                 ItemVariant variant = ItemVariant.of(temp);
                 if (!storages.containsKey(variant)) { // If we cant find the variant, kill the search and push false
-                    stack = stack.prepended(new BooleanIota(false));
+                    stack = stack.appended(new BooleanIota(false));
                     return new ControlFlow.Continue(
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
@@ -145,7 +145,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             var recipeOpt = serverWorld.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, container, serverWorld);
 
             if (recipeOpt.isEmpty()) { // If a recipe was not found, then yadadada
-                stack = stack.prepended(new BooleanIota(false));
+                stack = stack.appended(new BooleanIota(false));
                 return new ControlFlow.Continue(
                         castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                         exits);
@@ -156,7 +156,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                     continue;
                 var slot = storages.get(pair.getKey());
                 if (slot.getCount() < pair.getValue()) { // If so, kill and push false
-                    stack = stack.prepended(new BooleanIota(false));
+                    stack = stack.appended(new BooleanIota(false));
                     return new ControlFlow.Continue(
                             castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                             exits);
@@ -179,7 +179,7 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             }
 
             serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING.value(), SoundCategory.BLOCKS, 1.0F, 1F);
-            stack = stack.prepended(new BooleanIota(true));
+            stack = stack.appended(new BooleanIota(true));
             return new ControlFlow.Continue(
                     castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
                     exits);
