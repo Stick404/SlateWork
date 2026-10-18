@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.eval.vm.SpellContinuation
 import at.petrak.hexcasting.api.casting.getList
 import at.petrak.hexcasting.api.casting.mishaps.MishapBadLocation
+import at.petrak.hexcasting.api.casting.mishaps.MishapNotEnoughArgs
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
 import net.minecraft.component.ComponentChanges
@@ -41,6 +42,9 @@ object OpIAmSoSorryForMyCrimesHexxyForgiveMe : Action {
 
         var stack = image.stack
         val revStack = stack.reversedVec()
+        if (revStack.isEmpty())
+            throw MishapNotEnoughArgs(1, 0)
+
         val hex = revStack.getList(0, 1)
         stack = stack.init()
 

@@ -121,7 +121,6 @@ class FrameBreakBlockLoci(
                     }
                 }
             } catch (e : Mishap){
-                // TODO: Change this translation!
                 sideEffect.add(OperatorSideEffect.DoMishap(e, Mishap.Context(null,
                     Text.translatable("block.slate_work.block_break_loci"))))
                 return CastResult(
