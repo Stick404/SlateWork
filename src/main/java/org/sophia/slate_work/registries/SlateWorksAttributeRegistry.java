@@ -30,6 +30,9 @@ public class SlateWorksAttributeRegistry {
     public static final RegistryEntry<EntityAttribute> WHISPERING = make("whispering", new ClampedEntityAttribute(
             MOD_ID + ".attributes.whispering", 0, 0, 1).setTracked(true));
 
+    public static final RegistryEntry<EntityAttribute> WHISPERING_HEXTENDED = make("whispering_hextended", new ClampedEntityAttribute(
+            MOD_ID + ".attributes.whispering", 0, 0, 1).setTracked(true));
+
     private static RegistryEntry<EntityAttribute> make(String id, EntityAttribute attr) {
         var old = ATTRIBUTES.put(Identifier.of(MOD_ID, id), attr);
         if (old != null) {

@@ -32,7 +32,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 @Mixin(CircleCastEnv.class)
-public abstract class MixinCircleEnv extends CastingEnvironment{
+public abstract class MixinCircleEnv extends CastingEnvironment {
     public MixinCircleEnv(ServerWorld world, CircleExecutionState execState) {
         super(world);
     }

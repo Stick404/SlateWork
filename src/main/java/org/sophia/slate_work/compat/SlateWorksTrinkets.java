@@ -9,8 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import org.sophia.slate_work.item.WhisperingStone;
 import org.sophia.slate_work.misc.ChatHelper;
+import org.sophia.slate_work.registries.SlateWorksAttributeRegistry;
 import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksComponents;
 import org.sophia.slate_work.storage.SlateFakePlayer;
 
 import java.util.UUID;
@@ -29,13 +32,27 @@ public class SlateWorksTrinkets {
                         return map;
                     }
                 });
+
+        TrinketsApi.registerTrinket(SlateWorksBlockRegistry.WHISPERING_HEXTENDED_STONE,
+                new Trinket() {
+                    @Override
+                    public Multimap<RegistryEntry<EntityAttribute>, EntityAttributeModifier> getModifiers(ItemStack stack,
+                                                                                                          SlotReference slot, LivingEntity entity, Identifier slotIdentifier) {
+                        var map = Trinket.super.getModifiers(stack, slot, entity, slotIdentifier);
+                        for (var entry : SlateWorksBlockRegistry.WHISPERING_HEXTENDED_STONE.getHexBaubleAttrs(stack).entries()) {
+                            map.put(entry.getKey(), entry.getValue());
+                        }
+                        map.put(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED, WhisperingStone.HEXTENDED_WORN);
+                        return map;
+                    }
+                });
     }
 
     public static void finder(ChatHelper.ItemHold hold, ServerPlayerEntity sender){
         var opt = TrinketsApi.getTrinketComponent(sender);
         if (opt.isEmpty()) return;
 
-        for (var z : opt.get().getEquipped(SlateWorksBlockRegistry.WHISPERING_STONE)){
+        for (var z : opt.get().getEquipped(a -> a.contains(SlateWorksComponents.WHISPERING_STONE_COMPONENT))){
             hold.setStack(z.getRight());
             break;
         }

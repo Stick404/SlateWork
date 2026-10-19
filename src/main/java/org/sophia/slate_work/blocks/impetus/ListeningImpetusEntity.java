@@ -16,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtHelper;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -35,6 +36,7 @@ import java.util.List;
 public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implements ADIotaHolder {
     public static final String DEFAULT =
             "Hi! You just found out about the default Listening Impetus string. If you send this exact one, it will be triggered. This was a bug, but I kept it because it was funny";
+    public static final String LISTENING_UUID = "listening_uuid";
     private String string = DEFAULT;
     private EntityIota playerIota = null;
     private StringIota textIota = null;
@@ -53,8 +55,7 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
     }
 
     @Override
-    public void startExecution(ServerPlayerEntity player) {
-        var realPlayer = player;
+    public void startExecution(ServerPlayerEntity realPlayer) {
         if (this.world == null)
             return; // TODO: error here?
         if (this.world.isClient)
@@ -84,7 +85,9 @@ public class ListeningImpetusEntity extends BlockEntityAbstractImpetus implement
         realPlayer.playSound(HexSounds.IMPETUS_REDSTONE_DING.value(), 1f, 0.5f);
         this.executionState = result.unwrap();
         var image = this.executionState.currentImage;
+        image.getUserData().put(LISTENING_UUID, NbtHelper.fromUuid(playerIota.getEntityId()));
         var stack = TreeList.<Iota>empty();
+
         stack = stack.appended(textIota);
         stack = stack.appended(playerIota);
 

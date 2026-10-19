@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "slate_work:whispering_stone"
+    "slate_work:whispering_stone",
+    "slate_work:whispering_hextended_stone"
   ]
 }

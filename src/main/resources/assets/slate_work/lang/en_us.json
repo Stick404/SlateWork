@@ -57,9 +57,9 @@
   "Items:": "",
   "item.slate_work.allay_pigment": "Quenched Pigment",
   "item.slate_work.whispering_stone": "Whispering Stone",
+  "item.slate_work.whispering_hextended_stone": "Hextended Whispering Stone",
   "item.slate_work.whispering_stone.cords": "Location: ",
   "item.slate_work.whispering_stone.string": "Moniker: ",
-  "slate_work.entry.storage_loci_block": "Storage Vessels",
   "item.slate_work.whispering_stone.no_cords": "No currently bound location",
 
 

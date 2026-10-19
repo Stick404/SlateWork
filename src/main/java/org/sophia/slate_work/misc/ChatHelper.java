@@ -48,20 +48,23 @@ public class ChatHelper {
         if (compared.equals(LAST_CHECK_DATA.getLeft()) && sender.getWorld().getTime() == LAST_CHECK_DATA.getRight()){
             return LAST_CHECK;
         }
+
         ServerWorld world = sender.getServerWorld();
         if (sender.getAttributeValue(SlateWorksAttributeRegistry.WHISPERING) > 0) {
             var ref = new ItemHold();
-            sender.getHandItems().iterator().forEachRemaining((item) -> {
-                if (item.isOf(SlateWorksBlockRegistry.WHISPERING_STONE)) {
+            for (var item : sender.getHandItems()) {
+                if (item.get(SlateWorksComponents.WHISPERING_STONE_COMPONENT) != null) {
                     ref.stack = item;
+                    break;
                 }
-            });
+            }
             if (ref.stack == null) {
-                sender.getArmorItems().forEach((item) -> {
-                    if (item.isOf(SlateWorksBlockRegistry.WHISPERING_STONE)) {
+                for (ItemStack item : sender.getArmorItems()) {
+                    if (item.get(SlateWorksComponents.WHISPERING_STONE_COMPONENT) != null) {
                         ref.stack = item;
+                        break;
                     }
-                });
+                }
             }
             if (ref.stack == null && TRINKETS) {
                 SlateWorksTrinkets.finder(ref, sender);

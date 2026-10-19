@@ -10,6 +10,7 @@ import net.minecraft.util.math.Box
 import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity
+import org.sophia.slate_work.registries.SlateWorksAttributeRegistry
 import kotlin.random.Random
 
 class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironmentComponent.IsVecInRange{
@@ -21,15 +22,26 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         if (inAmbit || env !is CircleCastEnv)
             return inAmbit
 
+        val state = env.circleState()
+        val data = state.currentImage.userData
+
         /** This is for the Librarian Impetus **/
         if (env.impetus is ListeningImpetusEntity) {
             if (vec.squaredDistanceTo(env.impetus?.pos?.toCenterPos()) <= 16 * 16 +0.00000000001){
                 return true
             }
-        }
 
-        val state = env.circleState()
-        val data = state.currentImage.userData
+            val listen = data.get(ListeningImpetusEntity.LISTENING_UUID)
+            if (listen != null){
+                val uuid = NbtHelper.toUuid(listen)
+                val player = env.world.getPlayerByUuid(uuid)
+                if (player != null
+                    && player.getAttributeValue(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED) == 1.0
+                    && vec.squaredDistanceTo(player.pos) <= player.height * player.height) {
+                    return true
+                }
+            }
+        }
 
         /** This is for the Ambit Extender **/
         val hasPushedPosOpt = NbtHelper.toBlockPos(data, "ambit_pushed_pos")

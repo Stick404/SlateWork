@@ -25,26 +25,34 @@ import org.sophia.slate_work.registries.SlateWorksAttributeRegistry;
 import org.sophia.slate_work.registries.SlateWorksComponents;
 
 import java.util.List;
+import java.util.function.Function;
 
 import static org.sophia.slate_work.Slate_work.MOD_ID;
 
 public class WhisperingStone extends Item implements HexBaubleItem, Equipment {
     public WhisperingStone(Settings settings) {
         super(settings);
-        //settings = settings.attributeModifiers(builder.build());
     }
 
-    public static final EntityAttributeModifier WHISPERING_HELD = new EntityAttributeModifier(
-            Identifier.of(MOD_ID, "whispering_held"),
+    private static final Function<String, EntityAttributeModifier> FACTORY = (a) ->  new EntityAttributeModifier(
+            Identifier.of(MOD_ID, a),
             1, EntityAttributeModifier.Operation.ADD_VALUE);
 
-    public static final EntityAttributeModifier WHISPERING_WORN = new EntityAttributeModifier(
-            Identifier.of(MOD_ID, "whispering_worn"),
-            1, EntityAttributeModifier.Operation.ADD_VALUE);
+    public static final EntityAttributeModifier WHISPERING_HELD = FACTORY.apply("whispering_held");
+    public static final EntityAttributeModifier WHISPERING_WORN = FACTORY.apply("whispering_worn");
+    public static final EntityAttributeModifier HEXTENDED_HELD = FACTORY.apply("hextended_held");
+    public static final EntityAttributeModifier HEXTENDED_WORN = FACTORY.apply("hextended_worn");
 
     public static final AttributeModifiersComponent MODIFIERS = AttributeModifiersComponent.builder()
             .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_HELD, AttributeModifierSlot.MAINHAND)
             .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_WORN, AttributeModifierSlot.ANY)
+            .build();
+
+    public static final AttributeModifiersComponent MODIFIERS_HEXTENDED = AttributeModifiersComponent.builder()
+            .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_HELD, AttributeModifierSlot.MAINHAND)
+            .add(SlateWorksAttributeRegistry.WHISPERING, WHISPERING_WORN, AttributeModifierSlot.ANY)
+            .add(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED, HEXTENDED_HELD, AttributeModifierSlot.MAINHAND)
+            .add(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED, HEXTENDED_WORN, AttributeModifierSlot.ANY)
             .build();
 
     @Override

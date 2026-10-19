@@ -21,6 +21,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import org.sophia.slate_work.SlateWorkConfig;
 import org.sophia.slate_work.blocks.*;
 import org.sophia.slate_work.blocks.entities.*;
@@ -99,6 +100,8 @@ public class SlateWorksBlockRegistry {
     public static AllayPigment ALLAY_PIGMENT = registerItem("allay_pigment", new AllayPigment(new Item.Settings().maxCount(1)));
     public static WhisperingStone WHISPERING_STONE = registerItem("whispering_stone", new WhisperingStone(
             new Item.Settings().maxCount(1).attributeModifiers(WhisperingStone.MODIFIERS)));
+    public static WhisperingStone WHISPERING_HEXTENDED_STONE = registerItem("whispering_hextended_stone", new WhisperingStone(
+            new Item.Settings().maxCount(1).attributeModifiers(WhisperingStone.MODIFIERS_HEXTENDED).rarity(UNCOMMON)));
 
     public static BlockBreakLociItem BLOCK_BREAKING_LOCI_ITEM = registerItem("block_break_loci",
             new BlockBreakLociItem(new Item.Settings()));

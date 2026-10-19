@@ -1,7 +1,7 @@
-// 1.21.1	2026-10-09T17:44:27.779440658	Slate Works/Tags for minecraft:item
+// 1.21.1	2026-10-18T23:54:41.95010463	Slate Works/Tags for minecraft:item
 8ad39c57c0a828c4da3b6915f4bb598bf25feefb data/minecraft/tags/item/enchantable/equippable.json
 8ad39c57c0a828c4da3b6915f4bb598bf25feefb data/minecraft/tags/item/enchantable/head_armor.json
-75a6cf3d3a15a4ba401bdcf75d1c4dc512caa2c8 data/minecraft/tags/item/enchantable/durability.json
 8ad39c57c0a828c4da3b6915f4bb598bf25feefb data/minecraft/tags/item/head_armor.json
+75a6cf3d3a15a4ba401bdcf75d1c4dc512caa2c8 data/minecraft/tags/item/enchantable/durability.json
 75a6cf3d3a15a4ba401bdcf75d1c4dc512caa2c8 data/minecraft/tags/item/enchantable/mining_loot.json
 75a6cf3d3a15a4ba401bdcf75d1c4dc512caa2c8 data/minecraft/tags/item/enchantable/mining.json

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "slate_work:whispering_stone"
+    },
+    {
+      "item": "minecraft:disc_fragment_5"
+    },
+    {
+      "item": "hexcasting:quenched_allay_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "slate_work:whispering_hextended_stone"
+  }
+}

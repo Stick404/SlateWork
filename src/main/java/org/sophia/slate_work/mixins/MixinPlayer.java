@@ -28,7 +28,8 @@ public abstract class MixinPlayer {
     @Inject(at = @At("RETURN"), method = "createPlayerAttributes")
     private static void slate_work$addAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir){
         var out = cir.getReturnValue();
-        out.add(SlateWorksAttributeRegistry.WHISPERING);
+        out.add(SlateWorksAttributeRegistry.WHISPERING, 0);
+        out.add(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED, 0);
     }
 
     @Inject(method = "dropItem(Lnet/minecraft/item/ItemStack;ZZ)Lnet/minecraft/entity/ItemEntity;", at = @At("HEAD"), cancellable = true)
@@ -47,7 +48,7 @@ public abstract class MixinPlayer {
     @Inject(method = "equipStack", at = @At("HEAD"))
     private void slate_work$IDontWantTheseGetRidOfThem(EquipmentSlot slot, ItemStack stack, CallbackInfo ci){
         if ((Object)this instanceof SlateFakePlayer player && !stack.isEmpty()) {
-            this.dropItem(stack, true, false);
+            player.dropItem(stack, true, false);
         }
     }
 }

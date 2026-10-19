@@ -1,9 +1,9 @@
-// 1.21.1	2026-10-09T17:44:27.779132732	Slate Works/Model Definitions
+// 1.21.1	2026-10-18T23:54:41.949875634	Slate Works/Model Definitions
 14779da5f4503e4e927d8cf9ff9c0427897543af assets/slate_work/models/item/copper_plated_slate.json
 7ad63dd7ef4036429f10b4cca6d928df699531cd assets/slate_work/models/item/listening_impetus.json
 c09b9ac5680eb16f9fc8663336c6557fd5e6dbcd assets/slate_work/models/item/storage_loci.json
-1ec06eb9ca12d043f95e8d1c02cf94d0fc6e53c8 assets/slate_work/models/block/slate_plated_edified_planks_3.json
 84be3ddf73d71177603550a0cecb590ef520d893 assets/slate_work/models/item/slate_plated_edified_planks.json
+1ec06eb9ca12d043f95e8d1c02cf94d0fc6e53c8 assets/slate_work/models/block/slate_plated_edified_planks_3.json
 5d3e3ec84d1e252e62b75a033b154d53559f64a9 assets/slate_work/models/item/macro_loci.json
 56fce66043c059e3e57f5d7442b9088857b6fb64 assets/slate_work/blockstates/sentinel_loci.json
 9102022cf3446f366b43bab42da36c74c7787a78 assets/slate_work/blockstates/mute_loci.json
