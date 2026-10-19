@@ -19,25 +19,22 @@ import net.minecraft.world.World
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 import java.util.*
 import java.util.stream.Stream
-import kotlin.jvm.optionals.getOrElse
 import kotlin.math.absoluteValue
 
 
 class AmbitLoci : BlockCircleComponent, Equipment {
-
     constructor(settings: Settings) : super(settings) {
-        this.setDefaultState(this.stateManager.getDefaultState().with(ENERGIZED, false))
+        this.defaultState = this.stateManager.getDefaultState().with(ENERGIZED, false)
     }
 
 
     override fun acceptControlFlow(
-        imageIn: CastingImage?, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
+        imageIn: CastingImage, env: CircleCastEnv?, enterDir: Direction?, pos: BlockPos?,
         bs: BlockState?, world: ServerWorld?,
     ): ControlFlow {
-        val data = imageIn!!.userData.copy()
-
         val exitDirsSet = this.possibleExitDirections(pos, bs, world)
         exitDirsSet.remove(enterDir!!.opposite)
         val exitDirs: Stream<Pair<BlockPos?, Direction?>?>? = exitDirsSet.stream()
@@ -63,8 +60,17 @@ class AmbitLoci : BlockCircleComponent, Equipment {
 
         val toPush = BlockPos(last.vec3.x.toInt(),last.vec3.y.toInt(),last.vec3.z.toInt())
 
-        val hasPushedPos = NbtHelper.toBlockPos(data, "ambit_pushed_pos").getOrElse { BlockPos.ORIGIN }
-        val hasPushedNeg = NbtHelper.toBlockPos(data, "ambit_pushed_neg").getOrElse { BlockPos.ORIGIN }
+        val hasPushedPos: BlockPos
+        val hasPushedNeg: BlockPos
+
+        val definedAmbit = imageIn.getComponent(SlateWorksImageComponents.AMBIT_LOCI)
+        if (definedAmbit != null){
+            hasPushedPos = definedAmbit.positive.toImmutable()
+            hasPushedNeg = definedAmbit.negative.toImmutable()
+        } else {
+            hasPushedPos = BlockPos.ORIGIN
+            hasPushedNeg = BlockPos.ORIGIN
+        }
 
         var willPushPos = hasPushedPos
         var willPushNeg = hasPushedNeg
@@ -107,11 +113,13 @@ class AmbitLoci : BlockCircleComponent, Equipment {
             return ControlFlow.Stop()
         }
 
-        data.put("ambit_pushed_pos", NbtHelper.fromBlockPos(willPushPos))
-        data.put("ambit_pushed_neg", NbtHelper.fromBlockPos(willPushNeg))
+
 
         return ControlFlow.Continue(
-            imageIn.copy(stack = stack.init(), userData = data), exitDirs?.toList()
+            imageIn
+                .withComponent(SlateWorksImageComponents.AMBIT_LOCI,
+                    SlateWorksImageComponents.AmbitLociComponent(willPushPos, willPushNeg))
+                .copy(stack = stack.init()), exitDirs?.toList()
         )
     }
 

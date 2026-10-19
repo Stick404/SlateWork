@@ -19,7 +19,9 @@ import net.minecraft.world.BlockView
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import org.sophia.slate_work.misc.ICircleSpeedValue
+import org.sophia.slate_work.misc.SlateWorksCodecs
 import org.sophia.slate_work.mixins.MixinCircleExecInvoker
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 import java.util.stream.Stream
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -77,7 +79,6 @@ class SpeedLoci : AbstractSlate {
             .map<Pair<BlockPos?, Direction?>?> { dir: Direction? -> this.exitPositionFromDirection(pos, dir) }
 
         var stack = image!!.stack
-        val data = image.userData.copy()
         if (stack.isEmpty()) {
             this.fakeThrowMishap(
                 pos, bs, image, env,
@@ -111,10 +112,6 @@ class SpeedLoci : AbstractSlate {
         (env!!.circleState() as ICircleSpeedValue).`slate_work$getRealValue`()
         val speed: Int = (env.circleState() as MixinCircleExecInvoker).`slate_work$getTickSpeed`()
 
-        //if (rounded == 0) { // the `rounded == 0` will make the circle run at its normal speed
-            data.putInt("set_speed", rounded)
-        //}
-
-        return ControlFlow.Continue(image.copy(userData = data, stack = stack), exitDirs?.toList())
+        return ControlFlow.Continue(image.withComponent(SlateWorksImageComponents.SPEED_LOCI, speed).copy(stack = stack), exitDirs?.toList())
     }
 }

@@ -21,6 +21,10 @@ import net.minecraft.world.BlockView;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
@@ -39,7 +43,6 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
         var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
         exitDirsSet.remove(direction.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir));
-        var data = castingImage.getUserData().copy();
 
         var extracted = circleCastEnv.extractMedia(MediaConstants.DUST_UNIT / 100, false);
         if (0L != extracted) {
@@ -50,24 +53,18 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
             return new ControlFlow.Stop();
         }
 
-
-        var sentTime = data.getLong("sentinel_time");
-        if (sentTime == 0L){
-            // To make sure this is never 0
-            data.putLong("sentinel_time", circleCastEnv.getWorld().getTime());
-        }
-
         var entity = serverWorld.getBlockEntity(blockPos);
         if (entity instanceof SentinelLociEntity sent){
-            var list = data.getList("sentinel_loci", NbtElement.INT_ARRAY_TYPE);
-            var compound = new NbtCompound();
-            compound.put("pos", NbtHelper.fromBlockPos(sent.getPos()));
-            compound.putLong("count", 0);
-            list.add(compound);
-            data.put("sentinel_loci", list);
+            List<BlockPos> sents = castingImage.getComponent(SlateWorksImageComponents.SENTINEL_LOCI);
+            if (sents == null) {
+                sents = new ArrayList<>();
+            }
+            sents.add(sent.getPos());
+            castingImage = castingImage.withComponent(SlateWorksImageComponents.SENTINEL_LOCI, sents);
+
             return new ControlFlow.Continue(
                     castingImage.copy(castingImage.getStack(),castingImage.getParenCount(),castingImage.getParenthesized(),
-                            castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data), exitDirs.toList()
+                            castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getComponents()), exitDirs.toList()
             );
         }
 

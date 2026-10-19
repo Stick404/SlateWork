@@ -106,7 +106,8 @@ public class BlockBreakLoci extends AbstractSlate implements BlockEntityProvider
             newestStack = newestStack.appended(hex);
 
             return new ControlFlow.Continue(image.copy(newestStack, image.getParenCount(),
-                    image.getParenthesized(),image.getEscapeNext(), image.getSimulateNext(), image.getOpsConsumed(), image.getUserData()), exits);
+                    image.getParenthesized(),image.getEscapeNext(), image.getSimulateNext(), image.getOpsConsumed(),
+                    image.getComponents()), exits);
         } else {
             return new ControlFlow.Stop();
         }

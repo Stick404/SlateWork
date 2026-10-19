@@ -13,11 +13,12 @@ import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import at.petrak.hexcasting.api.misc.MediaConstants
 import at.petrak.hexcasting.api.utils.putList
 import at.petrak.hexcasting.common.lib.hex.HexEvalSounds
-import net.minecraft.nbt.NbtCompound
 import net.minecraft.util.math.Vec3d
+import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.casting.mishap.MishapListLength
 import org.sophia.slate_work.casting.mishap.MishapNoSentinelLoci
 import org.sophia.slate_work.misc.CircleHelper
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 
 object OpSetSents : Action {
 
@@ -30,6 +31,7 @@ object OpSetSents : Action {
         val inputList = args.getList(args.lastIndex,1)
         args = args.init()
         val realList = mutableListOf<Vec3d>()
+        val toMove = mutableListOf<Pair<SentinelLociEntity, Vec3d>>()
         var i = 0
 
         for (z in inputList){
@@ -38,9 +40,9 @@ object OpSetSents : Action {
             i++
         }
 
-        val data = image.userData.copy()
-        val sentList = data.getList("sentinel_loci", NbtCompound.COMPOUND_TYPE.toInt())
-        val sentTime = data.getLong("sentinel_time")
+        val sentList = image.getComponent(SlateWorksImageComponents.SENTINEL_LOCI).orEmpty()
+        var sentCount = image.getComponent(SlateWorksImageComponents.SENTINEL_COUNT) ?: -1
+        val hasMoved = sentCount != -1L
 
         val loci = CircleHelper.getSentLoci(env)
         if (loci.isEmpty()) {
@@ -58,8 +60,6 @@ object OpSetSents : Action {
         i = 0
         val radius = 4
         for (z in realList){ // I am not using z because I do not trust it to match with `loci`
-            val nbt = (sentList[i] as NbtCompound)
-
             var found = false
             for (check in loci){
                 if (realList[i].squaredDistanceTo(check.sentPos) < radius * radius +0.00000000001) {
@@ -72,28 +72,22 @@ object OpSetSents : Action {
                 env.assertVecInRange(realList[i])
             }
 
-            if (sentTime != env.world.time){
-                nbt.putLong("count", 0) // Clears the current "count" if its not the world time
+            // If it is moved, we increment count of how many have been moved
+            if (hasMoved && loci[i].sentPos != realList[i]){
+                sentCount +=1
             }
 
-            if (loci[i].sentPos != realList[i]){
-                nbt.putLong("count", nbt.getLong("count")+1)
-                sentList[i] = nbt
-            }
-
-            env.extractMedia((nbt.getLong("count") -1)* (MediaConstants.DUST_UNIT/8), false).let {
-                if (it != 0L) throw MishapNotEnoughMedia(it)
-            }
-
-            loci[i].sentPos = realList[i]
+            toMove.add(Pair(loci[i], realList[i]))
             i++
         }
 
-        data.putList("sentinel_loci", sentList)
-        data.putLong("sentinel_time", env.world.time)
+        env.extractMedia((sentCount) * (MediaConstants.DUST_UNIT/8), false).let {
+            if (it != 0L) throw MishapNotEnoughMedia(it)
+        }
 
         return OperationResult(
-            image.copy(stack = args, userData = data),
+            image.copy(stack = args)
+                .withComponent(SlateWorksImageComponents.SENTINEL_COUNT, if (!hasMoved) 0 else sentCount),
             listOf(),
             continuation,
             HexEvalSounds.NORMAL_EXECUTE.get()

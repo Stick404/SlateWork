@@ -16,7 +16,6 @@ import net.minecraft.item.Equipment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.input.CraftingRecipeInput;
-import net.minecraft.screen.ScreenHandler;
 
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -114,7 +113,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             if (entities.size() * 16 <= storages.size()) { // Woops! No storage
                 stack = stack.prepended(new BooleanIota(false));
                 return new ControlFlow.Continue(
-                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
+                                castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(),
+                                castingImage.getComponents()),
                         exits);
             }
 
@@ -131,7 +132,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                 if (!storages.containsKey(variant)) { // If we cant find the variant, kill the search and push false
                     stack = stack.appended(new BooleanIota(false));
                     return new ControlFlow.Continue(
-                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getEscapeNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
+                                    castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(),
+                                    castingImage.getComponents()),
                             exits);
                 }
 
@@ -147,7 +150,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             if (recipeOpt.isEmpty()) { // If a recipe was not found, then yadadada
                 stack = stack.appended(new BooleanIota(false));
                 return new ControlFlow.Continue(
-                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                        castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
+                                castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(),
+                                castingImage.getComponents()),
                         exits);
             }
 
@@ -158,7 +163,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
                 if (slot.getCount() < pair.getValue()) { // If so, kill and push false
                     stack = stack.appended(new BooleanIota(false));
                     return new ControlFlow.Continue(
-                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                            castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
+                                    castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(),
+                                    castingImage.getComponents()),
                             exits);
                 } else {
                     StorageLociEntity loci = (StorageLociEntity) serverWorld.getBlockEntity(slot.getPos());
@@ -181,7 +188,9 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
             serverWorld.playSound(null, blockPos, IMPETUS_REDSTONE_DING.value(), SoundCategory.BLOCKS, 1.0F, 1F);
             stack = stack.appended(new BooleanIota(true));
             return new ControlFlow.Continue(
-                    castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()),
+                    castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
+                            castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(),
+                            castingImage.getComponents()),
                     exits);
         } else {
             return new ControlFlow.Stop();
@@ -210,15 +219,5 @@ public class CraftingLoci extends BlockCircleComponent implements BlockEntityPro
     @Override
     public EquipmentSlot getSlotType() {
         return EquipmentSlot.HEAD;
-    }
-
-    // Ok so, no clue why Hexal does it this way, but we are just going to copy what it does (and Hexal copies AE2 lmao)
-    // https://github.com/Talia-12/Hexal/blob/main/Common/src/main/java/ram/talia/hexal/common/casting/actions/spells/motes/OpCraftMote.kt
-    public static class AutocraftingMenu extends ScreenHandler {
-        public AutocraftingMenu() {super(null, 0);}
-        @Override
-        public ItemStack quickMove(PlayerEntity player, int slot) {return ItemStack.EMPTY;}
-        @Override
-        public boolean canUse(PlayerEntity player) {return false;}
     }
 }

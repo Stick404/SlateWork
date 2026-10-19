@@ -71,7 +71,8 @@ public class BroadcasterLoci extends BlockCircleComponent implements BlockEntity
             var exits = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir)).toList();
 
             return new ControlFlow.Continue(castingImage.copy(
-                    stack.init(), castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getUserData()
+                    stack.init(), castingImage.getParenCount(), castingImage.getParenthesized(), castingImage.getEscapeNext(),
+                    castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getComponents()
             ), exits);
         }
         return new ControlFlow.Stop();

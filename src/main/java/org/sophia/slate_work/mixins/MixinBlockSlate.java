@@ -18,6 +18,7 @@ import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,31 +37,22 @@ public abstract class MixinBlockSlate {
     void slate_works$acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs,
                                        ServerWorld world, CallbackInfoReturnable<ICircleComponent.ControlFlow> cir, @Local(name = "pattern") HexPattern pattern,
                                        @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
-        var macroPos = imageIn.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
-        HexPattern angleSig = pattern;
+        var macro = imageIn.getComponent(SlateWorksImageComponents.MACRO_LOCI);
+        if (macro != null) {
+            Iota iota = macro.map().get(pattern.getSignature());
+            if (iota != null){
+                ExecutionClientView result;
 
-        Map<HexPattern, Iota> macros = new HashMap<>();
-        for (NbtElement temp : macroPos) {
-            NbtCompound nbtElement = (NbtCompound) temp;
+                if (iota instanceof ListIota pain){
+                    var spell = new ArrayList<>(pain.getList());
+                    result = vm.queueExecuteAndWrapIotas(spell, world);
+                } else {
+                    result = vm.queueExecuteAndWrapIota(iota, world);
+                }
 
-            macros.put(
-                    HexPattern.CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("pattern")).getOrThrow().getFirst(),
-                    IotaType.TYPED_CODEC.decode(NbtOps.INSTANCE, nbtElement.getCompound("macro")).getOrThrow().getFirst()
-            );
-        }
-        if (macros.containsKey(angleSig)){
-            var macro = macros.get(angleSig);
-            ExecutionClientView result;
-
-            if (macro instanceof ListIota pain){
-                var spell = new ArrayList<>(pain.getList());
-                result = vm.queueExecuteAndWrapIotas(spell, world);
-            } else {
-                result = vm.queueExecuteAndWrapIota(macro, world);
+                cir.setReturnValue(result.getResolutionType().getSuccess() ? new ICircleComponent.ControlFlow.Continue(vm.getImage(), exitDirs.toList()) : new ICircleComponent.ControlFlow.Stop());
+                cir.cancel();
             }
-
-            cir.setReturnValue(result.getResolutionType().getSuccess() ? new ICircleComponent.ControlFlow.Continue(vm.getImage(), exitDirs.toList()) : new ICircleComponent.ControlFlow.Stop());
-            cir.cancel();
         }
     }
 }

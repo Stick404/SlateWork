@@ -22,6 +22,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_NORTH_WALL;
@@ -49,15 +50,15 @@ public class HotbarLoci extends AbstractSlate implements BlockEntityProvider {
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
         if (world.getBlockEntity(pos) instanceof HotbarLociEntity){
-            var data =imageIn.getUserData().copy();
-            data.put("hotbar_loci", NbtHelper.fromBlockPos(pos));
+            imageIn = imageIn.withComponent(SlateWorksImageComponents.HOTBAR_LOCI, pos);
             var exitDirsSet = this.possibleExitDirections(pos, bs, world);
             exitDirsSet.remove(enterDir.getOpposite());
             var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir));
 
             return new ControlFlow.Continue(
                     imageIn.copy(imageIn.getStack(), imageIn.getParenCount(), imageIn.getParenthesized(),
-                            imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
+                            imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(),
+                            imageIn.getComponents()), exitDirs.toList());
         }
         return new ControlFlow.Stop();
     }

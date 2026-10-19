@@ -22,7 +22,6 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemUsageContext
-import net.minecraft.nbt.NbtHelper
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.sound.SoundCategory
 import net.minecraft.state.StateManager
@@ -46,6 +45,7 @@ import org.sophia.slate_work.casting.mishap.MishapNoHotbarLoci
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota.Companion.ofType
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs
 import org.sophia.slate_work.compat.SlateWorksTrinkets
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 import org.sophia.slate_work.storage.SlateFakePlayer
 import java.util.stream.Collectors
 import java.util.stream.Stream
@@ -145,7 +145,15 @@ class FakePlayerLoci : AbstractSlate {
         bs: BlockState,
         world: ServerWorld
     ): ControlFlow {
-        val hotbar = world.getBlockEntity(NbtHelper.toBlockPos(imageIn.userData, "hotbar_loci").get())
+        val hotbarComp = imageIn.getComponent(SlateWorksImageComponents.HOTBAR_LOCI)
+        if (hotbarComp == null) {
+            this.fakeThrowMishap(
+                pos, bs, imageIn, env,
+                MishapNoHotbarLoci(pos)
+            )
+            return ControlFlow.Stop()
+        }
+        val hotbar = world.getBlockEntity(hotbarComp)
         if (hotbar !is HotbarLociEntity) {
             this.fakeThrowMishap(
                 pos, bs, imageIn, env,
@@ -153,7 +161,8 @@ class FakePlayerLoci : AbstractSlate {
             )
             return ControlFlow.Stop()
         }
-        var hexStack = imageIn.stack
+
+        val hexStack = imageIn.stack
         val direction: Direction
         // Either sets direction to where the block is facing, or the provided vector
         if (bs.get(IS_OPTIONAL_VECTOR)) {

@@ -74,6 +74,6 @@ public class AkashicRecordLoci {
         exitDirsSet.remove(enterDir.getOpposite());
         var exits = exitDirsSet.stream().map((dir) -> recordI.exitPositionFromDirection(pos, dir)).toList();
         return new ICircleComponent.ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(),
-                imageIn.getParenthesized(), imageIn.getEscapeNext(), imageIn.getSimulateNext(),imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+                imageIn.getParenthesized(), imageIn.getEscapeNext(), imageIn.getSimulateNext(),imageIn.getOpsConsumed(), imageIn.getComponents()), exits);
     }
 }

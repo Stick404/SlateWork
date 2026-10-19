@@ -22,17 +22,17 @@ import net.minecraft.util.math.BlockPos
 import org.sophia.slate_work.Slate_work.LOGGER
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.entities.StorageLociEntity
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 import ram.talia.moreiotas.api.casting.iota.ItemStackIota
 import ram.talia.moreiotas.api.casting.iota.ItemTypeIota
 
 object CircleHelper {
     fun getSentLoci(env: CircleCastEnv): List<SentinelLociEntity> {
         val list: ArrayList<SentinelLociEntity> = ArrayList()
-        val nbt = env.circleState().currentImage.userData.getList("sentinel_loci", NbtElement.INT_ARRAY_TYPE.toInt())
+        val sents = env.circleState().currentImage.getComponent(SlateWorksImageComponents.SENTINEL_LOCI)?: listOf()
 
-        for (temp in nbt){
-            val z = temp as NbtCompound
-            val entity = env.world.getBlockEntity(NbtHelper.toBlockPos(z, "pos").get())
+        for (pos in sents){
+            val entity = env.world.getBlockEntity(pos)
             if (entity is SentinelLociEntity){
                 list.add(entity)
             }
@@ -42,13 +42,13 @@ object CircleHelper {
 
     fun getStorage(env: CircleCastEnv): List<StorageLociEntity> {
         val list: ArrayList<StorageLociEntity> = ArrayList()
-        val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.INT_ARRAY_TYPE.toInt())
 
-        for (itemTemp in nbt){
-            val z = itemTemp as NbtIntArray
-            val entity = env.world.getBlockEntity(BlockPos(z[0].intValue(), z[1].intValue(), z[2].intValue()))
-            if (entity is StorageLociEntity)
-                list.add(entity)
+        env.circleState().currentImage.getComponent(SlateWorksImageComponents.STORAGE_LOCI)?.let {
+            for (itemTemp in it){
+                val entity = env.world.getBlockEntity(itemTemp)
+                if (entity is StorageLociEntity)
+                    list.add(entity)
+            }
         }
 
         return list

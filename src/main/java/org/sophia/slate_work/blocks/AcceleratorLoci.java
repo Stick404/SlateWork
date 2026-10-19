@@ -13,6 +13,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleMedia;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
 
 public class AcceleratorLoci extends AbstractSlate {
     public static final int accel = 13;
@@ -54,9 +55,10 @@ public class AcceleratorLoci extends AbstractSlate {
 
     @Override
     public ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world) {
-        var data = imageIn.getUserData().copy();
-        var speed = data.getInt("accel_left");
-
+        var speed = imageIn.getComponent(SlateWorksImageComponents.ACCELERATOR_LOCI);
+        if (speed == null){
+            speed = 0;
+        }
 
         long cost = (MediaConstants.DUST_UNIT*2)*Math.max(1, (speed*speed)/accel);
         var extracted = env.extractMedia(cost, false);
@@ -68,11 +70,11 @@ public class AcceleratorLoci extends AbstractSlate {
             return new ControlFlow.Stop();
         }
 
-        data.putInt("accel_left", speed+accel);
+        imageIn = imageIn.withComponent(SlateWorksImageComponents.ACCELERATOR_LOCI, speed);
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
         return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(), imageIn.getParenCount(),
-                imageIn.getParenthesized(), imageIn.getEscapeNext(),imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs);
+                imageIn.getParenthesized(), imageIn.getEscapeNext(),imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getComponents()), exitDirs);
     }
 }

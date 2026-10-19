@@ -4,7 +4,6 @@ import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
 import at.petrak.hexcasting.api.casting.iota.*;
-import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.Block;
@@ -15,9 +14,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
-import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -33,6 +30,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleReadableFocus;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
+
+import java.util.HashMap;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_NORTH_WALL;
@@ -83,53 +83,36 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
         var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
         exitDirsSet.remove(direction.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(blockPos, dir));
-        var data = castingImage.getUserData().copy();
 
         if (serverWorld.getBlockEntity(blockPos) instanceof MacroLociEntity loci) {
-            NbtCompound macro = new NbtCompound();
             ADIotaHolder holder = IXplatAbstractions.INSTANCE.findDataHolder(loci.getStack(0));
 
-            if (holder == null){
+            if (holder == null) {
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                    new MishapSpellCircleReadableFocus(blockPos));
+                        new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
-            if (holder.readIota() == null){
+            if (holder.readIota() == null) {
                 this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                    new MishapSpellCircleReadableFocus(blockPos));
+                        new MishapSpellCircleReadableFocus(blockPos));
                 return new ControlFlow.Stop();
             }
 
-           if (!(holder.readIota() instanceof ListIota || holder.readIota().executable())){
-               this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
-                       new MishapSpellCircleReadableFocus(blockPos));
-               return new ControlFlow.Stop();
-           }
+            if (!(holder.readIota() instanceof ListIota || holder.readIota().executable())) {
+                this.fakeThrowMishap(blockPos, blockState, castingImage, circleCastEnv,
+                        new MishapSpellCircleReadableFocus(blockPos));
+                return new ControlFlow.Stop();
+            }
 
-           macro.put("macro", IotaType.TYPED_CODEC.encodeStart(NbtOps.INSTANCE, holder.readIota()).getOrThrow());
-           var pattern = loci.getPattern();
-           macro.put("pattern", HexPattern.CODEC.encodeStart(NbtOps.INSTANCE, pattern).getOrThrow());
-
-           var macros = data.getList("macros", NbtElement.COMPOUND_TYPE);
-           int i = 0;
-           for (var z : macros){
-               NbtCompound compound = (NbtCompound) z;
-               var patternIterOpt = PatternIota.TYPE.codec().codec().decode(NbtOps.INSTANCE, compound.get("pattern"));
-               if (patternIterOpt.isSuccess()) {
-                   HexPattern patternIter = patternIterOpt.getOrThrow().getFirst().getPattern();
-                   if (patternIter.equals(loci.getPattern())){
-                       macros.remove(i);
-                       break;
-                   }
-               }
-               i++;
-           }
-           macros.add(macro);
-           data.put("macros", macros);
+            var map = castingImage.getComponent(SlateWorksImageComponents.MACRO_LOCI);
+            if (map == null) {
+                map = new SlateWorksImageComponents.MacroLociComponent(new HashMap<>());
+            }
+            map.map().put(loci.getPattern().getSignature(), holder.readIota());
         }
         return new ControlFlow.Continue(
                 castingImage.copy(castingImage.getStack(), castingImage.getParenCount(), castingImage.getParenthesized(),
-                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data),
+                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getComponents()),
                 exitDirs.toList());
     }
 

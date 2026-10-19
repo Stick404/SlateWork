@@ -17,6 +17,7 @@ import net.minecraft.nbt.NbtHelper
 import net.minecraft.nbt.NbtIntArray
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.Vec3d
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 
 object OpGetStorageLoci : Action {
     override fun operate(env: CastingEnvironment, image: CastingImage, continuation: SpellContinuation): OperationResult {
@@ -24,12 +25,10 @@ object OpGetStorageLoci : Action {
             throw MishapNoSpellCircle()
         var stack = image.stack
         val list: ArrayList<Vec3Iota> = ArrayList()
-        val nbt = env.circleState().currentImage.userData.getList("storage_loci", NbtElement.COMPOUND_TYPE.toInt())
-
-        for (itemTemp in nbt){
-            val z = itemTemp as NbtIntArray
-            val x = BlockPos(z[0].intValue(), z[1].intValue(), z[2].intValue())
-            list.add(Vec3Iota(x.toCenterPos()))
+        env.circleState().currentImage.getComponent(SlateWorksImageComponents.STORAGE_LOCI)?.let {
+            for (pos in it){
+                list.add(Vec3Iota(pos.toCenterPos()))
+            }
         }
 
         stack = stack.appended(ListIota(list as List<Iota>))

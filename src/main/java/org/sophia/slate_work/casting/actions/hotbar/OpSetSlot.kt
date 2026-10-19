@@ -8,6 +8,7 @@ import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.mishaps.circle.MishapNoSpellCircle
 import net.minecraft.nbt.NbtHelper
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 
 object OpSetSlot: ConstMediaAction {
     override val argc: Int
@@ -20,10 +21,11 @@ object OpSetSlot: ConstMediaAction {
         if (env !is CircleCastEnv) {
             throw MishapNoSpellCircle()
         }
-        val vec = NbtHelper.toBlockPos(env.circleState().currentImage.userData, "hotbar_loci").get()
-        val entity = env.world.getBlockEntity(vec)
-        if (entity is HotbarLociEntity){
-            entity.slot = slot;
+        env.circleState().currentImage.getComponent(SlateWorksImageComponents.HOTBAR_LOCI)?.let {
+            val entity = env.world.getBlockEntity(it)
+            if (entity is HotbarLociEntity){
+                entity.slot = slot;
+            }
         }
 
         return listOf()

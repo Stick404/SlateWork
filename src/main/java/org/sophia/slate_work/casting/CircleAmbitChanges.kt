@@ -11,6 +11,7 @@ import net.minecraft.util.math.Vec3d
 import org.sophia.slate_work.blocks.entities.SentinelLociEntity
 import org.sophia.slate_work.blocks.impetus.ListeningImpetusEntity
 import org.sophia.slate_work.registries.SlateWorksAttributeRegistry
+import org.sophia.slate_work.registries.SlateWorksImageComponents
 import kotlin.random.Random
 
 class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironmentComponent.IsVecInRange{
@@ -23,7 +24,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
             return inAmbit
 
         val state = env.circleState()
-        val data = state.currentImage.userData
+        val image = state.currentImage
 
         /** This is for the Librarian Impetus **/
         if (env.impetus is ListeningImpetusEntity) {
@@ -31,10 +32,9 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
                 return true
             }
 
-            val listen = data.get(ListeningImpetusEntity.LISTENING_UUID)
+            val listen = image.getComponent(SlateWorksImageComponents.LISTENING_IMPETUS)
             if (listen != null){
-                val uuid = NbtHelper.toUuid(listen)
-                val player = env.world.getPlayerByUuid(uuid)
+                val player = env.world.getPlayerByUuid(listen)
                 if (player != null
                     && player.getAttributeValue(SlateWorksAttributeRegistry.WHISPERING_HEXTENDED) == 1.0
                     && vec.squaredDistanceTo(player.pos) <= player.height * player.height) {
@@ -44,11 +44,10 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         }
 
         /** This is for the Ambit Extender **/
-        val hasPushedPosOpt = NbtHelper.toBlockPos(data, "ambit_pushed_pos")
-        val hasPushedNegOpt = NbtHelper.toBlockPos(data, "ambit_pushed_neg")
-        if (hasPushedPosOpt.isPresent || hasPushedNegOpt.isPresent) {
-            val hasPushedNeg = hasPushedNegOpt.get()
-            val hasPushedPos = hasPushedPosOpt.get()
+        val ambitLoci = image.getComponent(SlateWorksImageComponents.AMBIT_LOCI)
+        if (ambitLoci != null) {
+            val hasPushedNeg = ambitLoci.negative
+            val hasPushedPos = ambitLoci.positive
 
             val envBounds = state.bounds;
             val bound = Box(
@@ -65,10 +64,8 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
         }
 
         /** This is for the Sentinel Cache **/
-        val sents = data.getList("sentinel_loci", NbtElement.COMPOUND_TYPE.toInt())
-        for (temp in sents){
-            val posTemp = temp as NbtCompound
-            val pos = NbtHelper.toBlockPos(posTemp, "pos").get()
+        val sents = image.getComponent(SlateWorksImageComponents.SENTINEL_LOCI)?: listOf()
+        for (pos in sents){
             val entity = env.world.getBlockEntity(pos)
             if (entity !is SentinelLociEntity){
                 continue
@@ -83,7 +80,7 @@ class CircleAmbitChanges(private val env: CastingEnvironment) : CastingEnvironme
     }
 
     private object Keygen { //code from HexSky
-        val rand = Random(648528425645)
+        val rand = Random(6485248425645)
         fun randid() = rand.nextInt()
     }
 
