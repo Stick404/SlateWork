@@ -5,13 +5,12 @@ import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+import org.sophia.slate_work.Slate_work;
 import org.sophia.slate_work.casting.contuinations.FrameCheckItems;
 import org.sophia.slate_work.casting.contuinations.FrameGetItems;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import static at.petrak.hexcasting.api.HexAPI.modLoc;
 
 public class SlateWorksFrameRegistry {
     private static final Map<Identifier, ContinuationFrame.Type<?>> CONTINUATIONS = new LinkedHashMap<>();
@@ -29,7 +28,7 @@ public class SlateWorksFrameRegistry {
 
     // Who would be copying Hex Code :clueless:
     private static <U extends ContinuationFrame, T extends ContinuationFrame.Type<U>> T continuation(String name, T continuation) {
-        var old = CONTINUATIONS.put(modLoc(name), continuation);
+        var old = CONTINUATIONS.put(Identifier.of(Slate_work.MOD_ID, name), continuation);
         if (old != null) {
             throw new IllegalArgumentException("Typo? Duplicate id " + name);
         }
