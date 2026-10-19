@@ -25,6 +25,15 @@
       "type": "patchouli:crafting",
       "recipe": "slate_work:whispering_stone",
       "text": "slate_work.page.whispering.crafting"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "slate_work.page.whispering.hextended"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "slate_work:whispering_hextended_stone",
+      "text": "slate_work.page.whispering.hextended.crafting"
     }
   ]
 }
