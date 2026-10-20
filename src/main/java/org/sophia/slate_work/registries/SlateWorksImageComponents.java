@@ -53,6 +53,9 @@ public class SlateWorksImageComponents {
     public static final ImageComponentType<List<BlockPos>> STORAGE_LOCI = register("storage_loci",
             new ImageComponentType<>(BlockPos.CODEC.listOf(), PacketCodecs.collection(ArrayList::new, BlockPos.PACKET_CODEC), false));
 
+    public static final ImageComponentType<Double> MUTE_LOCI = register("mute_loci",
+            new ImageComponentType<>(Codec.DOUBLE, PacketCodecs.DOUBLE, false));
+
     public static void init(){
         for (var e : COMPONENTS.entrySet()){
             Registry.register(REGISTRY,e.getKey(),e.getValue());

@@ -109,6 +109,7 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
                 map = new SlateWorksImageComponents.MacroLociComponent(new HashMap<>());
             }
             map.map().put(loci.getPattern().getSignature(), holder.readIota());
+            castingImage = castingImage.withComponent(SlateWorksImageComponents.MACRO_LOCI, map);
         }
         return new ControlFlow.Continue(
                 castingImage.copy(castingImage.getStack(), castingImage.getParenCount(), castingImage.getParenthesized(),

@@ -124,7 +124,7 @@ public class RedstoneLoci extends AbstractSlate {
             world.setBlockState(pos, newbs);
 
             return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
-                    imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+                    imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getComponents()), exits);
         }
 
         if (stack.isEmpty()) {
@@ -158,7 +158,7 @@ public class RedstoneLoci extends AbstractSlate {
         this.updateNeighbors(world, pos, newbs);
 
         return new ControlFlow.Continue(imageIn.copy(stack, imageIn.getParenCount(), imageIn.getParenthesized(),
-                imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getUserData()), exits);
+                imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getComponents()), exits);
     }
 
 

@@ -21,6 +21,9 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.StorageLociEntity;
 import org.sophia.slate_work.registries.SlateWorksBlockRegistry;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
+
+import java.util.ArrayList;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 
@@ -72,15 +75,16 @@ public class StorageLoci extends AbstractSlate implements Equipment, BlockEntity
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir));
-        var data = imageIn.getUserData().copy();
-        var list = data.getList("storage_loci", NbtElement.INT_ARRAY_TYPE);
-        var check = NbtHelper.fromBlockPos(pos);
-        if (!list.contains(check)) list.add(check);
 
-        data.put("storage_loci",list);
+        var loci = imageIn.getComponent(SlateWorksImageComponents.STORAGE_LOCI);
+        if (loci == null) {
+            loci = new ArrayList<>();
+            imageIn = imageIn.withComponent(SlateWorksImageComponents.STORAGE_LOCI, loci);
+        }
+        loci.add(pos);
 
         return new ControlFlow.Continue(imageIn.copy(imageIn.getStack(),imageIn.getParenCount(),
-                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), data), exitDirs.toList());
+                imageIn.getParenthesized(),imageIn.getEscapeNext(), imageIn.getSimulateNext(), imageIn.getOpsConsumed(), imageIn.getComponents()), exitDirs.toList());
     }
 
     @Override

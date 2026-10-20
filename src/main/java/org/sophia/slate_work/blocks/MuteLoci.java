@@ -14,6 +14,7 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleInvalidIota;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
 
 public class MuteLoci extends AbstractSlate {
     public static final DirectionProperty FACING = Properties.FACING;
@@ -27,7 +28,6 @@ public class MuteLoci extends AbstractSlate {
     public ControlFlow acceptControlFlow(CastingImage castingImage, CircleCastEnv circleCastEnv, Direction direction,
                                          BlockPos blockPos, BlockState blockState, ServerWorld serverWorld) {
         var stack = castingImage.getStack();
-        var data = castingImage.getUserData().copy();
 
         var exitDirsSet = this.possibleExitDirections(blockPos, blockState, serverWorld);
         exitDirsSet.remove(direction.getOpposite());
@@ -60,17 +60,10 @@ public class MuteLoci extends AbstractSlate {
             return new ControlFlow.Stop();
         }
 
-        // Everything *should* be valid now
-
-        if (volume == 1){
-            data.putBoolean("mute", false);
-        } else {
-            data.putBoolean("mute", true);
-            data.putFloat("volume", (float) volume);
-        }
+        castingImage = castingImage.withComponent(SlateWorksImageComponents.MUTE_LOCI, volume);
         return new ControlFlow.Continue(
                 castingImage.copy(stack, castingImage.getParenCount(), castingImage.getParenthesized(),
-                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), data), exits);
+                        castingImage.getEscapeNext(), castingImage.getSimulateNext(), castingImage.getOpsConsumed(), castingImage.getComponents()), exits);
     }
 
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {

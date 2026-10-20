@@ -19,6 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.HotbarLociEntity;
+import org.sophia.slate_work.registries.SlateWorksImageComponents;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,12 +51,11 @@ public abstract class MixinCircleEnv extends CastingEnvironment {
     )
     public SoundEvent slate_work$shushYouToo(EvalSound instance, Operation<SoundEvent> original){
         var image = this.circleState().currentImage;
-        var volume = image.getUserData().getFloat("volume");
-        var mute = image.getUserData().getBoolean("mute");
-        if (mute && this.getImpetus() != null && volume != 0 && instance.sound() != null){
+        var volume = image.getComponent(SlateWorksImageComponents.MUTE_LOCI);
+        if (volume != null && this.getImpetus() != null && volume != 0 && instance.sound() != null){
             if (this.getImpetus().getWorld() != null) {
                 BlockPos soundPos = this.execState.currentPos;
-                this.getImpetus().getWorld().playSound(null, soundPos, instance.sound(), SoundCategory.PLAYERS, volume, 1.0F);
+                this.getImpetus().getWorld().playSound(null, soundPos, instance.sound(), SoundCategory.PLAYERS, volume.floatValue(), 1.0F);
             }
         }
         return null;
@@ -63,9 +63,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment {
 
     @Inject(method = "getUsableStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$getUsableStacks(CastingEnvironment.StackDiscoveryMode mode, CallbackInfoReturnable<List<ItemStack>> cir){
-        var data = this.execState.currentImage.getUserData();
-        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
-        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
+        var data = this.execState.currentImage.getComponent(SlateWorksImageComponents.HOTBAR_LOCI);
+        if (data != null && world.getBlockEntity(data) instanceof HotbarLociEntity entity){
             //var list = cir.getReturnValue();
             var list = new ArrayList<>(entity.getStacksSorted());
             list.addAll(cir.getReturnValue());
@@ -76,9 +75,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment {
 
     @Inject(method = "getPrimaryStacks", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$gePrimaryStacks(CallbackInfoReturnable<List<HeldItemInfo>> cir){
-        var data = this.execState.currentImage.getUserData();
-        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
-        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
+        var data = this.execState.currentImage.getComponent(SlateWorksImageComponents.HOTBAR_LOCI);
+        if (data != null && world.getBlockEntity(data) instanceof HotbarLociEntity entity){
             var list = new ArrayList<>(cir.getReturnValue()); //makes it Mutable
             list.add(0, new HeldItemInfo(entity.getCurrentSlot(), Hand.OFF_HAND));
             cir.setReturnValue(list);
@@ -89,9 +87,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment {
     @Inject(method = "replaceItem", at = @At("RETURN"), cancellable = true)
     private void slate_work$replaceItem(Predicate<ItemStack> stackOk, ItemStack replaceWith, @Nullable Hand hand, CallbackInfoReturnable<Boolean> cir){
         if (cir.getReturnValue()) return;
-        var data = this.execState.currentImage.getUserData();
-        var pos = NbtHelper.toBlockPos(data, "hotbar_loci");
-        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
+        var data = this.execState.currentImage.getComponent(SlateWorksImageComponents.HOTBAR_LOCI);
+        if (data != null && world.getBlockEntity(data) instanceof HotbarLociEntity entity){
             int slot = 0;
             for (ItemStack stack: entity.getStacksSorted()){
                 if (stackOk.test(stack)){
@@ -108,9 +105,8 @@ public abstract class MixinCircleEnv extends CastingEnvironment {
 
     @Inject(method = "extractMediaEnvironment", at = @At("RETURN"), cancellable = true, remap = false)
     private void slate_work$extractMedia(long cost, boolean simulate, CallbackInfoReturnable<Long> cir){
-        var data = this.execState.currentImage.getUserData();
-        Optional<BlockPos> pos = NbtHelper.toBlockPos(data, "hotbar_loci");
-        if (pos.isPresent() && world.getBlockEntity(pos.get()) instanceof HotbarLociEntity entity){
+        var data = this.execState.currentImage.getComponent(SlateWorksImageComponents.HOTBAR_LOCI);
+        if (data != null && world.getBlockEntity(data) instanceof HotbarLociEntity entity){
             var media = cir.getReturnValue();
 
             ArrayList<ADMediaHolder> sources = new ArrayList<>();

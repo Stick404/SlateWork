@@ -1,16 +1,15 @@
 package org.sophia.slate_work.client.lens
 
-import at.petrak.hexcasting.api.HexAPI
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage
 import at.petrak.hexcasting.api.casting.iota.Iota
 import at.petrak.hexcasting.api.casting.iota.IotaType
 import at.petrak.hexcasting.api.casting.iota.NullIota
 import at.petrak.hexcasting.api.client.ScryingLensOverlayRegistry.OverlayBuilder
+import at.petrak.hexcasting.common.lib.hex.HexImageComponents
 import com.mojang.datafixers.util.Pair
 import net.minecraft.block.BlockState
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtOps
 import net.minecraft.text.MutableText
 import net.minecraft.text.Text
@@ -32,19 +31,13 @@ class SaveLociScryingKT : OverlayBuilder {
         val data = entity.save
 
         //lines.add(Pair(ItemStack.EMPTY, Text.of("Unfinished!")))
-        val userData: NbtCompound = data.userData
+        val ravenMind = data.getComponent(HexImageComponents.RAVENMIND.get())
         lines.add(Pair(ItemStack.EMPTY, Text.translatable("slate_work.scrying.save.stack")
             .append(stackIotas(data))))
         //TODO: Display the ravenmind too
         lines.add(Pair(ItemStack.EMPTY, Text.translatable("slate_work.scrying.save.ravenmind")
-                .append(if (userData.contains(HexAPI.RAVENMIND_USERDATA)) {
-                    val ravenmind = userData.getCompound(HexAPI.RAVENMIND_USERDATA)
-                    val iota = IotaType.TYPED_CODEC.decode(NbtOps.INSTANCE, ravenmind)
-                    if (iota.isError) {
-                        NullIota.DISPLAY
-                    } else {
-                        iota.orThrow.first.display()
-                    }
+                .append(if (ravenMind != null) {
+                    ravenMind.display()
                 } else NullIota.DISPLAY)))
         lines.add(Pair(ItemStack.EMPTY, Text.translatable("slate_work.scrying.save.ops")
                 .append(Text.literal(data.opsConsumed.toString()).formatted(Formatting.GREEN))))

@@ -60,7 +60,7 @@ public class SentinelLoci extends AbstractSlate implements BlockEntityProvider, 
                 sents = new ArrayList<>();
             }
             sents.add(sent.getPos());
-            castingImage = castingImage.withComponent(SlateWorksImageComponents.SENTINEL_LOCI, sents);
+            //castingImage = castingImage.withComponent(SlateWorksImageComponents.SENTINEL_LOCI, sents);
 
             return new ControlFlow.Continue(
                     castingImage.copy(castingImage.getStack(),castingImage.getParenCount(),castingImage.getParenthesized(),

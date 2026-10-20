@@ -113,8 +113,6 @@ class AmbitLoci : BlockCircleComponent, Equipment {
             return ControlFlow.Stop()
         }
 
-
-
         return ControlFlow.Continue(
             imageIn
                 .withComponent(SlateWorksImageComponents.AMBIT_LOCI,

@@ -109,9 +109,6 @@ class SpeedLoci : AbstractSlate {
             return ControlFlow.Stop()
         }
 
-        (env!!.circleState() as ICircleSpeedValue).`slate_work$getRealValue`()
-        val speed: Int = (env.circleState() as MixinCircleExecInvoker).`slate_work$getTickSpeed`()
-
-        return ControlFlow.Continue(image.withComponent(SlateWorksImageComponents.SPEED_LOCI, speed).copy(stack = stack), exitDirs?.toList())
+        return ControlFlow.Continue(image.withComponent(SlateWorksImageComponents.SPEED_LOCI, rounded).copy(stack = stack), exitDirs?.toList())
     }
 }
