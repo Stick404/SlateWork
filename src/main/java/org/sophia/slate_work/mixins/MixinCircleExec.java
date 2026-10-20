@@ -46,10 +46,10 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
     protected void Slate_work$realValue(CallbackInfoReturnable<Integer> cir) {
         var targetSpeed = this.currentImage.getComponent(SlateWorksImageComponents.SPEED_LOCI);
 
-        if (targetSpeed != null && targetSpeed == 0 && !slate_work$realValue){
+        if ((targetSpeed == null || targetSpeed.doubleValue() == 0) && !slate_work$realValue){
             var accelLeft = this.currentImage.getComponent(SlateWorksImageComponents.ACCELERATOR_LOCI);
             if (accelLeft != null && accelLeft > 0){
-                this.currentImage = this.currentImage.withComponent(SlateWorksImageComponents.ACCELERATOR_LOCI, -accelLeft);
+                this.currentImage = this.currentImage.withComponent(SlateWorksImageComponents.ACCELERATOR_LOCI, accelLeft -1);
 
                 var img = this.currentImage;
                 this.slate_work$setImage(img.copy(img.getStack(), img.getParenCount(), img.getParenthesized(),

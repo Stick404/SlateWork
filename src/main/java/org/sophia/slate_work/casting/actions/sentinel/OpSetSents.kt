@@ -84,6 +84,7 @@ object OpSetSents : Action {
         env.extractMedia((sentCount) * (MediaConstants.DUST_UNIT/8), false).let {
             if (it != 0L) throw MishapNotEnoughMedia(it)
         }
+        toMove.forEach { it.first.sentPos = it.second }
 
         return OperationResult(
             image.copy(stack = args)

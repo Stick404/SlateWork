@@ -70,7 +70,7 @@ public class AcceleratorLoci extends AbstractSlate {
             return new ControlFlow.Stop();
         }
 
-        imageIn = imageIn.withComponent(SlateWorksImageComponents.ACCELERATOR_LOCI, speed);
+        imageIn = imageIn.withComponent(SlateWorksImageComponents.ACCELERATOR_LOCI, speed+accel);
         var exitDirsSet = this.possibleExitDirections(pos, bs, world);
         exitDirsSet.remove(enterDir.getOpposite());
         var exitDirs = exitDirsSet.stream().map((dir) -> this.exitPositionFromDirection(pos, dir)).toList();
