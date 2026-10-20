@@ -66,6 +66,7 @@ public class Slate_work implements ModInitializer {
         SlateWorksFrameRegistry.init();
         SlateWorksComponents.init();
         SlateWorksAttributeRegistry.init();
+        SlateWorksImageComponents.init();
 
         ItemStorage.SIDED.registerSelf(SlateWorksBlockRegistry.STORAGE_LOCI_ENTITY);
         ItemStorage.SIDED.registerSelf(SlateWorksBlockRegistry.HOTBAR_LOCI_ENTITY);

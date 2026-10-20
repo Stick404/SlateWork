@@ -39,7 +39,7 @@ public abstract class MixinBlockSlate {
                                        @Local(name = "exitDirs") Stream exitDirs, @Local(name = "vm") CastingVM vm){
         var macro = imageIn.getComponent(SlateWorksImageComponents.MACRO_LOCI);
         if (macro != null) {
-            Iota iota = macro.map().get(pattern.getSignature());
+            Iota iota = macro.map().get(pattern.getSignature().toAnglesString());
             if (iota != null){
                 ExecutionClientView result;
 

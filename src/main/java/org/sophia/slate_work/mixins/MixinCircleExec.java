@@ -3,13 +3,14 @@ package org.sophia.slate_work.mixins;
 
 import at.petrak.hexcasting.api.casting.circles.CircleExecutionState;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
+import com.mojang.serialization.DynamicOps;
+import net.minecraft.registry.*;
 import org.sophia.slate_work.misc.ICircleSpeedValue;
 import org.sophia.slate_work.registries.SlateWorksImageComponents;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
@@ -23,6 +24,8 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
 
     @Unique protected boolean slate_work$realValue = false;
 
+    @Unique protected RegistryWrapper.WrapperLookup slate_work$registries;
+
     // Makes the nex return of `CircleExecutionState#getTickSpeed` return its true speed
     @Override
     public void slate_work$getRealValue() {
@@ -32,6 +35,11 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
     @Override
     public int slate_work$getTickSpeed() {
         return this.getTickSpeed();
+    }
+
+    @Override
+    public void slate_work$setRegistries(RegistryWrapper.WrapperLookup lookup) {
+        this.slate_work$registries = lookup;
     }
 
     @Inject(method = "getTickSpeed", at = @At("TAIL"), cancellable = true, remap = false)
@@ -60,6 +68,21 @@ public abstract class MixinCircleExec implements ICircleSpeedValue {
         }
         if (slate_work$realValue) slate_work$realValue = false;
     }
+
+    @ModifyArg(method = "save", at = @At(
+            value = "INVOKE",
+            target = "Lcom/mojang/serialization/Codec;encodeStart(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;",
+            ordinal = 0
+    ))
+    /*@WrapOperation(method = "save", at = @At(value = "INVOKE", target = "Lcom/mojang/serialization/Codec;encodeStart(Lcom/mojang/serialization/DynamicOps;Ljava/lang/Object;)Lcom/mojang/serialization/DataResult;"))*/
+    private DynamicOps Slate_work$HexDevsYouNeedToDoSomethingFuckyHere(DynamicOps par1){
+        if (this.slate_work$registries != null){
+            return this.slate_work$registries.getOps(par1);
+        }
+        return par1;
+    }
+
+
 
     @Unique
     public void slate_work$setImage(CastingImage image){

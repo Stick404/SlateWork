@@ -71,15 +71,15 @@ public class SlateWorksImageComponents {
         return continuation;
     }
 
-    public record MacroLociComponent(Map<HexSignature, Iota> map){
+    public record MacroLociComponent(Map<String, Iota> map){
         public static final Codec<MacroLociComponent> CODEC =
                 RecordCodecBuilder.create(instance -> instance.group(
-                        Codec.unboundedMap(HexSignature.CODEC, IotaType.TYPED_CODEC).fieldOf("map").forGetter(MacroLociComponent::map)
+                        Codec.unboundedMap(Codec.STRING, IotaType.TYPED_CODEC).fieldOf("map").forGetter(MacroLociComponent::map)
                         ).apply(instance, a -> new MacroLociComponent(new HashMap<>(a)))
                 );
         public static final PacketCodec<RegistryByteBuf, MacroLociComponent> PACKET_CODEC =
                 PacketCodec.tuple(
-                        PacketCodecs.map(HashMap::new, HexSignature.STREAM_CODEC, IotaType.TYPED_STREAM_CODEC), MacroLociComponent::map,
+                        PacketCodecs.map(HashMap::new, PacketCodecs.STRING, IotaType.TYPED_STREAM_CODEC), MacroLociComponent::map,
                         MacroLociComponent::new
                 );
     }
