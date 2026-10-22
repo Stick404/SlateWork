@@ -57,9 +57,9 @@
   "Items:": "",
   "item.slate_work.allay_pigment": "淬灵染色剂",
   "item.slate_work.whispering_stone": "传语之石",
+  "item.slate_work.whispering_hextended_stone": "咒法拓展传语之石",
   "item.slate_work.whispering_stone.cords": "位置：",
   "item.slate_work.whispering_stone.string": "呼名：",
-
   "item.slate_work.whispering_stone.no_cords": "当前未绑定位置",
 
 
@@ -145,11 +145,12 @@
   "slate_work.entry.redstone_loci": "红石激发器",
   "slate_work.page.redstone_loci.intro": "要搭建更加复杂的$(l:greatwork/spellcircles)法术环/$，就要更精细地控制石板的红石输出。$(br)比较器只会输出强度为 15 的平整红石信号，而且会在$(l:greatwork/spellcircles)法术环/$的运行过程中一直输出；只能说，起码可以给简单的法术环用。",
   "slate_work.page.redstone_loci.redstone_loci": "因此，我制造了$(thing)红石激发器/$。它会弹出栈顶 0 到 15（两端闭）的数，并将$(thing)激发器/$输出的信号强度设为该数。而且，只要$(thing)媒质波/$离开$(thing)激发器/$，它便不会再输出信号。$(br2)虽然并非本意，但我大概是从另一份古代的蓝图——和$(l:greatwork/accelerator_loci)加速器/$出自同一座图书馆的“波荡器”——里取了一部分灵感。",
+  "slate_work.page.redstone_loci.receive": "我还给$(thing)红石激发器/$内置了一个有用的特性：$(o)读取/$红石信号。用手轻敲$(thing)红石激发器/$，它就会开始接受信号。有$(thing)媒质波/$流过时，它会将当前所接受信号的强度压至$(l:greatwork/spellcircles)法术环/$栈。",
   "slate_work.page.redstone_loci.crafting": "将$(item)红石粉/$和$(l:items/amethyst)紫水晶粉/$混合，再嵌入到石板里，应当就能达到我想要的红石信号传导性。",
 
   "slate_work.entry.akashic_loci": "阿卡夏环核",
   "slate_work.page.akashic_loci.intro": "$(l:greatwork/akashiclib)阿卡夏记录/$似乎是$(media)媒质/$和思维极为优良的导体。这种传导性优良到足够在$(l:greatwork/spellcircles)法术环/$中使用它。$(br2)$(br2)$(o)我所学甚多。我会将知识和我最引以为傲的创作一同分享。",
-  "slate_work.page.akashic_loci.akashic_loci": "每当$(l:greatwork/akashiclib)阿卡夏记录/$被$(l:greatwork/spellcircles)法术环/$的$(thing)媒质波/$激活时，它会要求提供一个图案 iota，或是任意 iota 再加一个图案 iota，而后弹出它们。$(br2)若传入单个图案 iota，则其会潜入记录，读取与该图案相关的 iota。$(br2)若传入任意 iota 再加一个图案 iota，则其会尝试将所给 iota 与所给图案关联起来。",
+  "slate_work.page.akashic_loci.akashic_loci": "每当$(l:greatwork/akashiclib)阿卡夏记录/$被$(l:greatwork/spellcircles)法术环/$的$(thing)媒质波/$激活时，它会要求提供一个图案 iota，或是一个图案 iota 再加任意 iota，而后弹出它们。$(br2)若传入单个图案 iota，则其会潜入记录，读取与该图案相关的 iota。$(br2)若传入一个图案 iota 再加任意 iota，则其会尝试将后者与所给图案关联起来。",
   "slate_work.page.akashic_loci.extra": "这些功能和$(l:patterns/akashic_patterns)阿卡夏图案/$非常相似；但它们无需消耗$(media)媒质/$。换言之，用$(l:greatwork/spellcircles)法术环/$编写和查找$(l:greatwork/akashiclib)阿卡夏图书馆/$完全没有消耗。$(br2)重要提示：这一做法有一特性较为特殊——可借此清除书架。如果用此方法存储 Null，则其会清除与该图案关联的书架。",
 
   "slate_work.entry.fake_player_loci": "塑和行梦仪",
@@ -163,10 +164,9 @@
 
   "slate_work.entry.block_break_loci": "震撼提取器",
   "slate_work.page.block_break_loci.intro": "即便我已在咒法学中探索了许多，但我还未找到破坏方块的高效方法。的确，自然给了我$(l:patterns/spells/blockworks#hexcasting:break_block)破坏方块/$法术，不过它无法被$(thing)时运/$、$(thing)精准采集/$等增强，只相当于一把普通的$(item)钻石镐/$。正因此，我在$(l:greatwork/the_work)卓伟的觉醒/$之后几乎是立即就着手推进这方面：$(thing)震撼提取器/$。$(br2)$(o)……双关抱歉。",
-  "slate_work.page.block_break_loci.block_break_loci": "由于制造时使用了部分$(item)下界合金/$成分，$(thing)震撼提取器/$的挖掘等级相当于下界合金。它还接受镐魔咒，由此可受$(thing)时运/$或$(thing)精准采集/$的强化（以及$(thing)效率/$的消耗减免）。",
   "slate_work.page.block_break_loci.block_break_loci_cont": "尤为重要的是，$(thing)震撼提取器/$的消耗以魔咒为基础。首先，每方块的基础消耗为 1/8 个$(l:items/amethyst)紫水晶粉/$，和$(l:patterns/spells/blockworks#hexcasting:break_block)破坏方块/$类似。每级$(thing)时运/$追加 1 个$(l:items/amethyst)紫水晶粉/$，$(thing)精准采集/$则直接增加 1 个$(l:items/amethyst)紫水晶碎片/$。以及，每级效率还能按 1.5 的乘数减少消耗。",
   "slate_work.page.block_break_loci.filter#": "这个功能方块还有几个要点：它会尝试将挖掘掉落物存入激活的$(l:greatwork/storage_loci_block)存储容具/$。而且，它还会使用（不消耗）一条谓词$(hex)咒术/$：接受一个类型，返回一个布尔值；若返回 True，则",
-  "slate_work.page.block_break_loci.filter": "有意思的是，它不只会挖掘它前面的方块，而是能从它所在的位置起，最远触及到$(l:greatwork/spellcircles)法术环/$的末端。而且相对于什么都不管直接破坏的行为，$(thing)震撼提取器/$会使用（不消耗）一条$(hex)咒术/$为判据。它会对所有位置运行这条$(hex)咒术/$，以位置处方块的$(l:patterns/items)类型/$为$(hex)咒术/$参数（和$(l:patterns/meta#hexcasting:for_each)$(action)托特之策略/$类似）。若$(hex)咒术/$返回 True，则挖掘该处方块；若返回 False，则忽略方块。",
+  "slate_work.page.block_break_loci.filter": "有意思的是，它不只会挖掘它前面的方块，而是能从它所在的位置起，最远触及到$(l:greatwork/spellcircles)法术环/$的末端。而且相对于什么都不管直接破坏的行为，$(thing)震撼提取器/$会使用（不消耗）一条$(hex)咒术/$为判据。它会对所有位置运行这条$(hex)咒术/$，以位置向量和位置处方块的$(l:patterns/items)类型/$为$(hex)咒术/$参数（和$(l:patterns/meta#hexcasting:for_each)$(action)托特之策略/$类似）。若$(hex)咒术/$返回 True，则挖掘该处方块；若返回 False，则忽略方块。",
   "slate_work.page.block_break_loci.pickup": "最后，$(thing)震撼提取器/$挖掘方块后能将掉落物存入所有激活的$(l:greatwork/storage_loci_block)存储容具/$。若激活的$(l:greatwork/storage_loci_block)存储容具/$已满，掉落物即会正常掉落在地。",
   "slate_work.page.block_break_loci.crafting": "一撮$(item)下界合金/$加强挖掘力，一束$(item)TNT/$以批量破坏，再加些许$(l:items/amethyst)紫水晶粉/$和板岩把它们全部固定在一起！",
 
@@ -225,6 +225,8 @@
   "slate_work.page.whispering.cont": "用它点击$(l:greatwork/listener_impetus#slate_work:listener)图书管理员促动石/$，就可将其绑定至促动石，获取其位置和呼名。然后，手持此物品时提及呼名，它就会静默我的消息，并启动所绑定的$(l:greatwork/listener_impetus#slate_work:listener)图书管理员促动石/$。$(br2)如果$(thing)促动石/$更改了呼名，只要“摇一摇”$(thing)传语之石/$，其数据就会更新。",
   "slate_work.page.whispering.bound": "最后，有两种方法解除$(item)传语之石/$的绑定。潜行使用$(thing)它/$可清除与$(thing)促动石/$的绑定。在$(thing)促动石/$被摧毁或搬走后再对$(thing)传语之石/$说话，它也会解除自身的绑定；它这一次仍会静默我的消息，但之后就不再会了。$(br2)很重要的是，$(thing)传语之石/$无法启动处于所谓“区块加载”范围之外的促动石。",
   "slate_work.page.whispering.crafting": "$(o)耳语与嗫嚅，喘息与恐惧，我能在这枚$(thing)石头/$$(o)里听见所有这些的微弱回音。那枚$(b)碎片/$$(o)之前到底经受过什么？",
+  "slate_work.page.whispering.hextended": "$(thing)传语之石/$对部分人而言已经至臻完美，而我$(o)察觉/$到它还可以再变强些。由此，我对它进行了升级——或者说进行了咒法拓展。这种升级版$(thing)传语之石/$也称$(thing)咒法拓展传语之石/$。若通过$(thing)它/$激活$(l:greatwork/listener_impetus#slate_work:listener)图书管理员促动石/$，它便会赋予促动石以我为中心的少量影响范围。",
+  "slate_work.page.whispering.hextended.crafting": "$(o)你好像隐约听见风抚过树叶的摩挲声，也隐隐感到你已被某种存在察觉。",
 
   "slate_work.entry.loci": "环核是什么？",
   "slate_work.page.loci.intro": "在我$(l:greatwork/the_work)卓伟的醒觉/$之中，有一个词汇骤然出现在了我的脑海，祈求着我把它们带入现实——$(b)环核/$。$(br2)我整日整夜地扑在我的文献库里钻研，再加上$(l:greatwork/the_work)觉醒/$带来的知识，我终于解明了$(thing)环核/$这个词汇的意义。",
@@ -262,6 +264,9 @@
   "slate_work.scrying.fake_player.2": "会进行攻击：",
   "slate_work.scrying.fake_player.true": "True",
 
+  "slate_work.scrying.redstone.receive_on": "读取红石信号",
+  "slate_work.scrying.redstone.receive_off": "发出红石信号",
+
   "slate_work.scrying.save.translater_comment": "These next \"save\" translations are based on the `CastingImage` class",
   "slate_work.scrying.save.escaping": "是否在考察状态：",
   "slate_work.scrying.save.ops": "已执行的操作数：",
@@ -270,5 +275,7 @@
   "slate_work.scrying.save.stack": "栈：",
   "slate_work.scrying.save.ravenmind": "渡鸦之思：",
 
-  "slate_work.attributes.whispering": "传语之石：言语"
+  "slate_work.attributes.whispering": "传语之石：言语",
+
+  "slate_work.mixin.crash_prevent.text_serd": "Slate Works刚刚阻止了一次崩溃。请检查日志！"
 }
