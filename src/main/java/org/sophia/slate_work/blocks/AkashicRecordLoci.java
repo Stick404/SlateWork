@@ -23,7 +23,7 @@ import org.sophia.slate_work.casting.mishap.MishapSpellCircleNotEnoughArgs;
 public class AkashicRecordLoci {
     public static ICircleComponent.ControlFlow acceptControlFlow(CastingImage imageIn, CircleCastEnv env, Direction enterDir, BlockPos pos, BlockState bs, ServerWorld world, BlockAkashicRecord recordBlock) {
         var stack = imageIn.getStack();
-        var recordI = ((ICircleComponent)recordBlock);
+        var recordI = ((ICircleComponent) recordBlock);
         if (stack.isEmpty()) { // If the stack is empty, fail
             recordI.fakeThrowMishap(
                     pos, bs, imageIn, env,
@@ -38,7 +38,7 @@ public class AkashicRecordLoci {
         if ((top instanceof PatternIota pattern)) { // If the top pattern is just a pattern, look for it
             var iota = recordBlock.lookupPattern(pos, pattern.getPattern(), world);
             if (iota == null) iota = new NullIota(); // Rude
-            stack.add(iota);
+            stack = stack.appended(iota);
         } else { // If it is not a pattern...
             if (stack.isEmpty()) { // If there is nothing else on the stack, fail
                 recordI.fakeThrowMishap(
