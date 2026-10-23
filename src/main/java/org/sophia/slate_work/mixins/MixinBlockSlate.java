@@ -46,14 +46,14 @@ public abstract class MixinBlockSlate {
                     IotaType.deserialize(nbtElement.getCompound("macro") ,world)
             );
         }
-        if (macros.containsKey(angleSig)){
+        if (macros.containsKey(angleSig)) {
             var macro = macros.get(angleSig);
             ExecutionClientView result;
 
-            if (macro instanceof ListIota pain){
+            if (macro instanceof ListIota pain) {
 
                 var spell = new ArrayList<Iota>();
-                for (var iota : pain.getList()){
+                for (var iota : pain.getList()) {
                     spell.add(iota);
                 }
 
