@@ -120,6 +120,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-geometry-core
     //implementation("org.apache.commons:commons-geometry-core:1.0")
 
+    modImplementation(include("gay.object.hexdebug:hexdebug-core-fabric:$hexdebug_version+$minecraft_version"))
+    modLocalRuntime("gay.object.hexdebug:hexdebug-fabric:$hexdebug_version+$minecraft_version")
 }
 
 processResources {

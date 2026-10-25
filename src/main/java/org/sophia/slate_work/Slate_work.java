@@ -5,6 +5,7 @@ import at.petrak.hexcasting.api.casting.iota.EntityIota;
 import at.petrak.hexcasting.common.lib.HexSounds;
 import at.petrak.hexcasting.interop.HexInterop;
 import com.mojang.serialization.Codec;
+import gay.object.hexdebug.core.api.HexDebugCoreAPI;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -25,6 +26,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.sophia.slate_work.GUI.Ghost3x3ScreenHandler;
 import org.sophia.slate_work.GUI.HotbarLociScreenHandler;
+import org.sophia.slate_work.blocks.MacroLoci;
 import org.sophia.slate_work.casting.CircleAmbitChanges;
 import org.sophia.slate_work.compat.SlateWorksIoticBlocks;
 import org.sophia.slate_work.compat.SlateWorksTrinkets;
@@ -116,6 +118,13 @@ public class Slate_work implements ModInitializer {
             SlateWorksTrinkets.init();
             ChatHelper.getHelper().setTRINKETS(true);
         }
+
+        HexDebugCoreAPI.INSTANCE.registerSlateDebugIotasResolver(
+            (player, debugEnv, image, env, enterDir, pos, bs, tile) ->
+                tile.pattern != null
+                    ? MacroLoci.getMacroIotas(image, tile.pattern, player.getServerWorld())
+                    : null
+        );
     }
 
     private static class ClearBroadcasters implements ServerLifecycleEvents.ServerStopping {
