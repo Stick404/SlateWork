@@ -3,8 +3,11 @@ package org.sophia.slate_work.blocks;
 import at.petrak.hexcasting.api.addldata.ADIotaHolder;
 import at.petrak.hexcasting.api.casting.eval.env.CircleCastEnv;
 import at.petrak.hexcasting.api.casting.eval.vm.CastingImage;
+import at.petrak.hexcasting.api.casting.iota.Iota;
+import at.petrak.hexcasting.api.casting.iota.IotaType;
 import at.petrak.hexcasting.api.casting.iota.ListIota;
 import at.petrak.hexcasting.api.casting.iota.PatternIota;
+import at.petrak.hexcasting.api.casting.math.HexPattern;
 import at.petrak.hexcasting.common.blocks.circles.BlockSlate;
 import at.petrak.hexcasting.xplat.IXplatAbstractions;
 import net.minecraft.block.Block;
@@ -32,6 +35,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.sophia.slate_work.blocks.entities.MacroLociEntity;
 import org.sophia.slate_work.casting.mishap.MishapSpellCircleReadableFocus;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.*;
 import static at.petrak.hexcasting.common.blocks.circles.BlockSlate.AABB_NORTH_WALL;
@@ -178,5 +186,33 @@ public class MacroLoci extends AbstractSlate implements BlockEntityProvider {
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new MacroLociEntity(pos,state);
+    }
+
+    public static @Nullable List<Iota> getMacroIotas(CastingImage image, HexPattern pattern, ServerWorld world) {
+        var macroNBT = image.getUserData().getList("macros", NbtElement.COMPOUND_TYPE);
+        String angleSig = pattern.anglesSignature();
+
+        Map<String, Iota> macros = new HashMap<>();
+        for (NbtElement temp : macroNBT) {
+            NbtCompound nbtElement = (NbtCompound) temp;
+            macros.put(
+                HexPattern.fromNBT(nbtElement.getCompound("pattern")).anglesSignature(),
+                IotaType.deserialize(nbtElement.getCompound("macro"), world)
+            );
+        }
+        if (macros.containsKey(angleSig)) {
+            var macro = macros.get(angleSig);
+            if (macro instanceof ListIota pain) {
+
+                var spell = new ArrayList<Iota>();
+                for (var iota : pain.getList()) {
+                    spell.add(iota);
+                }
+                return spell;
+            } else {
+                return List.of(macro);
+            }
+        }
+        return null;
     }
 }
